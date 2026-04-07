@@ -51,8 +51,15 @@ const PLANS = [
   },
 ]
 
-export function SignatureModal() {
-  const [open, setOpen] = useState(false)
+interface SignatureModalProps {
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}
+
+export function SignatureModal({ open: controlledOpen, onOpenChange }: SignatureModalProps = {}) {
+  const [internalOpen, setInternalOpen] = useState(false)
+  const open = controlledOpen ?? internalOpen
+  const setOpen = onOpenChange ?? setInternalOpen
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
   const [selectedRate, setSelectedRate] = useState<string | null>(null)
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5 | 6>(1)
