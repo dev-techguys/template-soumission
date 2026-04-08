@@ -13,7 +13,7 @@ export const client = {
   targetAudience: "",
   currentSituation: "",
   // Email qui recevra la notification quand le client signe
-  notificationEmail: "",
+  notificationEmail: "jonathan.naal@techguys.consulting",
 }
 
 export const branding = {
