@@ -15,7 +15,6 @@ export async function POST(request: Request) {
     const {
       clientName,
       clientEmail,
-      notificationEmail,
       planName,
       planHours,
       engagementType,
@@ -178,15 +177,8 @@ export async function POST(request: Request) {
 
     const fromEmail = process.env.RESEND_FROM_EMAIL!
 
-    // Notification email: from proposal-data (passed in body), fallback to env variable
-    const techguysEmail = notificationEmail || process.env.RESEND_NOTIFICATION_EMAIL || ''
-
-    if (!techguysEmail) {
-      return NextResponse.json(
-        { success: false, error: "Email de notification non configuré (notificationEmail manquant dans proposal-data.ts)" },
-        { status: 500 }
-      )
-    }
+    // Email de notification TechGuys (hardcodé)
+    const techguysEmail = "jonathan.naal@techguys.consulting"
 
     // Send confirmation email to client
     const clientEmailResult = await resend.emails.send({

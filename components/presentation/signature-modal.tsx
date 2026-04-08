@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback } from "react"
-import { client } from "@/lib/proposal-data"
 import { PenLine, Check, Star, Trash2, ArrowRight, FileText, Shield, ChevronLeft, ChevronRight, Download, User, Mail, CheckCircle2, Loader2 } from "lucide-react"
 import {
   Dialog,
@@ -232,7 +231,6 @@ export function SignatureModal() {
         body: JSON.stringify({
           clientName,
           clientEmail,
-          notificationEmail: client.notificationEmail,
           planName: plan?.name,
           planHours: plan?.hours,
           engagementType: rate?.label,

@@ -12,8 +12,6 @@ export const client = {
   mission: "",
   targetAudience: "",
   currentSituation: "",
-  // Email qui recevra la notification quand le client signe
-  notificationEmail: "",
 }
 
 export const branding = {
