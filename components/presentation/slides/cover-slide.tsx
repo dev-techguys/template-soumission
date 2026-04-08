@@ -56,7 +56,7 @@ export function CoverSlide() {
           </div>
 
           <h1 className="font-serif text-5xl md:text-7xl tracking-tight text-white leading-tight">
-            Migration WordPress
+            client test
           </h1>
           
           <p className="text-xl md:text-2xl text-[#F6A878] font-sans font-medium">
