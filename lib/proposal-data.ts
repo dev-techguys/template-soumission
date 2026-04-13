@@ -180,32 +180,7 @@ export const slides = {
           },
         ],
       },
-      {
-        title: "Phase 3 : Tests et déploiement",
-        why: "Valider le système en conditions réelles et former l'équipe à son utilisation.",
-        actions: [
-          {
-            task: "Tests en mode brouillon",
-            detail:
-              "Validation des réponses générées avant envoi automatique pour assurer la qualité.",
-          },
-          {
-            task: "Ajustements et optimisations",
-            detail:
-              "Affinage des prompts IA et des règles de routage selon les retours des tests.",
-          },
-          {
-            task: "Formation et documentation",
-            detail:
-              "Session de formation sur l'utilisation du système et transmission des connaissances.",
-          },
-          {
-            task: "Passage en mode automatique",
-            detail:
-              "Activation de l'envoi automatique avec monitoring des performances.",
-          },
-        ],
-      },
+
     ],
     estimation: {
       totalHours: 12,
