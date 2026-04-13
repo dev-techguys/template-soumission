@@ -1,5 +1,5 @@
 import { SlideWrapper } from "../slide-wrapper"
-import { Check, DollarSign, Calendar, Clock, Zap } from "lucide-react"
+import { Check, DollarSign, Clock, Zap } from "lucide-react"
 
 const INCLUSIONS = [
   "Analyse des flux actuels",
@@ -69,7 +69,7 @@ export function PricingSlide() {
         </div>
 
         {/* Inclusions */}
-        <div className="p-6 rounded-xl border border-[#e5e7eb] bg-[#f8fafc] shadow-sm mb-8">
+        <div className="p-6 rounded-xl border border-[#e5e7eb] bg-[#f8fafc] shadow-sm">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <DollarSign className="w-5 h-5 text-[#1B365D]" />
@@ -88,23 +88,7 @@ export function PricingSlide() {
           </div>
         </div>
 
-        {/* Monthly fees note */}
-        <div className="p-5 rounded-xl border border-[#e5e7eb] bg-white shadow-sm">
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg bg-[#f8fafc] border border-[#e5e7eb] flex items-center justify-center shrink-0">
-              <Calendar className="w-5 h-5 text-[#64748b]" />
-            </div>
-            <div className="flex flex-col gap-1">
-              <h4 className="font-sans text-sm font-semibold text-[#1B365D]">
-                Frais mensuels potentiels : 0$ à 50$/mois
-              </h4>
-              <p className="text-sm text-[#64748b] font-sans leading-relaxed">
-                Frais potentiels selon la solution retenue : hébergement, API IA, automatisation (n8n).
-                Ces frais seront confirmés lors de la phase d{"'"}analyse.
-              </p>
-            </div>
-          </div>
-        </div>
+
       </div>
     </SlideWrapper>
   )
