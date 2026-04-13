@@ -1,5 +1,5 @@
 import { SlideWrapper } from "../slide-wrapper"
-import { Check, DollarSign, Clock, Zap } from "lucide-react"
+import { Check, DollarSign, Clock, Zap, Calendar } from "lucide-react"
 
 const INCLUSIONS = [
   "Analyse des flux actuels",
