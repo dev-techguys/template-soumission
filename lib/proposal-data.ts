@@ -23,6 +23,7 @@ export const branding = {
   secondaryColor: "#2A4166",
   accentColor: "#C5D82D",
   textDark: "#1B2F4A",
+  textOnDark: "#ffffff",
   textMuted: "#64748b",
   backgroundLight: "#f8fafc",
   logoUrl:

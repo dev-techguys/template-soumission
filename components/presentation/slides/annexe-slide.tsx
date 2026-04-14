@@ -38,9 +38,9 @@ export function AnnexeSlide() {
             <div className="flex items-start gap-4 mb-4">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                style={{ backgroundColor: `${branding.primaryColor}15` }}
+                style={{ backgroundColor: branding.primaryColor }}
               >
-                <Wrench className="w-5 h-5" style={{ color: branding.primaryColor }} />
+                <Wrench className="w-5 h-5" style={{ color: branding.textOnDark }} />
               </div>
               <div className="flex flex-col gap-1">
                 <h3 className="font-serif text-lg" style={{ color: branding.textDark }}>
@@ -76,9 +76,9 @@ export function AnnexeSlide() {
             <div className="flex items-start gap-4 mb-4">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                style={{ backgroundColor: `${branding.primaryColor}15` }}
+                style={{ backgroundColor: branding.primaryColor }}
               >
-                <Expand className="w-5 h-5" style={{ color: branding.primaryColor }} />
+                <Expand className="w-5 h-5" style={{ color: branding.textOnDark }} />
               </div>
               <div className="flex flex-col gap-1">
                 <h3 className="font-serif text-lg" style={{ color: branding.textDark }}>
@@ -115,9 +115,9 @@ export function AnnexeSlide() {
           <div className="flex items-center gap-3 mb-6">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-              style={{ backgroundColor: `${branding.accentColor}30` }}
+              style={{ backgroundColor: branding.primaryColor }}
             >
-              <Clock className="w-5 h-5" style={{ color: branding.primaryColor }} />
+              <Clock className="w-5 h-5" style={{ color: branding.textOnDark }} />
             </div>
             <div className="flex flex-col gap-0.5">
               <h3 className="font-serif text-lg" style={{ color: branding.textDark }}>

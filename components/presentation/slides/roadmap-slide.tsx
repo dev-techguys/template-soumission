@@ -41,10 +41,13 @@ function TimelineCard({
             }`}
             style={{
               borderColor: isVisible ? branding.primaryColor : "#e5e7eb",
-              backgroundColor: isVisible ? `${branding.primaryColor}15` : "white",
+              backgroundColor: isVisible ? branding.primaryColor : "white",
             }}
           >
-            <span className="font-serif text-lg md:text-xl font-semibold" style={{ color: branding.primaryColor }}>
+            <span
+              className="font-serif text-lg md:text-xl font-semibold"
+              style={{ color: isVisible ? branding.textOnDark : branding.textMuted }}
+            >
               {index + 1}
             </span>
           </div>
@@ -76,9 +79,9 @@ function TimelineCard({
               <div className="flex items-center gap-3">
                 <div
                   className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `${branding.primaryColor}15` }}
+                  style={{ backgroundColor: branding.primaryColor }}
                 >
-                  <Icon className="w-4 h-4" style={{ color: branding.primaryColor }} />
+                  <Icon className="w-4 h-4" style={{ color: branding.textOnDark }} />
                 </div>
                 <h3 className="font-serif text-xl md:text-2xl leading-tight" style={{ color: branding.textDark }}>
                   {phase.title}

@@ -71,9 +71,9 @@ export function AboutSlide() {
               <div className="flex flex-col gap-5">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ backgroundColor: `${branding.primaryColor}15` }}
+                  style={{ backgroundColor: branding.primaryColor }}
                 >
-                  <pillar.icon className="w-5 h-5" style={{ color: branding.primaryColor }} />
+                  <pillar.icon className="w-5 h-5" style={{ color: branding.textOnDark }} />
                 </div>
                 <h3 className="font-serif text-xl" style={{ color: branding.textDark }}>
                   {pillar.title}
@@ -100,11 +100,11 @@ export function AboutSlide() {
               strategie
             </span>
             ,{" "}
-            <span className="font-medium" style={{ color: branding.secondaryColor }}>
+            <span className="font-medium" style={{ color: branding.primaryColor }}>
               marketing
             </span>
             ,{" "}
-            <span className="font-medium" style={{ color: branding.accentColor }}>
+            <span className="font-medium" style={{ color: branding.primaryColor }}>
               ventes
             </span>{" "}
             et{" "}

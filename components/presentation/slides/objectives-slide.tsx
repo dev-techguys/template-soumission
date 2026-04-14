@@ -34,10 +34,9 @@ export function ObjectivesSlide() {
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3 mb-2">
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: "#fef2f2" }}
+                className="w-10 h-10 rounded-xl flex items-center justify-center bg-red-600"
               >
-                <AlertTriangle className="w-5 h-5 text-red-500" />
+                <AlertTriangle className="w-5 h-5 text-white" />
               </div>
               <h3 className="font-serif text-xl" style={{ color: branding.textDark }}>
                 Problematiques identifiees
@@ -52,7 +51,7 @@ export function ObjectivesSlide() {
                 <div className="flex items-start gap-4">
                   <span
                     className="font-serif text-3xl"
-                    style={{ color: `${branding.primaryColor}30` }}
+                    style={{ color: `${branding.primaryColor}25` }}
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -83,9 +82,9 @@ export function ObjectivesSlide() {
             <div className="flex items-center gap-3 mb-2">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: `${branding.accentColor}20` }}
+                style={{ backgroundColor: branding.primaryColor }}
               >
-                <Lightbulb className="w-5 h-5" style={{ color: branding.primaryColor }} />
+                <Lightbulb className="w-5 h-5" style={{ color: branding.textOnDark }} />
               </div>
               <h3 className="font-serif text-xl" style={{ color: branding.textDark }}>
                 Opportunites
@@ -95,11 +94,7 @@ export function ObjectivesSlide() {
             {slides.problems.opportunities.map((opportunity, index) => (
               <div
                 key={opportunity.title}
-                className="p-6 rounded-xl border shadow-sm"
-                style={{
-                  borderColor: `${branding.primaryColor}20`,
-                  backgroundColor: `${branding.primaryColor}05`,
-                }}
+                className="p-6 rounded-xl border shadow-sm border-[#e5e7eb] bg-white"
               >
                 <div className="flex items-start gap-4">
                   <div

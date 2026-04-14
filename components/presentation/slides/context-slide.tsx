@@ -73,15 +73,14 @@ export function ContextSlide() {
             </p>
 
             <div
-              className="p-5 rounded-xl border"
+              className="p-5 rounded-xl"
               style={{
-                borderColor: `${branding.primaryColor}33`,
-                backgroundColor: `${branding.primaryColor}08`,
+                backgroundColor: branding.primaryColor,
               }}
             >
               <p
                 className="text-sm font-sans leading-relaxed italic"
-                style={{ color: branding.primaryColor }}
+                style={{ color: branding.textOnDark }}
               >
                 {`\u00AB${slides.context.quote}\u00BB`}
               </p>
@@ -99,9 +98,9 @@ export function ContextSlide() {
                 >
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: `${branding.primaryColor}15` }}
+                    style={{ backgroundColor: branding.primaryColor }}
                   >
-                    <Icon className="w-4 h-4" style={{ color: branding.primaryColor }} />
+                    <Icon className="w-4 h-4" style={{ color: branding.textOnDark }} />
                   </div>
                   <span
                     className="text-[10px] tracking-[0.2em] uppercase font-sans"
