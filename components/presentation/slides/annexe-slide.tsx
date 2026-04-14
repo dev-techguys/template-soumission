@@ -122,11 +122,11 @@ export function AnnexeSlide() {
             Annexe
           </span>
           <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-4xl leading-tight text-balance">
-            {"Ensemble des services disponibles avec la banque d'heures"}
+            {"Ensemble des services disponibles"}
           </h2>
           <div className="w-16 h-px bg-[#387B84]" />
           <p className="text-sm md:text-base text-[#6b7280] font-sans leading-relaxed max-w-3xl">
-            {"La banque d'heures donne acces a un ensemble de services integres combinant strategie, technologie, marketing et ventes. La feuille de route proposee demeure flexible : certains services pourront etre ajoutes, remplaces ou priorises differemment au fil du mandat, selon l'evolution de vos besoins et des opportunites d'affaires."}
+            {"Nous offrons un ensemble de services integres combinant strategie, technologie, marketing et ventes. La feuille de route proposee demeure flexible : certains services pourront etre ajoutes, remplaces ou priorises differemment au fil du mandat, selon l'evolution de vos besoins et des opportunites d'affaires."}
           </p>
         </div>
 
@@ -199,7 +199,7 @@ export function AnnexeSlide() {
                 {"Hors perimetre \u2013 projets speciaux"}
               </h3>
               <p className="text-sm text-[#6b7280] font-sans leading-relaxed">
-                {"Les projets majeurs ne sont pas inclus dans la banque d'heures et feront l'objet d'une evaluation distincte (ex. refonte complete, developpement lourd, nouvelle plateforme independante, systeme CRM, etc.)"}
+                {"Les projets majeurs hors perimetre feront l'objet d'une evaluation distincte (ex. refonte complete, developpement lourd, nouvelle plateforme independante, systeme CRM, etc.)"}
               </p>
             </div>
           </div>
