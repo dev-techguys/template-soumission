@@ -2,19 +2,14 @@
 
 import { ChevronUp, ChevronDown } from "lucide-react"
 import { useEffect, useState, useCallback } from "react"
+import { branding } from "@/lib/proposal-data"
 
 const SLIDES = [
   "cover",
   "about-us",
   "context",
-  "diagnostics",
-  "ux-content",
-  "conversion",
-  "seo-analysis",
-  "performance",
   "objectives",
-  "roadmap-1",
-  "roadmap-2",
+  "roadmap",
   "pricing",
   "annexe",
   "closing",
@@ -24,13 +19,7 @@ const SLIDE_LABELS = [
   "Couverture",
   "Notre approche",
   "Contexte",
-  "Diagnostic",
-  "Limitations",
-  "Freins",
-  "SEO",
-  "Performance",
-  "Objectifs",
-  "Feuille de route",
+  "Analyse",
   "Feuille de route",
   "Tarification",
   "Annexe",
@@ -73,7 +62,8 @@ export function SlideNav() {
     <nav className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-3">
       <button
         onClick={() => scrollToSlide(Math.max(0, current - 1))}
-        className="p-1.5 rounded-full bg-white/90 border border-[#e5e7eb] text-[#387B84] hover:bg-[#f7f7f7] transition-colors backdrop-blur-sm shadow-sm"
+        className="p-1.5 rounded-full bg-white/90 border border-[#e5e7eb] hover:bg-[#f7f7f7] transition-colors backdrop-blur-sm shadow-sm"
+        style={{ color: branding.primaryColor }}
         aria-label="Diapositive precedente"
       >
         <ChevronUp className="w-4 h-4" />
@@ -87,15 +77,19 @@ export function SlideNav() {
             className="group relative flex items-center justify-end"
             aria-label={`Aller a ${SLIDE_LABELS[i]}`}
           >
-            <span className="absolute right-6 whitespace-nowrap text-xs font-sans text-[#2d3748] opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 px-2 py-1 rounded border border-[#e5e7eb] shadow-sm">
+            <span
+              className="absolute right-6 whitespace-nowrap text-xs font-sans opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 px-2 py-1 rounded border border-[#e5e7eb] shadow-sm"
+              style={{ color: branding.textDark }}
+            >
               {SLIDE_LABELS[i]}
             </span>
             <span
-              className={`block rounded-full transition-all duration-300 ${
-                current === i
-                  ? "w-3 h-3 bg-[#387B84]"
-                  : "w-2 h-2 bg-[#9ca3af]/50 hover:bg-[#6b7280]"
-              }`}
+              className="block rounded-full transition-all duration-300"
+              style={{
+                width: current === i ? "0.75rem" : "0.5rem",
+                height: current === i ? "0.75rem" : "0.5rem",
+                backgroundColor: current === i ? branding.primaryColor : "#9ca3af80",
+              }}
             />
           </button>
         ))}
@@ -103,13 +97,14 @@ export function SlideNav() {
 
       <button
         onClick={() => scrollToSlide(Math.min(SLIDES.length - 1, current + 1))}
-        className="p-1.5 rounded-full bg-white/90 border border-[#e5e7eb] text-[#387B84] hover:bg-[#f7f7f7] transition-colors backdrop-blur-sm shadow-sm"
+        className="p-1.5 rounded-full bg-white/90 border border-[#e5e7eb] hover:bg-[#f7f7f7] transition-colors backdrop-blur-sm shadow-sm"
+        style={{ color: branding.primaryColor }}
         aria-label="Diapositive suivante"
       >
         <ChevronDown className="w-4 h-4" />
       </button>
 
-      <span className="text-[10px] font-sans text-[#6b7280] mt-1 tabular-nums">
+      <span className="text-[10px] font-sans mt-1 tabular-nums" style={{ color: branding.textMuted }}>
         {current + 1}/{SLIDES.length}
       </span>
     </nav>
