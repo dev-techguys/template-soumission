@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback } from "react"
-import { client } from "@/lib/proposal-data"
+import { client, pricing } from "@/lib/proposal-data"
 import { PenLine, Check, Star, Trash2, ArrowRight, FileText, Shield, ChevronLeft, ChevronRight, Download, User, Mail, CheckCircle2, Loader2 } from "lucide-react"
 import {
   Dialog,
@@ -12,45 +12,6 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-
-const PLANS = [
-  {
-    id: "essentielle",
-    name: "Essentielle",
-    hours: "10h",
-    hoursNum: 10,
-    featured: false,
-    rates: [
-      { id: "ess-none", label: "Sans engagement", price: "180$/h", priceValue: 180, saving: 0 },
-      { id: "ess-3m", label: "Engagement 3 mois", price: "160$/h", priceValue: 160, saving: 200 },
-      { id: "ess-6m", label: "Engagement 6 mois", price: "150$/h", priceValue: 150, saving: 300 },
-    ],
-  },
-  {
-    id: "croissance",
-    name: "Croissance",
-    hours: "25h",
-    hoursNum: 25,
-    featured: true,
-    rates: [
-      { id: "croi-none", label: "Sans engagement", price: "180$/h", priceValue: 180, saving: 0 },
-      { id: "croi-3m", label: "Engagement 3 mois", price: "160$/h", priceValue: 160, saving: 500 },
-      { id: "croi-6m", label: "Engagement 6 mois", price: "150$/h", priceValue: 150, saving: 750 },
-    ],
-  },
-  {
-    id: "performance",
-    name: "Performance+",
-    hours: "50h",
-    hoursNum: 50,
-    featured: false,
-    rates: [
-      { id: "perf-none", label: "Sans engagement", price: "180$/h", priceValue: 180, saving: 0 },
-      { id: "perf-3m", label: "Engagement 3 mois", price: "160$/h", priceValue: 160, saving: 1000 },
-      { id: "perf-6m", label: "Engagement 6 mois", price: "150$/h", priceValue: 150, saving: 1500 },
-    ],
-  },
-]
 
 export function SignatureModal() {
   const [open, setOpen] = useState(false)
@@ -74,8 +35,8 @@ export function SignatureModal() {
   const msaScrollRef = useRef<HTMLDivElement>(null)
 
   const getSelectedPlanDetails = () => {
-    const plan = PLANS.find((p) => p.id === selectedPlan)
-    const rate = plan?.rates.find((r) => r.id === selectedRate)
+    const plan = pricing.plans.find((p) => p.name === selectedPlan)
+    const rate = plan?.rates.find((r) => r.label === selectedRate)
     const monthly = plan && rate ? plan.hoursNum * rate.priceValue : 0
     const saving = rate?.saving || 0
     return { plan, rate, monthly, saving }
@@ -105,10 +66,10 @@ export function SignatureModal() {
     const rect = canvas.getBoundingClientRect()
     const scaleX = canvas.width / rect.width
     const scaleY = canvas.height / rect.height
-    
+
     const clientX = 'clientX' in e ? e.clientX : e.clientX
     const clientY = 'clientY' in e ? e.clientY : e.clientY
-    
+
     return {
       x: (clientX - rect.left) * scaleX,
       y: (clientY - rect.top) * scaleY,
@@ -219,28 +180,44 @@ export function SignatureModal() {
 
   const handleSubmitSignature = async () => {
     if (!hasSignature || !clientName || !clientEmail) return
-    
+
     setIsSubmitting(true)
-    
-    const { plan, rate, monthly, saving } = getSelectedPlanDetails()
+
     const signatureData = canvasRef.current?.toDataURL("image/png")
-    
+
+    let body: Record<string, unknown>
+
+    if (pricing.type === "fixed-price") {
+      body = {
+        clientName,
+        clientEmail,
+        notificationEmail: client.notificationEmail,
+        projectName: pricing.fixedPrice.projectName,
+        totalPrice: pricing.fixedPrice.totalPrice,
+        timeline: pricing.fixedPrice.timeline,
+        signatureData,
+      }
+    } else {
+      const { plan, rate, monthly, saving } = getSelectedPlanDetails()
+      body = {
+        clientName,
+        clientEmail,
+        notificationEmail: client.notificationEmail,
+        planName: plan?.name,
+        planHours: plan?.hours,
+        engagementType: rate?.label,
+        pricePerHour: rate?.price,
+        monthlyTotal: monthly,
+        monthlySaving: saving,
+        signatureData,
+      }
+    }
+
     try {
       await fetch("/api/send-signature", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          clientName,
-          clientEmail,
-          notificationEmail: client.notificationEmail,
-          planName: plan?.name,
-          planHours: plan?.hours,
-          engagementType: rate?.label,
-          pricePerHour: rate?.price,
-          monthlyTotal: monthly,
-          monthlySaving: saving,
-          signatureData
-        })
+        body: JSON.stringify(body),
       })
     } catch (error) {
       console.log("[v0] Email sending failed, but continuing to confirmation:", error)
@@ -265,9 +242,11 @@ export function SignatureModal() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   }
 
+  const isStep1Valid = pricing.type === "fixed-price" || (!!selectedPlan && !!selectedRate)
+
   return (
     <>
-      {/* Sticky Button - Compact */}
+      {/* Sticky Button */}
       <button
         onClick={() => setOpen(true)}
         className="fixed bottom-6 right-6 z-50 group"
@@ -292,133 +271,204 @@ export function SignatureModal() {
             ))}
           </div>
 
-          {/* Step 1: Sélection du plan */}
+          {/* Step 1: Sélection du plan (hourly-bank) ou Résumé projet (fixed-price) */}
           {step === 1 && (
             <>
-              <DialogHeader>
-                <DialogTitle className="font-serif text-2xl text-[#2d3748]">
-                  {"Sélectionnez votre banque d'heures"}
-                </DialogTitle>
-                <DialogDescription className="text-[#6b7280] font-sans">
-                  {"Choisissez le forfait et l'engagement qui vous conviennent le mieux."}
-                </DialogDescription>
-              </DialogHeader>
+              {pricing.type === "fixed-price" ? (
+                <>
+                  <DialogHeader>
+                    <DialogTitle className="font-serif text-2xl text-[#2d3748]">
+                      Résumé de votre projet
+                    </DialogTitle>
+                    <DialogDescription className="text-[#6b7280] font-sans">
+                      Vérifiez les détails du projet avant de procéder à la signature.
+                    </DialogDescription>
+                  </DialogHeader>
 
-              <div className="flex-1 overflow-y-auto py-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {PLANS.map((plan) => (
-                    <div
-                      key={plan.id}
-                      className={`relative p-4 rounded-xl border cursor-pointer transition-all ${
-                        selectedPlan === plan.id
-                          ? "border-[#387B84] bg-[#387B84]/5 ring-2 ring-[#387B84]"
-                          : "border-[#e5e7eb] bg-white hover:border-[#387B84]/50"
-                      } ${plan.featured ? "md:-mt-2 md:mb-2" : ""}`}
-                      onClick={() => {
-                        setSelectedPlan(plan.id)
-                        setSelectedRate(null)
-                      }}
-                    >
-                      {plan.featured && (
-                        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1 px-2 py-0.5 bg-[#387B84] rounded-full">
-                          <Star className="w-2.5 h-2.5 text-white" />
-                          <span className="text-[9px] tracking-[0.1em] uppercase font-sans font-medium text-white">
-                            Recommandé
-                          </span>
-                        </div>
+                  <div className="flex-1 overflow-y-auto py-4">
+                    <div className="p-6 rounded-xl border border-[#387B84]/20 bg-[#387B84]/5">
+                      <h3 className="font-serif text-xl text-[#2d3748] mb-4">{pricing.fixedPrice.projectName}</h3>
+                      {pricing.fixedPrice.description && (
+                        <p className="text-sm text-[#6b7280] font-sans leading-relaxed mb-6">
+                          {pricing.fixedPrice.description}
+                        </p>
                       )}
-
-                      <div className="flex flex-col items-center gap-1 mb-3 pt-1">
-                        <span className="text-[10px] tracking-[0.15em] uppercase text-[#6b7280] font-sans">
-                          Banque
-                        </span>
-                        <h3 className="font-serif text-lg text-[#2d3748]">{plan.name}</h3>
-                        <span className="font-serif text-2xl text-[#387B84]">{plan.hours}</span>
-                        <span className="text-[10px] text-[#6b7280] font-sans">par mois</span>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[10px] tracking-[0.15em] uppercase text-[#6b7280] font-sans">Investissement total</span>
+                          <span className="font-serif text-3xl text-[#387B84]">{pricing.fixedPrice.totalPrice}</span>
+                          <span className="text-xs text-[#6b7280] font-sans">taxes en sus</span>
+                        </div>
+                        {pricing.fixedPrice.estimatedHours && (
+                          <div className="flex flex-col gap-1">
+                            <span className="text-[10px] tracking-[0.15em] uppercase text-[#6b7280] font-sans">Effort estimé</span>
+                            <span className="text-sm font-medium text-[#2d3748] font-sans">{pricing.fixedPrice.estimatedHours}</span>
+                          </div>
+                        )}
+                        {pricing.fixedPrice.timeline && (
+                          <div className="flex flex-col gap-1">
+                            <span className="text-[10px] tracking-[0.15em] uppercase text-[#6b7280] font-sans">Délai de livraison</span>
+                            <span className="text-sm font-medium text-[#2d3748] font-sans">{pricing.fixedPrice.timeline}</span>
+                          </div>
+                        )}
                       </div>
-
-                      {selectedPlan === plan.id && (
-                        <div className="absolute top-2 right-2 w-5 h-5 bg-[#387B84] rounded-full flex items-center justify-center">
-                          <Check className="w-3 h-3 text-white" />
+                      {pricing.fixedPrice.deliverables.length > 0 && (
+                        <div className="border-t border-[#387B84]/20 pt-4">
+                          <p className="text-xs text-[#6b7280] font-sans mb-3 uppercase tracking-wider">Livrables inclus</p>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            {pricing.fixedPrice.deliverables.map((item) => (
+                              <div key={item} className="flex items-start gap-2">
+                                <Check className="w-3.5 h-3.5 text-[#387B84] shrink-0 mt-0.5" />
+                                <span className="text-xs text-[#6b7280] font-sans">{item}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                {selectedPlan && (
-                  <div className="border-t border-[#e5e7eb] pt-4 mt-4">
-                    <p className="text-sm text-[#6b7280] font-sans mb-3">{"Type d'engagement :"}</p>
-                    <div className="flex flex-col gap-2">
-                      {PLANS.find((p) => p.id === selectedPlan)?.rates.map((rate) => (
+                  <DialogFooter className="mt-4 border-t border-[#e5e7eb] pt-4">
+                    <Button variant="outline" onClick={handleClose} className="font-sans">
+                      Annuler
+                    </Button>
+                    <Button
+                      onClick={() => setStep(2)}
+                      className="bg-[#387B84] hover:bg-[#2d6269] text-white font-sans"
+                    >
+                      Continuer
+                      <ChevronRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </DialogFooter>
+                </>
+              ) : (
+                <>
+                  <DialogHeader>
+                    <DialogTitle className="font-serif text-2xl text-[#2d3748]">
+                      {"Sélectionnez votre banque d'heures"}
+                    </DialogTitle>
+                    <DialogDescription className="text-[#6b7280] font-sans">
+                      {"Choisissez le forfait et l'engagement qui vous conviennent le mieux."}
+                    </DialogDescription>
+                  </DialogHeader>
+
+                  <div className="flex-1 overflow-y-auto py-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {pricing.plans.map((plan) => (
                         <div
-                          key={rate.id}
-                          className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${
-                            selectedRate === rate.id
-                              ? "border-[#F6A878] bg-[#F6A878]/10"
-                              : "border-[#e5e7eb] hover:border-[#F6A878]/50"
-                          }`}
-                          onClick={() => setSelectedRate(rate.id)}
+                          key={plan.name}
+                          className={`relative p-4 rounded-xl border cursor-pointer transition-all ${
+                            selectedPlan === plan.name
+                              ? "border-[#387B84] bg-[#387B84]/5 ring-2 ring-[#387B84]"
+                              : "border-[#e5e7eb] bg-white hover:border-[#387B84]/50"
+                          } ${plan.featured ? "md:-mt-2 md:mb-2" : ""}`}
+                          onClick={() => {
+                            setSelectedPlan(plan.name)
+                            setSelectedRate(null)
+                          }}
                         >
-                          <div className="flex items-center gap-3">
-                            <div
-                              className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                                selectedRate === rate.id ? "border-[#F6A878]" : "border-[#d1d5db]"
-                              }`}
-                            >
-                              {selectedRate === rate.id && (
-                                <div className="w-2 h-2 rounded-full bg-[#F6A878]" />
-                              )}
-                            </div>
-                            <span className="text-sm text-[#2d3748] font-sans">{rate.label}</span>
-                            {rate.saving > 0 && (
-                              <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-medium">
-                                Économie: {rate.saving}$/mois
+                          {plan.featured && (
+                            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1 px-2 py-0.5 bg-[#387B84] rounded-full">
+                              <Star className="w-2.5 h-2.5 text-white" />
+                              <span className="text-[9px] tracking-[0.1em] uppercase font-sans font-medium text-white">
+                                Recommandé
                               </span>
-                            )}
+                            </div>
+                          )}
+
+                          <div className="flex flex-col items-center gap-1 mb-3 pt-1">
+                            <span className="text-[10px] tracking-[0.15em] uppercase text-[#6b7280] font-sans">
+                              Banque
+                            </span>
+                            <h3 className="font-serif text-lg text-[#2d3748]">{plan.name}</h3>
+                            <span className="font-serif text-2xl text-[#387B84]">{plan.hours}</span>
+                            <span className="text-[10px] text-[#6b7280] font-sans">par mois</span>
                           </div>
-                          <span className="text-sm font-medium text-[#387B84] font-sans">
-                            {rate.price}
-                          </span>
+
+                          {selectedPlan === plan.name && (
+                            <div className="absolute top-2 right-2 w-5 h-5 bg-[#387B84] rounded-full flex items-center justify-center">
+                              <Check className="w-3 h-3 text-white" />
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
 
-                    {selectedRate && (
-                      <div className="mt-4 p-4 bg-[#387B84]/5 rounded-lg border border-[#387B84]/20">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm text-[#6b7280]">Total mensuel estimé</span>
-                          <span className="text-xl font-bold text-[#387B84]">
-                            {getSelectedPlanDetails().monthly.toLocaleString()}$/mois
-                          </span>
+                    {selectedPlan && (
+                      <div className="border-t border-[#e5e7eb] pt-4 mt-4">
+                        <p className="text-sm text-[#6b7280] font-sans mb-3">{"Type d'engagement :"}</p>
+                        <div className="flex flex-col gap-2">
+                          {pricing.plans.find((p) => p.name === selectedPlan)?.rates.map((rate) => (
+                            <div
+                              key={rate.label}
+                              className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${
+                                selectedRate === rate.label
+                                  ? "border-[#F6A878] bg-[#F6A878]/10"
+                                  : "border-[#e5e7eb] hover:border-[#F6A878]/50"
+                              }`}
+                              onClick={() => setSelectedRate(rate.label)}
+                            >
+                              <div className="flex items-center gap-3">
+                                <div
+                                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                                    selectedRate === rate.label ? "border-[#F6A878]" : "border-[#d1d5db]"
+                                  }`}
+                                >
+                                  {selectedRate === rate.label && (
+                                    <div className="w-2 h-2 rounded-full bg-[#F6A878]" />
+                                  )}
+                                </div>
+                                <span className="text-sm text-[#2d3748] font-sans">{rate.label}</span>
+                                {rate.saving > 0 && (
+                                  <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-medium">
+                                    Économie: {rate.saving}$/mois
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-sm font-medium text-[#387B84] font-sans">
+                                {rate.price}
+                              </span>
+                            </div>
+                          ))}
                         </div>
-                        {getSelectedPlanDetails().saving > 0 && (
-                          <div className="flex items-center justify-between pt-2 border-t border-[#387B84]/20">
-                            <span className="text-sm text-green-600">Économie mensuelle</span>
-                            <span className="text-sm font-semibold text-green-600">
-                              {getSelectedPlanDetails().saving}$/mois
-                            </span>
+
+                        {selectedRate && (
+                          <div className="mt-4 p-4 bg-[#387B84]/5 rounded-lg border border-[#387B84]/20">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm text-[#6b7280]">Total mensuel estimé</span>
+                              <span className="text-xl font-bold text-[#387B84]">
+                                {getSelectedPlanDetails().monthly.toLocaleString()}$/mois
+                              </span>
+                            </div>
+                            {getSelectedPlanDetails().saving > 0 && (
+                              <div className="flex items-center justify-between pt-2 border-t border-[#387B84]/20">
+                                <span className="text-sm text-green-600">Économie mensuelle</span>
+                                <span className="text-sm font-semibold text-green-600">
+                                  {getSelectedPlanDetails().saving}$/mois
+                                </span>
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
                     )}
                   </div>
-                )}
-              </div>
 
-              <DialogFooter className="mt-4 border-t border-[#e5e7eb] pt-4">
-                <Button variant="outline" onClick={handleClose} className="font-sans">
-                  Annuler
-                </Button>
-                <Button
-                  onClick={() => setStep(2)}
-                  disabled={!selectedPlan || !selectedRate}
-                  className="bg-[#387B84] hover:bg-[#2d6269] text-white font-sans"
-                >
-                  Continuer
-                  <ChevronRight className="w-4 h-4 ml-2" />
-                </Button>
-              </DialogFooter>
+                  <DialogFooter className="mt-4 border-t border-[#e5e7eb] pt-4">
+                    <Button variant="outline" onClick={handleClose} className="font-sans">
+                      Annuler
+                    </Button>
+                    <Button
+                      onClick={() => setStep(2)}
+                      disabled={!isStep1Valid}
+                      className="bg-[#387B84] hover:bg-[#2d6269] text-white font-sans"
+                    >
+                      Continuer
+                      <ChevronRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </DialogFooter>
+                </>
+              )}
             </>
           )}
 
@@ -505,7 +555,7 @@ export function SignatureModal() {
               </DialogHeader>
 
               <div className="flex-1 overflow-hidden flex flex-col min-h-0">
-                {/* Tabs - More visible */}
+                {/* Tabs */}
                 <div className="flex border border-[#e5e7eb] rounded-lg p-1 mb-4 bg-[#f7f7f7]">
                   <button
                     onClick={() => setActiveTab("offre")}
@@ -542,15 +592,15 @@ export function SignatureModal() {
                       className="flex-1 overflow-y-auto bg-[#f7f7f7] rounded-xl p-6 text-sm text-[#2d3748] space-y-6"
                     >
                       <div className="text-center border-b border-[#e5e7eb] pb-6">
-                        <h2 className="text-2xl font-bold text-[#387B84]">InputKit</h2>
+                        <h2 className="text-2xl font-bold text-[#387B84]">TechGuys</h2>
                         <p className="text-[#6b7280] mt-2">Accompagnement stratégique</p>
                       </div>
 
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">Notre approche : Un partenariat de croissance</h3>
                         <p className="text-[#6b7280] leading-relaxed">
-                          TechGuys et Omnigo.ca agissent comme des partenaires stratégiques pour votre croissance. 
-                          Au-delà d{"'"}une agence traditionnelle, nous prenons en considération les priorités de votre organisation et 
+                          TechGuys agit comme partenaire stratégique pour votre croissance.
+                          Au-delà d{"'"}une agence traditionnelle, nous prenons en considération les priorités de votre organisation et
                           vous accompagnons tout au long de votre parcours numérique vers le succès entrepreneurial.
                         </p>
                       </div>
@@ -565,72 +615,70 @@ export function SignatureModal() {
                       </div>
 
                       <div className="bg-white rounded-lg p-4">
-                        <h3 className="text-lg font-semibold text-[#387B84] mb-3">Modèle de tarification : Banque d{"'"}heures mensuelle flexible</h3>
-                        <p className="text-[#6b7280] mb-4">
-                          Plutôt qu{"'"}un mandat figé en livrables, ce format permet d{"'"}investir le temps selon les priorités du moment, 
-                          tout en offrant une approche adaptée aux contextes de croissance exigeant agilité, rapidité et ajustement continu.
-                        </p>
-                        <h4 className="font-semibold text-[#2d3748] mb-2">Principes clés :</h4>
-                        <ul className="list-disc list-inside text-[#6b7280] space-y-1">
-                          <li>Un investissement mensuel constant</li>
-                          <li>Une allocation variable des ressources selon les besoins</li>
-                          <li>Des ajustements continus pour maximiser l{"'"}impact</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-semibold text-[#387B84] mb-3">Contexte de l{"'"}entreprise</h3>
-                        <p className="text-[#6b7280] leading-relaxed">
-                          InputKit est une plateforme SaaS spécialisée dans la gestion de l{"'"}expérience client et employé. 
-                          L{"'"}entreprise propose des solutions permettant aux PME de mesurer, analyser et améliorer la satisfaction 
-                          de leurs clients et employés à travers des outils de sondages, de rétroaction et d{"'"}analyse.
-                        </p>
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-semibold text-[#387B84] mb-3">Objectifs de la collaboration</h3>
-                        <ul className="list-disc list-inside text-[#6b7280] space-y-1">
-                          <li>Migration du site WordPress vers une architecture Next.js moderne</li>
-                          <li>Optimisation des performances et du SEO</li>
-                          <li>Intégration de capacités IA pour l{"'"}agilité marketing</li>
-                          <li>Amélioration de l{"'"}expérience utilisateur</li>
-                        </ul>
-                      </div>
-
-                      <div className="bg-[#387B84]/5 rounded-lg p-4 border border-[#387B84]/20">
-                        <h3 className="text-lg font-semibold text-[#387B84] mb-3">Récapitulatif de votre forfait</h3>
-                        <div className="space-y-2 text-[#6b7280]">
-                          <div className="flex justify-between">
-                            <span>Forfait sélectionné :</span>
-                            <span className="font-semibold text-[#2d3748]">{getSelectedPlanDetails().plan?.name} ({getSelectedPlanDetails().plan?.hours}/mois)</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Type d{"'"}engagement :</span>
-                            <span className="font-semibold text-[#2d3748]">{getSelectedPlanDetails().rate?.label}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Tarif horaire :</span>
-                            <span className="font-semibold text-[#2d3748]">{getSelectedPlanDetails().rate?.price}</span>
-                          </div>
-                          <div className="flex justify-between pt-2 border-t border-[#387B84]/20">
-                            <span>Total mensuel :</span>
-                            <span className="font-bold text-[#387B84] text-lg">{getSelectedPlanDetails().monthly.toLocaleString()}$/mois</span>
-                          </div>
-                          {getSelectedPlanDetails().saving > 0 && (
-                            <div className="flex justify-between text-green-600">
-                              <span>Économie mensuelle :</span>
-                              <span className="font-semibold">{getSelectedPlanDetails().saving}$/mois</span>
+                        {pricing.type === "fixed-price" ? (
+                          <>
+                            <h3 className="text-lg font-semibold text-[#387B84] mb-3">Modèle de tarification : Projet à prix fixe</h3>
+                            <p className="text-[#6b7280] mb-4">
+                              Ce format offre une visibilité complète sur les coûts et les livrables attendus.
+                              L{"'"}investissement est déterminé à l{"'"}avance pour une exécution prévisible et sans surprise.
+                            </p>
+                            <div className="space-y-2 text-[#6b7280]">
+                              <div className="flex justify-between">
+                                <span>Projet :</span>
+                                <span className="font-semibold text-[#2d3748]">{pricing.fixedPrice.projectName}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Investissement total :</span>
+                                <span className="font-bold text-[#387B84] text-lg">{pricing.fixedPrice.totalPrice}</span>
+                              </div>
+                              {pricing.fixedPrice.timeline && (
+                                <div className="flex justify-between">
+                                  <span>Délai de livraison :</span>
+                                  <span className="font-semibold text-[#2d3748]">{pricing.fixedPrice.timeline}</span>
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
+                          </>
+                        ) : (
+                          <>
+                            <h3 className="text-lg font-semibold text-[#387B84] mb-3">Modèle de tarification : Banque d{"'"}heures mensuelle flexible</h3>
+                            <p className="text-[#6b7280] mb-4">
+                              Plutôt qu{"'"}un mandat figé en livrables, ce format permet d{"'"}investir le temps selon les priorités du moment,
+                              tout en offrant une approche adaptée aux contextes de croissance exigeant agilité, rapidité et ajustement continu.
+                            </p>
+                            <div className="space-y-2 text-[#6b7280]">
+                              <div className="flex justify-between">
+                                <span>Forfait sélectionné :</span>
+                                <span className="font-semibold text-[#2d3748]">{getSelectedPlanDetails().plan?.name} ({getSelectedPlanDetails().plan?.hours}/mois)</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Type d{"'"}engagement :</span>
+                                <span className="font-semibold text-[#2d3748]">{getSelectedPlanDetails().rate?.label}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Tarif horaire :</span>
+                                <span className="font-semibold text-[#2d3748]">{getSelectedPlanDetails().rate?.price}</span>
+                              </div>
+                              <div className="flex justify-between pt-2 border-t border-[#387B84]/20">
+                                <span>Total mensuel :</span>
+                                <span className="font-bold text-[#387B84] text-lg">{getSelectedPlanDetails().monthly.toLocaleString()}$/mois</span>
+                              </div>
+                              {getSelectedPlanDetails().saving > 0 && (
+                                <div className="flex justify-between text-green-600">
+                                  <span>Économie mensuelle :</span>
+                                  <span className="font-semibold">{getSelectedPlanDetails().saving}$/mois</span>
+                                </div>
+                              )}
+                            </div>
+                          </>
+                        )}
                       </div>
 
                       <div className="text-center text-[#6b7280] pt-4 border-t border-[#e5e7eb]">
                         <p className="text-sm">Faites défiler jusqu{"'"}en bas pour confirmer la lecture</p>
                       </div>
                     </div>
-                    
-                    {/* Button at bottom of Offre tab */}
+
                     {showOffreNextButton && (
                       <div className="mt-4 flex justify-center">
                         <Button
@@ -671,8 +719,8 @@ export function SignatureModal() {
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">1. Définitions et interprétation</h3>
                         <p className="text-[#6b7280] leading-relaxed">
-                          La présente Convention de services maître (« CSM ») établit les modalités générales régissant 
-                          la relation entre TechGuys Consulting inc. (« Fournisseur ») et le Client pour la prestation 
+                          La présente Convention de services maître (« CSM ») établit les modalités générales régissant
+                          la relation entre TechGuys Consulting inc. (« Fournisseur ») et le Client pour la prestation
                           de services professionnels en technologie, marketing numérique et conseil stratégique.
                         </p>
                       </div>
@@ -680,7 +728,7 @@ export function SignatureModal() {
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">2. Portée des services</h3>
                         <p className="text-[#6b7280] leading-relaxed mb-2">
-                          Le Fournisseur s{"'"}engage à fournir les services selon les modalités définies dans chaque 
+                          Le Fournisseur s{"'"}engage à fournir les services selon les modalités définies dans chaque
                           bon de commande ou énoncé de travail annexé à la présente convention.
                         </p>
                         <ul className="list-disc list-inside text-[#6b7280] space-y-1">
@@ -694,7 +742,7 @@ export function SignatureModal() {
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">3. Modalités de paiement</h3>
                         <p className="text-[#6b7280] leading-relaxed">
-                          Les factures sont émises mensuellement et payables dans les 30 jours suivant leur réception. 
+                          Les factures sont émises mensuellement et payables dans les 30 jours suivant leur réception.
                           Le Client s{"'"}engage à effectuer les paiements selon les termes convenus dans le bon de commande applicable.
                         </p>
                       </div>
@@ -702,7 +750,7 @@ export function SignatureModal() {
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">4. Confidentialité</h3>
                         <p className="text-[#6b7280] leading-relaxed">
-                          Chaque partie s{"'"}engage à maintenir la confidentialité de toutes les informations propriétaires 
+                          Chaque partie s{"'"}engage à maintenir la confidentialité de toutes les informations propriétaires
                           ou confidentielles reçues de l{"'"}autre partie dans le cadre de cette convention.
                         </p>
                       </div>
@@ -710,7 +758,7 @@ export function SignatureModal() {
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">5. Propriété intellectuelle</h3>
                         <p className="text-[#6b7280] leading-relaxed">
-                          Sauf indication contraire dans un énoncé de travail, tous les livrables créés spécifiquement 
+                          Sauf indication contraire dans un énoncé de travail, tous les livrables créés spécifiquement
                           pour le Client deviennent la propriété du Client une fois le paiement complet effectué.
                         </p>
                       </div>
@@ -718,7 +766,7 @@ export function SignatureModal() {
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">6. Limitation de responsabilité</h3>
                         <p className="text-[#6b7280] leading-relaxed">
-                          La responsabilité totale du Fournisseur en vertu de cette convention ne dépassera pas 
+                          La responsabilité totale du Fournisseur en vertu de cette convention ne dépassera pas
                           le montant total payé par le Client au cours des 12 mois précédant la réclamation.
                         </p>
                       </div>
@@ -726,7 +774,7 @@ export function SignatureModal() {
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">7. Résiliation</h3>
                         <p className="text-[#6b7280] leading-relaxed">
-                          Chaque partie peut résilier cette convention moyennant un préavis écrit de 30 jours. 
+                          Chaque partie peut résilier cette convention moyennant un préavis écrit de 30 jours.
                           En cas de résiliation, le Client s{"'"}engage à payer tous les services rendus jusqu{"'"}à la date de résiliation.
                         </p>
                       </div>
@@ -734,7 +782,7 @@ export function SignatureModal() {
                       <div>
                         <h3 className="text-lg font-semibold text-[#387B84] mb-3">8. Loi applicable</h3>
                         <p className="text-[#6b7280] leading-relaxed">
-                          Cette convention est régie par les lois de la province de Québec, Canada. 
+                          Cette convention est régie par les lois de la province de Québec, Canada.
                           Tout litige sera soumis à la juridiction exclusive des tribunaux de Montréal, Québec.
                         </p>
                       </div>
@@ -743,8 +791,7 @@ export function SignatureModal() {
                         <p className="text-sm">Faites défiler jusqu{"'"}en bas pour confirmer la lecture</p>
                       </div>
                     </div>
-                    
-                    {/* Button at bottom of MSA tab */}
+
                     {showMsaNextButton && (
                       <div className="mt-4 flex justify-center">
                         <Button
@@ -803,31 +850,52 @@ export function SignatureModal() {
                         <span className="text-[#6b7280]">Courriel :</span>
                         <span className="font-medium text-[#2d3748]">{clientEmail}</span>
                       </div>
-                      <div className="flex justify-between py-2 border-b border-[#e5e7eb]">
-                        <span className="text-[#6b7280]">Forfait :</span>
-                        <span className="font-medium text-[#2d3748]">
-                          {getSelectedPlanDetails().plan?.name} ({getSelectedPlanDetails().plan?.hours}/mois)
-                        </span>
-                      </div>
-                      <div className="flex justify-between py-2 border-b border-[#e5e7eb]">
-                        <span className="text-[#6b7280]">Engagement :</span>
-                        <span className="font-medium text-[#2d3748]">{getSelectedPlanDetails().rate?.label}</span>
-                      </div>
-                      <div className="flex justify-between py-2 border-b border-[#e5e7eb]">
-                        <span className="text-[#6b7280]">Tarif :</span>
-                        <span className="font-medium text-[#2d3748]">{getSelectedPlanDetails().rate?.price}</span>
-                      </div>
-                      <div className="flex justify-between py-2">
-                        <span className="text-[#6b7280]">Total mensuel :</span>
-                        <span className="font-bold text-[#387B84] text-lg">
-                          {getSelectedPlanDetails().monthly.toLocaleString()}$/mois
-                        </span>
-                      </div>
-                      {getSelectedPlanDetails().saving > 0 && (
-                        <div className="flex justify-between py-2 bg-green-50 -mx-6 px-6 rounded-b-xl">
-                          <span className="text-green-600">Économie mensuelle :</span>
-                          <span className="font-semibold text-green-600">{getSelectedPlanDetails().saving}$/mois</span>
-                        </div>
+                      {pricing.type === "fixed-price" ? (
+                        <>
+                          <div className="flex justify-between py-2 border-b border-[#e5e7eb]">
+                            <span className="text-[#6b7280]">Projet :</span>
+                            <span className="font-medium text-[#2d3748]">{pricing.fixedPrice.projectName}</span>
+                          </div>
+                          {pricing.fixedPrice.timeline && (
+                            <div className="flex justify-between py-2 border-b border-[#e5e7eb]">
+                              <span className="text-[#6b7280]">Délai :</span>
+                              <span className="font-medium text-[#2d3748]">{pricing.fixedPrice.timeline}</span>
+                            </div>
+                          )}
+                          <div className="flex justify-between py-2">
+                            <span className="text-[#6b7280]">Investissement total :</span>
+                            <span className="font-bold text-[#387B84] text-lg">{pricing.fixedPrice.totalPrice}</span>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex justify-between py-2 border-b border-[#e5e7eb]">
+                            <span className="text-[#6b7280]">Forfait :</span>
+                            <span className="font-medium text-[#2d3748]">
+                              {getSelectedPlanDetails().plan?.name} ({getSelectedPlanDetails().plan?.hours}/mois)
+                            </span>
+                          </div>
+                          <div className="flex justify-between py-2 border-b border-[#e5e7eb]">
+                            <span className="text-[#6b7280]">Engagement :</span>
+                            <span className="font-medium text-[#2d3748]">{getSelectedPlanDetails().rate?.label}</span>
+                          </div>
+                          <div className="flex justify-between py-2 border-b border-[#e5e7eb]">
+                            <span className="text-[#6b7280]">Tarif :</span>
+                            <span className="font-medium text-[#2d3748]">{getSelectedPlanDetails().rate?.price}</span>
+                          </div>
+                          <div className="flex justify-between py-2">
+                            <span className="text-[#6b7280]">Total mensuel :</span>
+                            <span className="font-bold text-[#387B84] text-lg">
+                              {getSelectedPlanDetails().monthly.toLocaleString()}$/mois
+                            </span>
+                          </div>
+                          {getSelectedPlanDetails().saving > 0 && (
+                            <div className="flex justify-between py-2 bg-green-50 -mx-6 px-6 rounded-b-xl">
+                              <span className="text-green-600">Économie mensuelle :</span>
+                              <span className="font-semibold text-green-600">{getSelectedPlanDetails().saving}$/mois</span>
+                            </div>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
@@ -840,7 +908,7 @@ export function SignatureModal() {
                       className="mt-1 w-5 h-5 rounded border-[#d1d5db] text-[#387B84] focus:ring-[#387B84]"
                     />
                     <span className="text-sm text-[#6b7280]">
-                      J{"'"}ai lu et j{"'"}accepte l{"'"}offre de services ainsi que la Convention de services maître (MSA). 
+                      J{"'"}ai lu et j{"'"}accepte l{"'"}offre de services ainsi que la Convention de services maître (MSA).
                       Je comprends que cette signature électronique a la même valeur légale qu{"'"}une signature manuscrite.
                     </span>
                   </label>
@@ -953,16 +1021,16 @@ export function SignatureModal() {
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
                   <CheckCircle2 className="w-10 h-10 text-green-600" />
                 </div>
-                
+
                 <h2 className="font-serif text-3xl text-[#2d3748] mb-3">
                   Merci pour votre confiance!
                 </h2>
-                
+
                 <p className="text-[#6b7280] max-w-md mb-8">
-                  Votre contrat a été signé avec succès. Nous vous enverrons un courriel de confirmation 
+                  Votre contrat a été signé avec succès. Nous vous enverrons un courriel de confirmation
                   avec l{"'"}ensemble des informations à l{"'"}adresse suivante :
                 </p>
-                
+
                 <div className="bg-[#387B84]/5 rounded-lg px-6 py-3 mb-8">
                   <p className="text-[#387B84] font-medium">{clientEmail}</p>
                 </div>
@@ -970,27 +1038,48 @@ export function SignatureModal() {
                 <div className="bg-[#f7f7f7] rounded-xl p-6 max-w-md w-full text-left">
                   <h3 className="font-semibold text-[#2d3748] mb-4 text-center">Récapitulatif</h3>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-[#6b7280]">Forfait :</span>
-                      <span className="font-medium text-[#2d3748]">
-                        {getSelectedPlanDetails().plan?.name} ({getSelectedPlanDetails().plan?.hours}/mois)
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-[#6b7280]">Engagement :</span>
-                      <span className="font-medium text-[#2d3748]">{getSelectedPlanDetails().rate?.label}</span>
-                    </div>
-                    <div className="flex justify-between pt-2 border-t border-[#e5e7eb]">
-                      <span className="text-[#6b7280]">Total mensuel :</span>
-                      <span className="font-bold text-[#387B84]">
-                        {getSelectedPlanDetails().monthly.toLocaleString()}$/mois
-                      </span>
-                    </div>
-                    {getSelectedPlanDetails().saving > 0 && (
-                      <div className="flex justify-between text-green-600">
-                        <span>Économie :</span>
-                        <span className="font-semibold">{getSelectedPlanDetails().saving}$/mois</span>
-                      </div>
+                    {pricing.type === "fixed-price" ? (
+                      <>
+                        <div className="flex justify-between">
+                          <span className="text-[#6b7280]">Projet :</span>
+                          <span className="font-medium text-[#2d3748]">{pricing.fixedPrice.projectName}</span>
+                        </div>
+                        {pricing.fixedPrice.timeline && (
+                          <div className="flex justify-between">
+                            <span className="text-[#6b7280]">Délai :</span>
+                            <span className="font-medium text-[#2d3748]">{pricing.fixedPrice.timeline}</span>
+                          </div>
+                        )}
+                        <div className="flex justify-between pt-2 border-t border-[#e5e7eb]">
+                          <span className="text-[#6b7280]">Investissement total :</span>
+                          <span className="font-bold text-[#387B84]">{pricing.fixedPrice.totalPrice}</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex justify-between">
+                          <span className="text-[#6b7280]">Forfait :</span>
+                          <span className="font-medium text-[#2d3748]">
+                            {getSelectedPlanDetails().plan?.name} ({getSelectedPlanDetails().plan?.hours}/mois)
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-[#6b7280]">Engagement :</span>
+                          <span className="font-medium text-[#2d3748]">{getSelectedPlanDetails().rate?.label}</span>
+                        </div>
+                        <div className="flex justify-between pt-2 border-t border-[#e5e7eb]">
+                          <span className="text-[#6b7280]">Total mensuel :</span>
+                          <span className="font-bold text-[#387B84]">
+                            {getSelectedPlanDetails().monthly.toLocaleString()}$/mois
+                          </span>
+                        </div>
+                        {getSelectedPlanDetails().saving > 0 && (
+                          <div className="flex justify-between text-green-600">
+                            <span>Économie :</span>
+                            <span className="font-semibold">{getSelectedPlanDetails().saving}$/mois</span>
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
