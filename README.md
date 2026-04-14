@@ -1,35 +1,49 @@
-# v0-inputkit-template
+# template-soumission
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+Template de soumissions business TechGuys — généré et personnalisé par client via v0.
 
-## Built with v0
+## Workflow
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+1. Ouvrir ce repo dans [v0](https://v0.app) depuis la branche `main`
+2. Créer une nouvelle branche `v0/nom-client`
+3. Coller le `prompt_MVP.md` en one-shot
+4. Laisser v0 collecter les informations et générer la soumission
+5. Déployer sur Vercel — chaque branche = une soumission client
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_mEPpRuP8cfGplUWJ0N5Tu8gEQFFr)
+## Stack
 
-## Getting Started
+- [Next.js](https://nextjs.org) — App Router
+- TypeScript + Tailwind CSS + shadcn/ui
+- [Resend](https://resend.com) — envoi des courriels de signature
+- [Vercel](https://vercel.com) — déploiement
 
-First, run the development server:
+## Variables d'environnement
+
+À configurer dans Vercel → Settings → Environment Variables :
+
+```
+RESEND_API_KEY=re_...
+RESEND_FROM_EMAIL=noreply@techguys.consulting
+RESEND_NOTIFICATION_EMAIL=email-fallback@techguys.consulting
+```
+
+## Démarrage local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Créer un fichier `.env.local` à la racine avec les variables ci-dessus.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-## Learn More
+## Backlog — Évolutions futures
 
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
-
-<a href="https://v0.app/chat/api/kiro/clone/dev-techguys/v0-inputkit-template" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
+| Priorité | Feature | Description |
+|---|---|---|
+| 🔴 Haute | **Intégration Stripe** | Permettre au client de payer directement après avoir signé (abonnement mensuel récurrent via Stripe Checkout ou Payment Element) |
+| 🟠 Moyenne | **Multi-email CC notification** | Envoyer la notification de signature à plusieurs membres de l'équipe TechGuys via le champ `cc` de Resend |
+| 🟠 Moyenne | **Dashboard soumissions** | Interface interne pour suivre l'état des soumissions (envoyées, signées, en attente) |
+| 🟡 Basse | **PDF export** | Générer un PDF de la soumission en un clic pour envoi par email traditionnel |
+| 🟡 Basse | **Aperçu client protégé** | Accès à la soumission via lien unique + mot de passe pour sécuriser l'envoi |
+| 🟡 Basse | **Analytics de lecture** | Savoir si le client a ouvert la soumission, quelles slides il a consultées et combien de temps |
