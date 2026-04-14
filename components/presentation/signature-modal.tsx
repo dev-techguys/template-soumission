@@ -1017,7 +1017,7 @@ export function SignatureModal() {
           {/* Step 6: Confirmation */}
           {step === 6 && (
             <>
-              <div className="flex-1 flex flex-col items-center justify-center py-12 text-center">
+              <div className="flex-1 overflow-y-auto flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
                   <CheckCircle2 className="w-10 h-10 text-green-600" />
                 </div>
