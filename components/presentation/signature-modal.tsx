@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback } from "react"
-import { client, pricing } from "@/lib/proposal-data"
+import { client, pricing, signing } from "@/lib/proposal-data"
 import { PenLine, Check, Star, Trash2, ArrowRight, FileText, Shield, ChevronLeft, ChevronRight, Download, User, Mail, CheckCircle2, Loader2 } from "lucide-react"
 import {
   Dialog,
@@ -246,17 +246,32 @@ export function SignatureModal() {
 
   return (
     <>
-      {/* Sticky Button */}
-      <button
-        onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-50 group"
-      >
-        <div className="flex items-center gap-3 bg-[#387B84] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#2d6269] transition-all duration-300 hover:scale-105">
-          <PenLine className="w-5 h-5" />
-          <span className="font-medium text-sm">Signer le contrat</span>
-        </div>
-      </button>
+      {/* Sticky Button — PandaDoc ou modal v0 */}
+      {signing.type === "pandadoc" ? (
+        <a
+          href={signing.pandadocUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-50 group"
+        >
+          <div className="flex items-center gap-3 bg-[#387B84] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#2d6269] transition-all duration-300 hover:scale-105">
+            <PenLine className="w-5 h-5" />
+            <span className="font-medium text-sm">Signer le contrat</span>
+          </div>
+        </a>
+      ) : (
+        <button
+          onClick={() => setOpen(true)}
+          className="fixed bottom-6 right-6 z-50 group"
+        >
+          <div className="flex items-center gap-3 bg-[#387B84] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#2d6269] transition-all duration-300 hover:scale-105">
+            <PenLine className="w-5 h-5" />
+            <span className="font-medium text-sm">Signer le contrat</span>
+          </div>
+        </button>
+      )}
 
+      {signing.type === "v0" && (
       <Dialog open={open} onOpenChange={handleClose}>
         <DialogContent className="sm:max-w-4xl bg-white max-h-[90vh] overflow-hidden flex flex-col">
           {/* Progress indicator */}
@@ -1097,6 +1112,7 @@ export function SignatureModal() {
           )}
         </DialogContent>
       </Dialog>
+      )}
     </>
   )
 }

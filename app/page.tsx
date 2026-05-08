@@ -7,6 +7,7 @@ import { ConversionSlide } from "@/components/presentation/slides/conversion-sli
 import { SeoSlide } from "@/components/presentation/slides/seo-slide"
 import { PerformanceSlide } from "@/components/presentation/slides/performance-slide"
 import { ObjectivesSlide } from "@/components/presentation/slides/objectives-slide"
+import { CalendarSlide } from "@/components/presentation/slides/calendar-slide"
 import { PricingSlide } from "@/components/presentation/slides/pricing-slide"
 import { AnnexeSlide } from "@/components/presentation/slides/annexe-slide"
 import { ClosingSlide } from "@/components/presentation/slides/closing-slide"
@@ -26,6 +27,7 @@ export default function Home() {
         <SeoSlide />
         <PerformanceSlide />
         <ObjectivesSlide />
+        <CalendarSlide />
         <PricingSlide />
         <AnnexeSlide />
         <ClosingSlide />

@@ -99,12 +99,36 @@ export const pricing = {
   },
 }
 
+// ── Mode de signature ─────────────────────────────────────
+// "v0"       = workflow de signature intégré (6 étapes dans la modal)
+// "pandadoc" = bouton redirige vers un document PandaDoc externe
+export const signing = {
+  type: "v0" as "v0" | "pandadoc",
+  pandadocUrl: "", // requis si type === "pandadoc"
+}
+
+// ── Calendrier d'exécution ────────────────────────────────
+// pmApproved : true si le PM/PO a validé ce calendrier avant envoi
+export const calendar = {
+  pmApproved: false,
+  weeks: [] as Array<{
+    week: number
+    title: string
+    focus: string
+    activities: string[]
+    milestone?: string
+  }>,
+  iterativeNote:
+    "Ce calendrier représente notre plan idéal basé sur les jalons du projet. Notre approche demeure itérative et s'adapte continuellement à l'évolution de votre situation.",
+}
+
 export const slides = {
   hero: {},
   about: {},
   context: {},
   problems: {},
   roadmap: {},
+  calendar: {},
   pricing: {},
   annexe: {},
   closing: {},
