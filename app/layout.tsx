@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: 'InputKit - Accompagnement Stratégique | TechGuys & Omnigo',
-  description: 'Proposition d\'accompagnement stratégique pour InputKit - Migration WordPress vers site sur mesure avec intelligence artificielle',
+  title: 'Omnigo.ca - Partenariat de croissance | TechGuys',
+  description: 'Proposition de partenariat de croissance pour Omnigo.ca — Stratégie, acquisition et automatisation par TechGuys',
 }
 
 export default function RootLayout({

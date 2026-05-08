@@ -1,66 +1,65 @@
 import { SlideWrapper } from "../slide-wrapper"
-import { Globe, Zap, Cpu, Rocket } from "lucide-react"
+import { Search, MousePointerClick, Target, Bot } from "lucide-react"
 
 const OBJECTIVES = [
   {
-    icon: Globe,
+    icon: Search,
     number: "01",
-    title: "Migration vers une architecture moderne",
+    title: "Visibilité organique sous-exploitée",
     description:
-      "Migrer le site WordPress vers une architecture Next.js/React moderne, offrant des performances supérieures, une meilleure expérience développeur et une scalabilité optimale.",
-    goal: "Créer un site sur mesure qui reflète l'innovation d'InputKit, avec des temps de chargement ultra-rapides et une expérience utilisateur fluide sur tous les appareils.",
-    kpis: ["Performance 90+", "Core Web Vitals", "Temps de déploiement", "DX score"],
+      "Omnigo génère l'essentiel de ses leads via le bouche-à-oreille et les références, mais son SEO propre est limité — la marque n'apparaît pas sur les requêtes que ses propres clients recherchent.",
+    goal: "Devenir la référence organique «agence marketing Montréal / Québec» et capter des dizaines de leads qualifiés qui vont aujourd'hui chez des concurrents.",
+    kpis: ["+25% trafic organique", "Top 3 requêtes cibles", "DA & backlinks"],
     actions: [
-      "Architecture Next.js avec App Router",
-      "Composants React réutilisables",
-      "Optimisation des images et assets",
-      "CDN global via Vercel",
-      "CI/CD automatisé",
+      "Audit SEO complet (technique, on-page, off-page)",
+      "Optimisation des pages stratégiques",
+      "Création d'articles de blogue à fort potentiel",
+      "Stratégie de backlinks ciblée",
     ],
   },
   {
-    icon: Cpu,
+    icon: MousePointerClick,
     number: "02",
-    title: "Intégration de l'intelligence artificielle",
+    title: "Conversion site web insuffisante",
     description:
-      "Implémenter des capacités d'IA pour permettre des modifications de contenu en langage naturel, sans passer par un CMS traditionnel. Réagir instantanément aux besoins du marché.",
-    goal: "Permettre aux équipes marketing de modifier le site en quelques minutes via des commandes en langage naturel, éliminant les délais et les dépendances techniques.",
-    kpis: ["Temps de mise à jour", "Autonomie marketing", "Coût par modification"],
+      "Le trafic existant ne se convertit pas assez en rendez-vous qualifiés. Pas de A/B testing, pas de heat mapping, parcours de conversion non optimisé.",
+    goal: "Doubler le taux de conversion sans augmenter le budget publicitaire — chaque visiteur non converti est une dépense marketing perdue.",
+    kpis: ["×2 taux de conversion", "CPA -30%", "Sessions → RDV"],
     actions: [
-      "Interface de modification par IA",
-      "Génération de contenu assistée",
-      "A/B testing automatisé",
-      "Personnalisation dynamique",
+      "Audit du parcours de conversion actuel",
+      "Création de landing pages dédiées par service",
+      "A/B testing sur les CTAs et formulaires",
+      "Heat mapping et analyse comportementale",
     ],
   },
   {
-    icon: Zap,
+    icon: Target,
     number: "03",
-    title: "Optimisation SEO & Performance",
+    title: "Acquisition payante à optimiser",
     description:
-      "Profiter de la migration pour implémenter les meilleures pratiques SEO techniques et maximiser les Core Web Vitals, améliorant significativement la visibilité organique.",
-    goal: "Atteindre des scores Lighthouse de 90+ sur toutes les métriques et améliorer le positionnement organique sur les requêtes stratégiques du marché CX.",
-    kpis: ["Positions SEO", "Trafic organique", "Score Lighthouse"],
+      "Les campagnes Google Ads et Meta Ads ne sont pas structurées pour maximiser le ROAS sur les services à haute valeur (développement, ventes).",
+    goal: "Réduire le CPL de 30-40% en segmentant mieux les audiences et en concentrant le budget sur les mandats premium.",
+    kpis: ["CPL -30 à -40%", "ROAS +50%", "Leads qualifiés"],
     actions: [
-      "Optimisation des métadonnées",
-      "Structured data (Schema.org)",
-      "Sitemap dynamique",
-      "Pages AMP optionnelles",
+      "Restructuration des campagnes Google Ads",
+      "Segmentation avancée des audiences Meta",
+      "Création d'annonces par segment de service",
+      "Optimisation continue du budget par canal",
     ],
   },
   {
-    icon: Rocket,
+    icon: Bot,
     number: "04",
-    title: "Agilité & autonomie marketing",
+    title: "Automatisation interne limitée",
     description:
-      "Éliminer la dépendance au CMS WordPress et créer un workflow où les modifications peuvent être déployées en quelques minutes, pas en quelques jours.",
-    goal: "Réduire le temps entre l'idée et le déploiement de 90%, permettant une réactivité sans précédent aux opportunités du marché.",
-    kpis: ["Délai de déploiement", "Autonomie équipe", "Coût opérationnel"],
+      "Les processus de suivi des prospects, de qualification et de nurturing sont manuels, créant une dépendance aux individus.",
+    goal: "Libérer 5-10h/semaine par représentant avec un CRM automatisé — moins de temps sur l'admin, plus de temps sur les clients.",
+    kpis: ["-60% temps prospection", "×3 RDV cédulés", "0 lead perdu"],
     actions: [
-      "Workflow de déploiement simplifié",
-      "Preview branches automatiques",
-      "Rollback instantané",
-      "Monitoring en temps réel",
+      "Setup CRM avec pipeline de vente automatisé",
+      "Séquences d'email nurturing",
+      "Automatisation du suivi des leads entrants",
+      "Formation de l'équipe aux nouveaux outils",
     ],
   },
 ]
@@ -71,15 +70,15 @@ export function ObjectivesSlide() {
       <div className="max-w-6xl mx-auto px-8 py-20 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#387B84] font-sans font-medium">
-            08 / Objectifs du mandat
+          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
+            04 / Problématiques
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-3xl leading-tight text-balance">
-            Nos recommandations stratégiques
+          <h2 className="font-serif text-4xl md:text-5xl text-[#111827] max-w-3xl leading-tight text-balance">
+            Les freins à votre croissance
           </h2>
-          <div className="w-16 h-px bg-[#387B84]" />
-          <p className="text-base text-[#6b7280] font-sans max-w-2xl leading-relaxed">
-            Chaque recommandation vise à transformer la présence numérique d{"'"}InputKit, passant d{"'"}un environnement WordPress contraint à une plateforme agile propulsée par l{"'"}IA.
+          <div className="w-16 h-px bg-[#0DA5B5]" />
+          <p className="text-base text-[#6B7280] font-sans max-w-2xl leading-relaxed">
+            Chaque problématique identifiée représente une opportunité de croissance directe. Voici ce que nous allons corriger ensemble.
           </p>
         </div>
 
@@ -88,28 +87,28 @@ export function ObjectivesSlide() {
           {OBJECTIVES.map((obj) => (
             <div
               key={obj.number}
-              className="group relative p-8 rounded-xl border border-[#e5e7eb] bg-white hover:border-[#387B84]/30 hover:shadow-lg transition-all duration-500"
+              className="group relative p-8 rounded-xl border border-[#e5e7eb] bg-white hover:border-[#0DA5B5]/30 hover:shadow-lg transition-all duration-500"
             >
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#387B84]/30 via-[#4a9ba5]/10 to-transparent" />
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0DA5B5]/30 via-[#0DA5B5]/10 to-transparent" />
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                {/* Left: Number + icon */}
+                {/* Left: Number */}
                 <div className="lg:col-span-1 flex items-start gap-4">
-                  <span className="font-serif text-4xl text-[#387B84]/30">{obj.number}</span>
+                  <span className="font-serif text-4xl text-[#0DA5B5]/30">{obj.number}</span>
                 </div>
 
                 {/* Middle: Content */}
                 <div className="lg:col-span-6 flex flex-col gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#387B84]/10 flex items-center justify-center">
-                      <obj.icon className="w-4 h-4 text-[#387B84]" />
+                    <div className="w-10 h-10 rounded-xl bg-[#0DA5B5]/10 flex items-center justify-center">
+                      <obj.icon className="w-4 h-4 text-[#0DA5B5]" />
                     </div>
-                    <h3 className="font-serif text-xl text-[#2d3748]">{obj.title}</h3>
+                    <h3 className="font-serif text-xl text-[#111827]">{obj.title}</h3>
                   </div>
-                  <p className="text-sm text-[#6b7280] font-sans leading-relaxed">
+                  <p className="text-sm text-[#6B7280] font-sans leading-relaxed">
                     {obj.description}
                   </p>
-                  <p className="text-sm text-[#2d3748]/80 font-sans leading-relaxed">
+                  <p className="text-sm text-[#111827]/80 font-sans leading-relaxed">
                     {obj.goal}
                   </p>
                 </div>
@@ -117,27 +116,27 @@ export function ObjectivesSlide() {
                 {/* Right: Actions + KPIs */}
                 <div className="lg:col-span-5 flex flex-col gap-4">
                   <div>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#387B84] font-sans mb-2 block font-medium">
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#0DA5B5] font-sans mb-2 block font-medium">
                       Actions clés
                     </span>
                     <div className="flex flex-col gap-1.5">
                       {obj.actions.map((action) => (
                         <div key={action} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#387B84] mt-1.5 shrink-0" />
-                          <span className="text-xs text-[#2d3748]/80 font-sans leading-relaxed">{action}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#0DA5B5] mt-1.5 shrink-0" />
+                          <span className="text-xs text-[#111827]/80 font-sans leading-relaxed">{action}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#6b7280] font-sans mb-2 block">
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#6B7280] font-sans mb-2 block">
                       KPI{"'"}s clés
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {obj.kpis.map((kpi) => (
                         <span
                           key={kpi}
-                          className="px-2.5 py-1 rounded-full border border-[#e5e7eb] text-[10px] text-[#6b7280] font-sans bg-[#f7f7f7]"
+                          className="px-2.5 py-1 rounded-full border border-[#e5e7eb] text-[10px] text-[#6B7280] font-sans bg-[#f7f7f7]"
                         >
                           {kpi}
                         </span>

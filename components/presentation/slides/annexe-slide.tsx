@@ -118,13 +118,13 @@ export function AnnexeSlide() {
       <div className="max-w-5xl mx-auto px-8 py-20 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#387B84] font-sans font-medium">
+          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
             Annexe
           </span>
           <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-4xl leading-tight text-balance">
             {"Ensemble des services disponibles"}
           </h2>
-          <div className="w-16 h-px bg-[#387B84]" />
+          <div className="w-16 h-px bg-[#0DA5B5]" />
           <p className="text-sm md:text-base text-[#6b7280] font-sans leading-relaxed max-w-3xl">
             {"Nous offrons un ensemble de services integres combinant strategie, technologie, marketing et ventes. La feuille de route proposee demeure flexible : certains services pourront etre ajoutes, remplaces ou priorises differemment au fil du mandat, selon l'evolution de vos besoins et des opportunites d'affaires."}
           </p>
@@ -140,14 +140,14 @@ export function AnnexeSlide() {
                 value={service.id}
                 className="border-0 rounded-xl border border-[#e5e7eb] bg-white overflow-hidden px-6 md:px-8 shadow-sm"
               >
-                <AccordionTrigger className="py-6 hover:no-underline gap-4 [&>svg]:text-[#387B84] [&>svg]:w-5 [&>svg]:h-5">
+                <AccordionTrigger className="py-6 hover:no-underline gap-4 [&>svg]:text-[#0DA5B5] [&>svg]:w-5 [&>svg]:h-5">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#387B84]/10 border border-[#387B84]/20 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-[#387B84]" />
+                    <div className="w-10 h-10 rounded-xl bg-[#0DA5B5]/10 border border-[#0DA5B5]/20 flex items-center justify-center shrink-0">
+                      <Icon className="w-5 h-5 text-[#0DA5B5]" />
                     </div>
                     <div className="flex flex-col gap-0.5 text-left">
                       <span className="font-serif text-lg md:text-xl text-[#2d3748]">
-                        <span className="text-[#387B84] mr-2 font-sans text-sm">{String(index + 1).padStart(2, "0")}</span>
+                        <span className="text-[#0DA5B5] mr-2 font-sans text-sm">{String(index + 1).padStart(2, "0")}</span>
                         {service.title}
                       </span>
                       <span className="text-sm text-[#6b7280] font-sans leading-relaxed hidden md:block">
@@ -168,7 +168,7 @@ export function AnnexeSlide() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 pl-0 md:pl-14">
                     {service.items.map((item) => (
                       <div key={item} className="flex items-start gap-3">
-                        <Check className="w-4 h-4 text-[#387B84] shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-[#0DA5B5] shrink-0 mt-0.5" />
                         <span className="text-sm text-[#4b5563] font-sans leading-relaxed">
                           {item}
                         </span>
@@ -179,7 +179,7 @@ export function AnnexeSlide() {
                   {/* Note if present */}
                   {service.note && (
                     <div className="flex items-start gap-2 mt-4 pl-0 md:pl-14">
-                      <span className="text-[10px] tracking-[0.1em] uppercase text-[#387B84]/70 font-sans leading-relaxed">
+                      <span className="text-[10px] tracking-[0.1em] uppercase text-[#0DA5B5]/70 font-sans leading-relaxed">
                         * {service.note}
                       </span>
                     </div>

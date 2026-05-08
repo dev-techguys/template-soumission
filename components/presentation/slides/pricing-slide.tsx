@@ -15,13 +15,13 @@ function HourlyBankSlide() {
       <div className="max-w-6xl mx-auto px-8 py-20 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-6 mb-12">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#387B84] font-sans font-medium">
+          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
             10 / Tarification
           </span>
           <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-3xl leading-tight text-balance">
             {"Banques d'heures disponibles"}
           </h2>
-          <div className="w-16 h-px bg-[#387B84]" />
+          <div className="w-16 h-px bg-[#0DA5B5]" />
         </div>
 
         {/* Plans grid */}
@@ -31,12 +31,12 @@ function HourlyBankSlide() {
               key={plan.name}
               className={`relative p-6 rounded-xl border flex flex-col shadow-sm ${
                 plan.featured
-                  ? "border-[#387B84]/40 bg-[#387B84]/5"
+                  ? "border-[#0DA5B5]/40 bg-[#0DA5B5]/5"
                   : "border-[#e5e7eb] bg-white"
               }`}
             >
               {plan.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 bg-[#387B84] rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 bg-[#0DA5B5] rounded-full">
                   <Star className="w-3 h-3 text-white" />
                   <span className="text-[10px] tracking-[0.15em] uppercase font-sans font-medium text-white">
                     {"Recommandé"}
@@ -49,7 +49,7 @@ function HourlyBankSlide() {
                   Banque
                 </span>
                 <h3 className="font-serif text-2xl text-[#2d3748]">{plan.name}</h3>
-                <span className="font-serif text-4xl text-[#387B84] mt-2">{plan.hours}</span>
+                <span className="font-serif text-4xl text-[#0DA5B5] mt-2">{plan.hours}</span>
                 <span className="text-xs text-[#6b7280] font-sans">par mois</span>
               </div>
 
@@ -90,7 +90,7 @@ function HourlyBankSlide() {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {pricing.inclusions.map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#387B84] shrink-0" />
+                  <Check className="w-3.5 h-3.5 text-[#0DA5B5] shrink-0" />
                   <span className="text-xs text-[#6b7280] font-sans">{item}</span>
                 </div>
               ))}
@@ -109,17 +109,17 @@ function FixedPriceSlide() {
       <div className="max-w-4xl mx-auto px-8 py-20 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-6 mb-12">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#387B84] font-sans font-medium">
+          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
             10 / Tarification
           </span>
           <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-3xl leading-tight text-balance">
             Votre investissement
           </h2>
-          <div className="w-16 h-px bg-[#387B84]" />
+          <div className="w-16 h-px bg-[#0DA5B5]" />
         </div>
 
         {/* Project card */}
-        <div className="p-8 rounded-2xl border border-[#387B84]/20 bg-[#387B84]/5 mb-8">
+        <div className="p-8 rounded-2xl border border-[#0DA5B5]/20 bg-[#0DA5B5]/5 mb-8">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <div className="flex flex-col gap-3 flex-1">
               <h3 className="font-serif text-2xl text-[#2d3748]">{fp.projectName}</h3>
@@ -145,7 +145,7 @@ function FixedPriceSlide() {
             </div>
             <div className="flex flex-col items-end gap-1 shrink-0">
               <span className="text-[10px] tracking-[0.2em] uppercase text-[#6b7280] font-sans">Investissement total</span>
-              <span className="font-serif text-5xl text-[#387B84]">{fp.totalPrice}</span>
+              <span className="font-serif text-5xl text-[#0DA5B5]">{fp.totalPrice}</span>
               <span className="text-xs text-[#6b7280] font-sans">taxes en sus</span>
             </div>
           </div>
@@ -164,7 +164,7 @@ function FixedPriceSlide() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {fp.deliverables.map((item) => (
                   <div key={item} className="flex items-start gap-2">
-                    <Check className="w-3.5 h-3.5 text-[#387B84] shrink-0 mt-0.5" />
+                    <Check className="w-3.5 h-3.5 text-[#0DA5B5] shrink-0 mt-0.5" />
                     <span className="text-xs text-[#6b7280] font-sans">{item}</span>
                   </div>
                 ))}
