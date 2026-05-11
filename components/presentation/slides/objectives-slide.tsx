@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { SlideWrapper } from "../slide-wrapper"
 import { AnimatedDiv, AnimatedContainer, AnimatedItem } from "../animated-wrapper"
-import { MessageSquare, Navigation, BarChart3, Blocks, ChevronDown, ArrowRight, MessageCircle } from "lucide-react"
+import { MessageSquare, Navigation, BarChart3, Blocks, ChevronDown, ArrowRight, MessageCircle, Zap, Globe, Shield } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 // Q1/Q2/Q3 Workflow Data
@@ -162,27 +162,40 @@ const FEATURES = [
   },
 ]
 
-// Widget visualization component - Visual representation of the Safex AI agent
+// Widget visualization component - Premium visual representation of the Safex AI agent
 function WidgetVisualization() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const [messageStep, setMessageStep] = useState(0)
+  const [selectedChip, setSelectedChip] = useState<string | null>(null)
 
-  const messages = [
-    { from: "agent", text: "Hi! What are you looking to ship today?" },
-    { from: "user", text: "Temperature-sensitive cargo to Chicago" },
-    { from: "agent", text: "Perfect! Our reefer fleet handles temp-controlled shipments to the US. Let me redirect you to the right page." },
+  const conversation = [
+    { from: "agent", text: "Hi! What brings you here today?", delay: 800 },
+    { from: "chips", options: ["FTL/LTL Freight", "Reefer Transport", "Cross-border"], delay: 1200 },
   ]
 
+  const chipResponse: Record<string, { user: string; agent: string }> = {
+    "FTL/LTL Freight": { user: "FTL/LTL Freight", agent: "Great choice! We specialize in full and partial loads across Canada. I'll connect you with our dispatch team." },
+    "Reefer Transport": { user: "Reefer Transport", agent: "Perfect! Our temperature-controlled fleet covers -20°C to +25°C. Let me show you our reefer capabilities." },
+    "Cross-border": { user: "Cross-border", agent: "Excellent! Canada-US shipments are our specialty. FAST/CSA certified. Redirecting you now..." },
+  }
+
   useEffect(() => {
-    if (!isOpen) return
-    setMessageStep(0)
+    if (!isOpen) {
+      setMessageStep(0)
+      setSelectedChip(null)
+      return
+    }
     const timers = [
-      setTimeout(() => setMessageStep(1), 1000),
-      setTimeout(() => setMessageStep(2), 2500),
-      setTimeout(() => setMessageStep(3), 4500),
+      setTimeout(() => setMessageStep(1), 600),
+      setTimeout(() => setMessageStep(2), 1400),
     ]
     return () => timers.forEach(clearTimeout)
   }, [isOpen])
+
+  const handleChipClick = (chip: string) => {
+    if (selectedChip) return
+    setSelectedChip(chip)
+  }
 
   return (
     <motion.div
@@ -192,175 +205,218 @@ function WidgetVisualization() {
       transition={{ duration: 0.4 }}
       className="mt-6 overflow-hidden"
     >
-      <div className="bg-[#0f172a] rounded-xl p-6">
-        {/* Browser mockup */}
-        <div className="relative bg-[#1e293b] rounded-xl overflow-hidden border border-white/10">
-          {/* Browser header */}
-          <div className="bg-[#0f172a] px-4 py-3 flex items-center gap-3 border-b border-white/10">
-            <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
-              <div className="w-3 h-3 rounded-full bg-[#f59e0b]" />
-              <div className="w-3 h-3 rounded-full bg-[#10b981]" />
+      <div className="bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] rounded-2xl p-8 relative overflow-hidden">
+        {/* Ambient glow effects */}
+        <div className="absolute top-0 right-1/4 w-64 h-64 bg-[#ff7000]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-48 h-48 bg-[#3b82f6]/5 rounded-full blur-3xl pointer-events-none" />
+        
+        {/* Main content - side by side layout */}
+        <div className="relative flex flex-col lg:flex-row items-center gap-8">
+          
+          {/* Left side - Description */}
+          <div className="flex-1 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#ff7000]/10 border border-[#ff7000]/20 rounded-full">
+              <span className="w-2 h-2 rounded-full bg-[#ff7000] animate-pulse" />
+              <span className="text-[#ff7000] text-xs font-medium tracking-wide">LIVE PREVIEW</span>
             </div>
-            <div className="flex-1 bg-white/5 rounded-md px-3 py-1.5 flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#10b981]" />
-              <span className="text-xs text-white/50 font-mono">safextransport.ca</span>
+            
+            <h3 className="text-2xl font-serif text-white">
+              L&apos;assistant qui <span className="text-[#ff7000]">convertit</span>
+            </h3>
+            
+            <p className="text-white/60 text-sm leading-relaxed max-w-sm">
+              Un widget élégant qui s&apos;intègre à votre site. Le visiteur choisit via des chips ou tape en langage naturel — l&apos;IA qualifie et redirige instantanément.
+            </p>
+            
+            {/* Feature highlights */}
+            <div className="space-y-2 pt-2">
+              {[
+                { icon: "bolt", text: "Réponse < 2 secondes" },
+                { icon: "globe", text: "Bilingue EN/FR automatique" },
+                { icon: "shield", text: "Aucune donnée sensible stockée" },
+              ].map((feature, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + i * 0.1 }}
+                  className="flex items-center gap-3"
+                >
+                  <div className="w-6 h-6 rounded-md bg-white/5 border border-white/10 flex items-center justify-center">
+                    {feature.icon === "bolt" && <Zap className="w-3 h-3 text-[#ff7000]" />}
+                    {feature.icon === "globe" && <Globe className="w-3 h-3 text-[#3b82f6]" />}
+                    {feature.icon === "shield" && <Shield className="w-3 h-3 text-[#10b981]" />}
+                  </div>
+                  <span className="text-white/70 text-xs">{feature.text}</span>
+                </motion.div>
+              ))}
             </div>
           </div>
           
-          {/* Website mockup content */}
-          <div className="relative h-80 bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6">
-            {/* Fake page content */}
-            <div className="space-y-3 opacity-30">
-              <div className="h-6 w-48 bg-white/20 rounded" />
-              <div className="h-3 w-full bg-white/10 rounded" />
-              <div className="h-3 w-3/4 bg-white/10 rounded" />
-              <div className="h-3 w-5/6 bg-white/10 rounded" />
-              <div className="mt-6 grid grid-cols-3 gap-3">
-                <div className="h-20 bg-white/5 rounded-lg" />
-                <div className="h-20 bg-white/5 rounded-lg" />
-                <div className="h-20 bg-white/5 rounded-lg" />
-              </div>
-            </div>
-            
-            {/* Floating chat button */}
-            <motion.button
-              onClick={() => setIsOpen(!isOpen)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="absolute bottom-4 right-4 w-14 h-14 rounded-full bg-[#ff7000] shadow-lg shadow-[#ff7000]/30 flex items-center justify-center cursor-pointer z-20"
+          {/* Right side - Chat widget mockup */}
+          <div className="relative">
+            {/* Phone frame */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, type: "spring", damping: 20 }}
+              className="relative w-72 bg-[#0a0f1a] rounded-[2rem] p-2 shadow-2xl shadow-black/50"
             >
-              <AnimatePresence mode="wait">
-                {isOpen ? (
-                  <motion.svg
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </motion.svg>
-                ) : (
-                  <motion.svg
-                    key="chat"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0 }}
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </motion.svg>
-                )}
-              </AnimatePresence>
-            </motion.button>
-            
-            {/* Chat panel */}
-            <AnimatePresence>
-              {isOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                  transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                  className="absolute bottom-20 right-4 w-80 bg-[#0f172a] rounded-2xl shadow-2xl border border-white/10 overflow-hidden z-10"
-                >
-                  {/* Chat header */}
-                  <div className="bg-[#ff7000] px-4 py-3 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">S</span>
+              {/* Phone notch */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-[#0a0f1a] rounded-b-2xl z-10" />
+              
+              {/* Screen */}
+              <div className="relative bg-gradient-to-b from-[#1e293b] to-[#0f172a] rounded-[1.5rem] overflow-hidden">
+                {/* Status bar */}
+                <div className="flex items-center justify-between px-6 py-2 text-[10px] text-white/50">
+                  <span>9:41</span>
+                  <div className="flex items-center gap-1">
+                    <div className="flex gap-0.5">
+                      {[1,2,3,4].map(i => <div key={i} className="w-1 h-2 bg-white/50 rounded-full" />)}
                     </div>
-                    <div>
-                      <div className="text-white font-sans font-medium text-sm">Safex Assistant</div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-                        <span className="text-white/70 text-xs">Online — 2s response</span>
+                    <span>100%</span>
+                  </div>
+                </div>
+                
+                {/* Chat interface */}
+                <div className="h-80">
+                  {/* Header */}
+                  <div className="bg-gradient-to-r from-[#ff7000] to-[#f59e0b] px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
+                          <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                          </svg>
+                        </div>
+                        <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#10b981] rounded-full border-2 border-[#ff7000]" />
+                      </div>
+                      <div>
+                        <div className="text-white font-sans font-semibold text-sm">Safex</div>
+                        <div className="text-white/70 text-[10px]">AI Assistant</div>
                       </div>
                     </div>
                   </div>
                   
-                  {/* Chat messages */}
-                  <div className="p-4 h-44 overflow-y-auto space-y-3">
-                    {messages.slice(0, messageStep).map((msg, i) => (
+                  {/* Messages area */}
+                  <div className="p-4 h-52 overflow-hidden space-y-3">
+                    {/* Agent message */}
+                    {messageStep >= 1 && (
                       <motion.div
-                        key={i}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className={`flex gap-2 ${msg.from === "user" ? "justify-end" : ""}`}
-                      >
-                        {msg.from === "agent" && (
-                          <div className="w-7 h-7 rounded-full bg-[#ff7000] flex items-center justify-center shrink-0">
-                            <span className="text-white text-[10px] font-bold">S</span>
-                          </div>
-                        )}
-                        <div className={`max-w-[85%] px-3 py-2 rounded-xl text-xs ${
-                          msg.from === "user" 
-                            ? "bg-[#ff7000] text-white rounded-tr-sm" 
-                            : "bg-white/10 text-white/90 rounded-tl-sm"
-                        }`}>
-                          {msg.text}
-                        </div>
-                      </motion.div>
-                    ))}
-                    {messageStep > 0 && messageStep < 3 && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
                         className="flex gap-2"
                       >
-                        <div className="w-7 h-7 rounded-full bg-[#ff7000] flex items-center justify-center shrink-0">
-                          <span className="text-white text-[10px] font-bold">S</span>
+                        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#ff7000] to-[#f59e0b] flex items-center justify-center shrink-0">
+                          <span className="text-white text-[8px] font-bold">S</span>
                         </div>
-                        <div className="px-3 py-2 bg-white/10 rounded-xl rounded-tl-sm flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                          <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                          <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                        <div className="bg-white/10 backdrop-blur-sm border border-white/5 rounded-2xl rounded-tl-md px-3 py-2 max-w-[80%]">
+                          <p className="text-white/90 text-xs">{conversation[0].text}</p>
                         </div>
                       </motion.div>
                     )}
+                    
+                    {/* Chips */}
+                    {messageStep >= 2 && !selectedChip && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex flex-wrap gap-1.5 ml-8"
+                      >
+                        {conversation[1].options?.map((chip, i) => (
+                          <motion.button
+                            key={chip}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: i * 0.1 }}
+                            onClick={() => handleChipClick(chip)}
+                            className="px-3 py-1.5 bg-[#ff7000]/10 border border-[#ff7000]/30 rounded-full text-[10px] text-[#ff7000] hover:bg-[#ff7000]/20 hover:border-[#ff7000]/50 transition-all cursor-pointer"
+                          >
+                            {chip}
+                          </motion.button>
+                        ))}
+                      </motion.div>
+                    )}
+                    
+                    {/* User response after chip click */}
+                    {selectedChip && (
+                      <>
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="flex justify-end"
+                        >
+                          <div className="bg-[#ff7000] rounded-2xl rounded-tr-md px-3 py-2 max-w-[80%]">
+                            <p className="text-white text-xs">{chipResponse[selectedChip].user}</p>
+                          </div>
+                        </motion.div>
+                        
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 }}
+                          className="flex gap-2"
+                        >
+                          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#ff7000] to-[#f59e0b] flex items-center justify-center shrink-0">
+                            <span className="text-white text-[8px] font-bold">S</span>
+                          </div>
+                          <div className="bg-white/10 backdrop-blur-sm border border-white/5 rounded-2xl rounded-tl-md px-3 py-2 max-w-[80%]">
+                            <p className="text-white/90 text-xs">{chipResponse[selectedChip].agent}</p>
+                            <div className="flex items-center gap-1.5 mt-2 text-[#10b981]">
+                              <motion.div
+                                animate={{ x: [0, 4, 0] }}
+                                transition={{ duration: 1, repeat: Infinity }}
+                              >
+                                <ArrowRight className="w-3 h-3" />
+                              </motion.div>
+                              <span className="text-[9px]">Redirecting...</span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </>
+                    )}
                   </div>
                   
-                  {/* Quick actions */}
-                  <div className="px-4 pb-3 flex flex-wrap gap-1.5">
-                    {["General freight", "Reefer", "Cross-border"].map((chip) => (
-                      <span key={chip} className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-white/60 hover:border-[#ff7000]/50 hover:text-white/80 cursor-pointer transition-colors">
-                        {chip}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  {/* Input area */}
-                  <div className="px-4 pb-4">
+                  {/* Input */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-[#0f172a] to-transparent">
                     <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-3 py-2">
                       <input 
                         type="text" 
-                        placeholder="Type your message..." 
-                        className="flex-1 bg-transparent text-xs text-white/80 placeholder:text-white/30 outline-none"
+                        placeholder="Type a message..." 
+                        className="flex-1 bg-transparent text-[10px] text-white/80 placeholder:text-white/30 outline-none"
                         readOnly
                       />
-                      <button className="w-7 h-7 rounded-lg bg-[#ff7000] flex items-center justify-center">
-                        <ArrowRight className="w-3.5 h-3.5 text-white" />
-                      </button>
+                      <div className="w-6 h-6 rounded-lg bg-[#ff7000] flex items-center justify-center">
+                        <ArrowRight className="w-3 h-3 text-white" />
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                </div>
+              </div>
+            </motion.div>
+            
+            {/* Floating badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8, type: "spring" }}
+              className="absolute -top-3 -right-3 px-3 py-1.5 bg-[#10b981] rounded-full shadow-lg shadow-[#10b981]/30"
+            >
+              <span className="text-white text-[10px] font-semibold">24/7</span>
+            </motion.div>
           </div>
         </div>
         
-        {/* Caption */}
-        <div className="mt-4 text-center">
-          <p className="text-white/50 text-xs font-sans">
-            Cliquez sur le bouton orange pour voir l&apos;agent en action
-          </p>
-        </div>
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="mt-6 pt-6 border-t border-white/5 flex items-center justify-center gap-2 text-white/40 text-xs"
+        >
+          <span className="w-1 h-1 rounded-full bg-[#ff7000]" />
+          <span>Cliquez sur les chips pour voir l&apos;interaction</span>
+        </motion.div>
       </div>
     </motion.div>
   )
