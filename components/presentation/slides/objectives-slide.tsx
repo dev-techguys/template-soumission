@@ -157,8 +157,8 @@ const FEATURES = [
       "Propriete totale du modele et des donnees, zero dependance externe",
       "Scalable a l'infini pour supporter la croissance vers 5 bureaux",
     ],
-    expandable: false,
-    expandableType: null,
+    expandable: true,
+    expandableType: "scalability",
   },
 ]
 
@@ -417,6 +417,163 @@ function DashboardVisualization() {
   )
 }
 
+// Scalability visualization component - Multi-channel API architecture
+function ScalabilityVisualization() {
+  const CHANNELS = [
+    { name: "Website widget", icon: "🌐", color: "#ff7000", delay: 0 },
+    { name: "WhatsApp", icon: "💬", color: "#25D366", delay: 0.1 },
+    { name: "Instagram DM", icon: "📸", color: "#E4405F", delay: 0.2 },
+    { name: "GPT Action", icon: "🤖", color: "#10a37f", delay: 0.3 },
+    { name: "Email auto-reply", icon: "📧", color: "#3b82f6", delay: 0.4 },
+  ]
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.4 }}
+      className="mt-6 overflow-hidden"
+    >
+      <div className="bg-[#0f172a] rounded-xl p-6 font-mono text-sm">
+        {/* Header */}
+        <div className="mb-6">
+          <div className="text-white/70 text-xs font-sans mb-2">La vraie question de scalabilite</div>
+          <p className="text-white/90 text-sm font-sans leading-relaxed">
+            Si Safex veut un agent multi-canal serieux, la bonne architecture n&apos;est pas de deployer N versions du meme agent — c&apos;est d&apos;abstraire le cerveau en une <span className="text-[#ff7000] font-medium">API centrale</span> :
+          </p>
+        </div>
+
+        {/* Multi-channel diagram */}
+        <div className="flex flex-col lg:flex-row items-center gap-6 py-8">
+          {/* Left: Channels */}
+          <div className="flex flex-col gap-3 flex-shrink-0">
+            {CHANNELS.map((channel, i) => (
+              <motion.div
+                key={channel.name}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: channel.delay, duration: 0.4 }}
+                className="flex items-center gap-3"
+              >
+                <div 
+                  className="w-10 h-10 rounded-lg flex items-center justify-center text-lg"
+                  style={{ backgroundColor: channel.color + "20", borderColor: channel.color, borderWidth: 1 }}
+                >
+                  {channel.icon}
+                </div>
+                <span className="text-white/80 text-xs w-28">{channel.name}</span>
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "2rem" }}
+                  transition={{ delay: channel.delay + 0.2, duration: 0.3 }}
+                  className="h-px bg-white/30"
+                />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Center: API Box */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+            className="relative flex-shrink-0"
+          >
+            {/* Connecting lines from left */}
+            <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-4 flex flex-col justify-center gap-[14px]">
+              {CHANNELS.map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.4 + i * 0.05 }}
+                  className="h-px bg-white/30 origin-right"
+                />
+              ))}
+            </div>
+            
+            <div className="p-6 rounded-xl border-2 border-[#ff7000] bg-[#ff7000]/10">
+              <div className="text-center">
+                <code className="text-[#ff7000] text-xs">/api/agent</code>
+                <div className="mt-3 flex flex-col gap-1 text-[10px] text-white/60">
+                  <span>Groq LLM</span>
+                  <span>+ system prompt</span>
+                  <span>+ routing logic</span>
+                  <span>+ domain skills</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Arrow to right */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.7, duration: 0.3 }}
+              className="absolute -right-12 top-1/2 -translate-y-1/2 flex items-center origin-left"
+            >
+              <div className="w-8 h-px bg-[#10B981]" />
+              <div className="w-0 h-0 border-t-4 border-b-4 border-l-6 border-transparent border-l-[#10B981]" />
+            </motion.div>
+          </motion.div>
+
+          {/* Right: Safex destination */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, duration: 0.4 }}
+            className="flex items-center gap-3 ml-8"
+          >
+            <div className="p-4 rounded-xl border border-[#10B981] bg-[#10B981]/10">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
+                  <span className="text-[#10B981] font-bold text-sm">S</span>
+                </div>
+                <div>
+                  <div className="text-white font-sans font-medium text-sm">Safex</div>
+                  <div className="text-white/50 text-[10px]">CRM / Sales / Dispatch</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Explanation */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.4 }}
+          className="mt-6 p-4 rounded-lg bg-white/5 border border-white/10"
+        >
+          <p className="text-white/70 text-xs font-sans leading-relaxed">
+            Chaque canal envoie un message + contexte, l&apos;API repond. Le system prompt ne vit qu&apos;a un seul endroit, les skills domaine aussi.
+            <span className="text-[#10B981] font-medium ml-1">Une mise a jour se propage partout.</span>
+          </p>
+        </motion.div>
+
+        {/* Benefits row */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.4 }}
+          className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4"
+        >
+          {[
+            { label: "Maintenance unique", desc: "Un seul prompt a maintenir, pas 5 versions differentes" },
+            { label: "Coherence garantie", desc: "Memes reponses, meme ton, meme expertise sur tous les canaux" },
+            { label: "Scaling illimite", desc: "Ajouter un canal = quelques lignes de code, pas un nouveau projet" },
+          ].map((benefit, i) => (
+            <div key={i} className="p-3 rounded-lg bg-white/5">
+              <div className="text-[#ff7000] text-xs font-sans font-medium mb-1">{benefit.label}</div>
+              <div className="text-white/60 text-[10px] font-sans">{benefit.desc}</div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
+
 export function ObjectivesSlide() {
   const [expandedFeature, setExpandedFeature] = useState<string | null>(null)
 
@@ -478,8 +635,8 @@ export function ObjectivesSlide() {
                       >
                         <span>
                           {expandedFeature === feature.number 
-                            ? (feature.expandableType === "dashboard" ? "Masquer le dashboard" : "Masquer le workflow")
-                            : (feature.expandableType === "dashboard" ? "Voir le prototype du dashboard" : "Voir le workflow Q1/Q2/Q3")
+                            ? (feature.expandableType === "dashboard" ? "Masquer le dashboard" : feature.expandableType === "scalability" ? "Masquer l'architecture" : "Masquer le workflow")
+                            : (feature.expandableType === "dashboard" ? "Voir le prototype du dashboard" : feature.expandableType === "scalability" ? "Voir l'architecture multi-canal" : "Voir le workflow Q1/Q2/Q3")
                           }
                         </span>
                         <motion.div
@@ -517,6 +674,9 @@ export function ObjectivesSlide() {
                   )}
                   {feature.expandable && expandedFeature === feature.number && feature.expandableType === "dashboard" && (
                     <DashboardVisualization />
+                  )}
+                  {feature.expandable && expandedFeature === feature.number && feature.expandableType === "scalability" && (
+                    <ScalabilityVisualization />
                   )}
                 </AnimatePresence>
               </div>
