@@ -10,13 +10,11 @@ const FEATURES = [
     title: "Widget de chat intelligent",
     description:
       "Un bouton flottant present sur toutes les pages, qui ouvre un panneau de conversation elegant et responsive. Le visiteur interagit via des chips cliquables ou en langage naturel avec un LLM performant.",
-    problemsLabel: "Problemes resolus",
+    problemsLabel: "Benefices business",
     problems: [
-      "Visiteurs qui quittent le site sans trouver le bon service",
-      "Navigation complexe dans un catalogue de services varie",
-      "Manque d'engagement sur les pages — taux de rebond eleve",
-      "Pas de premier point de contact accessible 24/7",
-      "Experience utilisateur impersonnelle et generique",
+      "Plus de visiteurs perdus — chaque prospect est guide vers le bon service",
+      "Engagement 24/7 sans mobiliser de ressources humaines",
+      "Experience utilisateur personnalisee des la premiere interaction",
     ],
   },
   {
@@ -25,13 +23,11 @@ const FEATURES = [
     title: "Flow de qualification structure",
     description:
       "Trois questions avec chips cliquables pour qualifier rapidement le visiteur : type de cargo, destination, urgence. En moins de 60 secondes, l'agent route vers la bonne page service ou le formulaire de devis.",
-    problemsLabel: "Problemes resolus",
+    problemsLabel: "Benefices business",
     problems: [
-      "Formulaires de contact non qualifies qui surchargent l'equipe",
-      "Leads froids qui n'ont pas ete pre-qualifies avant contact",
-      "Temps perdu par les commerciaux sur des demandes hors cible",
-      "Prospects perdus car ils ne trouvent pas le service adapte",
-      "Manque de donnees sur les intentions des visiteurs",
+      "Leads mieux qualifies avant d'arriver a l'equipe commerciale",
+      "Temps des sales concentre sur les prospects a haute intention",
+      "Donnees d'intention capturees pour chaque visiteur",
     ],
   },
   {
@@ -40,13 +36,11 @@ const FEATURES = [
     title: "Analytics sans PII + Dashboard admin",
     description:
       "Les chemins de navigation anonymises sont logges en temps reel. Un dashboard protege /admin/agent-stats donne une vue complete des conversations, du funnel de conversion et des services les plus demandes.",
-    problemsLabel: "Problemes resolus",
+    problemsLabel: "Benefices business",
     problems: [
-      "Aucune visibilite sur le comportement des visiteurs",
-      "Decisions business basees sur des intuitions, pas des donnees",
-      "Conformite Loi 25 difficile avec les outils analytics classiques",
-      "Impossible d'identifier les services les plus recherches",
-      "Pas de metriques pour optimiser le parcours de conversion",
+      "Decisions basees sur des donnees, pas des intuitions",
+      "Conformite Loi 25 assuree sans compromis sur les insights",
+      "Identification des services les plus recherches pour orienter le business",
     ],
   },
   {
@@ -55,25 +49,12 @@ const FEATURES = [
     title: "Scalable et extensible",
     description:
       "Architecture modulaire concue pour evoluer : emails automatises vers les sales, integration dans le systeme de vente, interactions intra-site et extra-site avec les outils Safex, API ouverte pour connecter d'autres systemes.",
-    problemsLabel: "Problemes resolus",
+    problemsLabel: "Benefices business",
     problems: [
-      "Solutions SaaS avec couts qui explosent selon le volume",
-      "Dependance a un fournisseur externe pour une fonction critique",
-      "Limites de scaling strictes (tokens/mois, conversations/jour)",
-      "Architecture fermee qui empeche les integrations futures",
-      "Pas de propriete des donnees ni du modele IA",
+      "Investissement one-shot — pas d'abonnement mensuel qui explose",
+      "Propriete totale du modele et des donnees, zero dependance externe",
+      "Scalable a l'infini pour supporter la croissance vers 5 bureaux",
     ],
-  },
-]
-
-const OPTION_B_EXTRAS = [
-  {
-    title: "Modele GPT de meilleure qualite",
-    description: "Option B utilise GPT-4o au lieu de Llama 3.3, offrant des reponses plus nuancees, une meilleure comprehension du contexte metier, et une conversation plus naturelle.",
-  },
-  {
-    title: "Apprentissage continu",
-    description: "L'agent construit son contexte au fur et a mesure des interactions. Il devient plus precis et pertinent avec le temps, ameliorant continuellement le parcours de conversion.",
   },
 ]
 
@@ -144,22 +125,7 @@ export function ObjectivesSlide() {
           ))}
         </div>
 
-        {/* Option B extras */}
-        <div className="mt-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="px-3 py-1 rounded-full bg-[#10B981]/10 border border-[#10B981]/30">
-              <span className="text-xs font-medium text-[#10B981] uppercase tracking-wider">Option B uniquement</span>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {OPTION_B_EXTRAS.map((extra, i) => (
-              <div key={i} className="p-6 rounded-xl border border-[#10B981]/30 bg-[#10B981]/5">
-                <h4 className="font-serif text-lg text-[#0f172a] mb-2">{extra.title}</h4>
-                <p className="text-sm text-[#64748b] font-sans leading-relaxed">{extra.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </div>
     </SlideWrapper>
   )

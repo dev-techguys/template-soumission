@@ -5,22 +5,22 @@ import { Server, TrendingUp, Clock, Shield } from "lucide-react"
 
 const VALUE_PROPS = [
   {
-    icon: Server,
-    label: "On-premise",
-    value: "100%",
-    detail: "Votre IA, sur votre infra",
-  },
-  {
     icon: Clock,
     label: "Qualification",
     value: "< 60s",
-    detail: "Du premier clic au devis",
+    detail: "Chaque visiteur guide vers le bon service",
   },
   {
     icon: TrendingUp,
-    label: "Scalabilite",
-    value: "Illimitee",
-    detail: "Pas de cout par conversation",
+    label: "Leads qualifies",
+    value: "Avant contact",
+    detail: "Qualification intelligente pre-formulaire",
+  },
+  {
+    icon: Server,
+    label: "Analytics",
+    value: "Actionables",
+    detail: "Optimiser le parcours de conversion",
   },
   {
     icon: Shield,
@@ -39,11 +39,11 @@ const PAIN_POINTS = [
 ]
 
 const SOLUTION_POINTS = [
-  "IA deployee sur votre infrastructure — cout fixe, pas d'abonnement",
-  "Modele custom entraine sur votre contexte metier Safex",
-  "Zero limite de conversations — scalez sans cout additionnel",
+  "Chaque visiteur guide vers le bon service en moins de 60 secondes",
+  "Qualification intelligente avant le formulaire — leads mieux qualifies",
+  "Analytics actionables pour optimiser le parcours de conversion",
   "Jargon transport integre : BOL, lane, spot quote, OTD, FTL/LTL",
-  "Investissement unique qui supporte la croissance vers 5 bureaux",
+  "Investissement one-shot qui supporte la croissance vers 5 bureaux",
 ]
 
 export function ContextSlide() {
