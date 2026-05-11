@@ -113,6 +113,7 @@ const FEATURES = [
       "Experience utilisateur personnalisee des la premiere interaction",
     ],
     expandable: false,
+    expandableType: null,
   },
   {
     icon: Navigation,
@@ -127,6 +128,7 @@ const FEATURES = [
       "Donnees d'intention capturees pour chaque visiteur",
     ],
     expandable: true,
+    expandableType: "workflow",
   },
   {
     icon: BarChart3,
@@ -140,7 +142,8 @@ const FEATURES = [
       "Conformite Loi 25 assuree sans compromis sur les insights",
       "Identification des services les plus recherches pour orienter le business",
     ],
-    expandable: false,
+    expandable: true,
+    expandableType: "dashboard",
   },
   {
     icon: Blocks,
@@ -155,6 +158,7 @@ const FEATURES = [
       "Scalable a l'infini pour supporter la croissance vers 5 bureaux",
     ],
     expandable: false,
+    expandableType: null,
   },
 ]
 
@@ -288,6 +292,131 @@ function WorkflowVisualization() {
   )
 }
 
+// Dashboard visualization component
+function DashboardVisualization() {
+  const SERVICES_DATA = [
+    { name: "FTL / LTL (General freight)", percentage: 58, color: "#ff7000" },
+    { name: "Reefer", percentage: 22, color: "#3b82f6" },
+    { name: "Cross-border", percentage: 11, color: "#10B981" },
+    { name: "Driver / Owner-operator", percentage: 6, color: "#f59e0b" },
+    { name: "Heavy Haul / 3PL", percentage: 3, color: "#8b5cf6" },
+  ]
+
+  const TOP_QUESTIONS = [
+    { question: "Do you deliver to California?", count: 12 },
+    { question: "What are your rates?", count: 8 },
+    { question: "Can I track my shipment?", count: 6 },
+  ]
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.4 }}
+      className="mt-6 overflow-hidden"
+    >
+      <div className="bg-[#0f172a] rounded-xl p-6 font-mono text-sm">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#ff7000]/20 flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 text-[#ff7000]" />
+            </div>
+            <span className="text-white font-sans font-medium">Safex AI Agent — Monthly Report</span>
+          </div>
+          <div className="px-3 py-1 rounded-lg bg-white/5 border border-white/10">
+            <span className="text-white/70 text-xs">[May 2026]</span>
+          </div>
+        </div>
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {[
+            { icon: "💬", label: "Total chats", value: "142", sublabel: "" },
+            { icon: "📋", label: "Quotes requested", value: "89", sublabel: "(63%)" },
+            { icon: "🌐", label: "EN/FR ratio", value: "78% / 22%", sublabel: "" },
+            { icon: "📍", label: "Top page source", value: "/services/ftl", sublabel: "" },
+          ].map((kpi, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="p-4 rounded-lg bg-white/5 border border-white/10"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-lg">{kpi.icon}</span>
+                <span className="text-[10px] text-white/50 uppercase tracking-wider">{kpi.label}</span>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-lg text-white font-sans font-bold">{kpi.value}</span>
+                {kpi.sublabel && <span className="text-xs text-[#10B981]">{kpi.sublabel}</span>}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Services Bar Chart */}
+        <div className="mb-8">
+          <div className="text-white/70 text-xs mb-4 font-sans">Top services demandes :</div>
+          <div className="flex flex-col gap-3">
+            {SERVICES_DATA.map((service, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                className="flex items-center gap-4"
+              >
+                <div className="w-48 h-6 bg-white/5 rounded overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${service.percentage}%` }}
+                    transition={{ duration: 0.8, delay: 0.5 + i * 0.1 }}
+                    className="h-full rounded"
+                    style={{ backgroundColor: service.color }}
+                  />
+                </div>
+                <span className="text-white/80 text-xs flex-1">{service.name}</span>
+                <span className="text-white/50 text-xs w-12 text-right">— {service.percentage}%</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Top Unresolved Questions */}
+        <div>
+          <div className="text-white/70 text-xs mb-4 font-sans">Top questions non resolues (free-text fallback) :</div>
+          <div className="flex flex-col gap-2">
+            {TOP_QUESTIONS.map((q, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 + i * 0.1 }}
+                className="flex items-center gap-3 text-white/60"
+              >
+                <span className="w-5 h-5 rounded bg-white/10 flex items-center justify-center text-[10px] text-white/50">{i + 1}.</span>
+                <span className="text-xs italic">&quot;{q.question}&quot;</span>
+                <span className="text-[10px] text-[#ff7000] ml-auto">({q.count}x)</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer note */}
+        <div className="mt-6 pt-4 border-t border-white/10">
+          <div className="flex items-center gap-2 text-[10px] text-white/40">
+            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+            <span>Donnees anonymisees — Zero PII stocke — Conforme Loi 25</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 export function ObjectivesSlide() {
   const [expandedFeature, setExpandedFeature] = useState<string | null>(null)
 
@@ -347,7 +476,12 @@ export function ObjectivesSlide() {
                         onClick={() => setExpandedFeature(expandedFeature === feature.number ? null : feature.number)}
                         className="flex items-center gap-2 text-xs text-[#ff7000] font-sans hover:underline mt-2 w-fit"
                       >
-                        <span>{expandedFeature === feature.number ? "Masquer le workflow" : "Voir le workflow Q1/Q2/Q3"}</span>
+                        <span>
+                          {expandedFeature === feature.number 
+                            ? (feature.expandableType === "dashboard" ? "Masquer le dashboard" : "Masquer le workflow")
+                            : (feature.expandableType === "dashboard" ? "Voir le prototype du dashboard" : "Voir le workflow Q1/Q2/Q3")
+                          }
+                        </span>
                         <motion.div
                           animate={{ rotate: expandedFeature === feature.number ? 180 : 0 }}
                           transition={{ duration: 0.2 }}
@@ -376,10 +510,13 @@ export function ObjectivesSlide() {
                   </div>
                 </div>
 
-                {/* Expandable workflow section */}
+                {/* Expandable sections */}
                 <AnimatePresence>
-                  {feature.expandable && expandedFeature === feature.number && (
+                  {feature.expandable && expandedFeature === feature.number && feature.expandableType === "workflow" && (
                     <WorkflowVisualization />
+                  )}
+                  {feature.expandable && expandedFeature === feature.number && feature.expandableType === "dashboard" && (
+                    <DashboardVisualization />
                   )}
                 </AnimatePresence>
               </div>
