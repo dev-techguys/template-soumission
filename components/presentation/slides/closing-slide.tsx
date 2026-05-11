@@ -133,20 +133,6 @@ export function ClosingSlide() {
             className="w-px h-12 bg-gradient-to-b from-transparent via-[#ff7000]/20 to-transparent origin-top" 
           />
 
-          {/* CTA */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="group flex items-center gap-3 px-8 py-4 rounded-full border border-[#ff7000]/30 hover:border-[#ff7000]/60 hover:bg-[#ff7000]/5 transition-all duration-300 cursor-pointer"
-          >
-            <span className="text-sm tracking-[0.1em] text-[#ff7000] font-sans font-medium">
-              Démarrer le projet
-            </span>
-            <span className="text-[#ff7000] group-hover:translate-x-1 transition-transform duration-300">→</span>
-          </motion.div>
-
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
