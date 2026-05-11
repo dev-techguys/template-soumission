@@ -2,102 +2,98 @@
 
 import { SlideWrapper } from "../slide-wrapper"
 import { useEffect, useRef, useState } from "react"
-import {
-  Wrench,
-  TrendingUp,
-  Bot,
-  CheckSquare,
-} from "lucide-react"
+import { CheckSquare, Rocket, Sparkles } from "lucide-react"
 
-const TIMELINE = [
+const TIMELINE_A = [
   {
-    icon: Wrench,
-    phase: "Mois 1",
-    title: "Phase 1 : Fondations & Quick Wins",
-    why: "Avant d'accélérer, il faut poser des bases solides — un audit honnête et un setup analytics irréprochable garantissent que chaque décision sera guidée par les données.",
-    kpi: "+25% trafic organique, CPL -20%",
+    sprint: "Sprint 0",
+    title: "Validation contenu",
+    effort: "½ jour",
     actions: [
-      {
-        task: "Audit SEO complet + setup analytics",
-        detail:
-          "Analyse technique, on-page et off-page complète. Configuration GA4, GTM et Google Search Console pour un tracking fiable dès le départ.",
-      },
-      {
-        task: "Optimisation des pages stratégiques",
-        detail:
-          "Correction des erreurs techniques prioritaires, optimisation des balises meta, amélioration de la vitesse et de la structure pour les pages à fort potentiel.",
-      },
-      {
-        task: "Setup Google Ads avec structure de campagnes propre",
-        detail:
-          "Architecture de campagnes segmentée par service (marketing digital, développement, ventes), avec audiences, messages et budgets alignés sur les mandats premium.",
-      },
+      "Réunion de validation avec Pierre (arbre de scénarios, wording EN/FR, emails de contact)",
+      "Confirmation des URLs de destination par service",
+      "Validation des seuils et comportements souhaités",
     ],
   },
   {
-    icon: TrendingUp,
-    phase: "Mois 2",
-    title: "Phase 2 : Croissance & Contenu",
-    why: "Avec les fondations en place, on active les leviers de croissance — contenu SEO pour le long terme et optimisation continue des campagnes pour le court terme.",
-    kpi: "+40% leads qualifiés, +15% taux de conversion",
+    sprint: "Sprint 1-2",
+    title: "Core IA + Widget UI",
+    effort: "6h",
     actions: [
-      {
-        task: "Publication de 4 articles SEO à fort potentiel",
-        detail:
-          "Création d'articles optimisés ciblant des requêtes stratégiques (ex. «agence marketing Montréal», «automatisation CRM PME»). Chaque article génère du trafic qualifié sur le long terme.",
-      },
-      {
-        task: "Optimisation continue des campagnes (A/B sur annonces)",
-        detail:
-          "Tests A/B sur les créatifs, titres et CTAs. Réallocation du budget vers les groupes d'annonces les plus performants pour améliorer le ROAS.",
-      },
-      {
-        task: "Landing pages de conversion pour chaque service",
-        detail:
-          "Création de pages dédiées par service (marketing, tech, ventes) avec parcours de conversion optimisé — formulaire court, preuve sociale, CTA clair.",
-      },
+      "Edge Function Groq avec streaming et rate limiting",
+      "System prompt dynamique adapté à la page courante",
+      "Widget UI complet (ChatWidget, ChatBubble, ChatPanel, ChatMessage, QualifyChips, ChatInput)",
     ],
   },
   {
-    icon: Bot,
-    phase: "Mois 3",
-    title: "Phase 3 : Automatisation & Scale",
-    why: "L'automatisation transforme les résultats en système — les leads entrent, sont qualifiés et suivis sans effort manuel, libérant l'équipe pour se concentrer sur les clients.",
-    kpi: "-60% temps de prospection manuelle, ×3 rendez-vous cédulés",
+    sprint: "Sprint 3-4",
+    title: "Routing + Analytics",
+    effort: "4h",
     actions: [
-      {
-        task: "Setup CRM avec pipeline de vente automatisé",
-        detail:
-          "Configuration du pipeline de vente avec étapes, assignation automatique et alertes. Chaque lead entrant est tracké et priorisé sans intervention manuelle.",
-      },
-      {
-        task: "Séquences d'email nurturing",
-        detail:
-          "Création de séquences automatisées pour convertir les leads froids en rendez-vous qualifiés — segmentées par source, service et niveau d'intention.",
-      },
-      {
-        task: "Rapport de performance mensuel systématique",
-        detail:
-          "Dashboard unifié SEO + Ads + Conversion avec recommandations priorisées pour le mois suivant. Visibility complète sur le ROI de chaque canal.",
-      },
+      "Logique resolveDestination() et messages contextuels",
+      "Fallback \"Talk to a human\" différencié par département",
+      "Analytics Supabase (logging anonymisé, table agent_events)",
+    ],
+  },
+  {
+    sprint: "Sprint 5-6",
+    title: "Dashboard + Finalisation",
+    effort: "4h",
+    actions: [
+      "Dashboard /admin/agent-stats avec middleware protection",
+      "Intégration bilingue complète, CSS animations",
+      "Tests mobile iOS/Android + PageSpeed validation",
     ],
   },
 ]
 
-function TimelineCard({
-  phase,
-  index,
-  totalInSection,
-  isVisible,
-}: {
-  phase: (typeof TIMELINE)[0]
-  index: number
-  totalInSection: number
-  isVisible: boolean
-}) {
-  const Icon = phase.icon
-  const isLast = index === totalInSection - 1
+const TIMELINE_B_EXTRAS = [
+  {
+    sprint: "Sprint 3-4",
+    title: "Qualification adaptative",
+    effort: "7h",
+    actions: [
+      "Détection du profil visiteur (acheteur expert, prospect, chauffeur)",
+      "Score d'intention en temps réel (0-7)",
+      "Questions de qualification approfondies par service (Reefer, Cross-border, etc.)",
+      "Routing direct vers sales + notification email (Resend)",
+    ],
+  },
+  {
+    sprint: "Sprint 5-6",
+    title: "Capture + Trigger",
+    effort: "5h",
+    actions: [
+      "Micro-capture de lead dans le chat (prénom, email, entreprise)",
+      "Pré-remplissage du formulaire de devis via URL params",
+      "Trigger proactif (30s sur page service, 60% scroll home)",
+      "Persistance de session inter-pages",
+    ],
+  },
+  {
+    sprint: "Sprint 7-9",
+    title: "Dashboard avancé + Polish",
+    effort: "7h",
+    actions: [
+      "Dashboard avancé avec funnel de conversion",
+      "Top questions catégorisées, exports",
+      "Animations Framer Motion premium",
+      "Tests complets et déploiement production",
+    ],
+  },
+]
 
+function SprintCard({
+  sprint,
+  index,
+  isVisible,
+  isLast,
+}: {
+  sprint: (typeof TIMELINE_A)[0]
+  index: number
+  isVisible: boolean
+  isLast: boolean
+}) {
   return (
     <div
       className={`relative pb-8 md:pb-10 transition-all duration-700 ${
@@ -111,18 +107,18 @@ function TimelineCard({
           <div
             className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${
               isVisible
-                ? "border-[#0DA5B5] bg-[#0DA5B5]/10 shadow-[0_0_20px_rgba(13,165,181,0.15)]"
+                ? "border-[#ff7000] bg-[#ff7000]/10 shadow-[0_0_20px_rgba(255,112,0,0.15)]"
                 : "border-[#e5e7eb] bg-white"
             }`}
           >
-            <span className="font-serif text-lg md:text-xl text-[#0DA5B5] font-semibold">
+            <span className="font-serif text-lg md:text-xl text-[#ff7000] font-semibold">
               {index + 1}
             </span>
           </div>
           {!isLast && (
             <div className="w-px flex-1 bg-[#e5e7eb] relative overflow-hidden">
               <div
-                className={`absolute top-0 left-0 w-full bg-gradient-to-b from-[#0DA5B5]/60 to-[#0DA5B5]/10 transition-all duration-1000 ease-out ${
+                className={`absolute top-0 left-0 w-full bg-gradient-to-b from-[#ff7000]/60 to-[#ff7000]/10 transition-all duration-1000 ease-out ${
                   isVisible ? "h-full" : "h-0"
                 }`}
                 style={{ transitionDelay: `${index * 100 + 400}ms` }}
@@ -133,53 +129,37 @@ function TimelineCard({
 
         {/* Right: card */}
         <div className="flex-1">
-          <div className="rounded-xl border border-[#e5e7eb] bg-white hover:border-[#0DA5B5]/30 hover:shadow-lg transition-all duration-500 overflow-hidden">
+          <div className="rounded-xl border border-[#e5e7eb] bg-white hover:border-[#ff7000]/30 hover:shadow-lg transition-all duration-500 overflow-hidden">
             {/* Card header */}
             <div className="px-5 pt-5 pb-3 md:px-7 md:pt-6 md:pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#0DA5B5]/10 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-[#0DA5B5]" />
-                </div>
+              <div className="flex items-center justify-between gap-3">
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-[#0DA5B5] font-sans font-medium">
-                    {phase.phase}
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-[#ff7000] font-sans font-medium">
+                    {sprint.sprint}
                   </span>
-                  <h3 className="font-serif text-xl md:text-2xl text-[#111827] leading-tight">
-                    {phase.title}
+                  <h3 className="font-serif text-xl md:text-2xl text-[#0f172a] leading-tight">
+                    {sprint.title}
                   </h3>
                 </div>
-              </div>
-              <p className="text-sm text-[#6B7280] font-sans leading-relaxed mt-3 pl-12">
-                {phase.why}
-              </p>
-              <div className="mt-3 pl-12">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFC43D]/15 border border-[#FFC43D]/30">
-                  <span className="text-[10px] tracking-[0.15em] uppercase text-[#111827]/70 font-sans font-medium">
-                    Objectif :
-                  </span>
-                  <span className="text-[10px] font-sans font-medium text-[#111827]">{phase.kpi}</span>
+                <span className="px-3 py-1 rounded-full bg-[#10B981]/10 border border-[#10B981]/30 text-[10px] font-sans font-medium text-[#10B981]">
+                  {sprint.effort}
                 </span>
               </div>
             </div>
 
             {/* Actions list */}
             <div className="px-5 pb-5 md:px-7 md:pb-6 flex flex-col gap-2.5">
-              {phase.actions.map((item, i) => (
+              {sprint.actions.map((item, i) => (
                 <div
                   key={i}
-                  className="flex gap-3 p-3.5 md:p-4 rounded-xl bg-[#f7f7f7] border border-[#e5e7eb] hover:border-[#d1d5db] transition-colors"
+                  className="flex gap-3 p-3.5 md:p-4 rounded-xl bg-[#f8fafc] border border-[#e5e7eb] hover:border-[#d1d5db] transition-colors"
                 >
                   <div className="shrink-0 mt-0.5">
-                    <CheckSquare className="w-4 h-4 text-[#0DA5B5]/50" />
+                    <CheckSquare className="w-4 h-4 text-[#ff7000]/50" />
                   </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-sm font-sans font-medium text-[#111827] leading-snug">
-                      {item.task}
-                    </span>
-                    <span className="text-xs font-sans text-[#6B7280] leading-relaxed">
-                      {item.detail}
-                    </span>
-                  </div>
+                  <span className="text-sm font-sans text-[#0f172a]/80 leading-relaxed">
+                    {item}
+                  </span>
                 </div>
               ))}
             </div>
@@ -217,34 +197,84 @@ export function RoadmapSlide() {
   }, [])
 
   return (
-    <SlideWrapper id="roadmap" className="bg-[#f7f7f7] !min-h-0">
-      <div className="max-w-4xl mx-auto px-6 md:px-8 py-20 w-full">
+    <SlideWrapper id="roadmap" className="bg-[#f8fafc] !min-h-0">
+      <div className="max-w-5xl mx-auto px-6 md:px-8 py-20 w-full">
         {/* Header */}
         <div className="flex flex-col gap-5 mb-14">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            05 / Feuille de route
+          <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
+            04 / Feuille de route
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#111827] max-w-3xl leading-tight text-balance">
-            Plan d{"'"}action sur 3 mois
+          <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-3xl leading-tight text-balance">
+            Plan de développement
           </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
-          <p className="text-base text-[#6B7280] font-sans max-w-2xl leading-relaxed">
-            Un plan structuré en 3 phases pour passer de l{"'"}audit à l{"'"}automatisation — avec des résultats mesurables dès le premier mois.
+          <div className="w-16 h-px bg-[#ff7000]" />
+          <p className="text-base text-[#64748b] font-sans max-w-2xl leading-relaxed">
+            Un plan de développement structuré en sprints, avec validation client à chaque étape clé.
           </p>
         </div>
 
-        {/* Timeline */}
-        <div ref={containerRef} className="relative">
-          {TIMELINE.map((phase, localIndex) => (
-            <div key={phase.title} data-index={localIndex}>
-              <TimelineCard
-                phase={phase}
-                index={localIndex}
-                totalInSection={TIMELINE.length}
-                isVisible={visibleCards.has(localIndex)}
-              />
+        {/* Option A Timeline */}
+        <div className="mb-16">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 rounded-xl bg-[#ff7000]/10 flex items-center justify-center">
+              <Rocket className="w-5 h-5 text-[#ff7000]" />
             </div>
-          ))}
+            <div>
+              <h3 className="font-serif text-2xl text-[#0f172a]">Option A — Essentiel</h3>
+              <p className="text-sm text-[#64748b] font-sans">14-16h de développement • 2-3 semaines</p>
+            </div>
+          </div>
+
+          <div ref={containerRef} className="relative">
+            {TIMELINE_A.map((sprint, localIndex) => (
+              <div key={sprint.title} data-index={localIndex}>
+                <SprintCard
+                  sprint={sprint}
+                  index={localIndex}
+                  isVisible={visibleCards.has(localIndex)}
+                  isLast={localIndex === TIMELINE_A.length - 1}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Option B Extras */}
+        <div className="p-6 rounded-xl border border-[#10B981]/30 bg-[#10B981]/5">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-[#10B981]/10 flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-[#10B981]" />
+            </div>
+            <div>
+              <h3 className="font-serif text-xl text-[#0f172a]">Option B — Sprints additionnels</h3>
+              <p className="text-sm text-[#64748b] font-sans">+13-14h supplémentaires • 5-7 semaines total</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {TIMELINE_B_EXTRAS.map((sprint) => (
+              <div key={sprint.sprint} className="p-4 rounded-lg bg-white border border-[#e5e7eb]">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-[#10B981] font-sans font-medium">
+                    {sprint.sprint}
+                  </span>
+                  <span className="text-[10px] text-[#64748b] font-sans">{sprint.effort}</span>
+                </div>
+                <h4 className="font-serif text-base text-[#0f172a] mb-2">{sprint.title}</h4>
+                <ul className="flex flex-col gap-1">
+                  {sprint.actions.slice(0, 3).map((action, i) => (
+                    <li key={i} className="text-xs text-[#64748b] font-sans flex items-start gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-[#10B981] mt-1.5 shrink-0" />
+                      {action}
+                    </li>
+                  ))}
+                  {sprint.actions.length > 3 && (
+                    <li className="text-xs text-[#10B981] font-sans">+{sprint.actions.length - 3} autres...</li>
+                  )}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </SlideWrapper>
