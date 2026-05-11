@@ -112,8 +112,8 @@ const FEATURES = [
       "Engagement 24/7 sans mobiliser de ressources humaines",
       "Expérience utilisateur personnalisée dès la première interaction",
     ],
-    expandable: false,
-    expandableType: null,
+    expandable: true,
+    expandableType: "widget",
   },
   {
     icon: Navigation,
@@ -161,6 +161,210 @@ const FEATURES = [
     expandableType: "scalability",
   },
 ]
+
+// Widget visualization component - Visual representation of the Safex AI agent
+function WidgetVisualization() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [messageStep, setMessageStep] = useState(0)
+
+  const messages = [
+    { from: "agent", text: "Hi! What are you looking to ship today?" },
+    { from: "user", text: "Temperature-sensitive cargo to Chicago" },
+    { from: "agent", text: "Perfect! Our reefer fleet handles temp-controlled shipments to the US. Let me redirect you to the right page." },
+  ]
+
+  useEffect(() => {
+    if (!isOpen) return
+    setMessageStep(0)
+    const timers = [
+      setTimeout(() => setMessageStep(1), 1000),
+      setTimeout(() => setMessageStep(2), 2500),
+      setTimeout(() => setMessageStep(3), 4500),
+    ]
+    return () => timers.forEach(clearTimeout)
+  }, [isOpen])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.4 }}
+      className="mt-6 overflow-hidden"
+    >
+      <div className="bg-[#0f172a] rounded-xl p-6">
+        {/* Browser mockup */}
+        <div className="relative bg-[#1e293b] rounded-xl overflow-hidden border border-white/10">
+          {/* Browser header */}
+          <div className="bg-[#0f172a] px-4 py-3 flex items-center gap-3 border-b border-white/10">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
+              <div className="w-3 h-3 rounded-full bg-[#f59e0b]" />
+              <div className="w-3 h-3 rounded-full bg-[#10b981]" />
+            </div>
+            <div className="flex-1 bg-white/5 rounded-md px-3 py-1.5 flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-[#10b981]" />
+              <span className="text-xs text-white/50 font-mono">safextransport.ca</span>
+            </div>
+          </div>
+          
+          {/* Website mockup content */}
+          <div className="relative h-80 bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6">
+            {/* Fake page content */}
+            <div className="space-y-3 opacity-30">
+              <div className="h-6 w-48 bg-white/20 rounded" />
+              <div className="h-3 w-full bg-white/10 rounded" />
+              <div className="h-3 w-3/4 bg-white/10 rounded" />
+              <div className="h-3 w-5/6 bg-white/10 rounded" />
+              <div className="mt-6 grid grid-cols-3 gap-3">
+                <div className="h-20 bg-white/5 rounded-lg" />
+                <div className="h-20 bg-white/5 rounded-lg" />
+                <div className="h-20 bg-white/5 rounded-lg" />
+              </div>
+            </div>
+            
+            {/* Floating chat button */}
+            <motion.button
+              onClick={() => setIsOpen(!isOpen)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="absolute bottom-4 right-4 w-14 h-14 rounded-full bg-[#ff7000] shadow-lg shadow-[#ff7000]/30 flex items-center justify-center cursor-pointer z-20"
+            >
+              <AnimatePresence mode="wait">
+                {isOpen ? (
+                  <motion.svg
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </motion.svg>
+                ) : (
+                  <motion.svg
+                    key="chat"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </motion.svg>
+                )}
+              </AnimatePresence>
+            </motion.button>
+            
+            {/* Chat panel */}
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                  className="absolute bottom-20 right-4 w-80 bg-[#0f172a] rounded-2xl shadow-2xl border border-white/10 overflow-hidden z-10"
+                >
+                  {/* Chat header */}
+                  <div className="bg-[#ff7000] px-4 py-3 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">S</span>
+                    </div>
+                    <div>
+                      <div className="text-white font-sans font-medium text-sm">Safex Assistant</div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
+                        <span className="text-white/70 text-xs">Online — 2s response</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Chat messages */}
+                  <div className="p-4 h-44 overflow-y-auto space-y-3">
+                    {messages.slice(0, messageStep).map((msg, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`flex gap-2 ${msg.from === "user" ? "justify-end" : ""}`}
+                      >
+                        {msg.from === "agent" && (
+                          <div className="w-7 h-7 rounded-full bg-[#ff7000] flex items-center justify-center shrink-0">
+                            <span className="text-white text-[10px] font-bold">S</span>
+                          </div>
+                        )}
+                        <div className={`max-w-[85%] px-3 py-2 rounded-xl text-xs ${
+                          msg.from === "user" 
+                            ? "bg-[#ff7000] text-white rounded-tr-sm" 
+                            : "bg-white/10 text-white/90 rounded-tl-sm"
+                        }`}>
+                          {msg.text}
+                        </div>
+                      </motion.div>
+                    ))}
+                    {messageStep > 0 && messageStep < 3 && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="flex gap-2"
+                      >
+                        <div className="w-7 h-7 rounded-full bg-[#ff7000] flex items-center justify-center shrink-0">
+                          <span className="text-white text-[10px] font-bold">S</span>
+                        </div>
+                        <div className="px-3 py-2 bg-white/10 rounded-xl rounded-tl-sm flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                          <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                          <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+                  
+                  {/* Quick actions */}
+                  <div className="px-4 pb-3 flex flex-wrap gap-1.5">
+                    {["General freight", "Reefer", "Cross-border"].map((chip) => (
+                      <span key={chip} className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] text-white/60 hover:border-[#ff7000]/50 hover:text-white/80 cursor-pointer transition-colors">
+                        {chip}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  {/* Input area */}
+                  <div className="px-4 pb-4">
+                    <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-3 py-2">
+                      <input 
+                        type="text" 
+                        placeholder="Type your message..." 
+                        className="flex-1 bg-transparent text-xs text-white/80 placeholder:text-white/30 outline-none"
+                        readOnly
+                      />
+                      <button className="w-7 h-7 rounded-lg bg-[#ff7000] flex items-center justify-center">
+                        <ArrowRight className="w-3.5 h-3.5 text-white" />
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+        
+        {/* Caption */}
+        <div className="mt-4 text-center">
+          <p className="text-white/50 text-xs font-sans">
+            Cliquez sur le bouton orange pour voir l&apos;agent en action
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 // Workflow visualization component with 3 tabs
 function WorkflowVisualization() {
@@ -903,7 +1107,7 @@ export function ObjectivesSlide() {
         <div className="flex flex-col gap-6 mb-16">
           <AnimatedDiv delay={0}>
             <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
-              03 / La feature
+              03 / Features
             </span>
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
@@ -954,8 +1158,8 @@ export function ObjectivesSlide() {
                       >
                         <span>
                           {expandedFeature === feature.number 
-                            ? (feature.expandableType === "dashboard" ? "Masquer le dashboard" : feature.expandableType === "scalability" ? "Masquer l'architecture" : "Masquer le workflow")
-                            : (feature.expandableType === "dashboard" ? "Voir le prototype du dashboard" : feature.expandableType === "scalability" ? "Voir l'architecture multi-canal" : "Voir le workflow Q1/Q2/Q3")
+                            ? (feature.expandableType === "widget" ? "Masquer l'agent" : feature.expandableType === "dashboard" ? "Masquer le dashboard" : feature.expandableType === "scalability" ? "Masquer l'architecture" : "Masquer le workflow")
+                            : (feature.expandableType === "widget" ? "Voir l'agent en action" : feature.expandableType === "dashboard" ? "Voir le prototype du dashboard" : feature.expandableType === "scalability" ? "Voir l'architecture multi-canal" : "Voir le workflow Q1/Q2/Q3")
                           }
                         </span>
                         <motion.div
@@ -988,6 +1192,9 @@ export function ObjectivesSlide() {
 
                 {/* Expandable sections */}
                 <AnimatePresence>
+                  {feature.expandable && expandedFeature === feature.number && feature.expandableType === "widget" && (
+                    <WidgetVisualization />
+                  )}
                   {feature.expandable && expandedFeature === feature.number && feature.expandableType === "workflow" && (
                     <WorkflowVisualization />
                   )}
