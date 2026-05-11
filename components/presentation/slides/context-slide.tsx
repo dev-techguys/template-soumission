@@ -1,14 +1,14 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Bot, TrendingUp, Clock, Shield } from "lucide-react"
+import { Server, TrendingUp, Clock, Shield } from "lucide-react"
 
 const VALUE_PROPS = [
   {
-    icon: TrendingUp,
-    label: "Conversion",
-    value: "+35%",
-    detail: "Engagement sur pages service",
+    icon: Server,
+    label: "On-premise",
+    value: "100%",
+    detail: "Votre IA, sur votre infra",
   },
   {
     icon: Clock,
@@ -17,10 +17,10 @@ const VALUE_PROPS = [
     detail: "Du premier clic au devis",
   },
   {
-    icon: Bot,
-    label: "Disponibilite",
-    value: "24/7",
-    detail: "Sans intervention humaine",
+    icon: TrendingUp,
+    label: "Scalabilite",
+    value: "Illimitee",
+    detail: "Pas de cout par conversation",
   },
   {
     icon: Shield,
@@ -31,17 +31,19 @@ const VALUE_PROPS = [
 ]
 
 const PAIN_POINTS = [
-  "Visiteurs qui quittent sans trouver le bon service",
-  "Equipe commerciale sollicitee pour des questions basiques",
-  "Prospects perdus en dehors des heures de bureau",
-  "Pas de qualification avant le formulaire de devis",
+  "Solutions SaaS avec abonnement mensuel croissant selon le volume",
+  "Dependance a un fournisseur externe — donnees hors de votre controle",
+  "Limites de scaling strictes (tokens/mois, conversations/jour)",
+  "IA generique qui ne comprend pas le jargon transport B2B",
+  "Couts imprevisibles qui explosent avec la croissance",
 ]
 
 const SOLUTION_POINTS = [
-  "Chaque visiteur est guide vers le bon service en < 60 secondes",
-  "L'agent repond aux questions frequentes 24/7 sans intervention",
-  "Qualification intelligente avant le formulaire — leads mieux qualifies",
-  "Analytics actionables pour optimiser le parcours de conversion",
+  "IA deployee sur votre infrastructure — cout fixe, pas d'abonnement",
+  "Modele custom entraine sur votre contexte metier Safex",
+  "Zero limite de conversations — scalez sans cout additionnel",
+  "Jargon transport integre : BOL, lane, spot quote, OTD, FTL/LTL",
+  "Investissement unique qui supporte la croissance vers 5 bureaux",
 ]
 
 export function ContextSlide() {
@@ -54,10 +56,10 @@ export function ContextSlide() {
             02 / Le projet
           </span>
           <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-3xl leading-tight text-balance">
-            Agent IA de navigation web
+            Votre IA, pas celle d&apos;un autre
           </h2>
           <p className="text-base text-[#64748b] font-sans leading-relaxed max-w-2xl">
-            Un widget de chat intelligent qui <span className="text-[#ff7000] font-medium">transforme chaque visiteur en prospect qualifie</span> — disponible 24/7, bilingue, et parfaitement integre a l&apos;identite Safex.
+            Un agent IA <span className="text-[#ff7000] font-medium">on-premise et sur-mesure</span> — pas un SaaS avec abonnement mensuel. Vous etes proprietaire du modele, des donnees, et de l&apos;infrastructure. Zero dependance externe, scaling illimite.
           </p>
           <div className="w-16 h-px bg-[#ff7000]" />
         </div>
@@ -87,7 +89,7 @@ export function ContextSlide() {
           <div className="p-6 rounded-xl border border-[#e5e7eb] bg-white">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
-              <h3 className="font-serif text-xl text-[#0f172a]">Aujourd&apos;hui</h3>
+              <h3 className="font-serif text-xl text-[#0f172a]">Solutions SaaS traditionnelles</h3>
             </div>
             <div className="flex flex-col gap-3">
               {PAIN_POINTS.map((point, i) => (
@@ -103,7 +105,7 @@ export function ContextSlide() {
           <div className="p-6 rounded-xl border border-[#10B981]/30 bg-[#10B981]/5">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-3 h-3 rounded-full bg-[#10B981]" />
-              <h3 className="font-serif text-xl text-[#0f172a]">Avec l&apos;agent IA</h3>
+              <h3 className="font-serif text-xl text-[#0f172a]">Approche on-premise TechGuys</h3>
             </div>
             <div className="flex flex-col gap-3">
               {SOLUTION_POINTS.map((point, i) => (
@@ -119,7 +121,7 @@ export function ContextSlide() {
         {/* Quote */}
         <div className="mt-12 p-6 rounded-xl border border-[#ff7000]/20 bg-[#ff7000]/5">
           <p className="text-base text-[#ff7000] font-sans leading-relaxed italic text-center">
-            {`«Un assistant commercial IA qui parle le jargon transport B2B — BOL, lane, spot quote, OTD — et guide chaque visiteur vers la bonne ressource Safex.»`}
+            {`«Pourquoi payer un abonnement mensuel pour une IA qui ne vous appartient pas, quand vous pouvez investir une seule fois dans un actif strategique?»`}
           </p>
         </div>
       </div>

@@ -9,14 +9,14 @@ const FEATURES = [
     number: "01",
     title: "Widget de chat intelligent",
     description:
-      "Un bouton flottant present sur toutes les pages, qui ouvre un panneau de conversation elegant et responsive. Le visiteur interagit via des chips cliquables ou en langage naturel avec un vrai LLM (Groq + Llama 3.3 70B).",
-    benefit: "Experience utilisateur premium qui guide le visiteur sans friction vers le bon service Safex.",
-    specs: [
-      "Bouton flottant bottom-right, cercle 56px, orange Safex",
-      "Panel responsive : bottom-sheet mobile, side-panel 380px desktop",
-      "Streaming natif (reponse lettre par lettre)",
-      "Widget 100% lazy-loaded — zero impact PageSpeed",
-      "Bilingue EN/FR, detection automatique",
+      "Un bouton flottant present sur toutes les pages, qui ouvre un panneau de conversation elegant et responsive. Le visiteur interagit via des chips cliquables ou en langage naturel avec un LLM performant.",
+    problemsLabel: "Problemes resolus",
+    problems: [
+      "Visiteurs qui quittent le site sans trouver le bon service",
+      "Navigation complexe dans un catalogue de services varie",
+      "Manque d'engagement sur les pages — taux de rebond eleve",
+      "Pas de premier point de contact accessible 24/7",
+      "Experience utilisateur impersonnelle et generique",
     ],
   },
   {
@@ -25,13 +25,13 @@ const FEATURES = [
     title: "Flow de qualification structure",
     description:
       "Trois questions avec chips cliquables pour qualifier rapidement le visiteur : type de cargo, destination, urgence. En moins de 60 secondes, l'agent route vers la bonne page service ou le formulaire de devis.",
-    benefit: "Conversion optimisee : chaque visiteur trouve le bon service sans chercher dans le menu.",
-    specs: [
-      "Q1 : Qu'est-ce qui vous amene ? (Fret general, Reefer, Heavy Haul, 3PL, Chauffeur)",
-      "Q2 : Ou va la marchandise ? (Canada, Canada - USA, Pas decide)",
-      "Q3 : Quand en avez-vous besoin ? (Urgent, Cette semaine, Flexible)",
-      "Matrice de decision vers la page service appropriee",
-      "Fallback \"Talk to a human\" differencie par departement",
+    problemsLabel: "Problemes resolus",
+    problems: [
+      "Formulaires de contact non qualifies qui surchargent l'equipe",
+      "Leads froids qui n'ont pas ete pre-qualifies avant contact",
+      "Temps perdu par les commerciaux sur des demandes hors cible",
+      "Prospects perdus car ils ne trouvent pas le service adapte",
+      "Manque de donnees sur les intentions des visiteurs",
     ],
   },
   {
@@ -39,14 +39,14 @@ const FEATURES = [
     number: "03",
     title: "Analytics sans PII + Dashboard admin",
     description:
-      "Les chemins de navigation anonymises sont logges en temps reel dans Supabase. Un dashboard protege /admin/agent-stats donne a Pierre une vue complete des conversations, du funnel de conversion et des services les plus demandes.",
-    benefit: "Donnees actionables pour optimiser le parcours — conformite Loi 25 garantie.",
-    specs: [
-      "Aucune conversation stockee — seuls les chemins chips sont logges",
-      "Metrics : conversations, taux vers devis, repartition EN/FR",
-      "Top services demandes avec barres visuelles",
-      "Option B : funnel avance, leads captures, exports",
-      "Dashboard protege par ADMIN_SECRET",
+      "Les chemins de navigation anonymises sont logges en temps reel. Un dashboard protege /admin/agent-stats donne une vue complete des conversations, du funnel de conversion et des services les plus demandes.",
+    problemsLabel: "Problemes resolus",
+    problems: [
+      "Aucune visibilite sur le comportement des visiteurs",
+      "Decisions business basees sur des intuitions, pas des donnees",
+      "Conformite Loi 25 difficile avec les outils analytics classiques",
+      "Impossible d'identifier les services les plus recherches",
+      "Pas de metriques pour optimiser le parcours de conversion",
     ],
   },
   {
@@ -55,14 +55,25 @@ const FEATURES = [
     title: "Scalable et extensible",
     description:
       "Architecture modulaire concue pour evoluer : emails automatises vers les sales, integration dans le systeme de vente, interactions intra-site et extra-site avec les outils Safex, API ouverte pour connecter d'autres systemes.",
-    benefit: "Un investissement perenne qui supporte la croissance vers 5 bureaux sans refonte.",
-    specs: [
-      "Option B : Notification email automatique vers sales/dispatch/HR",
-      "Option B : Pre-remplissage du formulaire de devis via URL params",
-      "Option B : Trigger proactif (30s sur page service, 60% scroll home)",
-      "Option B : Persistance de session inter-pages",
-      "Architecture extensible : webhooks, API, integrations futures",
+    problemsLabel: "Problemes resolus",
+    problems: [
+      "Solutions SaaS avec couts qui explosent selon le volume",
+      "Dependance a un fournisseur externe pour une fonction critique",
+      "Limites de scaling strictes (tokens/mois, conversations/jour)",
+      "Architecture fermee qui empeche les integrations futures",
+      "Pas de propriete des donnees ni du modele IA",
     ],
+  },
+]
+
+const OPTION_B_EXTRAS = [
+  {
+    title: "Modele GPT de meilleure qualite",
+    description: "Option B utilise GPT-4o au lieu de Llama 3.3, offrant des reponses plus nuancees, une meilleure comprehension du contexte metier, et une conversation plus naturelle.",
+  },
+  {
+    title: "Apprentissage continu",
+    description: "L'agent construit son contexte au fur et a mesure des interactions. Il devient plus precis et pertinent avec le temps, ameliorant continuellement le parcours de conversion.",
   },
 ]
 
@@ -110,22 +121,19 @@ export function ObjectivesSlide() {
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
                     {feature.description}
                   </p>
-                  <p className="text-sm text-[#0f172a]/80 font-sans leading-relaxed font-medium">
-                    {feature.benefit}
-                  </p>
                 </div>
 
-                {/* Right: Specs */}
+                {/* Right: Problems solved */}
                 <div className="lg:col-span-5 flex flex-col gap-4">
                   <div>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#ff7000] font-sans mb-2 block font-medium">
-                      Specifications
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#10B981] font-sans mb-2 block font-medium">
+                      {feature.problemsLabel}
                     </span>
                     <div className="flex flex-col gap-1.5">
-                      {feature.specs.map((spec, i) => (
+                      {feature.problems.map((problem, i) => (
                         <div key={i} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#ff7000] mt-1.5 shrink-0" />
-                          <span className="text-xs text-[#0f172a]/80 font-sans leading-relaxed">{spec}</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] mt-1.5 shrink-0" />
+                          <span className="text-xs text-[#0f172a]/80 font-sans leading-relaxed">{problem}</span>
                         </div>
                       ))}
                     </div>
@@ -134,6 +142,23 @@ export function ObjectivesSlide() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Option B extras */}
+        <div className="mt-12">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="px-3 py-1 rounded-full bg-[#10B981]/10 border border-[#10B981]/30">
+              <span className="text-xs font-medium text-[#10B981] uppercase tracking-wider">Option B uniquement</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {OPTION_B_EXTRAS.map((extra, i) => (
+              <div key={i} className="p-6 rounded-xl border border-[#10B981]/30 bg-[#10B981]/5">
+                <h4 className="font-serif text-lg text-[#0f172a] mb-2">{extra.title}</h4>
+                <p className="text-sm text-[#64748b] font-sans leading-relaxed">{extra.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </SlideWrapper>
