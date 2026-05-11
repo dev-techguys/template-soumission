@@ -60,23 +60,21 @@ const MONTHS = [
   { name: "Mois 2", weeks: [5, 6, 7, 8] },
 ]
 
-// Task tooltip component
-function TaskTooltip({ task, onClose }: { task: Task; onClose: () => void }) {
+// Task tooltip component - now uses fixed positioning for better overflow handling
+function TaskTooltip({ task, position }: { task: Task; position: { x: number; y: number } }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 10, scale: 0.95 }}
       transition={{ duration: 0.2 }}
-      className="absolute z-50 top-full left-0 mt-2 w-64 p-4 rounded-xl border shadow-xl bg-white"
-      style={{ borderColor: task.color + "40" }}
+      className="fixed z-[100] w-64 p-4 rounded-xl border shadow-xl bg-white pointer-events-none"
+      style={{ 
+        borderColor: task.color + "40",
+        left: Math.min(position.x, window.innerWidth - 280),
+        top: position.y + 10,
+      }}
     >
-      <button
-        onClick={onClose}
-        className="absolute top-2 right-2 p-1 rounded-lg hover:bg-gray-100 transition-colors"
-      >
-        <X className="w-3 h-3 text-gray-400" />
-      </button>
       <div className="flex items-center gap-2 mb-3">
         <div
           className="w-3 h-3 rounded-full"
@@ -102,12 +100,19 @@ function TaskTooltip({ task, onClose }: { task: Task; onClose: () => void }) {
 
 function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
   const [hoveredTask, setHoveredTask] = useState<Task | null>(null)
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
   
   // Combine tasks based on selected option
   const allTasks = selectedOption === "A" ? GANTT_TASKS_A : [...GANTT_TASKS_A, ...PREMIUM_TASKS]
   
   // Get max week for current option
   const maxWeek = selectedOption === "A" ? 4 : 8
+  
+  const handleMouseEnter = (task: Task, e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setTooltipPosition({ x: rect.left, y: rect.bottom })
+    setHoveredTask(task)
+  }
 
   return (
     <div className="w-full overflow-x-auto">
@@ -193,21 +198,14 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
                         initial={{ scaleX: 0, opacity: 0 }}
                         animate={{ scaleX: 1, opacity: 1 }}
                         transition={{ duration: 0.4, delay: 0.1 }}
-                        className="h-7 w-full rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition-transform relative"
+                        className="h-7 w-full rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
                         style={{ backgroundColor: task.color, transformOrigin: "left" }}
-                        onMouseEnter={() => setHoveredTask(task)}
+                        onMouseEnter={(e) => handleMouseEnter(task, e)}
                         onMouseLeave={() => setHoveredTask(null)}
                       >
                         <span className="text-[10px] font-sans text-white font-medium truncate px-1">
                           {task.hours}
                         </span>
-                        
-                        {/* Tooltip */}
-                        <AnimatePresence>
-                          {hoveredTask?.id === task.id && week.num === task.week && (
-                            <TaskTooltip task={task} onClose={() => setHoveredTask(null)} />
-                          )}
-                        </AnimatePresence>
                       </motion.div>
                     )}
                   </motion.div>
@@ -258,6 +256,13 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
           </AnimatePresence>
         </div>
       </div>
+      
+      {/* Fixed position tooltip */}
+      <AnimatePresence>
+        {hoveredTask && (
+          <TaskTooltip task={hoveredTask} position={tooltipPosition} />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

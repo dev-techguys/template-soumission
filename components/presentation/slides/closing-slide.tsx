@@ -156,17 +156,6 @@ export function ClosingSlide() {
           >
             Confidentiel — Mai 2026
           </motion.span>
-
-          {/* Reference */}
-          <motion.code 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 1.1 }}
-            className="text-[10px] text-[#10B981]/50 font-mono"
-          >
-            feat/ai-chat-agent • safex_fullstack
-          </motion.code>
         </div>
       </div>
     </SlideWrapper>

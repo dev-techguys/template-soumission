@@ -149,26 +149,11 @@ export function CoverSlide() {
             </span>
           </motion.div>
 
-          {/* Reference */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="flex items-center gap-2 mt-4"
-          >
-            <span className="text-[10px] tracking-[0.2em] uppercase text-white/30 font-sans">
-              Référence projet :
-            </span>
-            <code className="text-[10px] text-[#10B981]/70 font-mono bg-[#10B981]/10 px-2 py-0.5 rounded">
-              feat/ai-chat-agent
-            </code>
-          </motion.div>
-
           {/* Ornamental line */}
           <motion.div 
             initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
-            transition={{ duration: 0.4, delay: 1.3 }}
+            transition={{ duration: 0.4, delay: 1.2 }}
             className="w-px h-10 bg-gradient-to-b from-transparent via-[#ff7000]/20 to-transparent origin-top" 
           />
         </div>
