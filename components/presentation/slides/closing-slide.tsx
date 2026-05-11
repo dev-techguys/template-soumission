@@ -41,14 +41,7 @@ export function ClosingSlide() {
             backgroundSize: "60px 60px",
           }}
         />
-        {/* Horizontal accent line */}
-        <motion.div 
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#ff7000]/10 to-transparent" 
-        />
+
       </div>
 
       {/* Content */}
@@ -138,7 +131,7 @@ export function ClosingSlide() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 1 }}
-            className="text-[10px] tracking-[0.3em] uppercase text-white/30 font-sans mt-4"
+            className="text-[10px] tracking-[0.3em] uppercase text-white/30 font-sans mt-4 mb-8"
           >
             Confidentiel — Mai 2026
           </motion.span>

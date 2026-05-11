@@ -32,13 +32,7 @@ export function CoverSlide() {
             backgroundSize: "60px 60px",
           }}
         />
-        {/* Diagonal accent line */}
-        <motion.div 
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#ff7000]/15 to-transparent origin-left" 
-        />
+
       </div>
 
       {/* Content */}
@@ -154,7 +148,7 @@ export function CoverSlide() {
             initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
             transition={{ duration: 0.4, delay: 1.2 }}
-            className="w-px h-10 bg-gradient-to-b from-transparent via-[#ff7000]/20 to-transparent origin-top" 
+            className="w-px h-10 bg-gradient-to-b from-transparent via-[#ff7000]/20 to-transparent origin-top mb-16" 
           />
         </div>
 
@@ -163,7 +157,7 @@ export function CoverSlide() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce"
         >
           <span className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans">
             Défiler
