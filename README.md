@@ -186,3 +186,5 @@ Ces fichiers peuvent être modifiés **uniquement en fin de workflow** (étapes 
 | Basse | **PDF export** | Génération d'un PDF de la soumission en un clic |
 | Basse | **Aperçu client protégé** | Accès via lien unique + mot de passe |
 | Basse | **Analytics de lecture** | Suivi des slides consultées, temps passé, ouvertures |
+
+Dev par jo
