@@ -4,15 +4,140 @@ import { SlideWrapper } from "../slide-wrapper"
 import { useEffect, useRef, useState } from "react"
 import { CheckSquare, Rocket, Sparkles } from "lucide-react"
 
+// Timeline data for Gantt chart - 8 weeks (2 months)
+const GANTT_TASKS_A = [
+  { id: "validation", name: "Validation contenu", hours: "4h", week: 1, duration: 1, color: "#ff7000" },
+  { id: "edge", name: "Edge Function Groq", hours: "3h", week: 1, duration: 1, color: "#ff7000" },
+  { id: "widget", name: "Widget UI complet", hours: "3h", week: 2, duration: 1, color: "#ff7000" },
+  { id: "routing", name: "Routing + Messages", hours: "2h", week: 2, duration: 1, color: "#ff7000" },
+  { id: "analytics", name: "Analytics Supabase", hours: "2h", week: 3, duration: 1, color: "#ff7000" },
+  { id: "dashboard", name: "Dashboard admin", hours: "2h", week: 3, duration: 1, color: "#ff7000" },
+  { id: "tests", name: "Tests + Deploy", hours: "2h", week: 4, duration: 1, color: "#10B981" },
+]
+
+const GANTT_TASKS_B_EXTRAS = [
+  { id: "skills", name: "Skills domaine", hours: "4h", week: 3, duration: 1, color: "#10B981" },
+  { id: "qualif", name: "Qualification adaptative", hours: "4h", week: 4, duration: 1, color: "#10B981" },
+  { id: "notif", name: "Routing sales + Notif", hours: "3h", week: 5, duration: 1, color: "#10B981" },
+  { id: "trigger", name: "Trigger proactif", hours: "2h", week: 5, duration: 1, color: "#10B981" },
+  { id: "capture", name: "Capture lead", hours: "3h", week: 6, duration: 1, color: "#10B981" },
+  { id: "analytics2", name: "Analytics avances", hours: "2h", week: 6, duration: 1, color: "#10B981" },
+  { id: "dashboard2", name: "Dashboard avance", hours: "3h", week: 7, duration: 1, color: "#10B981" },
+  { id: "polish", name: "Framer + Tests", hours: "2h", week: 8, duration: 1, color: "#10B981" },
+]
+
+const WEEKS = [
+  { num: 1, label: "S1" },
+  { num: 2, label: "S2" },
+  { num: 3, label: "S3" },
+  { num: 4, label: "S4" },
+  { num: 5, label: "S5" },
+  { num: 6, label: "S6" },
+  { num: 7, label: "S7" },
+  { num: 8, label: "S8" },
+]
+
+const MONTHS = [
+  { name: "Mois 1", weeks: [1, 2, 3, 4] },
+  { name: "Mois 2", weeks: [5, 6, 7, 8] },
+]
+
+function GanttChart({ tasks, showExtras = false }: { tasks: typeof GANTT_TASKS_A; showExtras?: boolean }) {
+  const allTasks = showExtras ? [...GANTT_TASKS_A, ...GANTT_TASKS_B_EXTRAS] : tasks
+
+  return (
+    <div className="w-full overflow-x-auto">
+      <div className="min-w-[700px]">
+        {/* Month headers */}
+        <div className="flex border-b border-[#e5e7eb]">
+          <div className="w-40 shrink-0" />
+          {MONTHS.map((month) => (
+            <div
+              key={month.name}
+              className="flex-1 text-center py-2 text-sm font-sans font-medium text-[#0f172a] border-l border-[#e5e7eb]"
+            >
+              {month.name}
+            </div>
+          ))}
+        </div>
+
+        {/* Week headers */}
+        <div className="flex border-b border-[#e5e7eb] bg-[#f8fafc]">
+          <div className="w-40 shrink-0 px-3 py-2 text-[10px] tracking-[0.1em] uppercase text-[#64748b] font-sans">
+            Jalon
+          </div>
+          {WEEKS.map((week) => (
+            <div
+              key={week.num}
+              className="flex-1 text-center py-2 text-xs font-sans text-[#64748b] border-l border-[#e5e7eb]"
+            >
+              {week.label}
+            </div>
+          ))}
+        </div>
+
+        {/* Task rows */}
+        {allTasks.map((task, index) => (
+          <div
+            key={task.id}
+            className={`flex border-b border-[#e5e7eb] hover:bg-[#f8fafc] transition-colors ${
+              index >= GANTT_TASKS_A.length ? "bg-[#10B981]/5" : ""
+            }`}
+          >
+            {/* Task name */}
+            <div className="w-40 shrink-0 px-3 py-3 flex items-center gap-2">
+              <span className="text-xs font-sans text-[#0f172a] truncate">{task.name}</span>
+              <span className="text-[10px] font-sans text-[#64748b] shrink-0">({task.hours})</span>
+            </div>
+
+            {/* Week cells with bar */}
+            {WEEKS.map((week) => (
+              <div
+                key={week.num}
+                className="flex-1 py-3 px-1 border-l border-[#e5e7eb] flex items-center"
+              >
+                {week.num >= task.week && week.num < task.week + task.duration && (
+                  <div
+                    className="h-6 w-full rounded-md flex items-center justify-center"
+                    style={{ backgroundColor: task.color }}
+                  >
+                    <span className="text-[10px] font-sans text-white font-medium truncate px-1">
+                      {task.hours}
+                    </span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
+
+        {/* Legend */}
+        <div className="flex items-center gap-6 mt-4 px-3">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded bg-[#ff7000]" />
+            <span className="text-xs font-sans text-[#64748b]">Option A (Essentiel)</span>
+          </div>
+          {showExtras && (
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded bg-[#10B981]" />
+              <span className="text-xs font-sans text-[#64748b]">Option B (Extras)</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const TIMELINE_A = [
   {
     sprint: "Sprint 0",
     title: "Validation contenu",
-    effort: "½ jour",
+    effort: "1/2 jour",
     actions: [
-      "Réunion de validation avec Pierre (arbre de scénarios, wording EN/FR, emails de contact)",
+      "Reunion de validation avec Pierre (arbre de scenarios, wording EN/FR, emails de contact)",
       "Confirmation des URLs de destination par service",
-      "Validation des seuils et comportements souhaités",
+      "Validation des seuils et comportements souhaites",
     ],
   },
   {
@@ -21,7 +146,7 @@ const TIMELINE_A = [
     effort: "6h",
     actions: [
       "Edge Function Groq avec streaming et rate limiting",
-      "System prompt dynamique adapté à la page courante",
+      "System prompt dynamique adapte a la page courante",
       "Widget UI complet (ChatWidget, ChatBubble, ChatPanel, ChatMessage, QualifyChips, ChatInput)",
     ],
   },
@@ -31,8 +156,8 @@ const TIMELINE_A = [
     effort: "4h",
     actions: [
       "Logique resolveDestination() et messages contextuels",
-      "Fallback \"Talk to a human\" différencié par département",
-      "Analytics Supabase (logging anonymisé, table agent_events)",
+      "Fallback \"Talk to a human\" differencie par departement",
+      "Analytics Supabase (logging anonymise, table agent_events)",
     ],
   },
   {
@@ -41,7 +166,7 @@ const TIMELINE_A = [
     effort: "4h",
     actions: [
       "Dashboard /admin/agent-stats avec middleware protection",
-      "Intégration bilingue complète, CSS animations",
+      "Integration bilingue complete, CSS animations",
       "Tests mobile iOS/Android + PageSpeed validation",
     ],
   },
@@ -53,8 +178,8 @@ const TIMELINE_B_EXTRAS = [
     title: "Qualification adaptative",
     effort: "7h",
     actions: [
-      "Détection du profil visiteur (acheteur expert, prospect, chauffeur)",
-      "Score d'intention en temps réel (0-7)",
+      "Detection du profil visiteur (acheteur expert, prospect, chauffeur)",
+      "Score d'intention en temps reel (0-7)",
       "Questions de qualification approfondies par service (Reefer, Cross-border, etc.)",
       "Routing direct vers sales + notification email (Resend)",
     ],
@@ -64,21 +189,21 @@ const TIMELINE_B_EXTRAS = [
     title: "Capture + Trigger",
     effort: "5h",
     actions: [
-      "Micro-capture de lead dans le chat (prénom, email, entreprise)",
-      "Pré-remplissage du formulaire de devis via URL params",
+      "Micro-capture de lead dans le chat (prenom, email, entreprise)",
+      "Pre-remplissage du formulaire de devis via URL params",
       "Trigger proactif (30s sur page service, 60% scroll home)",
       "Persistance de session inter-pages",
     ],
   },
   {
     sprint: "Sprint 7-9",
-    title: "Dashboard avancé + Polish",
+    title: "Dashboard avance + Polish",
     effort: "7h",
     actions: [
-      "Dashboard avancé avec funnel de conversion",
-      "Top questions catégorisées, exports",
+      "Dashboard avance avec funnel de conversion",
+      "Top questions categorisees, exports",
       "Animations Framer Motion premium",
-      "Tests complets et déploiement production",
+      "Tests complets et deploiement production",
     ],
   },
 ]
@@ -205,12 +330,26 @@ export function RoadmapSlide() {
             04 / Feuille de route
           </span>
           <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-3xl leading-tight text-balance">
-            Plan de développement
+            Plan de developpement
           </h2>
           <div className="w-16 h-px bg-[#ff7000]" />
           <p className="text-base text-[#64748b] font-sans max-w-2xl leading-relaxed">
-            Un plan de développement structuré en sprints, avec validation client à chaque étape clé.
+            Un plan de developpement structure sur 2 mois, avec validation client a chaque etape cle.
           </p>
+        </div>
+
+        {/* Gantt Chart Timeline */}
+        <div className="mb-16 p-6 rounded-xl border border-[#e5e7eb] bg-white">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-[#ff7000]/10 flex items-center justify-center">
+              <Rocket className="w-5 h-5 text-[#ff7000]" />
+            </div>
+            <div>
+              <h3 className="font-serif text-xl text-[#0f172a]">Timeline sur 2 mois</h3>
+              <p className="text-sm text-[#64748b] font-sans">Vue calendrier hebdomadaire — Option A + B</p>
+            </div>
+          </div>
+          <GanttChart tasks={GANTT_TASKS_A} showExtras={true} />
         </div>
 
         {/* Option A Timeline */}
@@ -221,7 +360,7 @@ export function RoadmapSlide() {
             </div>
             <div>
               <h3 className="font-serif text-2xl text-[#0f172a]">Option A — Essentiel</h3>
-              <p className="text-sm text-[#64748b] font-sans">14-16h de développement • 2-3 semaines</p>
+              <p className="text-sm text-[#64748b] font-sans">14-16h de developpement - 2-3 semaines</p>
             </div>
           </div>
 
@@ -247,7 +386,7 @@ export function RoadmapSlide() {
             </div>
             <div>
               <h3 className="font-serif text-xl text-[#0f172a]">Option B — Sprints additionnels</h3>
-              <p className="text-sm text-[#64748b] font-sans">+13-14h supplémentaires • 5-7 semaines total</p>
+              <p className="text-sm text-[#64748b] font-sans">+13-14h supplementaires - 5-7 semaines total</p>
             </div>
           </div>
 

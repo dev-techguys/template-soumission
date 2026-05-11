@@ -1,5 +1,7 @@
+"use client"
+
 import { SlideWrapper } from "../slide-wrapper"
-import { MessageSquare, Navigation, Bot, Shield } from "lucide-react"
+import { MessageSquare, Navigation, BarChart3, Blocks } from "lucide-react"
 
 const FEATURES = [
   {
@@ -7,55 +9,59 @@ const FEATURES = [
     number: "01",
     title: "Widget de chat intelligent",
     description:
-      "Un bouton flottant présent sur toutes les pages, qui ouvre un panneau de conversation élégant et responsive. Le visiteur interagit via des chips cliquables ou en langage naturel.",
-    benefit: "Expérience utilisateur premium qui guide le visiteur sans friction vers le bon service Safex.",
+      "Un bouton flottant present sur toutes les pages, qui ouvre un panneau de conversation elegant et responsive. Le visiteur interagit via des chips cliquables ou en langage naturel avec un vrai LLM (Groq + Llama 3.3 70B).",
+    benefit: "Experience utilisateur premium qui guide le visiteur sans friction vers le bon service Safex.",
     specs: [
       "Bouton flottant bottom-right, cercle 56px, orange Safex",
       "Panel responsive : bottom-sheet mobile, side-panel 380px desktop",
-      "Streaming natif (réponse lettre par lettre)",
-      "Widget 100% lazy-loaded — zéro impact PageSpeed",
+      "Streaming natif (reponse lettre par lettre)",
+      "Widget 100% lazy-loaded — zero impact PageSpeed",
+      "Bilingue EN/FR, detection automatique",
     ],
   },
   {
     icon: Navigation,
     number: "02",
-    title: "Flow de qualification structuré",
+    title: "Flow de qualification structure",
     description:
-      "Trois questions avec chips cliquables pour qualifier rapidement le visiteur : type de cargo, destination, urgence. En moins de 60 secondes, l'agent route vers la bonne page service.",
-    benefit: "Conversion optimisée : chaque visiteur trouve le bon service sans chercher dans le menu.",
+      "Trois questions avec chips cliquables pour qualifier rapidement le visiteur : type de cargo, destination, urgence. En moins de 60 secondes, l'agent route vers la bonne page service ou le formulaire de devis.",
+    benefit: "Conversion optimisee : chaque visiteur trouve le bon service sans chercher dans le menu.",
     specs: [
-      "Q1 : Qu'est-ce qui vous amène ? (Fret général, Reefer, Heavy Haul, 3PL, Chauffeur)",
-      "Q2 : Où va la marchandise ? (Canada, Canada ↔ USA, Pas décidé)",
+      "Q1 : Qu'est-ce qui vous amene ? (Fret general, Reefer, Heavy Haul, 3PL, Chauffeur)",
+      "Q2 : Ou va la marchandise ? (Canada, Canada - USA, Pas decide)",
       "Q3 : Quand en avez-vous besoin ? (Urgent, Cette semaine, Flexible)",
-      "Matrice de décision → routing vers la page service appropriée",
+      "Matrice de decision vers la page service appropriee",
+      "Fallback \"Talk to a human\" differencie par departement",
     ],
   },
   {
-    icon: Bot,
+    icon: BarChart3,
     number: "03",
-    title: "LLM Groq + Llama 3.3 70B",
+    title: "Analytics sans PII + Dashboard admin",
     description:
-      "Un vrai modèle de langage — pas un chatbot à règles. L'agent comprend le jargon B2B transport nativement (BOL, lane, spot quote, OTD) et répond en bilingue EN/FR.",
-    benefit: "Crédibilité auprès des professionnels du transport — l'agent parle leur langage.",
+      "Les chemins de navigation anonymises sont logges en temps reel dans Supabase. Un dashboard protege /admin/agent-stats donne a Pierre une vue complete des conversations, du funnel de conversion et des services les plus demandes.",
+    benefit: "Donnees actionables pour optimiser le parcours — conformite Loi 25 garantie.",
     specs: [
-      "Groq : ~500 tokens/sec, réponses quasi-instantanées",
-      "System prompt dynamique adapté à la page courante",
-      "Bilingue natif EN/FR, détection automatique",
-      "Coût LLM estimé : < 3$ USD/mois au trafic actuel",
+      "Aucune conversation stockee — seuls les chemins chips sont logges",
+      "Metrics : conversations, taux vers devis, repartition EN/FR",
+      "Top services demandes avec barres visuelles",
+      "Option B : funnel avance, leads captures, exports",
+      "Dashboard protege par ADMIN_SECRET",
     ],
   },
   {
-    icon: Shield,
+    icon: Blocks,
     number: "04",
-    title: "Garde-fous et conformité",
+    title: "Scalable et extensible",
     description:
-      "L'agent est configuré avec des garde-fous stricts : pas de tarifs inventés, pas de commentaires RH, pas de données sensibles. Analytics sans PII pour conformité Loi 25.",
-    benefit: "Protection de l'image Safex — aucun risque de déclaration inappropriée.",
+      "Architecture modulaire concue pour evoluer : emails automatises vers les sales, integration dans le systeme de vente, interactions intra-site et extra-site avec les outils Safex, API ouverte pour connecter d'autres systemes.",
+    benefit: "Un investissement perenne qui supporte la croissance vers 5 bureaux sans refonte.",
     specs: [
-      "Interdiction de mentionner tarifs, délais garantis, flotte",
-      "Aucune conversation stockée côté serveur",
-      "Seuls les chemins de navigation anonymisés sont loggés",
-      "Fallback \"Talk to a human\" différencié par département",
+      "Option B : Notification email automatique vers sales/dispatch/HR",
+      "Option B : Pre-remplissage du formulaire de devis via URL params",
+      "Option B : Trigger proactif (30s sur page service, 60% scroll home)",
+      "Option B : Persistance de session inter-pages",
+      "Architecture extensible : webhooks, API, integrations futures",
     ],
   },
 ]
@@ -70,11 +76,11 @@ export function ObjectivesSlide() {
             03 / La feature
           </span>
           <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-3xl leading-tight text-balance">
-            Agent IA de navigation
+            Les 4 piliers de l&apos;agent
           </h2>
           <div className="w-16 h-px bg-[#ff7000]" />
           <p className="text-base text-[#64748b] font-sans max-w-2xl leading-relaxed">
-            Un widget de chat flottant, présent sur toutes les pages du site vitrine, qui guide chaque visiteur vers le bon service Safex via un flow de qualification intelligent.
+            Un widget de chat flottant, present sur toutes les pages du site vitrine, qui guide chaque visiteur vers le bon service Safex via un flow de qualification intelligent.
           </p>
         </div>
 
@@ -104,7 +110,7 @@ export function ObjectivesSlide() {
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
                     {feature.description}
                   </p>
-                  <p className="text-sm text-[#0f172a]/80 font-sans leading-relaxed">
+                  <p className="text-sm text-[#0f172a]/80 font-sans leading-relaxed font-medium">
                     {feature.benefit}
                   </p>
                 </div>
@@ -113,11 +119,11 @@ export function ObjectivesSlide() {
                 <div className="lg:col-span-5 flex flex-col gap-4">
                   <div>
                     <span className="text-[10px] tracking-[0.2em] uppercase text-[#ff7000] font-sans mb-2 block font-medium">
-                      Spécifications
+                      Specifications
                     </span>
                     <div className="flex flex-col gap-1.5">
-                      {feature.specs.map((spec) => (
-                        <div key={spec} className="flex items-start gap-2">
+                      {feature.specs.map((spec, i) => (
+                        <div key={i} className="flex items-start gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#ff7000] mt-1.5 shrink-0" />
                           <span className="text-xs text-[#0f172a]/80 font-sans leading-relaxed">{spec}</span>
                         </div>
