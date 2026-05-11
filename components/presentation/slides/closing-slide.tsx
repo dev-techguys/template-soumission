@@ -27,10 +27,10 @@ export function ClosingSlide() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center pt-16">
         <div className="flex flex-col items-center gap-8 max-w-2xl">
           {/* Logo */}
-          <div className="w-20 h-20 relative mb-4">
+          <div className="w-24 h-24 relative mb-2">
             <Image
               src="/images/safex-logo.png"
               alt="Safex Transport"

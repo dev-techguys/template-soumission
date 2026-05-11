@@ -26,7 +26,7 @@ export function CoverSlide() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center pt-24">
         {/* Top line */}
         <div className="absolute top-8 left-8 right-8 flex items-center justify-between">
           <span className="text-xs tracking-[0.3em] uppercase text-white/50 font-sans font-medium">
@@ -39,7 +39,7 @@ export function CoverSlide() {
 
         <div className="flex flex-col items-center gap-8">
           {/* Logo Safex */}
-          <div className="w-24 h-24 relative mb-4">
+          <div className="w-28 h-28 relative mb-2">
             <Image
               src="/images/safex-logo.png"
               alt="Safex Transport"
