@@ -162,50 +162,40 @@ const FEATURES = [
   },
 ]
 
-// Workflow visualization component with enhanced interactivity
+// Workflow visualization component with 3 tabs
 function WorkflowVisualization() {
-  const [activeTab, setActiveTab] = useState<"questions" | "tree">("questions")
-  const [demoPhase, setDemoPhase] = useState<"chips" | "typing" | "thinking" | "redirect">("chips")
+  const [activeTab, setActiveTab] = useState<"questions" | "demo" | "tree">("questions")
+  const [demoPhase, setDemoPhase] = useState<"idle" | "typing" | "thinking" | "redirect">("idle")
   const [typedText, setTypedText] = useState("")
   const [currentUrl, setCurrentUrl] = useState("safextransport.ca/services")
   const fullText = "I need to ship frozen food from Montreal to Chicago"
 
-  // Auto-run typing demo
-  useEffect(() => {
-    if (activeTab !== "questions") return
+  // Manual demo trigger - not auto
+  const runDemo = async () => {
+    if (demoPhase !== "idle") return
     
-    const sequence = async () => {
-      // Phase 1: Show chips
-      setDemoPhase("chips")
-      await new Promise(r => setTimeout(r, 3000))
-      
-      // Phase 2: Typing animation
-      setDemoPhase("typing")
-      setTypedText("")
-      for (let i = 0; i <= fullText.length; i++) {
-        await new Promise(r => setTimeout(r, 40))
-        setTypedText(fullText.slice(0, i))
-      }
-      await new Promise(r => setTimeout(r, 500))
-      
-      // Phase 3: AI thinking
-      setDemoPhase("thinking")
-      await new Promise(r => setTimeout(r, 2000))
-      
-      // Phase 4: URL change
-      setDemoPhase("redirect")
-      setCurrentUrl("safextransport.ca/services/refrigerated-transport")
-      await new Promise(r => setTimeout(r, 3000))
-      
-      // Reset
-      setCurrentUrl("safextransport.ca/services")
-      setDemoPhase("chips")
+    // Phase 1: Typing animation (slower)
+    setDemoPhase("typing")
+    setTypedText("")
+    for (let i = 0; i <= fullText.length; i++) {
+      await new Promise(r => setTimeout(r, 60))
+      setTypedText(fullText.slice(0, i))
     }
+    await new Promise(r => setTimeout(r, 1000))
     
-    sequence()
-    const interval = setInterval(sequence, 12000)
-    return () => clearInterval(interval)
-  }, [activeTab])
+    // Phase 2: AI thinking
+    setDemoPhase("thinking")
+    await new Promise(r => setTimeout(r, 2500))
+    
+    // Phase 3: URL change
+    setDemoPhase("redirect")
+    setCurrentUrl("safextransport.ca/services/refrigerated-transport")
+    await new Promise(r => setTimeout(r, 4000))
+    
+    // Reset
+    setCurrentUrl("safextransport.ca/services")
+    setDemoPhase("idle")
+  }
 
   return (
     <motion.div
@@ -216,7 +206,7 @@ function WorkflowVisualization() {
       className="mt-6 overflow-hidden"
     >
       {/* Tabs */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-6 flex-wrap">
         <button
           onClick={() => setActiveTab("questions")}
           className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
@@ -225,7 +215,17 @@ function WorkflowVisualization() {
               : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
           }`}
         >
-          Démo interactive
+          Questions Q1/Q2/Q3
+        </button>
+        <button
+          onClick={() => setActiveTab("demo")}
+          className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
+            activeTab === "demo"
+              ? "bg-[#0f172a] text-white"
+              : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
+          }`}
+        >
+          Saisie libre
         </button>
         <button
           onClick={() => setActiveTab("tree")}
@@ -235,14 +235,53 @@ function WorkflowVisualization() {
               : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
           }`}
         >
-          Arbre de décision
+          Arbre de scénarios
         </button>
       </div>
 
       <AnimatePresence mode="wait">
-        {activeTab === "questions" ? (
+        {/* TAB 1: Questions Q1/Q2/Q3 */}
+        {activeTab === "questions" && (
           <motion.div
             key="questions"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="bg-[#0f172a] rounded-xl p-6"
+          >
+            <p className="text-white/60 text-sm font-sans mb-6">
+              Les 3 questions sont posées sous forme de <span className="text-white font-medium">chips cliquables</span> — pas de saisie libre. Simple, rapide, mobile-friendly.
+            </p>
+            
+            {WORKFLOW_QUESTIONS.map((q, qIndex) => (
+              <div key={q.id} className={qIndex > 0 ? "mt-6" : ""}>
+                <div className="text-white/70 mb-3 font-mono text-sm">
+                  <span className="text-[#ff7000]">{q.id}</span> — {q.question}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {q.chips.map((chip, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: qIndex * 0.1 + i * 0.05 }}
+                      className="px-4 py-2.5 border border-white/20 rounded-lg text-white/90 hover:border-[#ff7000]/50 hover:bg-[#ff7000]/10 transition-all cursor-pointer"
+                    >
+                      <div className="text-sm font-sans">{chip.label}</div>
+                      {chip.sublabel && <div className="text-xs text-white/50">{chip.sublabel}</div>}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        )}
+
+        {/* TAB 2: Demo saisie libre */}
+        {activeTab === "demo" && (
+          <motion.div
+            key="demo"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -256,26 +295,22 @@ function WorkflowVisualization() {
                 <div className="w-3 h-3 rounded-full bg-[#f59e0b]" />
                 <div className="w-3 h-3 rounded-full bg-[#10b981]" />
               </div>
-              <motion.div 
-                className="flex-1 bg-[#0f172a] rounded-md px-3 py-1.5 flex items-center gap-2"
-                animate={demoPhase === "redirect" ? { backgroundColor: ["#0f172a", "#ff7000/20", "#0f172a"] } : {}}
-                transition={{ duration: 0.5 }}
-              >
+              <div className="flex-1 bg-[#0f172a] rounded-md px-3 py-1.5 flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-[#10b981]" />
                 <motion.span 
                   className="text-xs text-white/70 font-mono"
                   key={currentUrl}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  animate={demoPhase === "redirect" ? { color: ["rgba(255,255,255,0.7)", "#ff7000", "rgba(255,255,255,0.7)"] } : {}}
+                  transition={{ duration: 0.5 }}
                 >
                   {currentUrl}
                 </motion.span>
-              </motion.div>
+              </div>
             </div>
             
             {/* Chat widget mockup */}
             <div className="p-6">
-              <div className="max-w-md mx-auto">
+              <div className="max-w-lg mx-auto">
                 {/* Agent message */}
                 <div className="flex gap-3 mb-4">
                   <div className="w-8 h-8 rounded-full bg-[#ff7000] flex items-center justify-center shrink-0">
@@ -286,46 +321,39 @@ function WorkflowVisualization() {
                   </div>
                 </div>
                 
-                {/* Chips or typing */}
-                <AnimatePresence mode="wait">
-                  {demoPhase === "chips" && (
-                    <motion.div
-                      key="chips"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="flex flex-wrap gap-2 mb-4 ml-11"
+                {/* Idle state - Show button */}
+                {demoPhase === "idle" && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="ml-11 mb-4"
+                  >
+                    <button
+                      onClick={runDemo}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#ff7000] hover:bg-[#e06300] rounded-lg text-white text-sm font-sans transition-colors"
                     >
-                      {["General freight", "Temperature-sensitive", "Oversized", "Storage"].map((chip, i) => (
-                        <motion.div
-                          key={chip}
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: i * 0.1 }}
-                          className="px-3 py-1.5 border border-white/20 rounded-full text-white/80 text-xs hover:border-[#ff7000]/50 hover:bg-[#ff7000]/10 transition-all cursor-pointer"
-                        >
-                          {chip}
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
-                  
-                  {(demoPhase === "typing" || demoPhase === "thinking" || demoPhase === "redirect") && (
-                    <motion.div
-                      key="user-input"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="flex gap-3 mb-4 justify-end"
-                    >
-                      <div className="bg-[#ff7000] rounded-2xl rounded-tr-md px-4 py-3 max-w-xs">
-                        <p className="text-white text-sm">
-                          {typedText}
-                          {demoPhase === "typing" && <span className="animate-pulse">|</span>}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      <span>Lancer la démo</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                    <p className="text-white/40 text-xs mt-2">Le visiteur tape en langage naturel au lieu de cliquer sur les chips</p>
+                  </motion.div>
+                )}
+                
+                {/* User typing */}
+                {(demoPhase === "typing" || demoPhase === "thinking" || demoPhase === "redirect") && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex gap-3 mb-4 justify-end"
+                  >
+                    <div className="bg-[#ff7000] rounded-2xl rounded-tr-md px-4 py-3 max-w-xs">
+                      <p className="text-white text-sm">
+                        {typedText}
+                        {demoPhase === "typing" && <span className="animate-pulse">|</span>}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
                 
                 {/* AI thinking */}
                 {demoPhase === "thinking" && (
@@ -337,13 +365,18 @@ function WorkflowVisualization() {
                     <div className="w-8 h-8 rounded-full bg-[#ff7000] flex items-center justify-center shrink-0">
                       <span className="text-white text-xs font-bold">S</span>
                     </div>
-                    <div className="bg-white/10 rounded-2xl rounded-tl-md px-4 py-3 flex items-center gap-2">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-4 h-4 border-2 border-[#ff7000]/30 border-t-[#ff7000] rounded-full"
-                      />
-                      <span className="text-white/50 text-sm">Analyse de l&apos;intention...</span>
+                    <div className="bg-white/10 rounded-2xl rounded-tl-md px-4 py-3">
+                      <div className="flex items-center gap-3">
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          className="w-4 h-4 border-2 border-[#ff7000]/30 border-t-[#ff7000] rounded-full"
+                        />
+                        <span className="text-white/50 text-sm">Analyse de l&apos;intention...</span>
+                      </div>
+                      <div className="mt-2 text-white/30 text-xs font-mono">
+                        Intent: reefer, Route: cross-border, Urgency: standard
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -360,27 +393,24 @@ function WorkflowVisualization() {
                     </div>
                     <div className="bg-white/10 rounded-2xl rounded-tl-md px-4 py-3">
                       <p className="text-white/90 text-sm mb-2">Perfect! For temperature-controlled shipments to the US, our reefer fleet is ideal.</p>
-                      <div className="flex items-center gap-2 text-[#10b981] text-xs">
+                      <motion.div 
+                        className="flex items-center gap-2 text-[#10b981] text-xs"
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      >
                         <ArrowRight className="w-3 h-3" />
-                        <span>Redirecting to Refrigerated Transport...</span>
-                      </div>
+                        <span>Redirecting to /services/refrigerated-transport...</span>
+                      </motion.div>
                     </div>
                   </motion.div>
                 )}
               </div>
-              
-              {/* Explanation */}
-              <div className="mt-6 pt-4 border-t border-white/10 text-center">
-                <p className="text-white/50 text-xs font-sans">
-                  {demoPhase === "chips" && "Le visiteur peut cliquer sur un chip..."}
-                  {demoPhase === "typing" && "...ou taper directement en langage naturel"}
-                  {demoPhase === "thinking" && "L'IA analyse l'intention et le contexte"}
-                  {demoPhase === "redirect" && "Puis redirige vers la page appropriée"}
-                </p>
-              </div>
             </div>
           </motion.div>
-        ) : (
+        )}
+
+        {/* TAB 3: Arbre de scénarios */}
+        {activeTab === "tree" && (
           <motion.div
             key="tree"
             initial={{ opacity: 0, y: 10 }}
@@ -389,85 +419,113 @@ function WorkflowVisualization() {
             transition={{ duration: 0.3 }}
             className="bg-[#0f172a] rounded-xl p-6"
           >
-            {/* Visual decision tree */}
-            <div className="flex flex-col items-center">
-              {/* Start node */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="px-6 py-3 bg-gradient-to-r from-[#ff7000] to-[#f59e0b] rounded-xl text-white font-sans text-sm font-medium shadow-lg"
-              >
-                Visiteur arrive sur le site
-              </motion.div>
+            {/* Header explanation */}
+            <div className="mb-6 p-4 bg-white/5 rounded-lg border border-white/10">
+              <p className="text-white/70 text-sm font-sans">
+                L&apos;agent IA est guidé par un <span className="text-[#ff7000] font-medium">arbre de scénarios évolutif</span>. 
+                Ce projet construit la base de cet arbre, qui pourra être enrichi au fil du temps.
+              </p>
+            </div>
+            
+            {/* Tree visualization with proper SVG connections */}
+            <div className="relative">
+              {/* SVG for connection lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+                {/* Line from START to Q1 */}
+                <line x1="50%" y1="40" x2="50%" y2="70" stroke="rgba(255,112,0,0.5)" strokeWidth="2" />
+                {/* Lines from Q1 to branches */}
+                <line x1="50%" y1="110" x2="10%" y2="170" stroke="rgba(255,112,0,0.3)" strokeWidth="1" />
+                <line x1="50%" y1="110" x2="30%" y2="170" stroke="rgba(59,130,246,0.3)" strokeWidth="1" />
+                <line x1="50%" y1="110" x2="50%" y2="170" stroke="rgba(139,92,246,0.3)" strokeWidth="1" />
+                <line x1="50%" y1="110" x2="70%" y2="170" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
+                <line x1="50%" y1="110" x2="90%" y2="170" stroke="rgba(245,158,11,0.3)" strokeWidth="1" />
+                {/* Lines from branches to destinations */}
+                <line x1="10%" y1="230" x2="10%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
+                <line x1="30%" y1="230" x2="30%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
+                <line x1="50%" y1="230" x2="50%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
+                <line x1="70%" y1="230" x2="70%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
+                <line x1="90%" y1="230" x2="90%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
+              </svg>
               
-              {/* Connector line */}
-              <motion.div
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ delay: 0.2 }}
-                className="w-px h-8 bg-gradient-to-b from-[#ff7000] to-white/20 origin-top"
-              />
-              
-              {/* Q1 */}
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white/80 font-sans text-xs"
-              >
-                Q1: Type de cargo ?
-              </motion.div>
-              
-              {/* Branch lines */}
-              <div className="w-full max-w-2xl mt-4">
-                <div className="grid grid-cols-5 gap-2">
+              <div className="relative flex flex-col items-center" style={{ zIndex: 1 }}>
+                {/* Start node */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="px-5 py-2.5 bg-gradient-to-r from-[#ff7000] to-[#f59e0b] rounded-full text-white font-sans text-sm font-medium shadow-lg"
+                >
+                  Visiteur
+                </motion.div>
+                
+                {/* Q1 node */}
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="mt-8 px-4 py-2 bg-white/10 border border-[#ff7000]/50 rounded-lg text-white font-sans text-xs"
+                >
+                  Q1: Type de cargo ?
+                </motion.div>
+                
+                {/* Branches */}
+                <div className="mt-8 w-full grid grid-cols-5 gap-2">
                   {DECISION_BRANCHES.slice(0, 5).map((branch, i) => (
                     <motion.div
                       key={branch.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 + i * 0.1 }}
+                      transition={{ delay: 0.3 + i * 0.1 }}
                       className="flex flex-col items-center"
                     >
-                      <div className="w-px h-6 bg-white/20" />
                       <div 
-                        className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-lg"
-                        style={{ backgroundColor: branch.color }}
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-lg border-2"
+                        style={{ backgroundColor: branch.color + "20", borderColor: branch.color }}
                       >
                         {branch.id}
                       </div>
-                      <div className="mt-2 text-center">
-                        <p className="text-white/70 text-[10px] font-sans leading-tight">{branch.label.split(" ")[0]}</p>
+                      <div className="mt-2 text-center h-8">
+                        <p className="text-white/60 text-[10px] font-sans leading-tight">{branch.label.split("/")[0].trim()}</p>
                       </div>
-                      <div className="w-px h-4 bg-white/20 mt-2" />
-                      <div className="px-2 py-1 bg-[#10b981]/20 border border-[#10b981]/30 rounded text-[#10b981] text-[8px] font-mono">
-                        {branch.routes[0]?.destination.split("/").pop()}
+                      {/* Destination */}
+                      <div className="mt-4 px-2 py-1.5 bg-[#10b981]/10 border border-[#10b981]/30 rounded-lg">
+                        <code className="text-[#10b981] text-[9px]">{branch.routes[0]?.destination.split("/").pop()}</code>
                       </div>
                     </motion.div>
                   ))}
                 </div>
+                
+                {/* Fallback section */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                  className="mt-8 p-4 bg-white/5 rounded-xl border border-white/10 w-full max-w-md"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-7 h-7 rounded-lg bg-[#64748b] flex items-center justify-center text-white text-xs font-bold">F</div>
+                    <span className="text-white/70 text-xs font-sans font-medium">Fallback — Questions free-text</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {DECISION_BRANCHES[5].routes.slice(0, 4).map((route, i) => (
+                      <div key={i} className="flex items-center gap-2 text-[10px]">
+                        <MessageCircle className="w-3 h-3 text-[#64748b] shrink-0" />
+                        <span className="text-white/50 truncate">{route.path}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+                
+                {/* Extensibility note */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                  className="mt-6 flex items-center gap-2 text-white/40 text-xs font-sans"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ff7000] animate-pulse" />
+                  <span>Arbre extensible — nouvelles branches ajoutables sans redéploiement</span>
+                </motion.div>
               </div>
-              
-              {/* Fallback section */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9 }}
-                className="mt-8 p-4 bg-white/5 rounded-xl border border-white/10 w-full max-w-lg"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-6 h-6 rounded bg-[#64748b] flex items-center justify-center text-white text-xs font-bold">F</div>
-                  <span className="text-white/70 text-xs font-sans">Fallback — Questions libres</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2 text-[10px]">
-                  {['"Where are you located?"', '"Are you hiring?"', '"Pricing?"', '"Talk to a human"'].map((q, i) => (
-                    <div key={i} className="flex items-center gap-2 text-white/50">
-                      <MessageCircle className="w-3 h-3 text-[#64748b]" />
-                      <span className="italic">{q}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
             </div>
           </motion.div>
         )}
@@ -671,7 +729,7 @@ function DashboardVisualization() {
   )
 }
 
-// Scalability visualization component - Multi-channel API architecture (centered)
+// Scalability visualization component - Multi-channel API architecture (clean centered layout)
 function ScalabilityVisualization() {
   const CHANNELS = [
     { name: "Widget web", icon: "🌐", color: "#ff7000" },
@@ -695,180 +753,137 @@ function ScalabilityVisualization() {
       transition={{ duration: 0.4 }}
       className="mt-6 overflow-hidden"
     >
-      <div className="bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-xl p-8">
-        {/* Centered architecture diagram */}
-        <div className="flex flex-col items-center">
-          {/* Input channels row */}
-          <div className="flex items-center justify-center gap-3 mb-6">
+      <div className="bg-[#0f172a] rounded-xl p-6">
+        {/* Header explanation */}
+        <div className="mb-6 p-4 bg-white/5 rounded-lg border border-white/10">
+          <p className="text-white/70 text-sm font-sans">
+            Architecture modulaire : une <span className="text-[#ff7000] font-medium">API centrale unique</span> qui peut être connectée à n&apos;importe quel canal. 
+            Pas besoin de dupliquer le code — une mise à jour se propage partout.
+          </p>
+        </div>
+        
+        {/* Clean 3-row architecture */}
+        <div className="flex flex-col items-center gap-4">
+          {/* Row 1: Input channels */}
+          <div className="flex items-center justify-center gap-4">
             {CHANNELS.map((channel, i) => (
               <motion.div
                 key={channel.name}
-                initial={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="flex flex-col items-center gap-2"
+                transition={{ delay: i * 0.08 }}
+                className="flex flex-col items-center gap-1.5"
               >
                 <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-lg"
+                  className="w-11 h-11 rounded-xl flex items-center justify-center text-lg shadow-md"
                   style={{ 
-                    backgroundColor: channel.color + "20", 
-                    border: `1px solid ${channel.color}40` 
+                    backgroundColor: channel.color + "15", 
+                    border: `1px solid ${channel.color}30` 
                   }}
                 >
                   {channel.icon}
                 </div>
-                <span className="text-white/50 text-[10px] font-sans">{channel.name}</span>
+                <span className="text-white/40 text-[9px] font-sans">{channel.name}</span>
               </motion.div>
             ))}
           </div>
           
-          {/* Converging lines */}
+          {/* Row 1.5: Converging arrows */}
           <motion.div 
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ delay: 0.5 }}
-            className="relative w-full max-w-md h-8 origin-top"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="flex items-center justify-center gap-6 py-2"
           >
-            <svg className="w-full h-full" viewBox="0 0 400 32" fill="none" preserveAspectRatio="none">
-              <motion.path 
-                d="M40 0 L200 32" 
-                stroke="rgba(255,112,0,0.3)" 
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
+            {[1, 2, 3, 4, 5].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ delay: 0.4 + i * 0.05 }}
+                className="w-px h-4 bg-gradient-to-b from-white/20 to-[#ff7000]/40 origin-top"
               />
-              <motion.path 
-                d="M120 0 L200 32" 
-                stroke="rgba(255,112,0,0.3)" 
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 0.55, duration: 0.4 }}
-              />
-              <motion.path 
-                d="M200 0 L200 32" 
-                stroke="rgba(255,112,0,0.5)" 
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 0.6, duration: 0.4 }}
-              />
-              <motion.path 
-                d="M280 0 L200 32" 
-                stroke="rgba(255,112,0,0.3)" 
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 0.65, duration: 0.4 }}
-              />
-              <motion.path 
-                d="M360 0 L200 32" 
-                stroke="rgba(255,112,0,0.3)" 
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 0.7, duration: 0.4 }}
-              />
-            </svg>
+            ))}
           </motion.div>
           
-          {/* Central API node */}
+          {/* Row 2: Central API */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
-            className="relative my-4"
+            transition={{ delay: 0.6 }}
+            className="relative"
           >
-            <div className="absolute inset-0 bg-[#ff7000]/20 rounded-2xl blur-xl" />
-            <div className="relative px-8 py-5 rounded-2xl border-2 border-[#ff7000] bg-gradient-to-br from-[#ff7000]/20 to-[#ff7000]/5">
+            <div className="absolute inset-0 bg-[#ff7000]/10 rounded-2xl blur-xl" />
+            <div className="relative px-6 py-4 rounded-2xl border-2 border-[#ff7000] bg-gradient-to-br from-[#ff7000]/15 to-transparent">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#ff7000] flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-10 h-10 rounded-xl bg-[#ff7000] flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
                 <div>
                   <code className="text-[#ff7000] text-sm font-bold">/api/agent</code>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="px-2 py-0.5 bg-white/10 rounded text-[9px] text-white/60">Groq LLM</span>
-                    <span className="px-2 py-0.5 bg-white/10 rounded text-[9px] text-white/60">Router</span>
-                    <span className="px-2 py-0.5 bg-white/10 rounded text-[9px] text-white/60">Skills</span>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <span className="px-1.5 py-0.5 bg-white/10 rounded text-[8px] text-white/50">LLM</span>
+                    <span className="px-1.5 py-0.5 bg-white/10 rounded text-[8px] text-white/50">Router</span>
+                    <span className="px-1.5 py-0.5 bg-white/10 rounded text-[8px] text-white/50">Skills</span>
                   </div>
                 </div>
               </div>
             </div>
           </motion.div>
           
-          {/* Diverging lines */}
+          {/* Row 2.5: Diverging arrows */}
           <motion.div 
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ delay: 1 }}
-            className="relative w-48 h-6 origin-top"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="flex items-center justify-center gap-8 py-2"
           >
-            <svg className="w-full h-full" viewBox="0 0 192 24" fill="none" preserveAspectRatio="none">
-              <motion.path 
-                d="M96 0 L32 24" 
-                stroke="rgba(16,185,129,0.4)" 
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 1, duration: 0.3 }}
+            {[1, 2, 3].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ delay: 0.8 + i * 0.05 }}
+                className="w-px h-4 bg-gradient-to-b from-[#ff7000]/40 to-[#10b981]/40 origin-top"
               />
-              <motion.path 
-                d="M96 0 L96 24" 
-                stroke="rgba(16,185,129,0.4)" 
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 1.1, duration: 0.3 }}
-              />
-              <motion.path 
-                d="M96 0 L160 24" 
-                stroke="rgba(16,185,129,0.4)" 
-                strokeWidth="1"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 1.2, duration: 0.3 }}
-              />
-            </svg>
+            ))}
           </motion.div>
           
-          {/* Output destinations */}
-          <div className="flex items-center justify-center gap-4">
+          {/* Row 3: Outputs */}
+          <div className="flex items-center justify-center gap-6">
             {OUTPUTS.map((output, i) => (
               <motion.div
                 key={output.name}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3 + i * 0.1 }}
-                className="flex flex-col items-center gap-2"
+                transition={{ delay: 0.9 + i * 0.08 }}
+                className="flex flex-col items-center gap-1.5"
               >
-                <div className="w-10 h-10 rounded-lg bg-[#10b981]/20 border border-[#10b981]/30 flex items-center justify-center text-lg">
+                <div className="w-10 h-10 rounded-lg bg-[#10b981]/15 border border-[#10b981]/30 flex items-center justify-center text-lg">
                   {output.icon}
                 </div>
-                <span className="text-[#10b981] text-[10px] font-sans">{output.name}</span>
+                <span className="text-[#10b981] text-[9px] font-sans">{output.name}</span>
               </motion.div>
             ))}
           </div>
         </div>
         
-        {/* Benefits grid below */}
+        {/* Benefits row */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 1.1 }}
           className="mt-8 pt-6 border-t border-white/10 grid grid-cols-3 gap-4"
         >
           {[
-            { icon: "🔧", label: "Maintenance unique", desc: "Un seul prompt, une seule logique" },
-            { icon: "🎯", label: "Cohérence totale", desc: "Même expertise partout" },
-            { icon: "📈", label: "Scale infini", desc: "+1 canal = +10 lignes de code" },
+            { label: "Maintenance unique", desc: "Un seul prompt à maintenir" },
+            { label: "Cohérence garantie", desc: "Même ton sur tous les canaux" },
+            { label: "Scaling illimité", desc: "+1 canal = quelques lignes" },
           ].map((benefit, i) => (
-            <div key={i} className="text-center">
-              <span className="text-2xl">{benefit.icon}</span>
-              <div className="text-white/80 text-xs font-sans font-medium mt-2">{benefit.label}</div>
+            <div key={i} className="text-center p-3 rounded-lg bg-white/5">
+              <div className="text-white/80 text-xs font-sans font-medium">{benefit.label}</div>
               <div className="text-white/40 text-[10px] font-sans mt-1">{benefit.desc}</div>
             </div>
           ))}
