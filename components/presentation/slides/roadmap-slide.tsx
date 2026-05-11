@@ -21,25 +21,25 @@ interface Task {
 // Timeline data for Gantt chart - 8 weeks (2 months)
 // Option A: ~32h total - Tasks spread across weeks 1-4
 const GANTT_TASKS_A: Task[] = [
-  { id: "validation", name: "Validation contenu", hours: "4h", week: 1, duration: 1, color: "#ff7000", type: "core", actions: ["Revue de l'arbre de scenarios avec Pierre", "Validation du wording EN/FR", "Definition des edge cases"] },
-  { id: "edge", name: "Edge Function LLM", hours: "6h", week: 1, duration: 2, color: "#ff7000", type: "core", actions: ["Configuration Groq API + streaming", "Implementation rate limiting", "Tests de latence et fallback"] },
-  { id: "widget", name: "Widget UI complet", hours: "6h", week: 2, duration: 2, color: "#ff7000", type: "core", actions: ["ChatWidget + ChatBubble + ChatPanel", "Responsive mobile-first design", "Integration chips cliquables"] },
+  { id: "validation", name: "Validation contenu", hours: "4h", week: 1, duration: 1, color: "#ff7000", type: "core", actions: ["Revue de l'arbre de scénarios avec Pierre", "Validation du wording EN/FR", "Définition des edge cases"] },
+  { id: "edge", name: "Edge Function LLM", hours: "6h", week: 1, duration: 2, color: "#ff7000", type: "core", actions: ["Configuration Groq API + streaming", "Implémentation rate limiting", "Tests de latence et fallback"] },
+  { id: "widget", name: "Widget UI complet", hours: "6h", week: 2, duration: 2, color: "#ff7000", type: "core", actions: ["ChatWidget + ChatBubble + ChatPanel", "Responsive mobile-first design", "Intégration chips cliquables"] },
   { id: "routing", name: "Routing + Messages", hours: "4h", week: 3, duration: 1, color: "#ff7000", type: "core", actions: ["Navigation vers pages services", "Messages contextuels par page"] },
   { id: "qualif", name: "Qualification adaptative", hours: "4h", week: 3, duration: 1, color: "#ff7000", type: "core", actions: ["Flow 3 questions dynamique", "Logique de scoring prospect"] },
-  { id: "trigger", name: "Trigger proactif", hours: "2h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Declenchement temps + scroll", "Cooldown intelligent"] },
-  { id: "analytics", name: "Analytics Supabase", hours: "3h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Logging anonymise Loi 25", "Schema de donnees optimise"] },
-  { id: "dashboard", name: "Dashboard admin", hours: "3h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["/admin/agent-stats protege", "KPIs conversations et funnel"] },
+  { id: "trigger", name: "Trigger proactif", hours: "2h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Déclenchement temps + scroll", "Cooldown intelligent"] },
+  { id: "analytics", name: "Analytics Supabase", hours: "3h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Logging anonymisé Loi 25", "Schéma de données optimisé"] },
+  { id: "dashboard", name: "Dashboard admin", hours: "3h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["/admin/agent-stats protégé", "KPIs conversations et funnel"] },
 ]
 
 // Option B Premium tasks - Start from week 2 and integrate with Option A
 const PREMIUM_TASKS: Task[] = [
-  { id: "gpt", name: "Modele GPT", hours: "4h", week: 2, duration: 1, color: "#10B981", type: "premium", actions: ["Migration Llama vers GPT-4o", "Optimisation prompts", "Tests de qualite reponses"] },
-  { id: "learning", name: "Apprentissage continu", hours: "6h", week: 3, duration: 2, color: "#10B981", type: "premium", actions: ["Systeme de memoire contextuelle", "Feedback loop automatise", "Enrichissement progressif"] },
-  { id: "skills", name: "Skills domaine B2B", hours: "6h", week: 4, duration: 2, color: "#10B981", type: "premium", actions: ["Expertise transport integree", "Jargon BOL, lane, spot quote", "Scenarios metier avances"] },
+  { id: "gpt", name: "Modèle GPT", hours: "4h", week: 2, duration: 1, color: "#10B981", type: "premium", actions: ["Migration Llama vers GPT-4o", "Optimisation prompts", "Tests de qualité réponses"] },
+  { id: "learning", name: "Apprentissage continu", hours: "6h", week: 3, duration: 2, color: "#10B981", type: "premium", actions: ["Système de mémoire contextuelle", "Feedback loop automatisé", "Enrichissement progressif"] },
+  { id: "skills", name: "Skills domaine B2B", hours: "6h", week: 4, duration: 2, color: "#10B981", type: "premium", actions: ["Expertise transport intégrée", "Jargon BOL, lane, spot quote", "Scénarios métier avancés"] },
   { id: "capture", name: "Capture lead", hours: "5h", week: 5, duration: 1, color: "#10B981", type: "premium", actions: ["Formulaire inline dans chat", "Validation email + entreprise"] },
-  { id: "notif", name: "Notifications sales", hours: "4h", week: 5, duration: 1, color: "#10B981", type: "premium", actions: ["Integration Resend", "Routing vers bon commercial"] },
-  { id: "dashboard2", name: "Dashboard avance", hours: "5h", week: 6, duration: 1, color: "#10B981", type: "premium", actions: ["Funnel de conversion", "Heatmap parcours utilisateur"] },
-  { id: "prefill", name: "Pre-remplissage devis", hours: "3h", week: 6, duration: 1, color: "#10B981", type: "premium", actions: ["Passage donnees chat -> form", "Continuite de session"] },
+  { id: "notif", name: "Notifications sales", hours: "4h", week: 5, duration: 1, color: "#10B981", type: "premium", actions: ["Intégration Resend", "Routing vers bon commercial"] },
+  { id: "dashboard2", name: "Dashboard avancé", hours: "5h", week: 6, duration: 1, color: "#10B981", type: "premium", actions: ["Funnel de conversion", "Heatmap parcours utilisateur"] },
+  { id: "prefill", name: "Pré-remplissage devis", hours: "3h", week: 6, duration: 1, color: "#10B981", type: "premium", actions: ["Passage données chat -> form", "Continuité de session"] },
   { id: "framer", name: "Animations Framer", hours: "2h", week: 7, duration: 1, color: "#10B981", type: "premium", actions: ["Transitions fluides", "Micro-interactions premium"] },
   { id: "persist", name: "Persistance session", hours: "2h", week: 7, duration: 1, color: "#10B981", type: "premium", actions: ["LocalStorage + Supabase sync", "Reprise conversation inter-pages"] },
 ]
@@ -308,7 +308,7 @@ const OPTION_A_DETAILS = {
   price: "6 400 $",
   timeline: "3-4 semaines",
   hours: "~32h",
-  description: "Un agent IA complet et fonctionnel : vrai LLM Llama, qualification adaptative, trigger proactif, analytics et dashboard. Le visiteur est guide, qualifie et route vers la bonne page.",
+  description: "Un agent IA complet et fonctionnel : vrai LLM Llama, qualification adaptative, trigger proactif, analytics et dashboard. Le visiteur est guidé, qualifié et routé vers la bonne page.",
 }
 
 const OPTION_B_DETAILS = {
@@ -316,7 +316,7 @@ const OPTION_B_DETAILS = {
   price: "12 400 $",
   timeline: "6-8 semaines",
   hours: "~62h",
-  description: "L'experience premium : modele GPT de meilleure qualite, apprentissage continu qui s'affine au fil des interactions, capture de leads, notifications sales, et dashboard avance avec funnel.",
+  description: "L'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui s'affine au fil des interactions, capture de leads, notifications sales, et dashboard avancé avec funnel.",
 }
 
 export function RoadmapSlide() {
@@ -336,7 +336,7 @@ export function RoadmapSlide() {
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-3xl leading-tight text-balance">
-              Plan de developpement
+              Plan de développement
             </h2>
           </AnimatedDiv>
           <AnimatedDiv delay={0.2}>
@@ -344,7 +344,7 @@ export function RoadmapSlide() {
           </AnimatedDiv>
           <AnimatedDiv delay={0.3}>
             <p className="text-base text-[#64748b] font-sans max-w-2xl leading-relaxed">
-              Un plan de developpement structure sur 2 mois, avec validation client a chaque etape cle. Survolez les taches pour voir les actions d&apos;execution.
+              Un plan de développement structuré sur 2 mois, avec validation client à chaque étape clé. Survolez les tâches pour voir les actions d&apos;exécution.
             </p>
           </AnimatedDiv>
         </div>

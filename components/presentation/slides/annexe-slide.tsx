@@ -14,28 +14,28 @@ const GLOSSARY = [
     items: [
       { term: "FTL", def: "Full Truckload — camion complet" },
       { term: "LTL", def: "Less-than-Truckload — envoi partiel / groupage" },
-      { term: "Reefer", def: "Remorque refrigeree / temperature controlee" },
-      { term: "Dry van", def: "Remorque standard fermee 53 pieds" },
+      { term: "Reefer", def: "Remorque réfrigérée / température contrôlée" },
+      { term: "Dry van", def: "Remorque standard fermée 53 pieds" },
       { term: "Flatbed", def: "Plateau ouvert (machinerie, acier, hors-gabarit)" },
-      { term: "Heavy Haul", def: "Transport hors-gabarit avec permis speciaux" },
+      { term: "Heavy Haul", def: "Transport hors-gabarit avec permis spéciaux" },
       { term: "BOL", def: "Bill of Lading — document de transport" },
-      { term: "Spot quote", def: "Devis ponctuel au prix du marche" },
+      { term: "Spot quote", def: "Devis ponctuel au prix du marché" },
       { term: "Lane", def: "Couloir de transport entre deux points fixes" },
       { term: "Cross-docking", def: "Transit sans stockage" },
-      { term: "Drop-and-hook", def: "Echange de remorques sans attente" },
+      { term: "Drop-and-hook", def: "Échange de remorques sans attente" },
       { term: "FSC", def: "Fuel Surcharge — surcharge carburant" },
       { term: "Detention", def: "Frais d'attente du camion aux quais" },
-      { term: "OTD", def: "On-Time Delivery — taux de livraison dans les delais" },
-      { term: "Owner-operator", def: "Chauffeur proprietaire de son camion" },
+      { term: "OTD", def: "On-Time Delivery — taux de livraison dans les délais" },
+      { term: "Owner-operator", def: "Chauffeur propriétaire de son camion" },
       { term: "ELD", def: "Electronic Logging Device" },
-      { term: "ACI / ACE", def: "Pre-declaration douaniere Canada / USA" },
+      { term: "ACI / ACE", def: "Pré-déclaration douanière Canada / USA" },
     ],
   },
   {
     id: "tech",
     icon: Code,
     title: "Stack technique",
-    description: "Technologies utilisees pour l'implementation de l'agent IA.",
+    description: "Technologies utilisées pour l'implémentation de l'agent IA.",
     items: [
       { term: "Widget UI", def: "React island dans Astro (client:load, lazy)" },
       { term: "LLM", def: "Groq + Llama 3.3 70B (~500 tokens/sec)" },
@@ -51,31 +51,31 @@ const GLOSSARY = [
   {
     id: "analytics",
     icon: Database,
-    title: "Donnees collectees (sans PII)",
-    description: "Conformite Loi 25 — aucune conversation stockee, uniquement des chemins anonymises.",
+    title: "Données collectées (sans PII)",
+    description: "Conformité Loi 25 — aucune conversation stockée, uniquement des chemins anonymisés.",
     items: [
-      { term: "session_id", def: "UUID genere cote client, sans lien a l'IP" },
+      { term: "session_id", def: "UUID généré côté client, sans lien à l'IP" },
       { term: "q1_selection", def: "\"general_freight\" | \"reefer\" | \"driver\" | ..." },
       { term: "q2_selection", def: "\"canada\" | \"cross_border\" | \"unsure\"" },
       { term: "q3_selection", def: "\"urgent\" | \"this_week\" | \"flexible\"" },
       { term: "destination_url", def: "Page de destination (ex. \"/services/ftl-transport\")" },
       { term: "locale", def: "\"en\" | \"fr\"" },
-      { term: "page_origin", def: "Page ou l'agent a ete ouvert" },
-      { term: "reached_quote", def: "true si le visiteur a clique vers le formulaire de devis" },
+      { term: "page_origin", def: "Page où l'agent a été ouvert" },
+      { term: "reached_quote", def: "true si le visiteur a cliqué vers le formulaire de devis" },
     ],
   },
   {
     id: "guardrails",
     icon: Shield,
     title: "Garde-fous anti-hallucination",
-    description: "Instructions strictes integrees au system prompt pour proteger l'image Safex.",
+    description: "Instructions strictes intégrées au system prompt pour protéger l'image Safex.",
     items: [
-      { term: "Tarifs", def: "Interdit d'inventer des prix ou devis precis" },
-      { term: "Delais", def: "Interdit de garantir des delais de transit specifiques" },
-      { term: "Clients", def: "Interdit de mentionner des clients ou conducteurs nommes" },
+      { term: "Tarifs", def: "Interdit d'inventer des prix ou devis précis" },
+      { term: "Délais", def: "Interdit de garantir des délais de transit spécifiques" },
+      { term: "Clients", def: "Interdit de mentionner des clients ou conducteurs nommés" },
       { term: "Promesses", def: "Interdit de faire des promesses contractuelles" },
-      { term: "Incidents", def: "Interdit de commenter des accidents ou litiges passes" },
-      { term: "Flotte", def: "Interdit de donner des chiffres precis de tracteurs/remorques" },
+      { term: "Incidents", def: "Interdit de commenter des accidents ou litiges passés" },
+      { term: "Flotte", def: "Interdit de donner des chiffres précis de tracteurs/remorques" },
       { term: "RH / Driver Inc.", def: "Interdit de commenter les pratiques RH ou le statut des conducteurs" },
     ],
   },
@@ -94,7 +94,7 @@ export function AnnexeSlide() {
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-4xl leading-tight text-balance">
-              References techniques
+              Références techniques
             </h2>
           </AnimatedDiv>
           <AnimatedDiv delay={0.2}>
@@ -102,7 +102,7 @@ export function AnnexeSlide() {
           </AnimatedDiv>
           <AnimatedDiv delay={0.3}>
             <p className="text-sm md:text-base text-[#64748b] font-sans leading-relaxed max-w-3xl">
-              Documentation technique complementaire : glossaire transport, stack technologique, donnees collectees et garde-fous de securite.
+              Documentation technique complémentaire : glossaire transport, stack technologique, données collectées et garde-fous de sécurité.
             </p>
           </AnimatedDiv>
         </div>

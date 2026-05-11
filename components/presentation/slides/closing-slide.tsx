@@ -100,7 +100,7 @@ export function ClosingSlide() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight text-balance"
           >
-            Un agent IA pour transformer chaque visiteur en prospect qualifie
+            Un agent IA pour transformer chaque visiteur en prospect qualifié
           </motion.h2>
 
           <motion.div 
@@ -119,7 +119,7 @@ export function ClosingSlide() {
             className="flex flex-col items-center gap-2 mt-4"
           >
             <span className="text-xs tracking-[0.3em] uppercase text-white/40 font-sans">
-              Prepare pour
+              Préparé pour
             </span>
             <span className="font-serif text-2xl text-[#ff7000]">Safex Transport</span>
             <span className="text-sm text-white/70 font-sans">Pierre Major</span>
@@ -142,7 +142,7 @@ export function ClosingSlide() {
             className="group flex items-center gap-3 px-8 py-4 rounded-full border border-[#ff7000]/30 hover:border-[#ff7000]/60 hover:bg-[#ff7000]/5 transition-all duration-300 cursor-pointer"
           >
             <span className="text-sm tracking-[0.1em] text-[#ff7000] font-sans font-medium">
-              Demarrer le projet
+              Démarrer le projet
             </span>
             <span className="text-[#ff7000] group-hover:translate-x-1 transition-transform duration-300">→</span>
           </motion.div>

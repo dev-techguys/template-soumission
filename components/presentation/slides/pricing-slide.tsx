@@ -58,7 +58,7 @@ function DualOffersSlide() {
 
                 <div className="flex flex-wrap gap-4 text-sm text-[#64748b] font-sans">
                   <div className="flex flex-col">
-                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Delai</span>
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Délai</span>
                     <span className="font-medium text-[#0f172a]">{optionA.timeline}</span>
                   </div>
                   <div className="flex flex-col">
@@ -98,7 +98,7 @@ function DualOffersSlide() {
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-1.5 bg-[#10B981] rounded-full">
                 <Star className="w-3.5 h-3.5 text-white" />
                 <span className="text-xs tracking-[0.15em] uppercase font-sans font-medium text-white">
-                  Recommande
+                  Recommandé
                 </span>
               </div>
 
@@ -117,7 +117,7 @@ function DualOffersSlide() {
 
                 <div className="flex flex-wrap gap-4 text-sm text-[#64748b] font-sans">
                   <div className="flex flex-col">
-                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Delai</span>
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Délai</span>
                     <span className="font-medium text-[#0f172a]">{optionB.timeline}</span>
                   </div>
                   <div className="flex flex-col">
@@ -203,7 +203,7 @@ function HourlyBankSlide() {
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 bg-[#ff7000] rounded-full">
                     <Star className="w-3 h-3 text-white" />
                     <span className="text-[10px] tracking-[0.15em] uppercase font-sans font-medium text-white">
-                      {"Recommande"}
+                      {"Recommandé"}
                     </span>
                   </div>
                 )}
@@ -247,10 +247,10 @@ function HourlyBankSlide() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <h3 className="font-serif text-lg text-[#0f172a]">
-                  {"Travaux credites avec un engagement de 3 mois ou plus"}
+                  {"Travaux crédités avec un engagement de 3 mois ou plus"}
                 </h3>
                 <p className="text-xs text-[#64748b] font-sans">
-                  {"Nous incluons tous les travaux preparatoires essentiels au demarrage d'un partenariat de croissance durable."}
+                  {"Nous incluons tous les travaux préparatoires essentiels au démarrage d'un partenariat de croissance durable."}
                 </p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -305,13 +305,13 @@ function FixedPriceSlide() {
                 <div className="flex flex-wrap gap-6 mt-2">
                   {fp.estimatedHours && (
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b] font-sans">Effort estime</span>
+                      <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b] font-sans">Effort estimé</span>
                       <span className="text-sm font-medium text-[#0f172a] font-sans">{fp.estimatedHours}</span>
                     </div>
                   )}
                   {fp.timeline && (
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b] font-sans">Delai de livraison</span>
+                      <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b] font-sans">Délai de livraison</span>
                       <span className="text-sm font-medium text-[#0f172a] font-sans">{fp.timeline}</span>
                     </div>
                   )}

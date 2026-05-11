@@ -9,41 +9,41 @@ const VALUE_PROPS = [
     icon: Clock,
     label: "Qualification",
     value: "< 60s",
-    detail: "Chaque visiteur guide vers le bon service",
+    detail: "Chaque visiteur guidé vers le bon service",
   },
   {
     icon: TrendingUp,
-    label: "Leads qualifies",
+    label: "Leads qualifiés",
     value: "Avant contact",
-    detail: "Qualification intelligente pre-formulaire",
+    detail: "Qualification intelligente pré-formulaire",
   },
   {
     icon: Server,
     label: "Analytics",
-    value: "Actionables",
+    value: "Actionnables",
     detail: "Optimiser le parcours de conversion",
   },
   {
     icon: Shield,
-    label: "Conformite",
+    label: "Conformité",
     value: "Loi 25",
-    detail: "Zero PII stocke",
+    detail: "Zéro PII stocké",
   },
 ]
 
 const PAIN_POINTS = [
   "Solutions SaaS avec abonnement mensuel croissant selon le volume",
-  "Dependance a un fournisseur externe — donnees hors de votre controle",
+  "Dépendance à un fournisseur externe — données hors de votre contrôle",
   "Limites de scaling strictes (tokens/mois, conversations/jour)",
-  "IA generique qui ne comprend pas le jargon transport B2B",
-  "Couts imprevisibles qui explosent avec la croissance",
+  "IA générique qui ne comprend pas le jargon transport B2B",
+  "Coûts imprévisibles qui explosent avec la croissance",
 ]
 
 const SOLUTION_POINTS = [
-  "Chaque visiteur guide vers le bon service en moins de 60 secondes",
-  "Qualification intelligente avant le formulaire — leads mieux qualifies",
-  "Analytics actionables pour optimiser le parcours de conversion",
-  "Jargon transport integre : BOL, lane, spot quote, OTD, FTL/LTL",
+  "Chaque visiteur guidé vers le bon service en moins de 60 secondes",
+  "Qualification intelligente avant le formulaire — leads mieux qualifiés",
+  "Analytics actionnables pour optimiser le parcours de conversion",
+  "Jargon transport intégré : BOL, lane, spot quote, OTD, FTL/LTL",
   "Investissement one-shot qui supporte la croissance vers 5 bureaux",
 ]
 
@@ -65,7 +65,7 @@ export function ContextSlide() {
           </AnimatedDiv>
           <AnimatedDiv delay={0.2}>
             <p className="text-base text-[#64748b] font-sans leading-relaxed max-w-2xl">
-              Un agent IA <span className="text-[#ff7000] font-medium">personnalise et proprietaire</span> qui represente Safex Transport. Pas un chatbot generique — une IA construite sur mesure pour votre entreprise, qui vous appartient, et qui evolue avec vos besoins.
+              Un agent IA <span className="text-[#ff7000] font-medium">personnalisé et propriétaire</span> qui représente Safex Transport. Pas un chatbot générique — une IA construite sur mesure pour votre entreprise, qui vous appartient, et qui évolue avec vos besoins.
             </p>
           </AnimatedDiv>
           <AnimatedDiv delay={0.3}>
@@ -134,7 +134,7 @@ export function ContextSlide() {
         <AnimatedDiv delay={0.6}>
           <div className="mt-12 p-6 rounded-xl border border-[#ff7000]/20 bg-[#ff7000]/5">
             <p className="text-base text-[#ff7000] font-sans leading-relaxed italic text-center">
-              {`«Safex AI n'est pas un outil loue — c'est un actif strategique qui vous appartient, construit autour de votre expertise transport.»`}
+              {`« Safex AI n'est pas un outil loué — c'est un actif stratégique qui vous appartient, construit autour de votre expertise transport. »`}
             </p>
           </div>
         </AnimatedDiv>

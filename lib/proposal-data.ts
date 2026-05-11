@@ -73,7 +73,7 @@ export const pricing = {
         { label: "Dashboard admin (basique)", included: true },
         { label: "Qualification adaptative des prospects", included: true },
         { label: "Trigger proactif (ouverture automatique)", included: true },
-        { label: "Modele GPT (meilleure qualite)", included: false },
+        { label: "Modèle GPT (meilleure qualité)", included: false },
         { label: "Apprentissage continu", included: false },
         { label: "Skills expertise domaine B2B transport", included: false },
         { label: "Capture de lead dans le chat", included: false },
@@ -101,10 +101,10 @@ export const pricing = {
       estimatedHours: "~62h",
       infraCost: "< 25$ USD/mois",
       featured: true,
-      description: "L'experience premium : modele GPT de meilleure qualite, apprentissage continu qui s'affine au fil des interactions, et integrations avancees. L'agent apprend en permanence et devient plus precis avec le temps.",
+      description: "L'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui s'affine au fil des interactions, et intégrations avancées. L'agent apprend en permanence et devient plus précis avec le temps.",
       features: [
         { label: "Widget chips Q1/Q2/Q3", included: true },
-        { label: "Modele GPT (meilleure qualite que Llama)", included: true },
+        { label: "Modèle GPT (meilleure qualité que Llama)", included: true },
         { label: "Apprentissage continu — contexte qui s'enrichit", included: true },
         { label: "Bilingue EN / FR", included: true },
         { label: "Messages contextuels par page", included: true },
@@ -137,7 +137,7 @@ export const pricing = {
         "Dashboard avancé avec funnel de conversion",
       ],
     },
-    recommendation: "L'Option A livre un agent IA complet et fonctionnel — vrai LLM, analytics, dashboard. L'Option B est l'experience premium : modele GPT de meilleure qualite, apprentissage continu qui affine les reponses au fil des interactions, et integrations avancees pour maximiser la conversion.",
+    recommendation: "L'Option A livre un agent IA complet et fonctionnel — vrai LLM, analytics, dashboard. L'Option B est l'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui affine les réponses au fil des interactions, et intégrations avancées pour maximiser la conversion.",
   },
 }
 

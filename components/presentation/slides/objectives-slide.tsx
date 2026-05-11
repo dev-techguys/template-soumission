@@ -105,12 +105,12 @@ const FEATURES = [
     number: "01",
     title: "Widget de chat intelligent",
     description:
-      "Un bouton flottant present sur toutes les pages, qui ouvre un panneau de conversation elegant et responsive. Le visiteur interagit via des chips cliquables ou en langage naturel avec un LLM performant.",
-    problemsLabel: "Benefices business",
+      "Un bouton flottant présent sur toutes les pages, qui ouvre un panneau de conversation élégant et responsive. Le visiteur interagit via des chips cliquables ou en langage naturel avec un LLM performant.",
+    problemsLabel: "Bénéfices business",
     problems: [
-      "Plus de visiteurs perdus — chaque prospect est guide vers le bon service",
+      "Plus de visiteurs perdus — chaque prospect est guidé vers le bon service",
       "Engagement 24/7 sans mobiliser de ressources humaines",
-      "Experience utilisateur personnalisee des la premiere interaction",
+      "Expérience utilisateur personnalisée dès la première interaction",
     ],
     expandable: false,
     expandableType: null,
@@ -118,14 +118,14 @@ const FEATURES = [
   {
     icon: Navigation,
     number: "02",
-    title: "Flow de qualification structure",
+    title: "Flow de qualification structuré",
     description:
       "Trois questions avec chips cliquables pour qualifier rapidement le visiteur : type de cargo, destination, urgence. En moins de 60 secondes, l'agent route vers la bonne page service ou le formulaire de devis.",
-    problemsLabel: "Benefices business",
+    problemsLabel: "Bénéfices business",
     problems: [
-      "Leads mieux qualifies avant d'arriver a l'equipe commerciale",
-      "Temps des sales concentre sur les prospects a haute intention",
-      "Donnees d'intention capturees pour chaque visiteur",
+      "Leads mieux qualifiés avant d'arriver à l'équipe commerciale",
+      "Temps des sales concentré sur les prospects à haute intention",
+      "Données d'intention capturées pour chaque visiteur",
     ],
     expandable: true,
     expandableType: "workflow",
@@ -135,12 +135,12 @@ const FEATURES = [
     number: "03",
     title: "Analytics sans PII + Dashboard admin",
     description:
-      "Les chemins de navigation anonymises sont logges en temps reel. Un dashboard protege /admin/agent-stats donne une vue complete des conversations, du funnel de conversion et des services les plus demandes.",
-    problemsLabel: "Benefices business",
+      "Les chemins de navigation anonymisés sont loggés en temps réel. Un dashboard protégé /admin/agent-stats donne une vue complète des conversations, du funnel de conversion et des services les plus demandés.",
+    problemsLabel: "Bénéfices business",
     problems: [
-      "Decisions basees sur des donnees, pas des intuitions",
-      "Conformite Loi 25 assuree sans compromis sur les insights",
-      "Identification des services les plus recherches pour orienter le business",
+      "Décisions basées sur des données, pas des intuitions",
+      "Conformité Loi 25 assurée sans compromis sur les insights",
+      "Identification des services les plus recherchés pour orienter le business",
     ],
     expandable: true,
     expandableType: "dashboard",
@@ -150,12 +150,12 @@ const FEATURES = [
     number: "04",
     title: "Scalable et extensible",
     description:
-      "Architecture modulaire concue pour evoluer : emails automatises vers les sales, integration dans le systeme de vente, interactions intra-site et extra-site avec les outils Safex, API ouverte pour connecter d'autres systemes.",
-    problemsLabel: "Benefices business",
+      "Architecture modulaire conçue pour évoluer : emails automatisés vers les sales, intégration dans le système de vente, interactions intra-site et extra-site avec les outils Safex, API ouverte pour connecter d'autres systèmes.",
+    problemsLabel: "Bénéfices business",
     problems: [
       "Investissement one-shot — pas d'abonnement mensuel qui explose",
-      "Propriete totale du modele et des donnees, zero dependance externe",
-      "Scalable a l'infini pour supporter la croissance vers 5 bureaux",
+      "Propriété totale du modèle et des données, zéro dépendance externe",
+      "Scalable à l'infini pour supporter la croissance vers 5 bureaux",
     ],
     expandable: true,
     expandableType: "scalability",
@@ -359,7 +359,7 @@ function DashboardVisualization() {
 
         {/* Services Bar Chart */}
         <div className="mb-8">
-          <div className="text-white/70 text-xs mb-4 font-sans">Top services demandes :</div>
+          <div className="text-white/70 text-xs mb-4 font-sans">Top services demandés :</div>
           <div className="flex flex-col gap-3">
             {SERVICES_DATA.map((service, i) => (
               <motion.div
@@ -387,7 +387,7 @@ function DashboardVisualization() {
 
         {/* Top Unresolved Questions */}
         <div>
-          <div className="text-white/70 text-xs mb-4 font-sans">Top questions non resolues (free-text fallback) :</div>
+          <div className="text-white/70 text-xs mb-4 font-sans">Top questions non résolues (free-text fallback) :</div>
           <div className="flex flex-col gap-2">
             {TOP_QUESTIONS.map((q, i) => (
               <motion.div
@@ -409,7 +409,7 @@ function DashboardVisualization() {
         <div className="mt-6 pt-4 border-t border-white/10">
           <div className="flex items-center gap-2 text-[10px] text-white/40">
             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-            <span>Donnees anonymisees — Zero PII stocke — Conforme Loi 25</span>
+            <span>Données anonymisées — Zéro PII stocké — Conforme Loi 25</span>
           </div>
         </div>
       </div>
@@ -438,9 +438,9 @@ function ScalabilityVisualization() {
       <div className="bg-[#0f172a] rounded-xl p-6 font-mono text-sm">
         {/* Header */}
         <div className="mb-6">
-          <div className="text-white/70 text-xs font-sans mb-2">La vraie question de scalabilite</div>
+          <div className="text-white/70 text-xs font-sans mb-2">La vraie question de scalabilité</div>
           <p className="text-white/90 text-sm font-sans leading-relaxed">
-            Si Safex veut un agent multi-canal serieux, la bonne architecture n&apos;est pas de deployer N versions du meme agent — c&apos;est d&apos;abstraire le cerveau en une <span className="text-[#ff7000] font-medium">API centrale</span> :
+            Si Safex veut un agent multi-canal sérieux, la bonne architecture n&apos;est pas de déployer N versions du même agent — c&apos;est d&apos;abstraire le cerveau en une <span className="text-[#ff7000] font-medium">API centrale</span> :
           </p>
         </div>
 
@@ -546,8 +546,8 @@ function ScalabilityVisualization() {
           className="mt-6 p-4 rounded-lg bg-white/5 border border-white/10"
         >
           <p className="text-white/70 text-xs font-sans leading-relaxed">
-            Chaque canal envoie un message + contexte, l&apos;API repond. Le system prompt ne vit qu&apos;a un seul endroit, les skills domaine aussi.
-            <span className="text-[#10B981] font-medium ml-1">Une mise a jour se propage partout.</span>
+            Chaque canal envoie un message + contexte, l&apos;API répond. Le system prompt ne vit qu&apos;à un seul endroit, les skills domaine aussi.
+            <span className="text-[#10B981] font-medium ml-1">Une mise à jour se propage partout.</span>
           </p>
         </motion.div>
 
@@ -559,9 +559,9 @@ function ScalabilityVisualization() {
           className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {[
-            { label: "Maintenance unique", desc: "Un seul prompt a maintenir, pas 5 versions differentes" },
-            { label: "Coherence garantie", desc: "Memes reponses, meme ton, meme expertise sur tous les canaux" },
-            { label: "Scaling illimite", desc: "Ajouter un canal = quelques lignes de code, pas un nouveau projet" },
+            { label: "Maintenance unique", desc: "Un seul prompt à maintenir, pas 5 versions différentes" },
+            { label: "Cohérence garantie", desc: "Mêmes réponses, même ton, même expertise sur tous les canaux" },
+            { label: "Scaling illimité", desc: "Ajouter un canal = quelques lignes de code, pas un nouveau projet" },
           ].map((benefit, i) => (
             <div key={i} className="p-3 rounded-lg bg-white/5">
               <div className="text-[#ff7000] text-xs font-sans font-medium mb-1">{benefit.label}</div>
