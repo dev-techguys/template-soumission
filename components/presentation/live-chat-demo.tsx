@@ -17,6 +17,7 @@ export function LiveChatDemo() {
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -97,7 +98,9 @@ export function LiveChatDemo() {
   }
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
+    }
   }
 
   useEffect(() => {
@@ -199,7 +202,7 @@ export function LiveChatDemo() {
             // Active demo state
             <div>
               {/* Messages */}
-              <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
+              <div ref={messagesContainerRef} className="space-y-3 mb-4 max-h-64 overflow-y-auto">
                 {messages.map((message) => (
                   <motion.div
                     key={message.id}
