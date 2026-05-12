@@ -258,22 +258,22 @@ function DualOffersSlide() {
         <AnimatedContainer staggerDelay={0.15} className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Essentiel value block */}
           <AnimatedItem direction="left">
-            <div className="relative p-6 rounded-2xl bg-gradient-to-br from-[#ff7000]/5 to-[#ff7000]/10 border border-[#ff7000]/20 overflow-hidden">
+            <div className="relative p-6 rounded-2xl bg-gradient-to-br from-[#ff7000]/5 to-[#ff7000]/10 border border-[#ff7000]/20 overflow-hidden h-full min-h-[140px]">
               <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
                 <svg viewBox="0 0 100 100" className="w-full h-full text-[#ff7000]">
                   <circle cx="80" cy="20" r="40" fill="currentColor" />
                   <circle cx="60" cy="50" r="25" fill="currentColor" />
                 </svg>
               </div>
-              <div className="relative flex items-start gap-4">
+              <div className="relative flex items-start gap-4 h-full">
                 <div className="w-14 h-14 rounded-xl bg-[#ff7000] flex items-center justify-center shrink-0">
                   <Zap className="w-7 h-7 text-white" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 flex flex-col">
                   <span className="text-xs tracking-[0.15em] uppercase text-[#ff7000] font-sans font-medium">Plan Essentiel</span>
                   <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">Coup de jus technologique</h4>
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
-                    Modernisez votre image et impressionnez en interne. Un agent IA qui guide vos visiteurs en moins de 60 secondes.
+                    Modernisez votre image et impressionnez en interne avec un agent IA moderne.
                   </p>
                 </div>
               </div>
@@ -282,7 +282,7 @@ function DualOffersSlide() {
 
           {/* Optimisé value block */}
           <AnimatedItem direction="right">
-            <div className="relative p-6 rounded-2xl bg-gradient-to-br from-[#10B981]/5 to-[#10B981]/10 border border-[#10B981]/20 overflow-hidden">
+            <div className="relative p-6 rounded-2xl bg-gradient-to-br from-[#10B981]/5 to-[#10B981]/10 border border-[#10B981]/20 overflow-hidden h-full min-h-[140px]">
               <div className="absolute top-0 right-0 w-40 h-40 opacity-10">
                 <svg viewBox="0 0 100 100" className="w-full h-full text-[#10B981]">
                   <path d="M10 80 L30 50 L50 60 L70 30 L90 40" stroke="currentColor" strokeWidth="4" fill="none" />
@@ -292,15 +292,15 @@ function DualOffersSlide() {
                   <circle cx="90" cy="40" r="4" fill="currentColor" />
                 </svg>
               </div>
-              <div className="relative flex items-start gap-4">
+              <div className="relative flex items-start gap-4 h-full">
                 <div className="w-14 h-14 rounded-xl bg-[#10B981] flex items-center justify-center shrink-0">
                   <TrendingUp className="w-7 h-7 text-white" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 flex flex-col">
                   <span className="text-xs tracking-[0.15em] uppercase text-[#10B981] font-sans font-medium">Plan Optimisé</span>
-                  <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">Première pierre data-driven</h4>
+                  <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">Cap vers le data-driven AI</h4>
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
-                    Connectez vos clients à vos opérations. Une IA qui apprend, recommande, et laisse une impression durable — en interne et en externe.
+                    Connectez vos clients à vos opérations avec une IA qui apprend et recommande.
                   </p>
                 </div>
               </div>
