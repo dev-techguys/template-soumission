@@ -310,15 +310,7 @@ function DualOffersSlide() {
           {/* Option B */}
           <AnimatedItem direction="right">
             <div className="relative p-8 rounded-2xl border-2 border-[#10B981] bg-[#10B981]/5 shadow-lg h-full">
-              {/* Featured badge */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-1.5 bg-[#10B981] rounded-full">
-                <Star className="w-3.5 h-3.5 text-white" />
-                <span className="text-xs tracking-[0.15em] uppercase font-sans font-medium text-white">
-                  Recommandé
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-6 pt-2">
+              <div className="flex flex-col gap-6">
                 <div>
                   <h3 className="font-serif text-2xl text-[#0f172a] mb-2">{optionB.name}</h3>
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
