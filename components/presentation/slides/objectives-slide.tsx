@@ -911,7 +911,7 @@ export function ObjectivesSlide() {
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-3xl leading-tight text-balance">
-              Les 4 piliers de l&apos;agent
+              Les 4 features phares d&apos;un agent IA Safex x TechGuys
             </h2>
           </AnimatedDiv>
           <AnimatedDiv delay={0.2}>

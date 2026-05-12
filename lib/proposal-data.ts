@@ -60,9 +60,9 @@ export const pricing = {
       price: "6 400 $",
       priceValue: 6400,
       timeline: "3–4 semaines",
-      estimatedHours: "~32h",
       infraCost: "< 10$ USD/mois",
-      description: "Un agent IA fonctionnel et professionnel. Le visiteur est guidé, qualifié et redirigé vers la bonne page en moins de 60 secondes.",
+      tagline: "Modernisation & Impact immédiat",
+      description: "Un coup de jus technologique pour impressionner en interne. Un agent IA moderne qui guide et qualifie vos visiteurs en moins de 60 secondes.",
       featureGroups: [
         {
           category: "Conversation IA",
@@ -113,10 +113,10 @@ export const pricing = {
       price: "12 400 $",
       priceValue: 12400,
       timeline: "6–8 semaines",
-      estimatedHours: "~62h",
       infraCost: "< 25$ USD/mois",
       featured: true,
-      description: "L'expérience premium avec ROI maximal : IA qui apprend, automatisation complète, et conversion optimisée. L'agent s'améliore à chaque interaction.",
+      tagline: "Transformation Data-Driven",
+      description: "La première pierre vers une entreprise 100% data-driven. Une IA qui apprend, qui connecte le marché et les clients avec vos opérations, et qui laisse une impression durable à chaque visiteur.",
       includesEssential: true,
       featureGroups: [
         {
@@ -125,9 +125,19 @@ export const pricing = {
           features: [
             { label: "Modèle GPT (meilleure qualité)", included: true },
             { label: "Apprentissage AI continu", included: true },
+            { label: "Compréhension continue du business Safex", included: true },
             { label: "Contexte évolutif (mémoire)", included: true },
             { label: "Formulaire interprété par l'IA", included: true },
+          ],
+        },
+        {
+          category: "Data & Stratégie",
+          icon: "chart",
+          features: [
             { label: "Génération de rapport AI", included: true },
+            { label: "Recommandations stratégiques", included: true },
+            { label: "Prévisions statistiques (opérations)", included: true },
+            { label: "Dashboard avancé avec funnel", included: true },
           ],
         },
         {
@@ -138,18 +148,17 @@ export const pricing = {
             { label: "Rapport PDF transmis auto", included: true },
             { label: "Capture de lead dans le chat", included: true },
             { label: "Routing vers sales + notification", included: true },
-            { label: "Redirection multi-canal (tel, email)", included: true },
-            { label: "Pré-remplissage formulaire devis", included: true },
+            { label: "Redirection multi-canal (tel, email, outils)", included: true },
           ],
         },
         {
-          category: "Expérience Premium",
+          category: "Expérience Mémorable",
           icon: "sparkles",
           features: [
             { label: "Page pleine (immersif)", included: true },
-            { label: "Dashboard avancé avec funnel", included: true },
             { label: "Animations Framer Motion", included: true },
             { label: "Persistance session inter-pages", included: true },
+            { label: "Impression durable sur les visiteurs", included: true },
           ],
         },
         {
@@ -173,7 +182,7 @@ export const pricing = {
         "Conseil stratégique et expertise B2B",
       ],
     },
-    recommendation: "Le Plan Essentiel livre un agent IA complet et fonctionnel — vrai LLM, analytics, dashboard. Le Plan Optimisé est l'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui affine les réponses au fil des interactions, et intégrations avancées pour maximiser la conversion.",
+    recommendation: "Le Plan Essentiel modernise votre image et impressionne en interne avec un agent IA fonctionnel. Le Plan Optimisé transforme Safex en entreprise data-driven : l'IA apprend, recommande, et connecte vos clients directement à vos opérations. C'est le premier édifice d'une stratégie 100% connectée au marché.",
   },
 }
 

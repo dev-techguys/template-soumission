@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { SlideWrapper } from "../slide-wrapper"
 import { AnimatedDiv, AnimatedContainer, AnimatedItem } from "../animated-wrapper"
-import { Check, X, Star, ChevronDown, BarChart3, Brain, Zap, Sparkles, Shield } from "lucide-react"
+import { Check, X, Star, ChevronDown, BarChart3, Brain, Zap, Sparkles, Shield, TrendingUp } from "lucide-react"
 import { pricing } from "@/lib/proposal-data"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -261,6 +261,11 @@ function DualOffersSlide() {
             <div className="relative p-8 rounded-2xl border border-[#e5e7eb] bg-white shadow-sm h-full">
               <div className="flex flex-col gap-6">
                 <div>
+                  {optionA.tagline && (
+                    <span className="inline-block px-3 py-1 mb-3 text-xs tracking-[0.1em] uppercase bg-[#ff7000]/10 text-[#ff7000] rounded-full font-sans font-medium">
+                      {optionA.tagline}
+                    </span>
+                  )}
                   <h3 className="font-serif text-2xl text-[#0f172a] mb-2">{optionA.name}</h3>
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
                     {optionA.description}
@@ -276,10 +281,6 @@ function DualOffersSlide() {
                   <div className="flex flex-col">
                     <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Délai</span>
                     <span className="font-medium text-[#0f172a]">{optionA.timeline}</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Effort</span>
-                    <span className="font-medium text-[#0f172a]">{optionA.estimatedHours}</span>
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Infra/mois</span>
@@ -333,6 +334,11 @@ function DualOffersSlide() {
             <div className="relative p-8 rounded-2xl border-2 border-[#10B981] bg-[#10B981]/5 shadow-lg h-full">
               <div className="flex flex-col gap-6">
                 <div>
+                  {optionB.tagline && (
+                    <span className="inline-block px-3 py-1 mb-3 text-xs tracking-[0.1em] uppercase bg-[#10B981]/10 text-[#10B981] rounded-full font-sans font-medium">
+                      {optionB.tagline}
+                    </span>
+                  )}
                   <h3 className="font-serif text-2xl text-[#0f172a] mb-2">{optionB.name}</h3>
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
                     {optionB.description}
@@ -348,10 +354,6 @@ function DualOffersSlide() {
                   <div className="flex flex-col">
                     <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Délai</span>
                     <span className="font-medium text-[#0f172a]">{optionB.timeline}</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Effort</span>
-                    <span className="font-medium text-[#0f172a]">{optionB.estimatedHours}</span>
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] tracking-[0.15em] uppercase text-[#64748b]/70">Infra/mois</span>
@@ -378,6 +380,7 @@ function DualOffersSlide() {
                       : group.icon === "zap" ? Zap 
                       : group.icon === "sparkles" ? Sparkles 
                       : group.icon === "shield" ? Shield 
+                      : group.icon === "chart" ? TrendingUp
                       : Check
                     return (
                       <div key={group.category}>

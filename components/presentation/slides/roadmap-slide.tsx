@@ -336,7 +336,7 @@ export function RoadmapSlide() {
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-3xl leading-tight text-balance">
-              Plan de développement
+              Agenda
             </h2>
           </AnimatedDiv>
           <AnimatedDiv delay={0.2}>
