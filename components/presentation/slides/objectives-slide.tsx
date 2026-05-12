@@ -423,182 +423,365 @@ function WorkflowVisualization() {
             transition={{ duration: 0.3 }}
             className="bg-[#0f172a] rounded-xl p-6"
           >
-            {/* Plan Toggle */}
-            <div className="flex items-center gap-2 mb-4">
-              <button
-                onClick={() => setSelectedPlan("essentiel")}
-                className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
-                  selectedPlan === "essentiel"
-                    ? "bg-[#ff7000] text-white"
-                    : "bg-white/10 text-white/60 hover:bg-white/20"
-                }`}
-              >
-                Plan Essentiel
-              </button>
-              <button
-                onClick={() => setSelectedPlan("optimise")}
-                className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
-                  selectedPlan === "optimise"
-                    ? "bg-[#10B981] text-white"
-                    : "bg-white/10 text-white/60 hover:bg-white/20"
-                }`}
-              >
-                Plan Optimisé
-              </button>
+            {/* Plan Toggle with visual indicator */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSelectedPlan("essentiel")}
+                  className={`px-5 py-2.5 rounded-xl text-sm font-sans font-medium transition-all ${
+                    selectedPlan === "essentiel"
+                      ? "bg-[#ff7000] text-white shadow-lg shadow-[#ff7000]/25"
+                      : "bg-white/10 text-white/60 hover:bg-white/20"
+                  }`}
+                >
+                  Plan Essentiel
+                </button>
+                <button
+                  onClick={() => setSelectedPlan("optimise")}
+                  className={`px-5 py-2.5 rounded-xl text-sm font-sans font-medium transition-all ${
+                    selectedPlan === "optimise"
+                      ? "bg-[#10B981] text-white shadow-lg shadow-[#10B981]/25"
+                      : "bg-white/10 text-white/60 hover:bg-white/20"
+                  }`}
+                >
+                  Plan Optimisé
+                </button>
+              </div>
+              {selectedPlan === "optimise" && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-[#10B981]/10 rounded-full border border-[#10B981]/30"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+                  <span className="text-xs text-[#10B981] font-sans font-medium">Mode Intelligence Active</span>
+                </motion.div>
+              )}
             </div>
 
             {/* Header explanation */}
-            <div className="mb-6 p-4 bg-white/5 rounded-lg border border-white/10">
+            <div className={`mb-6 p-4 rounded-xl border transition-all ${
+              selectedPlan === "optimise" 
+                ? "bg-[#10B981]/5 border-[#10B981]/20" 
+                : "bg-white/5 border-white/10"
+            }`}>
               {selectedPlan === "essentiel" ? (
                 <p className="text-white/70 text-sm font-sans">
                   <span className="text-[#ff7000] font-medium">Arbre statique</span> — 
                   L&apos;agent route le visiteur vers la bonne page selon ses réponses. Simple et efficace.
                 </p>
               ) : (
-                <p className="text-white/70 text-sm font-sans">
-                  <span className="text-[#10B981] font-medium">Arbre intelligent</span> — 
-                  Apprentissage continu, redirection multi-canal (tel, email), et données qui remontent vers le Dashboard.
-                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#10B981]/20 flex items-center justify-center shrink-0">
+                    <Brain className="w-6 h-6 text-[#10B981]" />
+                  </div>
+                  <p className="text-white/70 text-sm font-sans">
+                    <span className="text-[#10B981] font-medium">Arbre intelligent</span> — 
+                    L&apos;IA apprend de chaque conversation. Les données remontent vers le Dashboard en temps réel.
+                  </p>
+                </div>
               )}
             </div>
             
-            {/* Tree visualization with proper SVG connections */}
-            <div className="relative">
-              {/* SVG for connection lines */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
-                {/* Line from START to Q1 */}
-                <line x1="50%" y1="40" x2="50%" y2="70" stroke="rgba(255,112,0,0.5)" strokeWidth="2" />
-                {/* Lines from Q1 to branches */}
-                <line x1="50%" y1="110" x2="10%" y2="170" stroke="rgba(255,112,0,0.3)" strokeWidth="1" />
-                <line x1="50%" y1="110" x2="30%" y2="170" stroke="rgba(59,130,246,0.3)" strokeWidth="1" />
-                <line x1="50%" y1="110" x2="50%" y2="170" stroke="rgba(139,92,246,0.3)" strokeWidth="1" />
-                <line x1="50%" y1="110" x2="70%" y2="170" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
-                <line x1="50%" y1="110" x2="90%" y2="170" stroke="rgba(245,158,11,0.3)" strokeWidth="1" />
-                {/* Lines from branches to destinations */}
-                <line x1="10%" y1="230" x2="10%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
-                <line x1="30%" y1="230" x2="30%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
-                <line x1="50%" y1="230" x2="50%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
-                <line x1="70%" y1="230" x2="70%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
-                <line x1="90%" y1="230" x2="90%" y2="270" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
-              </svg>
-              
-              <div className="relative flex flex-col items-center" style={{ zIndex: 1 }}>
-                {/* Start node */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="px-5 py-2.5 bg-gradient-to-r from-[#ff7000] to-[#f59e0b] rounded-full text-white font-sans text-sm font-medium shadow-lg"
-                >
-                  Visiteur
-                </motion.div>
-                
-                {/* Q1 node */}
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="mt-8 px-4 py-2 bg-white/10 border border-[#ff7000]/50 rounded-lg text-white font-sans text-xs"
-                >
-                  Q1: Type de cargo ?
-                </motion.div>
-                
-                {/* Branches */}
-                <div className="mt-8 w-full grid grid-cols-5 gap-2">
-                  {DECISION_BRANCHES.slice(0, 5).map((branch, i) => (
-                    <motion.div
-                      key={branch.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 + i * 0.1 }}
-                      className="flex flex-col items-center"
-                    >
-                      <div 
-                        className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-lg border-2"
-                        style={{ backgroundColor: branch.color + "20", borderColor: branch.color }}
-                      >
-                        {branch.id}
-                      </div>
-                      <div className="mt-2 text-center h-8">
-                        <p className="text-white/60 text-[10px] font-sans leading-tight">{branch.label.split("/")[0].trim()}</p>
-                      </div>
-                      {/* Destination */}
-                      <div className="mt-4 px-2 py-1.5 bg-[#10b981]/10 border border-[#10b981]/30 rounded-lg">
-                        <code className="text-[#10b981] text-[9px]">{branch.routes[0]?.destination.split("/").pop()}</code>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-                
-                {/* Fallback section */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                  className="mt-8 p-4 bg-white/5 rounded-xl border border-white/10 w-full max-w-md"
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-7 h-7 rounded-lg bg-[#64748b] flex items-center justify-center text-white text-xs font-bold">F</div>
-                    <span className="text-white/70 text-xs font-sans font-medium">Fallback — Questions free-text</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {DECISION_BRANCHES[5].routes.slice(0, 4).map((route, i) => (
-                      <div key={i} className="flex items-center gap-2 text-[10px]">
-                        <MessageCircle className="w-3 h-3 text-[#64748b] shrink-0" />
-                        <span className="text-white/50 truncate">{route.path}</span>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-                
-                {/* Extensibility note - varies by plan */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                  className="mt-6 flex items-center gap-2 text-white/40 text-xs font-sans"
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full ${selectedPlan === "optimise" ? "bg-[#10B981]" : "bg-[#ff7000]"} animate-pulse`} />
-                  <span>Arbre extensible — nouvelles branches ajoutables sans redéploiement</span>
-                </motion.div>
-
-                {/* Plan Optimisé: Additional features */}
+            {/* Tree visualization - split layout for optimise */}
+            <div className={`grid gap-6 ${selectedPlan === "optimise" ? "grid-cols-1 lg:grid-cols-3" : "grid-cols-1"}`}>
+              {/* Main Tree */}
+              <div className={`relative ${selectedPlan === "optimise" ? "lg:col-span-2" : ""}`}>
+                {/* Animated glow for Plan Optimisé */}
                 {selectedPlan === "optimise" && (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 rounded-xl pointer-events-none"
+                    style={{
+                      boxShadow: "0 0 60px rgba(16, 185, 129, 0.1), inset 0 0 30px rgba(16, 185, 129, 0.05)"
+                    }}
+                  />
+                )}
+
+                {/* SVG for connection lines */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+                  {/* Lines with animation for Plan Optimisé */}
+                  <line x1="50%" y1="40" x2="50%" y2="70" stroke={selectedPlan === "optimise" ? "rgba(16,185,129,0.5)" : "rgba(255,112,0,0.5)"} strokeWidth="2" />
+                  {[10, 30, 50, 70, 90].map((x, i) => (
+                    <g key={i}>
+                      <line 
+                        x1="50%" y1="110" x2={`${x}%`} y2="170" 
+                        stroke={selectedPlan === "optimise" ? "rgba(16,185,129,0.3)" : "rgba(255,112,0,0.3)"} 
+                        strokeWidth="1" 
+                      />
+                      <line 
+                        x1={`${x}%`} y1="230" x2={`${x}%`} y2="270" 
+                        stroke="rgba(16,185,129,0.3)" 
+                        strokeWidth="1" 
+                      />
+                      {/* Animated particles for Plan Optimisé */}
+                      {selectedPlan === "optimise" && (
+                        <motion.circle
+                          r="3"
+                          fill="#10B981"
+                          initial={{ opacity: 0 }}
+                          animate={{
+                            opacity: [0, 1, 0],
+                            cx: ["50%", `${x}%`, `${x}%`],
+                            cy: [110, 170, 270]
+                          }}
+                          transition={{
+                            duration: 2,
+                            delay: i * 0.3,
+                            repeat: Infinity,
+                            repeatDelay: 1
+                          }}
+                        />
+                      )}
+                    </g>
+                  ))}
+                </svg>
+                
+                <div className="relative flex flex-col items-center" style={{ zIndex: 1 }}>
+                  {/* Start node */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className={`px-5 py-2.5 rounded-full text-white font-sans text-sm font-medium shadow-lg ${
+                      selectedPlan === "optimise"
+                        ? "bg-gradient-to-r from-[#10B981] to-[#059669]"
+                        : "bg-gradient-to-r from-[#ff7000] to-[#f59e0b]"
+                    }`}
+                  >
+                    Visiteur
+                  </motion.div>
+                  
+                  {/* Q1 node */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="mt-6 p-4 bg-[#10B981]/10 rounded-xl border border-[#10B981]/30"
+                    transition={{ delay: 0.2 }}
+                    className={`mt-8 px-4 py-2 bg-white/10 rounded-lg text-white font-sans text-xs border ${
+                      selectedPlan === "optimise" ? "border-[#10B981]/50" : "border-[#ff7000]/50"
+                    }`}
+                  >
+                    Q1: Type de cargo ?
+                  </motion.div>
+                  
+                  {/* Branches */}
+                  <div className="mt-8 w-full grid grid-cols-5 gap-2">
+                    {DECISION_BRANCHES.slice(0, 5).map((branch, i) => (
+                      <motion.div
+                        key={branch.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 + i * 0.1 }}
+                        className="flex flex-col items-center"
+                      >
+                        <motion.div 
+                          className={`w-10 h-10 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-lg border-2 ${
+                            selectedPlan === "optimise" ? "border-[#10B981]" : ""
+                          }`}
+                          style={{ 
+                            backgroundColor: selectedPlan === "optimise" ? "rgba(16,185,129,0.2)" : branch.color + "20", 
+                            borderColor: selectedPlan === "optimise" ? "#10B981" : branch.color 
+                          }}
+                          animate={selectedPlan === "optimise" ? {
+                            boxShadow: ["0 0 0px rgba(16,185,129,0)", "0 0 15px rgba(16,185,129,0.5)", "0 0 0px rgba(16,185,129,0)"]
+                          } : {}}
+                          transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                        >
+                          {branch.id}
+                        </motion.div>
+                        <div className="mt-2 text-center h-8">
+                          <p className="text-white/60 text-[10px] font-sans leading-tight">{branch.label.split("/")[0].trim()}</p>
+                        </div>
+                        {/* Destination with routing options for Plan Optimisé */}
+                        <div className={`mt-4 px-2 py-1.5 rounded-lg ${
+                          selectedPlan === "optimise"
+                            ? "bg-[#10b981]/20 border border-[#10b981]/40"
+                            : "bg-[#10b981]/10 border border-[#10b981]/30"
+                        }`}>
+                          <code className="text-[#10b981] text-[9px]">{branch.routes[0]?.destination.split("/").pop()}</code>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                  
+                  {/* Multi-channel routing for Plan Optimisé */}
+                  {selectedPlan === "optimise" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                      className="mt-6 flex items-center gap-4"
+                    >
+                      {[
+                        { icon: Navigation, label: "Page", active: true },
+                        { icon: Phone, label: "Tel", active: true },
+                        { icon: Mail, label: "Email", active: true },
+                      ].map((channel, i) => (
+                        <motion.div
+                          key={channel.label}
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: 0.8 + i * 0.1 }}
+                          className="flex items-center gap-2 px-3 py-2 bg-[#10B981]/10 border border-[#10B981]/30 rounded-lg"
+                        >
+                          <channel.icon className="w-4 h-4 text-[#10B981]" />
+                          <span className="text-[#10B981] text-xs font-medium">{channel.label}</span>
+                          <motion.span
+                            animate={{ scale: [1, 1.3, 1] }}
+                            transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                            className="w-2 h-2 rounded-full bg-[#10B981]"
+                          />
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                  
+                  {/* Fallback section */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8 }}
+                    className={`mt-8 p-4 rounded-xl border w-full max-w-md ${
+                      selectedPlan === "optimise"
+                        ? "bg-[#10B981]/5 border-[#10B981]/20"
+                        : "bg-white/5 border-white/10"
+                    }`}
                   >
                     <div className="flex items-center gap-2 mb-3">
-                      <TrendingUp className="w-4 h-4 text-[#10B981]" />
-                      <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">Fonctionnalités Plan Optimisé</span>
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold ${
+                        selectedPlan === "optimise" ? "bg-[#10B981]" : "bg-[#64748b]"
+                      }`}>F</div>
+                      <span className="text-white/70 text-xs font-sans font-medium">Fallback — Questions free-text</span>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                      <div className="flex items-start gap-2">
-                        <Brain className="w-4 h-4 text-[#10B981] mt-0.5 shrink-0" />
-                        <div>
-                          <span className="text-white/80 text-xs font-sans block">Apprentissage continu</span>
-                          <span className="text-white/40 text-[10px]">L&apos;IA s&apos;améliore à chaque conversation</span>
+                    <div className="grid grid-cols-2 gap-2">
+                      {DECISION_BRANCHES[5].routes.slice(0, 4).map((route, i) => (
+                        <div key={i} className="flex items-center gap-2 text-[10px]">
+                          <MessageCircle className={`w-3 h-3 shrink-0 ${selectedPlan === "optimise" ? "text-[#10B981]" : "text-[#64748b]"}`} />
+                          <span className="text-white/50 truncate">{route.path}</span>
                         </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Phone className="w-4 h-4 text-[#10B981] mt-0.5 shrink-0" />
-                        <div>
-                          <span className="text-white/80 text-xs font-sans block">Redirection multi-canal</span>
-                          <span className="text-white/40 text-[10px]">Téléphone, email, outils connectés</span>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Database className="w-4 h-4 text-[#10B981] mt-0.5 shrink-0" />
-                        <div>
-                          <span className="text-white/80 text-xs font-sans block">Données vers Dashboard</span>
-                          <span className="text-white/40 text-[10px]">Analytics et prévisions en temps réel</span>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </motion.div>
-                )}
+                </div>
               </div>
+
+              {/* Intelligence Panel - Plan Optimisé only */}
+              {selectedPlan === "optimise" && (
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="lg:col-span-1"
+                >
+                  <div className="bg-gradient-to-br from-[#10B981]/10 to-transparent rounded-xl border border-[#10B981]/30 p-4 h-full relative overflow-hidden">
+                    {/* Animated background */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(5)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="absolute w-1 h-1 rounded-full bg-[#10B981]"
+                          initial={{ opacity: 0, x: 0, y: "100%" }}
+                          animate={{ opacity: [0, 1, 0], y: ["100%", "0%"] }}
+                          transition={{ duration: 3, delay: i * 0.5, repeat: Infinity }}
+                          style={{ left: `${20 + i * 15}%` }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Header */}
+                    <div className="flex items-center gap-3 mb-4 relative">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                        className="w-10 h-10 rounded-xl bg-[#10B981] flex items-center justify-center"
+                      >
+                        <Brain className="w-5 h-5 text-white" />
+                      </motion.div>
+                      <div>
+                        <h4 className="text-white font-sans font-medium text-sm">Intelligence Active</h4>
+                        <p className="text-[#10B981] text-[10px]">Apprentissage en temps réel</p>
+                      </div>
+                    </div>
+
+                    {/* Learning Stats */}
+                    <div className="space-y-3 relative">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="p-3 rounded-lg bg-white/5 border border-white/10"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-white/40 text-[10px] uppercase tracking-wider">Apprentissage</span>
+                          <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-[#10B981] text-xs font-medium"
+                          >
+                            +12% ce mois
+                          </motion.span>
+                        </div>
+                        <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "78%" }}
+                            transition={{ duration: 1.5, delay: 0.5 }}
+                            className="h-full bg-gradient-to-r from-[#10B981] to-[#34d399] rounded-full"
+                          />
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5 }}
+                        className="p-3 rounded-lg bg-white/5 border border-white/10"
+                      >
+                        <span className="text-white/40 text-[10px] uppercase tracking-wider block mb-2">Données collectées</span>
+                        <div className="grid grid-cols-2 gap-2">
+                          {[
+                            { label: "Leads", value: "234" },
+                            { label: "Conversations", value: "1.2K" },
+                            { label: "Intentions", value: "89%" },
+                            { label: "Conversion", value: "12%" },
+                          ].map((stat, i) => (
+                            <motion.div
+                              key={stat.label}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.7 + i * 0.1 }}
+                              className="text-center"
+                            >
+                              <span className="text-[#10B981] text-lg font-serif block">{stat.value}</span>
+                              <span className="text-white/40 text-[9px]">{stat.label}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="p-3 rounded-lg bg-gradient-to-r from-[#10B981]/20 to-transparent border border-[#10B981]/30"
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <BarChart3 className="w-3 h-3 text-[#10B981]" />
+                          <span className="text-[#10B981] text-[10px] font-medium uppercase tracking-wider">Sync Dashboard</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <motion.div
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 1, repeat: Infinity }}
+                            className="w-2 h-2 rounded-full bg-[#10B981]"
+                          />
+                          <span className="text-white/60 text-xs">Temps réel activé</span>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </div>
           </motion.div>
         )}
@@ -611,6 +794,7 @@ function WorkflowVisualization() {
 function DashboardVisualization() {
   const [aiPhase, setAiPhase] = useState<"idle" | "thinking" | "done">("idle")
   const [selectedPlan, setSelectedPlan] = useState<"essentiel" | "optimise">("essentiel")
+  const [showOptimiseAnimation, setShowOptimiseAnimation] = useState(false)
   
   const SERVICES_DATA = [
     { name: "FTL / LTL", percentage: 58, color: "#ff7000" },
@@ -626,6 +810,13 @@ function DashboardVisualization() {
     setAiPhase("done")
   }
 
+  // Trigger animation when switching to Plan Optimisé
+  useEffect(() => {
+    if (selectedPlan === "optimise") {
+      setShowOptimiseAnimation(true)
+    }
+  }, [selectedPlan])
+
   return (
     <motion.div
       initial={{ opacity: 0, height: 0 }}
@@ -634,33 +825,63 @@ function DashboardVisualization() {
       transition={{ duration: 0.4 }}
       className="mt-6 overflow-hidden"
     >
-      {/* Plan Toggle */}
-      <div className="flex items-center gap-2 mb-4">
-        <button
-          onClick={() => setSelectedPlan("essentiel")}
-          className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
-            selectedPlan === "essentiel"
-              ? "bg-[#ff7000] text-white"
-              : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
-          }`}
-        >
-          Plan Essentiel
-        </button>
-        <button
-          onClick={() => setSelectedPlan("optimise")}
-          className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
-            selectedPlan === "optimise"
-              ? "bg-[#10B981] text-white"
-              : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
-          }`}
-        >
-          Plan Optimisé
-        </button>
+      {/* Plan Toggle with visual indicator */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setSelectedPlan("essentiel")}
+            className={`px-5 py-2.5 rounded-xl text-sm font-sans font-medium transition-all ${
+              selectedPlan === "essentiel"
+                ? "bg-[#ff7000] text-white shadow-lg shadow-[#ff7000]/25"
+                : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
+            }`}
+          >
+            Plan Essentiel
+          </button>
+          <button
+            onClick={() => setSelectedPlan("optimise")}
+            className={`px-5 py-2.5 rounded-xl text-sm font-sans font-medium transition-all ${
+              selectedPlan === "optimise"
+                ? "bg-[#10B981] text-white shadow-lg shadow-[#10B981]/25"
+                : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
+            }`}
+          >
+            Plan Optimisé
+          </button>
+        </div>
+        {selectedPlan === "optimise" && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex items-center gap-2 px-3 py-1.5 bg-[#10B981]/10 rounded-full border border-[#10B981]/30"
+          >
+            <motion.span
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+              className="w-2 h-2 rounded-full bg-[#10B981]"
+            />
+            <span className="text-xs text-[#10B981] font-sans font-medium">Intelligence Active</span>
+          </motion.div>
+        )}
       </div>
 
-      <div className="bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-xl overflow-hidden">
+      <div className={`bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-xl overflow-hidden relative transition-all duration-500 ${
+        selectedPlan === "optimise" ? "ring-2 ring-[#10B981]/30" : ""
+      }`}>
+        {/* Animated glow for Plan Optimisé */}
+        {selectedPlan === "optimise" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 pointer-events-none"
+            style={{ boxShadow: "inset 0 0 60px rgba(16, 185, 129, 0.1)" }}
+          />
+        )}
+
         {/* Header bar */}
-        <div className="bg-[#1e293b] px-6 py-4 flex items-center justify-between border-b border-white/5">
+        <div className={`px-6 py-4 flex items-center justify-between border-b transition-colors ${
+          selectedPlan === "optimise" ? "bg-[#10B981]/10 border-[#10B981]/20" : "bg-[#1e293b] border-white/5"
+        }`}>
           <div className="flex items-center gap-4">
             <div className="flex gap-1.5">
               <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
@@ -668,8 +889,17 @@ function DashboardVisualization() {
               <div className="w-3 h-3 rounded-full bg-[#10b981]" />
             </div>
             <div className="flex items-center gap-2">
-              <BarChart3 className="w-4 h-4 text-[#ff7000]" />
+              <BarChart3 className={`w-4 h-4 ${selectedPlan === "optimise" ? "text-[#10B981]" : "text-[#ff7000]"}`} />
               <span className="text-white font-sans text-sm font-medium">/admin/agent-stats</span>
+              {selectedPlan === "optimise" && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="px-2 py-0.5 bg-[#10B981]/20 rounded text-[#10B981] text-[10px] font-medium"
+                >
+                  + Intelligence
+                </motion.span>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
@@ -681,246 +911,410 @@ function DashboardVisualization() {
           {/* KPI Row */}
           <div className="grid grid-cols-4 gap-3 mb-6">
             {[
-              { label: "Conversations", value: "142", trend: "+12%" },
-              { label: "Devis demandés", value: "89", trend: "63%" },
-              { label: "Ratio EN/FR", value: "78/22", trend: null },
-              { label: "Conversion", value: "4.2%", trend: "+0.8%" },
+              { label: "Conversations", value: "142", trend: "+12%", optimiseValue: "1,420", optimiseTrend: "+156%" },
+              { label: "Devis demandés", value: "89", trend: "63%", optimiseValue: "890", optimiseTrend: "89%" },
+              { label: "Ratio EN/FR", value: "78/22", trend: null, optimiseValue: "72/28", optimiseTrend: null },
+              { label: "Conversion", value: "4.2%", trend: "+0.8%", optimiseValue: "12.8%", optimiseTrend: "+8.6%" },
             ].map((kpi, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="p-3 rounded-lg bg-white/5 border border-white/10"
+                className={`p-3 rounded-lg border transition-all ${
+                  selectedPlan === "optimise"
+                    ? "bg-[#10B981]/5 border-[#10B981]/20"
+                    : "bg-white/5 border-white/10"
+                }`}
               >
                 <span className="text-[10px] text-white/40 uppercase tracking-wider font-sans">{kpi.label}</span>
                 <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-xl text-white font-sans font-bold">{kpi.value}</span>
-                  {kpi.trend && <span className="text-[10px] text-[#10b981]">{kpi.trend}</span>}
+                  <motion.span 
+                    key={`${kpi.label}-${selectedPlan}`}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className={`text-xl font-sans font-bold ${selectedPlan === "optimise" ? "text-[#10B981]" : "text-white"}`}
+                  >
+                    {selectedPlan === "optimise" ? kpi.optimiseValue : kpi.value}
+                  </motion.span>
+                  {(selectedPlan === "optimise" ? kpi.optimiseTrend : kpi.trend) && (
+                    <span className="text-[10px] text-[#10b981]">
+                      {selectedPlan === "optimise" ? kpi.optimiseTrend : kpi.trend}
+                    </span>
+                  )}
                 </div>
               </motion.div>
             ))}
           </div>
           
-          {/* Chart + AI Button side by side */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Mini chart */}
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-              <div className="text-white/60 text-xs font-sans mb-4">Services demandés</div>
-              <div className="flex items-end justify-between h-24 gap-2">
-                {SERVICES_DATA.map((service, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{ delay: 0.3 + i * 0.1 }}
-                    className="flex-1 flex flex-col items-center origin-bottom"
-                  >
-                    <div 
-                      className="w-full rounded-t-sm"
-                      style={{ 
-                        backgroundColor: service.color, 
-                        height: `${service.percentage * 1.5}px` 
-                      }}
-                    />
-                    <span className="text-[8px] text-white/40 mt-1 truncate w-full text-center">{service.name}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-            
-            {/* AI Report Button or Results */}
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col">
-              <AnimatePresence mode="wait">
-                {aiPhase === "idle" && (
-                  <motion.div
-                    key="idle"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex flex-col items-center justify-center h-full gap-3"
-                  >
-                    <button
-                      onClick={handleGenerateReport}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#ff7000] to-[#f59e0b] rounded-lg text-white text-sm font-sans font-medium hover:opacity-90 transition-opacity"
-                    >
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                      Générer un rapport avec l&apos;IA
-                    </button>
-                    <span className="text-[10px] text-white/40 font-sans">Analyse automatique des données</span>
-                  </motion.div>
-                )}
-                
-                {aiPhase === "thinking" && (
-                  <motion.div
-                    key="thinking"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex flex-col items-center justify-center h-full gap-3"
-                  >
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      className="w-8 h-8 border-2 border-[#ff7000]/30 border-t-[#ff7000] rounded-full"
-                    />
-                    <div className="flex flex-col items-center gap-1">
-                      <span className="text-white/70 text-sm font-sans">Analyse en cours...</span>
-                      <motion.span 
-                        className="text-[10px] text-white/40"
-                        animate={{ opacity: [0.4, 1, 0.4] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        Extraction des insights
-                      </motion.span>
-                    </div>
-                  </motion.div>
-                )}
-                
-                {aiPhase === "done" && (
-                  <motion.div
-                    key="done"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col gap-2"
-                  >
-                    <div className="text-white/60 text-xs font-sans mb-2">Actions recommandées</div>
-                    {[
-                      { icon: "💡", label: "Conseil amélioration", desc: "Ajouter FAQ tracking sur page Reefer" },
-                      { icon: "🎯", label: "Conseil stratégique", desc: "Focus acquisition cross-border Q3" },
-                      { icon: "📧", label: "Partager par email", desc: "Envoyer le rapport à l'équipe" },
-                    ].map((action, i) => (
+          {/* Main content area - different layout for each plan */}
+          <AnimatePresence mode="wait">
+            {selectedPlan === "essentiel" ? (
+              <motion.div
+                key="essentiel-content"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                {/* Mini chart */}
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="text-white/60 text-xs font-sans mb-4">Services demandés</div>
+                  <div className="flex items-end justify-between h-24 gap-2">
+                    {SERVICES_DATA.map((service, i) => (
                       <motion.div
                         key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.15 }}
-                        className="flex items-center gap-3 p-2 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition-colors"
-                      >
-                        <span className="text-lg">{action.icon}</span>
-                        <div className="flex-1 min-w-0">
-                          <span className="text-white/80 text-xs font-sans block">{action.label}</span>
-                          <span className="text-white/40 text-[10px] font-sans truncate block">{action.desc}</span>
-                        </div>
-                        <ArrowRight className="w-3 h-3 text-white/30" />
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-          
-          {/* Plan Optimisé: Additional analytics */}
-          {selectedPlan === "optimise" && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-4 rounded-xl bg-[#10B981]/10 border border-[#10B981]/30"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <TrendingUp className="w-4 h-4 text-[#10B981]" />
-                <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">
-                  Analytics Avancés — Plan Optimisé
-                </span>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Funnel de conversion */}
-                <div className="p-3 rounded-lg bg-white/5">
-                  <span className="text-white/60 text-[10px] uppercase tracking-wider">Funnel de conversion</span>
-                  <div className="mt-3 space-y-2">
-                    {[
-                      { stage: "Visiteurs", value: 1420, width: "100%" },
-                      { stage: "Engagés", value: 890, width: "63%" },
-                      { stage: "Qualifiés", value: 340, width: "24%" },
-                      { stage: "Convertis", value: 89, width: "6%" },
-                    ].map((item, i) => (
-                      <div key={i}>
-                        <div className="flex justify-between text-[10px] mb-1">
-                          <span className="text-white/50">{item.stage}</span>
-                          <span className="text-white/70">{item.value}</span>
-                        </div>
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: item.width }}
-                          transition={{ delay: i * 0.15, duration: 0.5 }}
-                          className="h-1.5 rounded-full bg-[#10B981]"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Prévisions statistiques */}
-                <div className="p-3 rounded-lg bg-white/5">
-                  <span className="text-white/60 text-[10px] uppercase tracking-wider">Prévisions Q3</span>
-                  <div className="mt-3 space-y-3">
-                    {[
-                      { label: "Leads estimés", value: "+34%", icon: "📈" },
-                      { label: "Conversion prévue", value: "5.8%", icon: "🎯" },
-                      { label: "Pic attendu", value: "15 Juil", icon: "📅" },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
                         transition={{ delay: 0.3 + i * 0.1 }}
-                        className="flex items-center justify-between"
+                        className="flex-1 flex flex-col items-center origin-bottom"
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm">{item.icon}</span>
-                          <span className="text-white/60 text-xs">{item.label}</span>
-                        </div>
-                        <span className="text-[#10B981] text-sm font-medium">{item.value}</span>
+                        <div 
+                          className="w-full rounded-t-sm"
+                          style={{ backgroundColor: service.color, height: `${service.percentage * 1.5}px` }}
+                        />
+                        <span className="text-[8px] text-white/40 mt-1 truncate w-full text-center">{service.name}</span>
                       </motion.div>
                     ))}
+                  </div>
+                </div>
+                
+                {/* AI Report Button */}
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col">
+                  <AnimatePresence mode="wait">
+                    {aiPhase === "idle" && (
+                      <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center h-full gap-3">
+                        <button onClick={handleGenerateReport} className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#ff7000] to-[#f59e0b] rounded-lg text-white text-sm font-sans font-medium hover:opacity-90 transition-opacity">
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                          </svg>
+                          Générer un rapport avec l&apos;IA
+                        </button>
+                        <span className="text-[10px] text-white/40 font-sans">Analyse automatique des données</span>
+                      </motion.div>
+                    )}
+                    {aiPhase === "thinking" && (
+                      <motion.div key="thinking" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center h-full gap-3">
+                        <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-8 h-8 border-2 border-[#ff7000]/30 border-t-[#ff7000] rounded-full" />
+                        <span className="text-white/70 text-sm font-sans">Analyse en cours...</span>
+                      </motion.div>
+                    )}
+                    {aiPhase === "done" && (
+                      <motion.div key="done" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-2">
+                        <div className="text-white/60 text-xs font-sans mb-2">Actions recommandées</div>
+                        {[
+                          { icon: "💡", label: "Conseil amélioration", desc: "Ajouter FAQ tracking sur page Reefer" },
+                          { icon: "🎯", label: "Conseil stratégique", desc: "Focus acquisition cross-border Q3" },
+                        ].map((action, i) => (
+                          <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.15 }} className="flex items-center gap-3 p-2 rounded-lg bg-white/5">
+                            <span className="text-lg">{action.icon}</span>
+                            <div className="flex-1 min-w-0">
+                              <span className="text-white/80 text-xs font-sans block">{action.label}</span>
+                              <span className="text-white/40 text-[10px] font-sans truncate block">{action.desc}</span>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="optimise-content"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-6"
+              >
+                {/* Top row - Funnel + Live Graph */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Animated Funnel */}
+                  <div className="p-5 rounded-xl bg-gradient-to-br from-[#10B981]/10 to-transparent border border-[#10B981]/30 relative overflow-hidden">
+                    <div className="flex items-center gap-2 mb-4">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                      >
+                        <TrendingUp className="w-4 h-4 text-[#10B981]" />
+                      </motion.div>
+                      <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">Funnel de conversion en direct</span>
+                    </div>
+                    
+                    {/* Visual Funnel */}
+                    <div className="relative h-48">
+                      {[
+                        { stage: "Visiteurs", value: 1420, percent: 100 },
+                        { stage: "Engagés", value: 890, percent: 63 },
+                        { stage: "Qualifiés", value: 340, percent: 24 },
+                        { stage: "Convertis", value: 89, percent: 6 },
+                      ].map((item, i) => (
+                        <motion.div
+                          key={item.stage}
+                          initial={{ opacity: 0, x: -50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.2 }}
+                          className="absolute left-0 right-0"
+                          style={{ top: `${i * 25}%` }}
+                        >
+                          <div className="flex items-center gap-3">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: `${item.percent}%` }}
+                              transition={{ delay: i * 0.2 + 0.3, duration: 0.8, ease: "easeOut" }}
+                              className="h-8 rounded-r-lg bg-gradient-to-r from-[#10B981] to-[#34d399] relative overflow-hidden"
+                              style={{ maxWidth: `${item.percent}%` }}
+                            >
+                              {/* Shimmer effect */}
+                              <motion.div
+                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                animate={{ x: ["-100%", "200%"] }}
+                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                              />
+                            </motion.div>
+                            <div className="flex items-baseline gap-2 shrink-0">
+                              <span className="text-white text-sm font-bold">{item.value.toLocaleString()}</span>
+                              <span className="text-white/40 text-xs">{item.stage}</span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                    
+                    {/* Conversion rate highlight */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.2 }}
+                      className="mt-4 p-3 rounded-lg bg-[#10B981]/20 border border-[#10B981]/40 flex items-center justify-between"
+                    >
+                      <span className="text-white/70 text-xs">Taux de conversion global</span>
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1.5, type: "spring" }}
+                        className="text-[#10B981] text-2xl font-serif font-bold"
+                      >
+                        6.27%
+                      </motion.span>
+                    </motion.div>
+                  </div>
+
+                  {/* Live Analytics Graph */}
+                  <div className="p-5 rounded-xl bg-gradient-to-br from-[#10B981]/10 to-transparent border border-[#10B981]/30">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <BarChart3 className="w-4 h-4 text-[#10B981]" />
+                        <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">Tendance 7 jours</span>
+                      </div>
+                      <motion.div
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="flex items-center gap-1"
+                      >
+                        <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+                        <span className="text-[10px] text-[#10B981]">Live</span>
+                      </motion.div>
+                    </div>
+                    
+                    {/* Animated line graph */}
+                    <div className="h-32 relative">
+                      <svg className="w-full h-full" viewBox="0 0 200 100" preserveAspectRatio="none">
+                        {/* Grid lines */}
+                        {[0, 25, 50, 75, 100].map((y) => (
+                          <line key={y} x1="0" y1={y} x2="200" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+                        ))}
+                        
+                        {/* Animated area fill */}
+                        <motion.path
+                          d="M 0 80 L 30 70 L 60 75 L 90 50 L 120 45 L 150 30 L 180 35 L 200 20 L 200 100 L 0 100 Z"
+                          fill="url(#greenGradient)"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 1 }}
+                        />
+                        
+                        {/* Animated line */}
+                        <motion.path
+                          d="M 0 80 L 30 70 L 60 75 L 90 50 L 120 45 L 150 30 L 180 35 L 200 20"
+                          fill="none"
+                          stroke="#10B981"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          transition={{ duration: 1.5, ease: "easeOut" }}
+                        />
+                        
+                        {/* Data points */}
+                        {[[0, 80], [30, 70], [60, 75], [90, 50], [120, 45], [150, 30], [180, 35], [200, 20]].map(([x, y], i) => (
+                          <motion.circle
+                            key={i}
+                            cx={x}
+                            cy={y}
+                            r="4"
+                            fill="#10B981"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 0.2 * i + 0.5 }}
+                          />
+                        ))}
+                        
+                        <defs>
+                          <linearGradient id="greenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#10B981" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      
+                      {/* X-axis labels */}
+                      <div className="flex justify-between mt-2">
+                        {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map((day) => (
+                          <span key={day} className="text-[9px] text-white/30">{day}</span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Recommandations stratégiques */}
-                <div className="p-3 rounded-lg bg-white/5">
-                  <span className="text-white/60 text-[10px] uppercase tracking-wider">Recommandations AI</span>
-                  <div className="mt-3 space-y-2">
-                    {[
-                      { text: "Renforcer cross-border USA", priority: "Haute" },
-                      { text: "Optimiser page Reefer", priority: "Moyenne" },
-                      { text: "Nouveau service Heavy Haul", priority: "Basse" },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 + i * 0.1 }}
-                        className="flex items-start gap-2"
-                      >
-                        <Brain className="w-3 h-3 text-[#10B981] mt-0.5 shrink-0" />
-                        <div className="flex-1">
-                          <span className="text-white/70 text-[11px] block">{item.text}</span>
-                          <span className={`text-[9px] ${
-                            item.priority === "Haute" ? "text-[#ef4444]" : 
-                            item.priority === "Moyenne" ? "text-[#f59e0b]" : "text-white/40"
-                          }`}>
-                            Priorité: {item.priority}
-                          </span>
-                        </div>
-                      </motion.div>
-                    ))}
+                {/* Bottom row - AI Insights + Predictions + Context */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  {/* AI Strategic Recommendations */}
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-[#10B981]/15 to-transparent border border-[#10B981]/40 relative overflow-hidden">
+                    <motion.div
+                      className="absolute top-2 right-2"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Brain className="w-16 h-16 text-[#10B981]/10" />
+                    </motion.div>
+                    
+                    <div className="flex items-center gap-2 mb-3 relative">
+                      <Brain className="w-4 h-4 text-[#10B981]" />
+                      <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">AI Recommandations</span>
+                    </div>
+                    
+                    <div className="space-y-2 relative">
+                      {[
+                        { text: "Renforcer acquisition cross-border US", priority: "Haute", impact: "+23% leads" },
+                        { text: "Optimiser landing page Reefer", priority: "Moyenne", impact: "+12% conv." },
+                        { text: "Lancer campagne Heavy Haul", priority: "Basse", impact: "+8% reach" },
+                      ].map((rec, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.8 + i * 0.15 }}
+                          className="p-2 rounded-lg bg-white/5 border border-white/10"
+                        >
+                          <div className="flex items-start gap-2">
+                            <span className={`px-1.5 py-0.5 rounded text-[8px] font-medium ${
+                              rec.priority === "Haute" ? "bg-[#ef4444]/20 text-[#ef4444]" :
+                              rec.priority === "Moyenne" ? "bg-[#f59e0b]/20 text-[#f59e0b]" :
+                              "bg-white/10 text-white/40"
+                            }`}>{rec.priority}</span>
+                            <div className="flex-1">
+                              <span className="text-white/80 text-[11px] block leading-tight">{rec.text}</span>
+                              <span className="text-[#10B981] text-[10px] font-medium">{rec.impact}</span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Predictive Analytics */}
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <div className="flex items-center gap-2 mb-3">
+                      <TrendingUp className="w-4 h-4 text-[#10B981]" />
+                      <span className="text-white/60 text-xs font-sans font-medium uppercase tracking-wider">Prévisions Q3</span>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      {[
+                        { label: "Leads projetés", current: "890", projected: "1,420", change: "+59%" },
+                        { label: "Revenue estimé", current: "$45K", projected: "$72K", change: "+60%" },
+                        { label: "Pic attendu", current: "-", projected: "15 Juil", change: null },
+                      ].map((pred, i) => (
+                        <motion.div
+                          key={pred.label}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 1 + i * 0.1 }}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-white/40 text-[10px]">{pred.label}</span>
+                            {pred.change && (
+                              <span className="text-[#10B981] text-[10px] font-medium">{pred.change}</span>
+                            )}
+                          </div>
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-white/30 text-sm line-through">{pred.current}</span>
+                            <motion.span
+                              initial={{ scale: 0.8 }}
+                              animate={{ scale: 1 }}
+                              className="text-[#10B981] text-lg font-bold"
+                            >
+                              {pred.projected}
+                            </motion.span>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Operational Context */}
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Database className="w-4 h-4 text-[#10B981]" />
+                      <span className="text-white/60 text-xs font-sans font-medium uppercase tracking-wider">Contexte opérations</span>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      {[
+                        { label: "Capacité fleet", value: "78%", status: "optimal" },
+                        { label: "Drivers disponibles", value: "12/15", status: "warning" },
+                        { label: "Routes actives", value: "34", status: "optimal" },
+                        { label: "Délai moyen", value: "2.3j", status: "optimal" },
+                      ].map((ctx, i) => (
+                        <motion.div
+                          key={ctx.label}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 1.2 + i * 0.1 }}
+                          className="flex items-center justify-between p-2 rounded-lg bg-white/5"
+                        >
+                          <span className="text-white/50 text-[11px]">{ctx.label}</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-white text-xs font-medium">{ctx.value}</span>
+                            <span className={`w-2 h-2 rounded-full ${
+                              ctx.status === "optimal" ? "bg-[#10B981]" : "bg-[#f59e0b]"
+                            }`} />
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          )}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Footer */}
           <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
             <div className="flex items-center gap-2 text-[10px] text-white/30">
-              <span className={`w-1.5 h-1.5 rounded-full ${selectedPlan === "optimise" ? "bg-[#10B981]" : "bg-[#ff7000]"} animate-pulse`} />
+              <motion.span 
+                animate={selectedPlan === "optimise" ? { scale: [1, 1.3, 1] } : {}}
+                transition={{ duration: 1, repeat: Infinity }}
+                className={`w-1.5 h-1.5 rounded-full ${selectedPlan === "optimise" ? "bg-[#10B981]" : "bg-[#ff7000]"}`} 
+              />
               <span>Données anonymisées — Conforme Loi 25</span>
             </div>
-            <span className="text-[10px] text-white/20">Dernière mise à jour: il y a 2h</span>
+            <span className="text-[10px] text-white/20">
+              {selectedPlan === "optimise" ? "Sync temps réel" : "Dernière mise à jour: il y a 2h"}
+            </span>
           </div>
         </div>
       </div>
