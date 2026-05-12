@@ -254,6 +254,60 @@ function DualOffersSlide() {
           </AnimatePresence>
         </AnimatedDiv>
 
+        {/* Value proposition blocks */}
+        <AnimatedContainer staggerDelay={0.15} className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Essentiel value block */}
+          <AnimatedItem direction="left">
+            <div className="relative p-6 rounded-2xl bg-gradient-to-br from-[#ff7000]/5 to-[#ff7000]/10 border border-[#ff7000]/20 overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
+                <svg viewBox="0 0 100 100" className="w-full h-full text-[#ff7000]">
+                  <circle cx="80" cy="20" r="40" fill="currentColor" />
+                  <circle cx="60" cy="50" r="25" fill="currentColor" />
+                </svg>
+              </div>
+              <div className="relative flex items-start gap-4">
+                <div className="w-14 h-14 rounded-xl bg-[#ff7000] flex items-center justify-center shrink-0">
+                  <Zap className="w-7 h-7 text-white" />
+                </div>
+                <div className="flex-1">
+                  <span className="text-xs tracking-[0.15em] uppercase text-[#ff7000] font-sans font-medium">Plan Essentiel</span>
+                  <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">Coup de jus technologique</h4>
+                  <p className="text-sm text-[#64748b] font-sans leading-relaxed">
+                    Modernisez votre image et impressionnez en interne. Un agent IA qui guide vos visiteurs en moins de 60 secondes.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AnimatedItem>
+
+          {/* Optimisé value block */}
+          <AnimatedItem direction="right">
+            <div className="relative p-6 rounded-2xl bg-gradient-to-br from-[#10B981]/5 to-[#10B981]/10 border border-[#10B981]/20 overflow-hidden">
+              <div className="absolute top-0 right-0 w-40 h-40 opacity-10">
+                <svg viewBox="0 0 100 100" className="w-full h-full text-[#10B981]">
+                  <path d="M10 80 L30 50 L50 60 L70 30 L90 40" stroke="currentColor" strokeWidth="4" fill="none" />
+                  <circle cx="30" cy="50" r="4" fill="currentColor" />
+                  <circle cx="50" cy="60" r="4" fill="currentColor" />
+                  <circle cx="70" cy="30" r="4" fill="currentColor" />
+                  <circle cx="90" cy="40" r="4" fill="currentColor" />
+                </svg>
+              </div>
+              <div className="relative flex items-start gap-4">
+                <div className="w-14 h-14 rounded-xl bg-[#10B981] flex items-center justify-center shrink-0">
+                  <TrendingUp className="w-7 h-7 text-white" />
+                </div>
+                <div className="flex-1">
+                  <span className="text-xs tracking-[0.15em] uppercase text-[#10B981] font-sans font-medium">Plan Optimisé</span>
+                  <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">Première pierre data-driven</h4>
+                  <p className="text-sm text-[#64748b] font-sans leading-relaxed">
+                    Connectez vos clients à vos opérations. Une IA qui apprend, recommande, et laisse une impression durable — en interne et en externe.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AnimatedItem>
+        </AnimatedContainer>
+
         {/* Options grid */}
         <AnimatedContainer staggerDelay={0.2} className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Option A */}
@@ -261,15 +315,7 @@ function DualOffersSlide() {
             <div className="relative p-8 rounded-2xl border border-[#e5e7eb] bg-white shadow-sm h-full">
               <div className="flex flex-col gap-6">
                 <div>
-                  {optionA.tagline && (
-                    <span className="inline-block px-3 py-1 mb-3 text-xs tracking-[0.1em] uppercase bg-[#ff7000]/10 text-[#ff7000] rounded-full font-sans font-medium">
-                      {optionA.tagline}
-                    </span>
-                  )}
                   <h3 className="font-serif text-2xl text-[#0f172a] mb-2">{optionA.name}</h3>
-                  <p className="text-sm text-[#64748b] font-sans leading-relaxed">
-                    {optionA.description}
-                  </p>
                 </div>
 
                 <div className="flex items-end gap-2">
@@ -334,15 +380,7 @@ function DualOffersSlide() {
             <div className="relative p-8 rounded-2xl border-2 border-[#10B981] bg-[#10B981]/5 shadow-lg h-full">
               <div className="flex flex-col gap-6">
                 <div>
-                  {optionB.tagline && (
-                    <span className="inline-block px-3 py-1 mb-3 text-xs tracking-[0.1em] uppercase bg-[#10B981]/10 text-[#10B981] rounded-full font-sans font-medium">
-                      {optionB.tagline}
-                    </span>
-                  )}
                   <h3 className="font-serif text-2xl text-[#0f172a] mb-2">{optionB.name}</h3>
-                  <p className="text-sm text-[#64748b] font-sans leading-relaxed">
-                    {optionB.description}
-                  </p>
                 </div>
 
                 <div className="flex items-end gap-2">
