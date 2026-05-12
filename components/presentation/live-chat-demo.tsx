@@ -27,12 +27,16 @@ const SERVICE_URLS = [
 ]
 
 export function LiveChatDemo() {
+  console.log("[v0] LiveChatDemo component mounting")
   const [isExpanded, setIsExpanded] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   
   const { messages, input, handleInputChange, handleSubmit, isLoading, setInput } = useChat({
     api: "/api/chat",
+    onError: (error) => {
+      console.log("[v0] Chat error:", error)
+    },
   })
 
   const scrollToBottom = () => {
