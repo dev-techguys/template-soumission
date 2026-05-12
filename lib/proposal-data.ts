@@ -56,7 +56,7 @@ export const pricing = {
   // ── Mode dual-offers (deux options comparatives) ───────────
   dualOffers: {
     optionA: {
-      name: "Option A — Essentiel",
+      name: "Plan Essentiel",
       price: "6 400 $",
       priceValue: 6400,
       timeline: "3–4 semaines",
@@ -94,7 +94,7 @@ export const pricing = {
       ],
     },
     optionB: {
-      name: "Option B — Premium",
+      name: "Plan Optimisé",
       price: "12 400 $",
       priceValue: 12400,
       timeline: "6–8 semaines",
@@ -137,7 +137,7 @@ export const pricing = {
         "Dashboard avancé avec funnel de conversion",
       ],
     },
-    recommendation: "L'Option A livre un agent IA complet et fonctionnel — vrai LLM, analytics, dashboard. L'Option B est l'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui affine les réponses au fil des interactions, et intégrations avancées pour maximiser la conversion.",
+    recommendation: "Le Plan Essentiel livre un agent IA complet et fonctionnel — vrai LLM, analytics, dashboard. Le Plan Optimisé est l'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui affine les réponses au fil des interactions, et intégrations avancées pour maximiser la conversion.",
   },
 }
 

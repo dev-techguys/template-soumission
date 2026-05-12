@@ -250,7 +250,7 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
                 className="flex items-center gap-2"
               >
                 <div className="w-4 h-4 rounded bg-[#10B981]" />
-                <span className="text-xs font-sans text-[#64748b]">Premium (Option B uniquement)</span>
+                <span className="text-xs font-sans text-[#64748b]">Premium (Plan Optimisé uniquement)</span>
               </motion.div>
             )}
           </AnimatePresence>
@@ -304,7 +304,7 @@ function MilestoneSection({ task }: { task: Task }) {
 
 // Option details
 const OPTION_A_DETAILS = {
-  name: "Option A — Essentiel",
+  name: "Plan Essentiel",
   price: "6 400 $",
   timeline: "3-4 semaines",
   hours: "~32h",
@@ -312,7 +312,7 @@ const OPTION_A_DETAILS = {
 }
 
 const OPTION_B_DETAILS = {
-  name: "Option B — Premium",
+  name: "Plan Optimisé",
   price: "12 400 $",
   timeline: "6-8 semaines",
   hours: "~62h",
@@ -360,7 +360,7 @@ export function RoadmapSlide() {
                   : "bg-white border border-[#e5e7eb] text-[#64748b] hover:border-[#ff7000]/50 hover:text-[#ff7000]"
               }`}
             >
-              Option A — Essentiel
+              Plan Essentiel
             </button>
             <button
               onClick={() => setSelectedOption("B")}
@@ -370,7 +370,7 @@ export function RoadmapSlide() {
                   : "bg-white border border-[#e5e7eb] text-[#64748b] hover:border-[#10B981]/50 hover:text-[#10B981]"
               }`}
             >
-              Option B — Premium
+              Plan Optimisé
             </button>
           </div>
         </AnimatedDiv>
@@ -393,7 +393,7 @@ export function RoadmapSlide() {
                 <div>
                   <h3 className="font-serif text-xl text-[#0f172a]">Timeline sur 2 mois</h3>
                   <p className="text-sm text-[#64748b] font-sans">
-                    Vue calendrier hebdomadaire — {selectedOption === "A" ? "Option A (4 semaines)" : "Option B (8 semaines)"}
+                    Vue calendrier hebdomadaire — {selectedOption === "A" ? "Plan Essentiel (4 semaines)" : "Plan Optimisé (8 semaines)"}
                   </p>
                 </div>
               </div>
