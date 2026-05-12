@@ -98,12 +98,12 @@ export function LiveChatDemo() {
       ])
     } finally {
       setIsLoading(false)
-      // Trigger extraction animation for Plan Optimisé
+      // Trigger extraction animation for Plan Optimisé - stays at "complete" instead of resetting
       if (selectedPlan === "optimise") {
         setExtractionPhase("extracting")
         setTimeout(() => setExtractionPhase("routing"), 1500)
         setTimeout(() => setExtractionPhase("complete"), 3000)
-        setTimeout(() => setExtractionPhase("idle"), 6000)
+        // Keep at "complete" state - don't reset to idle
       }
     }
   }
@@ -424,23 +424,35 @@ export function LiveChatDemo() {
                 </div>
 
                 <div className="p-4 space-y-4">
-                  {/* Extraction Status */}
+                  {/* Extraction Status - Always shows when complete or animating */}
                   <AnimatePresence mode="wait">
                     {extractionPhase !== "idle" && (
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="p-3 rounded-lg bg-[#10B981]/10 border border-[#10B981]/30"
+                        className={`p-3 rounded-lg border ${
+                          extractionPhase === "complete" 
+                            ? "bg-[#10B981]/20 border-[#10B981]/50" 
+                            : "bg-[#10B981]/10 border-[#10B981]/30"
+                        }`}
                       >
                         <div className="flex items-center gap-2 mb-2">
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          >
-                            <Database className="w-4 h-4 text-[#10B981]" />
-                          </motion.div>
-                          <span className="text-[#10B981] text-xs font-medium">
+                          {extractionPhase === "complete" ? (
+                            <div className="w-4 h-4 rounded-full bg-[#10B981] flex items-center justify-center">
+                              <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              </svg>
+                            </div>
+                          ) : (
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            >
+                              <Database className="w-4 h-4 text-[#10B981]" />
+                            </motion.div>
+                          )}
+                          <span className={`text-xs font-medium ${extractionPhase === "complete" ? "text-[#10B981] font-semibold" : "text-[#10B981]"}`}>
                             {extractionPhase === "extracting" && "Extraction des données..."}
                             {extractionPhase === "routing" && "Analyse du profil..."}
                             {extractionPhase === "complete" && "Synchronisé avec Dashboard"}
@@ -452,7 +464,7 @@ export function LiveChatDemo() {
                             initial={{ width: "0%" }}
                             animate={{ 
                               width: extractionPhase === "extracting" ? "33%" 
-                                : extractionPhase === "routing" ? "66%" 
+                             : extractionPhase === "routing" ? "66%" 
                                 : "100%" 
                             }}
                             transition={{ duration: 0.5 }}
@@ -484,7 +496,11 @@ export function LiveChatDemo() {
                         <div className="flex items-end gap-1">
                           <span className="text-xl font-serif" style={{ color: metric.color }}>
                             {extractionPhase !== "idle" ? (
-                              <AnimatedCounter value={metric.value} duration={1.5} />
+                              extractionPhase === "complete" ? (
+                                metric.value
+                              ) : (
+                                <AnimatedCounter value={metric.value} duration={1.5} />
+                              )
                             ) : (
                               "--"
                             )}

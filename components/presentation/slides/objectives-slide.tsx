@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { SlideWrapper } from "../slide-wrapper"
 import { AnimatedDiv, AnimatedContainer, AnimatedItem } from "../animated-wrapper"
-import { MessageSquare, Navigation, BarChart3, Blocks, ChevronDown, ArrowRight, MessageCircle, TrendingUp, Brain, Phone, Mail, Database } from "lucide-react"
+import { MessageSquare, Navigation, BarChart3, Blocks, ChevronDown, ArrowRight, MessageCircle, TrendingUp, Brain, Phone, Mail, Database, Truck } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { LiveChatDemo } from "../live-chat-demo"
 
@@ -166,13 +166,30 @@ const FEATURES = [
 
 
 // Workflow visualization component with 3 tabs
+// Dynamic learning branches for Plan Optimisé
+const LEARNED_BRANCHES = [
+  { id: "G", label: "Express Same-Day", color: "#ef4444", destination: "express-delivery" },
+  { id: "H", label: "Multi-stop LTL", color: "#8b5cf6", destination: "multi-stop" },
+]
+
 function WorkflowVisualization() {
   const [activeTab, setActiveTab] = useState<"questions" | "demo" | "tree">("questions")
   const [demoPhase, setDemoPhase] = useState<"idle" | "typing" | "thinking" | "redirect">("idle")
   const [typedText, setTypedText] = useState("")
   const [currentUrl, setCurrentUrl] = useState("safextransport.ca/services")
   const [selectedPlan, setSelectedPlan] = useState<"essentiel" | "optimise">("essentiel")
+  const [showLearnedBranches, setShowLearnedBranches] = useState(false)
   const fullText = "I need to ship frozen food from Montreal to Chicago"
+
+  // Show learned branches animation when switching to Plan Optimisé on tree tab
+  useEffect(() => {
+    if (selectedPlan === "optimise" && activeTab === "tree") {
+      const timer = setTimeout(() => setShowLearnedBranches(true), 1500)
+      return () => clearTimeout(timer)
+    } else {
+      setShowLearnedBranches(false)
+    }
+  }, [selectedPlan, activeTab])
 
   // Manual demo trigger - not auto
   const runDemo = async () => {
@@ -604,6 +621,99 @@ function WorkflowVisualization() {
                     ))}
                   </div>
                   
+                  {/* Learned Branches Animation - Plan Optimisé only */}
+                  <AnimatePresence>
+                    {selectedPlan === "optimise" && showLearnedBranches && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="mt-6 w-full"
+                      >
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="mb-3 flex items-center justify-center gap-2"
+                        >
+                          <motion.div
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 0.5, repeat: 3 }}
+                            className="w-2 h-2 rounded-full bg-[#10B981]"
+                          />
+                          <span className="text-[#10B981] text-xs font-medium">Nouvelles branches apprises par l&apos;IA</span>
+                          <motion.div
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 0.5, repeat: 3, delay: 0.1 }}
+                            className="w-2 h-2 rounded-full bg-[#10B981]"
+                          />
+                        </motion.div>
+                        
+                        <div className="flex justify-center gap-6">
+                          {LEARNED_BRANCHES.map((branch, i) => (
+                            <motion.div
+                              key={branch.id}
+                              initial={{ opacity: 0, y: 30, scale: 0.5 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              transition={{ 
+                                delay: i * 0.3,
+                                type: "spring",
+                                stiffness: 200,
+                                damping: 15
+                              }}
+                              className="flex flex-col items-center"
+                            >
+                              {/* Connection line animation */}
+                              <motion.div
+                                initial={{ height: 0 }}
+                                animate={{ height: 20 }}
+                                transition={{ delay: i * 0.3, duration: 0.3 }}
+                                className="w-0.5 bg-gradient-to-b from-[#10B981] to-transparent mb-2"
+                              />
+                              
+                              <motion.div
+                                className="w-12 h-12 rounded-xl flex items-center justify-center text-white text-sm font-bold shadow-lg border-2 border-[#10B981]"
+                                style={{ backgroundColor: branch.color + "30" }}
+                                animate={{
+                                  boxShadow: ["0 0 0px rgba(16,185,129,0)", "0 0 20px rgba(16,185,129,0.6)", "0 0 10px rgba(16,185,129,0.3)"],
+                                }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                              >
+                                {branch.id}
+                              </motion.div>
+                              
+                              <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: i * 0.3 + 0.5 }}
+                                className="mt-2 text-center"
+                              >
+                                <p className="text-[#10B981] text-[10px] font-sans font-medium leading-tight">{branch.label}</p>
+                                <motion.span
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ delay: i * 0.3 + 0.7 }}
+                                  className="text-[8px] text-white/40 mt-1 block"
+                                >
+                                  Appris automatiquement
+                                </motion.span>
+                              </motion.div>
+                              
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: i * 0.3 + 0.8 }}
+                                className="mt-3 px-2 py-1.5 rounded-lg bg-[#10b981]/20 border border-[#10b981]/40"
+                              >
+                                <code className="text-[#10b981] text-[9px]">{branch.destination}</code>
+                              </motion.div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  
                   {/* Multi-channel routing for Plan Optimisé */}
                   {selectedPlan === "optimise" && (
                     <motion.div
@@ -793,6 +903,7 @@ function WorkflowVisualization() {
 // Dashboard visualization component with AI report generation
 function DashboardVisualization() {
   const [aiPhase, setAiPhase] = useState<"idle" | "thinking" | "done">("idle")
+  const [aiPhaseOptimise, setAiPhaseOptimise] = useState<"idle" | "thinking" | "done">("idle")
   const [selectedPlan, setSelectedPlan] = useState<"essentiel" | "optimise">("essentiel")
   const [showOptimiseAnimation, setShowOptimiseAnimation] = useState(false)
   
@@ -808,6 +919,12 @@ function DashboardVisualization() {
     setAiPhase("thinking")
     await new Promise(r => setTimeout(r, 2500))
     setAiPhase("done")
+  }
+
+  const handleGenerateReportOptimise = async () => {
+    setAiPhaseOptimise("thinking")
+    await new Promise(r => setTimeout(r, 2500))
+    setAiPhaseOptimise("done")
   }
 
   // Trigger animation when switching to Plan Optimisé
@@ -1265,37 +1382,141 @@ function DashboardVisualization() {
                     </div>
                   </div>
 
-                  {/* Operational Context */}
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Database className="w-4 h-4 text-[#10B981]" />
-                      <span className="text-white/60 text-xs font-sans font-medium uppercase tracking-wider">Contexte opérations</span>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      {[
-                        { label: "Capacité fleet", value: "78%", status: "optimal" },
-                        { label: "Drivers disponibles", value: "12/15", status: "warning" },
-                        { label: "Routes actives", value: "34", status: "optimal" },
-                        { label: "Délai moyen", value: "2.3j", status: "optimal" },
-                      ].map((ctx, i) => (
-                        <motion.div
-                          key={ctx.label}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 1.2 + i * 0.1 }}
-                          className="flex items-center justify-between p-2 rounded-lg bg-white/5"
+                  {/* AI Report Generator + Strategic Insight */}
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-[#10B981]/10 to-transparent border border-[#10B981]/30 relative overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      {aiPhaseOptimise === "idle" && (
+                        <motion.div 
+                          key="idle-optimise" 
+                          initial={{ opacity: 0 }} 
+                          animate={{ opacity: 1 }} 
+                          exit={{ opacity: 0 }} 
+                          className="flex flex-col h-full"
                         >
-                          <span className="text-white/50 text-[11px]">{ctx.label}</span>
-                          <div className="flex items-center gap-2">
-                            <span className="text-white text-xs font-medium">{ctx.value}</span>
-                            <span className={`w-2 h-2 rounded-full ${
-                              ctx.status === "optimal" ? "bg-[#10B981]" : "bg-[#f59e0b]"
-                            }`} />
+                          <div className="flex items-center gap-2 mb-3">
+                            <Database className="w-4 h-4 text-[#10B981]" />
+                            <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">Rapport IA</span>
+                          </div>
+                          
+                          <div className="flex-1 flex flex-col items-center justify-center gap-3">
+                            <button 
+                              onClick={handleGenerateReportOptimise} 
+                              className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#10B981] to-[#059669] rounded-lg text-white text-sm font-sans font-medium hover:opacity-90 transition-opacity shadow-lg shadow-[#10B981]/25"
+                            >
+                              <Brain className="w-4 h-4" />
+                              Générer un rapport avec l&apos;IA
+                            </button>
+                            <span className="text-[10px] text-white/40 font-sans text-center">Connecté aux données logistique Safex</span>
                           </div>
                         </motion.div>
-                      ))}
-                    </div>
+                      )}
+                      
+                      {aiPhaseOptimise === "thinking" && (
+                        <motion.div 
+                          key="thinking-optimise" 
+                          initial={{ opacity: 0 }} 
+                          animate={{ opacity: 1 }} 
+                          exit={{ opacity: 0 }} 
+                          className="flex flex-col items-center justify-center h-full gap-3"
+                        >
+                          <motion.div 
+                            animate={{ rotate: 360 }} 
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }} 
+                            className="w-10 h-10 border-2 border-[#10B981]/30 border-t-[#10B981] rounded-full" 
+                          />
+                          <span className="text-[#10B981] text-sm font-sans">Analyse des données Safex...</span>
+                          <div className="flex items-center gap-2 text-[10px] text-white/40">
+                            <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity }}>
+                              Fleet data
+                            </motion.span>
+                            <span>+</span>
+                            <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}>
+                              Market trends
+                            </motion.span>
+                            <span>+</span>
+                            <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}>
+                              Prévisions
+                            </motion.span>
+                          </div>
+                        </motion.div>
+                      )}
+                      
+                      {aiPhaseOptimise === "done" && (
+                        <motion.div 
+                          key="done-optimise" 
+                          initial={{ opacity: 0, y: 10 }} 
+                          animate={{ opacity: 1, y: 0 }} 
+                          className="flex flex-col gap-3"
+                        >
+                          <div className="flex items-center gap-2 mb-1">
+                            <Brain className="w-4 h-4 text-[#10B981]" />
+                            <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">Conseil stratégique IA</span>
+                          </div>
+                          
+                          {/* Strategic Recommendation */}
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="p-3 rounded-lg bg-gradient-to-r from-[#10B981]/20 to-[#059669]/10 border border-[#10B981]/40"
+                          >
+                            <div className="flex items-start gap-2 mb-2">
+                              <motion.div
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                                className="w-6 h-6 rounded-full bg-[#10B981] flex items-center justify-center shrink-0 mt-0.5"
+                              >
+                                <TrendingUp className="w-3 h-3 text-white" />
+                              </motion.div>
+                              <div>
+                                <span className="text-[#10B981] text-[11px] font-semibold block mb-1">Croissance Reefer Q3 2026</span>
+                                <p className="text-white/80 text-[10px] leading-relaxed">
+                                  Les prévisions estiment une <span className="text-[#10B981] font-medium">croissance de +34%</span> pour le segment Reefer au Q3.
+                                </p>
+                              </div>
+                            </div>
+                            
+                            <motion.div
+                              initial={{ opacity: 0, y: 5 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.5 }}
+                              className="mt-3 p-2.5 rounded-lg bg-[#f59e0b]/10 border border-[#f59e0b]/30"
+                            >
+                              <div className="flex items-start gap-2">
+                                <motion.div
+                                  animate={{ x: [0, 2, 0] }}
+                                  transition={{ duration: 1.5, repeat: Infinity }}
+                                  className="w-5 h-5 rounded bg-[#f59e0b]/20 flex items-center justify-center shrink-0 mt-0.5"
+                                >
+                                  <Truck className="w-3 h-3 text-[#f59e0b]" />
+                                </motion.div>
+                                <div>
+                                  <span className="text-[#f59e0b] text-[10px] font-medium block">Recommandation opérationnelle</span>
+                                  <p className="text-white/70 text-[9px] leading-relaxed mt-0.5">
+                                    Basé sur les données logistique Safex, l&apos;IA recommande l&apos;acquisition d&apos;un <span className="text-white font-medium">camion Reefer supplémentaire</span> pour éviter un goulot d&apos;étranglement matériel et assurer la continuité des opérations.
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </motion.div>
+                          
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.8 }}
+                            className="flex items-center justify-between text-[9px]"
+                          >
+                            <span className="text-white/30">Source: Safex Fleet API + Market Data</span>
+                            <button 
+                              onClick={() => setAiPhaseOptimise("idle")}
+                              className="text-[#10B981] hover:underline"
+                            >
+                              Nouveau rapport
+                            </button>
+                          </motion.div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
               </motion.div>
