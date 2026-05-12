@@ -1,10 +1,3 @@
-import { streamText } from "ai"
-import { createGroq } from "@ai-sdk/groq"
-
-const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY,
-})
-
 const SAFEX_SYSTEM_PROMPT = `You are the Safex Transport AI assistant. You help visitors navigate to the right service page on safextransport.ca.
 
 ## Your Personality
@@ -65,13 +58,75 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json()
 
-    const result = await streamText({
-      model: groq("llama-3.1-8b-instant"),
-      system: SAFEX_SYSTEM_PROMPT,
-      messages,
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "llama-3.1-8b-instant",
+        messages: [
+          { role: "system", content: SAFEX_SYSTEM_PROMPT },
+          ...messages,
+        ],
+        stream: true,
+      }),
     })
 
-    return result.toDataStreamResponse()
+    if (!response.ok) {
+      const error = await response.text()
+      console.error("[v0] Groq API error:", error)
+      throw new Error(`Groq API error: ${response.status}`)
+    }
+
+    // Transform the SSE stream to a simpler format for the client
+    const reader = response.body?.getReader()
+    const encoder = new TextEncoder()
+    const decoder = new TextDecoder()
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        if (!reader) {
+          controller.close()
+          return
+        }
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
+
+            const chunk = decoder.decode(value)
+            const lines = chunk.split("\n")
+
+            for (const line of lines) {
+              if (line.startsWith("data: ") && line !== "data: [DONE]") {
+                try {
+                  const json = JSON.parse(line.slice(6))
+                  const content = json.choices?.[0]?.delta?.content
+                  if (content) {
+                    // Format as AI SDK data stream protocol
+                    controller.enqueue(encoder.encode(`0:${JSON.stringify(content)}\n`))
+                  }
+                } catch {
+                  // Skip parse errors
+                }
+              }
+            }
+          }
+        } finally {
+          controller.close()
+        }
+      },
+    })
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Transfer-Encoding": "chunked",
+      },
+    })
   } catch (error) {
     console.error("[v0] Chat API error:", error)
     return new Response(
