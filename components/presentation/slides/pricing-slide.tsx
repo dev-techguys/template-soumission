@@ -1,9 +1,172 @@
 "use client"
 
+import { useState } from "react"
 import { SlideWrapper } from "../slide-wrapper"
 import { AnimatedDiv, AnimatedContainer, AnimatedItem } from "../animated-wrapper"
-import { Check, X, Star } from "lucide-react"
+import { Check, X, Star, ChevronDown, BarChart3 } from "lucide-react"
 import { pricing } from "@/lib/proposal-data"
+import { motion, AnimatePresence } from "framer-motion"
+
+// Radar chart data
+const radarMetrics = [
+  { label: "Conversion", optionA: 3, optionB: 5 },
+  { label: "Scalabilité", optionA: 2, optionB: 5 },
+  { label: "Analytics", optionA: 1, optionB: 4 },
+  { label: "Personnalisation", optionA: 2, optionB: 5 },
+  { label: "ROI estimé", optionA: 3, optionB: 5 },
+  { label: "Support", optionA: 2, optionB: 4 },
+]
+
+function RadarChart() {
+  const size = 280
+  const center = size / 2
+  const maxRadius = 100
+  const levels = 5
+
+  const angleStep = (2 * Math.PI) / radarMetrics.length
+  const startAngle = -Math.PI / 2
+
+  const getPoint = (index: number, value: number) => {
+    const angle = startAngle + index * angleStep
+    const radius = (value / 5) * maxRadius
+    return {
+      x: center + radius * Math.cos(angle),
+      y: center + radius * Math.sin(angle),
+    }
+  }
+
+  const createPath = (values: number[]) => {
+    return values
+      .map((value, i) => {
+        const point = getPoint(i, value)
+        return `${i === 0 ? "M" : "L"} ${point.x} ${point.y}`
+      })
+      .join(" ") + " Z"
+  }
+
+  const optionAPath = createPath(radarMetrics.map((m) => m.optionA))
+  const optionBPath = createPath(radarMetrics.map((m) => m.optionB))
+
+  return (
+    <div className="flex flex-col items-center">
+      <svg width={size} height={size} className="overflow-visible">
+        {/* Grid circles */}
+        {Array.from({ length: levels }).map((_, i) => (
+          <circle
+            key={i}
+            cx={center}
+            cy={center}
+            r={(maxRadius / levels) * (i + 1)}
+            fill="none"
+            stroke="#e5e7eb"
+            strokeWidth="1"
+          />
+        ))}
+
+        {/* Axis lines */}
+        {radarMetrics.map((_, i) => {
+          const point = getPoint(i, 5)
+          return (
+            <line
+              key={i}
+              x1={center}
+              y1={center}
+              x2={point.x}
+              y2={point.y}
+              stroke="#e5e7eb"
+              strokeWidth="1"
+            />
+          )
+        })}
+
+        {/* Option A area */}
+        <motion.path
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          d={optionAPath}
+          fill="rgba(255, 112, 0, 0.15)"
+          stroke="#ff7000"
+          strokeWidth="2"
+        />
+
+        {/* Option B area */}
+        <motion.path
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          d={optionBPath}
+          fill="rgba(16, 185, 129, 0.15)"
+          stroke="#10B981"
+          strokeWidth="2"
+        />
+
+        {/* Data points Option A */}
+        {radarMetrics.map((metric, i) => {
+          const point = getPoint(i, metric.optionA)
+          return (
+            <motion.circle
+              key={`a-${i}`}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.3 + i * 0.05 }}
+              cx={point.x}
+              cy={point.y}
+              r="4"
+              fill="#ff7000"
+            />
+          )
+        })}
+
+        {/* Data points Option B */}
+        {radarMetrics.map((metric, i) => {
+          const point = getPoint(i, metric.optionB)
+          return (
+            <motion.circle
+              key={`b-${i}`}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.5 + i * 0.05 }}
+              cx={point.x}
+              cy={point.y}
+              r="4"
+              fill="#10B981"
+            />
+          )
+        })}
+
+        {/* Labels */}
+        {radarMetrics.map((metric, i) => {
+          const point = getPoint(i, 6.2)
+          return (
+            <text
+              key={i}
+              x={point.x}
+              y={point.y}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              className="text-[10px] fill-[#64748b] font-sans"
+            >
+              {metric.label}
+            </text>
+          )
+        })}
+      </svg>
+
+      {/* Legend */}
+      <div className="flex items-center gap-6 mt-4">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-[#ff7000]" />
+          <span className="text-xs text-[#64748b] font-sans">Option A</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-[#10B981]" />
+          <span className="text-xs text-[#64748b] font-sans">Option B</span>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function PricingSlide() {
   if (pricing.type === "dual-offers") {
@@ -17,6 +180,7 @@ export function PricingSlide() {
 
 function DualOffersSlide() {
   const { optionA, optionB, recommendation } = pricing.dualOffers
+  const [showRadar, setShowRadar] = useState(false)
 
   return (
     <SlideWrapper id="pricing" className="bg-white">
@@ -25,7 +189,7 @@ function DualOffersSlide() {
         <div className="flex flex-col gap-6 mb-12">
           <AnimatedDiv delay={0}>
             <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
-              06 / Tarification
+              05 / Tarification
             </span>
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
@@ -37,6 +201,58 @@ function DualOffersSlide() {
             <div className="w-16 h-px bg-[#ff7000]" />
           </AnimatedDiv>
         </div>
+
+        {/* Radar Chart Toggle */}
+        <AnimatedDiv delay={0.3} className="mb-8">
+          <button
+            onClick={() => setShowRadar(!showRadar)}
+            className="w-full flex items-center justify-between p-4 rounded-xl border border-[#e5e7eb] bg-[#f8fafc] hover:bg-[#f1f5f9] transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#ff7000]/10 flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-[#ff7000]" />
+              </div>
+              <div className="text-left">
+                <h4 className="font-sans font-medium text-[#0f172a] text-sm">Comparatif visuel des options</h4>
+                <p className="text-xs text-[#64748b]">Voir le radar chart de comparaison</p>
+              </div>
+            </div>
+            <ChevronDown className={`w-5 h-5 text-[#64748b] transition-transform ${showRadar ? "rotate-180" : ""}`} />
+          </button>
+
+          <AnimatePresence>
+            {showRadar && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-4 p-6 rounded-xl border border-[#e5e7eb] bg-white">
+                  <div className="flex flex-col lg:flex-row items-center gap-8">
+                    <RadarChart />
+                    <div className="flex-1 space-y-4">
+                      <h4 className="font-serif text-lg text-[#0f172a]">Pourquoi l&apos;Option B ?</h4>
+                      <div className="space-y-3">
+                        {[
+                          { label: "+67%", desc: "de couverture fonctionnelle" },
+                          { label: "ROI", desc: "estimé en moins de 3 mois" },
+                          { label: "4x", desc: "plus de données analytics" },
+                        ].map((stat, i) => (
+                          <div key={i} className="flex items-center gap-3">
+                            <span className="text-lg font-serif text-[#10B981] font-medium w-16">{stat.label}</span>
+                            <span className="text-sm text-[#64748b] font-sans">{stat.desc}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </AnimatedDiv>
 
         {/* Options grid */}
         <AnimatedContainer staggerDelay={0.2} className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
@@ -175,7 +391,7 @@ function HourlyBankSlide() {
         <div className="flex flex-col gap-6 mb-12">
           <AnimatedDiv delay={0}>
             <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
-              06 / Tarification
+              05 / Tarification
             </span>
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
@@ -278,7 +494,7 @@ function FixedPriceSlide() {
         <div className="flex flex-col gap-6 mb-12">
           <AnimatedDiv delay={0}>
             <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
-              06 / Tarification
+              05 / Tarification
             </span>
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
