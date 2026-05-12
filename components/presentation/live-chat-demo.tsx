@@ -27,16 +27,13 @@ const SERVICE_URLS = [
 ]
 
 export function LiveChatDemo() {
-  console.log("[v0] LiveChatDemo component mounting")
   const [isExpanded, setIsExpanded] = useState(false)
+  const [simulatedUrl, setSimulatedUrl] = useState("safextransport.ca")
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   
   const { messages, input, handleInputChange, handleSubmit, isLoading, setInput } = useChat({
     api: "/api/chat",
-    onError: (error) => {
-      console.log("[v0] Chat error:", error)
-    },
   })
 
   const scrollToBottom = () => {
@@ -45,6 +42,20 @@ export function LiveChatDemo() {
 
   useEffect(() => {
     scrollToBottom()
+  }, [messages])
+
+  // Detect URL in latest assistant message and update simulated URL bar
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1]
+    if (lastMessage?.role === "assistant") {
+      const linkMatch = lastMessage.content.match(/\[([^\]]+)\]\(([^)]+)\)/)
+      if (linkMatch) {
+        const url = linkMatch[2]
+        setTimeout(() => {
+          setSimulatedUrl("safextransport.ca" + url)
+        }, 500)
+      }
+    }
   }, [messages])
 
   const handleQuickPrompt = (prompt: string) => {
@@ -127,10 +138,30 @@ export function LiveChatDemo() {
             </div>
           </div>
 
-          {/* Chat Container */}
-          <div className={`bg-[#0a0f1a] rounded-xl border border-white/10 overflow-hidden transition-all duration-300 ${isExpanded ? "h-96" : "h-64"}`}>
+          {/* Simulated Browser */}
+          <div className={`bg-[#0a0f1a] rounded-xl border border-white/10 overflow-hidden transition-all duration-300 ${isExpanded ? "h-[420px]" : "h-72"}`}>
+            {/* Browser Chrome */}
+            <div className="bg-[#1e293b] px-3 py-2 flex items-center gap-2 border-b border-white/10">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
+                <div className="w-3 h-3 rounded-full bg-[#f59e0b]" />
+                <div className="w-3 h-3 rounded-full bg-[#10b981]" />
+              </div>
+              <div className="flex-1 flex items-center gap-2 bg-[#0f172a] rounded-lg px-3 py-1.5 ml-2">
+                <div className="w-3 h-3 rounded-full bg-[#10b981]" />
+                <motion.span 
+                  key={simulatedUrl}
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: 1 }}
+                  className="text-xs text-white/70 font-mono truncate"
+                >
+                  {simulatedUrl}
+                </motion.span>
+              </div>
+            </div>
+            
             {/* Chat Header */}
-            <div className="bg-gradient-to-r from-[#ff7000] to-[#f59e0b] px-4 py-2.5 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#ff7000] to-[#f59e0b] px-4 py-2 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center">
                   <MessageSquare className="w-4 h-4 text-white" />
@@ -178,16 +209,14 @@ export function LiveChatDemo() {
                       <span>
                         {parseMessageWithLinks(message.content).map((part, i) => (
                           part.type === "link" ? (
-                            <a
+                            <button
                               key={i}
-                              href={part.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                              onClick={() => setSimulatedUrl("safextransport.ca" + part.url)}
                               className="inline-flex items-center gap-1 text-[#ff7000] hover:text-[#f59e0b] underline underline-offset-2 font-medium"
                             >
                               {part.content}
                               <ExternalLink className="w-3 h-3" />
-                            </a>
+                            </button>
                           ) : (
                             <span key={i}>{part.content}</span>
                           )
