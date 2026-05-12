@@ -171,7 +171,7 @@ export function LiveChatDemo() {
                 : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
             }`}
           >
-            Plan Navigation
+            Plan Essentiel
           </button>
           <button
             onClick={() => setSelectedPlan("optimise")}
@@ -181,7 +181,7 @@ export function LiveChatDemo() {
                 : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
             }`}
           >
-            Plan Conversion
+            Plan Performance
           </button>
         </div>
         

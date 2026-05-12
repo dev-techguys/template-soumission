@@ -282,7 +282,7 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
                 className="flex items-center gap-2"
               >
                 <div className="w-4 h-4 rounded bg-[#10B981]" />
-                <span className="text-xs font-sans text-[#64748b]">Premium (Plan Conversion uniquement)</span>
+                <span className="text-xs font-sans text-[#64748b]">Premium (Plan Performance uniquement)</span>
               </motion.div>
             )}
           </AnimatePresence>
@@ -365,13 +365,13 @@ function MilestoneSection({ task }: { task: Task }) {
 
 // Option details
 const OPTION_A_DETAILS = {
-  name: "Plan Navigation",
+  name: "Plan Essentiel - Navigation",
   timeline: "3-4 semaines",
   description: "Un agent IA complet et fonctionnel : vrai LLM Llama, qualification adaptative, trigger proactif, analytics et dashboard. Le visiteur est guidé, qualifié et routé vers la bonne page.",
 }
 
 const OPTION_B_DETAILS = {
-  name: "Plan Conversion",
+  name: "Plan Performance - Conversion",
   timeline: "6-8 semaines",
   description: "L'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui s'affine au fil des interactions, capture de leads, notifications sales, et dashboard avancé avec funnel.",
 }
@@ -417,7 +417,7 @@ export function RoadmapSlide() {
                   : "bg-white border border-[#e5e7eb] text-[#64748b] hover:border-[#ff7000]/50 hover:text-[#ff7000]"
               }`}
             >
-              Plan Navigation
+              Plan Essentiel
             </button>
             <button
               onClick={() => setSelectedOption("B")}
@@ -427,7 +427,7 @@ export function RoadmapSlide() {
                   : "bg-white border border-[#e5e7eb] text-[#64748b] hover:border-[#10B981]/50 hover:text-[#10B981]"
               }`}
             >
-              Plan Conversion
+              Plan Performance
             </button>
           </div>
         </AnimatedDiv>
@@ -450,7 +450,7 @@ export function RoadmapSlide() {
                 <div>
                   <h3 className="font-serif text-xl text-[#0f172a]">Timeline sur 2 mois</h3>
                   <p className="text-sm text-[#64748b] font-sans">
-                    Vue calendrier hebdomadaire — {selectedOption === "A" ? "Plan Navigation (4 semaines)" : "Plan Conversion (8 semaines)"}
+                    Vue calendrier hebdomadaire — {selectedOption === "A" ? "Plan Essentiel (4 semaines)" : "Plan Performance (8 semaines)"}
                   </p>
                 </div>
               </div>

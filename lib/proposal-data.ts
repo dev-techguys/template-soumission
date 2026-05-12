@@ -56,7 +56,7 @@ export const pricing = {
   // ── Mode dual-offers (deux options comparatives) ───────────
   dualOffers: {
     optionA: {
-      name: "Plan Navigation",
+      name: "Plan Essentiel - Navigation",
       price: "6 400 $",
       priceValue: 6400,
       timeline: "3–4 semaines",
@@ -109,7 +109,7 @@ export const pricing = {
       ],
     },
     optionB: {
-      name: "Plan Conversion",
+      name: "Plan Performance - Conversion",
       price: "12 400 $",
       priceValue: 12400,
       timeline: "6–8 semaines",
@@ -170,7 +170,7 @@ export const pricing = {
         },
       ],
       deliverables: [
-        "Tout le Plan Navigation inclus",
+        "Tout le Plan Essentiel - Navigation inclus",
         "Modèle GPT + apprentissage continu",
         "Génération automatique de rapports AI",
         "Emails automatisés (Resend)",
@@ -180,7 +180,7 @@ export const pricing = {
         "Conseil stratégique et expertise B2B",
       ],
     },
-    recommendation: "Le Plan Navigation offre un agent IA opérationnel qui guide et route vos visiteurs vers le bon service. Le Plan Conversion transforme Safex en entreprise data-driven : l'IA qualifie, capture et alerte — connectant vos clients directement à vos opérations. C'est le premier édifice d'une stratégie 100% connectée au marché.",
+    recommendation: "Le Plan Essentiel - Navigation offre un agent IA opérationnel qui guide et route vos visiteurs vers le bon service. Le Plan Performance - Conversion transforme Safex en entreprise data-driven : l'IA qualifie, capture et alerte — connectant vos clients directement à vos opérations. C'est le premier édifice d'une stratégie 100% connectée au marché.",
   },
 }
 

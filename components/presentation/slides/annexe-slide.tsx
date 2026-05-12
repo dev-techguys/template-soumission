@@ -44,8 +44,8 @@ const GLOSSARY = [
       { term: "Hosting", def: "Vercel (plan existant)" },
       { term: "Langue", def: "TypeScript strict" },
       { term: "Styling", def: "Tailwind CSS v4 + design tokens Safex" },
-      { term: "Notifications (Plan Conversion)", def: "Resend API ($0 < 3 000 emails/mois)" },
-      { term: "Animations (Plan Conversion)", def: "Framer Motion" },
+      { term: "Notifications (Plan Performance)", def: "Resend API ($0 < 3 000 emails/mois)" },
+      { term: "Animations (Plan Performance)", def: "Framer Motion" },
     ],
   },
   {
