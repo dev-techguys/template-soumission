@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { SlideWrapper } from "../slide-wrapper"
 import { AnimatedDiv, AnimatedContainer, AnimatedItem } from "../animated-wrapper"
-import { Check, X, Star, ChevronDown, BarChart3 } from "lucide-react"
+import { Check, X, Star, ChevronDown, BarChart3, Brain, Zap, Sparkles, Shield } from "lucide-react"
 import { pricing } from "@/lib/proposal-data"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -289,20 +289,41 @@ function DualOffersSlide() {
 
                 <div className="w-full h-px bg-[#e5e7eb]" />
 
-                <div className="flex flex-col gap-2">
-                  {optionA.features.map((feature) => (
-                    <div key={feature.label} className="flex items-center gap-2">
-                      {feature.included ? (
-                        <Check className="w-4 h-4 text-[#10B981] shrink-0" />
-                      ) : (
-                        <X className="w-4 h-4 text-[#d1d5db] shrink-0" />
-                      )}
-                      <span className={`text-sm font-sans ${feature.included ? "text-[#0f172a]" : "text-[#d1d5db]"}`}>
-                        {feature.label}
-                      </span>
+                {/* Feature groups */}
+                <div className="flex flex-col gap-4">
+                  {optionA.featureGroups?.map((group) => (
+                    <div key={group.category}>
+                      <h5 className="text-xs tracking-[0.1em] uppercase text-[#64748b] font-sans font-medium mb-2">
+                        {group.category}
+                      </h5>
+                      <div className="flex flex-col gap-1.5">
+                        {group.features.map((feature) => (
+                          <div key={feature.label} className="flex items-center gap-2">
+                            <Check className="w-3.5 h-3.5 text-[#ff7000] shrink-0" />
+                            <span className="text-sm font-sans text-[#0f172a]">{feature.label}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
+
+                {/* Not included */}
+                {optionA.notIncluded && optionA.notIncluded.length > 0 && (
+                  <div className="pt-2 border-t border-dashed border-[#e5e7eb]">
+                    <h5 className="text-xs tracking-[0.1em] uppercase text-[#d1d5db] font-sans font-medium mb-2">
+                      Non inclus
+                    </h5>
+                    <div className="flex flex-col gap-1.5">
+                      {optionA.notIncluded.map((item) => (
+                        <div key={item} className="flex items-center gap-2">
+                          <X className="w-3.5 h-3.5 text-[#d1d5db] shrink-0" />
+                          <span className="text-sm font-sans text-[#d1d5db]">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </AnimatedItem>
@@ -340,19 +361,43 @@ function DualOffersSlide() {
 
                 <div className="w-full h-px bg-[#10B981]/30" />
 
-                <div className="flex flex-col gap-2">
-                  {optionB.features.map((feature) => (
-                    <div key={feature.label} className="flex items-center gap-2">
-                      {feature.included ? (
-                        <Check className="w-4 h-4 text-[#10B981] shrink-0" />
-                      ) : (
-                        <X className="w-4 h-4 text-[#d1d5db] shrink-0" />
-                      )}
-                      <span className={`text-sm font-sans ${feature.included ? "text-[#0f172a]" : "text-[#d1d5db]"}`}>
-                        {feature.label}
-                      </span>
-                    </div>
-                  ))}
+                {/* Includes Essential badge */}
+                {optionB.includesEssential && (
+                  <div className="flex items-center gap-2 px-3 py-2 bg-[#ff7000]/10 rounded-lg border border-[#ff7000]/20">
+                    <Check className="w-4 h-4 text-[#ff7000]" />
+                    <span className="text-sm font-sans text-[#ff7000] font-medium">
+                      Inclut tout le Plan Essentiel
+                    </span>
+                  </div>
+                )}
+
+                {/* Feature groups with icons */}
+                <div className="flex flex-col gap-4">
+                  {optionB.featureGroups?.map((group) => {
+                    const IconComponent = group.icon === "brain" ? Brain 
+                      : group.icon === "zap" ? Zap 
+                      : group.icon === "sparkles" ? Sparkles 
+                      : group.icon === "shield" ? Shield 
+                      : Check
+                    return (
+                      <div key={group.category}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <IconComponent className="w-4 h-4 text-[#10B981]" />
+                          <h5 className="text-xs tracking-[0.1em] uppercase text-[#10B981] font-sans font-medium">
+                            {group.category}
+                          </h5>
+                        </div>
+                        <div className="flex flex-col gap-1.5 pl-6">
+                          {group.features.map((feature) => (
+                            <div key={feature.label} className="flex items-center gap-2">
+                              <Check className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
+                              <span className="text-sm font-sans text-[#0f172a]">{feature.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             </div>
