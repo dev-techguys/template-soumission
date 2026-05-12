@@ -144,8 +144,6 @@ export const pricing = {
           category: "Automatisation & Conversion",
           icon: "zap",
           features: [
-            { label: "Email automatisé (Resend)", included: true },
-            { label: "Rapport PDF transmis auto", included: true },
             { label: "Capture de lead dans le chat", included: true },
             { label: "Routing vers sales + notification", included: true },
             { label: "Redirection multi-canal (tel, email, outils)", included: true },
