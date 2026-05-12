@@ -205,8 +205,66 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
           ))}
         </AnimatePresence>
 
+        {/* Milestone indicators row */}
+        <div className="flex border-b-2 border-[#0f172a]/10 bg-gradient-to-r from-[#f8fafc] to-white">
+          <div className="w-44 shrink-0 px-3 py-2">
+            <span className="text-[10px] tracking-[0.1em] uppercase text-[#64748b] font-sans font-medium">Jalons clés</span>
+          </div>
+          {WEEKS.map((week) => {
+            // Milestone definitions based on week
+            const milestones = []
+            
+            // Plan Essentiel: Chatbot ready at week 3, Dashboard at week 4
+            // Plan Optimisé: Chatbot ready at week 3, Dashboard at week 4, Analysis makes sense at week 6 (2 weeks after dashboard)
+            if (week.num === 3) {
+              milestones.push({ label: "Chatbot en ligne", icon: "💬", color: "#ff7000" })
+            }
+            if (week.num === 4) {
+              milestones.push({ label: "Dashboard opérationnel", icon: "📊", color: "#3b82f6" })
+            }
+            if (week.num === 6 && selectedOption === "B") {
+              milestones.push({ label: "Analyse pertinente", icon: "📈", color: "#10B981" })
+            }
+            
+            const isDisabledWeek = week.num > maxWeek
+            
+            return (
+              <motion.div
+                key={`milestone-${week.num}`}
+                animate={{
+                  opacity: isDisabledWeek ? 0.3 : 1,
+                }}
+                transition={{ duration: 0.4 }}
+                className="flex-1 py-2 px-1 border-l border-[#e5e7eb] flex items-center justify-center"
+              >
+                {milestones.map((milestone, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+                    className="relative group"
+                  >
+                    <div 
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-md border-2 border-white cursor-pointer hover:scale-110 transition-transform"
+                      style={{ backgroundColor: milestone.color + "20", borderColor: milestone.color }}
+                    >
+                      {milestone.icon}
+                    </div>
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-[#0f172a] text-white text-[10px] font-sans rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                      {milestone.label}
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0f172a]" />
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )
+          })}
+        </div>
+
         {/* Legend */}
-        <div className="flex items-center gap-6 mt-4 px-3">
+        <div className="flex flex-wrap items-center gap-4 mt-4 px-3">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded bg-[#ff7000]" />
             <span className="text-xs font-sans text-[#64748b]">Core (inclus dans les deux options)</span>
@@ -224,6 +282,30 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
               </motion.div>
             )}
           </AnimatePresence>
+          <div className="h-4 w-px bg-[#e5e7eb]" />
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm">💬</span>
+              <span className="text-[10px] font-sans text-[#64748b]">Chatbot</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm">📊</span>
+              <span className="text-[10px] font-sans text-[#64748b]">Dashboard</span>
+            </div>
+            <AnimatePresence>
+              {selectedOption === "B" && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <span className="text-sm">📈</span>
+                  <span className="text-[10px] font-sans text-[#64748b]">Analyse (2 sem. de data)</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
       
