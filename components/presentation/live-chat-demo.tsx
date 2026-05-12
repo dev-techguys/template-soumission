@@ -1,9 +1,14 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { useChat } from "@ai-sdk/react"
+import { useState, useRef, useEffect, type FormEvent } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Send, ExternalLink, Sparkles, MessageSquare, X, Loader2 } from "lucide-react"
+
+interface Message {
+  id: string
+  role: "user" | "assistant"
+  content: string
+}
 
 const QUICK_PROMPTS = [
   { label: "FTL/LTL Freight", prompt: "I need to ship general freight within Canada" },
@@ -29,12 +34,90 @@ const SERVICE_URLS = [
 export function LiveChatDemo() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [simulatedUrl, setSimulatedUrl] = useState("safextransport.ca")
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  
-  const { messages, input, handleInputChange, handleSubmit, isLoading, setInput } = useChat({
-    api: "/api/chat",
-  })
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    if (!input.trim() || isLoading) return
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: "user",
+      content: input.trim(),
+    }
+
+    setMessages((prev) => [...prev, userMessage])
+    setInput("")
+    setIsLoading(true)
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+        }),
+      })
+
+      if (!response.ok) throw new Error("Failed to fetch")
+
+      const reader = response.body?.getReader()
+      const decoder = new TextDecoder()
+      let assistantContent = ""
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "",
+      }
+      setMessages((prev) => [...prev, assistantMessage])
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+
+          const chunk = decoder.decode(value)
+          const lines = chunk.split("\n")
+
+          for (const line of lines) {
+            if (line.startsWith("0:")) {
+              try {
+                const text = JSON.parse(line.slice(2))
+                assistantContent += text
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === assistantMessage.id ? { ...m, content: assistantContent } : m
+                  )
+                )
+              } catch {
+                // Skip parsing errors
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.log("[v0] Chat error:", error)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          role: "assistant",
+          content: "Sorry, I encountered an error. Please try again.",
+        },
+      ])
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -57,6 +140,10 @@ export function LiveChatDemo() {
       }
     }
   }, [messages])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value)
+  }
 
   const handleQuickPrompt = (prompt: string) => {
     setInput(prompt)
