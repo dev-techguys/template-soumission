@@ -215,26 +215,6 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
           ))}
         </AnimatePresence>
 
-        {/* Total hours */}
-        <motion.div 
-          layout
-          className="flex border-b border-[#e5e7eb] bg-[#0f172a]/5"
-        >
-          <div className="w-44 shrink-0 px-3 py-3">
-            <span className="text-xs font-sans font-semibold text-[#0f172a]">Total</span>
-          </div>
-          <div className="flex-1 px-3 py-3 border-l border-[#e5e7eb]">
-            <motion.span 
-              key={selectedOption}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-xs font-sans font-semibold text-[#0f172a]"
-            >
-              {selectedOption === "A" ? "~32h" : "~62h"}
-            </motion.span>
-          </div>
-        </motion.div>
-
         {/* Legend */}
         <div className="flex items-center gap-6 mt-4 px-3">
           <div className="flex items-center gap-2">
@@ -305,17 +285,13 @@ function MilestoneSection({ task }: { task: Task }) {
 // Option details
 const OPTION_A_DETAILS = {
   name: "Plan Essentiel",
-  price: "6 400 $",
   timeline: "3-4 semaines",
-  hours: "~32h",
   description: "Un agent IA complet et fonctionnel : vrai LLM Llama, qualification adaptative, trigger proactif, analytics et dashboard. Le visiteur est guidé, qualifié et routé vers la bonne page.",
 }
 
 const OPTION_B_DETAILS = {
   name: "Plan Optimisé",
-  price: "12 400 $",
   timeline: "6-8 semaines",
-  hours: "~62h",
   description: "L'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui s'affine au fil des interactions, capture de leads, notifications sales, et dashboard avancé avec funnel.",
 }
 
@@ -344,7 +320,7 @@ export function RoadmapSlide() {
           </AnimatedDiv>
           <AnimatedDiv delay={0.3}>
             <p className="text-base text-[#64748b] font-sans max-w-2xl leading-relaxed">
-              Un plan de développement structuré sur 2 mois, avec validation client à chaque étape clé. Survolez les tâches pour voir les actions d&apos;exécution.
+              Overview de la gestion de projet avec les jalons clés et la répartition des tâches. Survolez les tâches pour voir les actions d&apos;exécution.
             </p>
           </AnimatedDiv>
         </div>
@@ -397,21 +373,6 @@ export function RoadmapSlide() {
                   </p>
                 </div>
               </div>
-              <motion.div 
-                animate={{ backgroundColor: selectedOption === "A" ? "#ff7000" + "1a" : "#10B981" + "1a" }}
-                className="px-4 py-2 rounded-lg"
-              >
-                <motion.span 
-                  key={selectedOption}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className={`text-lg font-serif font-semibold ${
-                    selectedOption === "A" ? "text-[#ff7000]" : "text-[#10B981]"
-                  }`}
-                >
-                  {currentDetails.price}
-                </motion.span>
-              </motion.div>
             </div>
             <GanttChart selectedOption={selectedOption} />
           </div>
