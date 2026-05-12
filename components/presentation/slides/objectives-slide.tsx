@@ -135,8 +135,8 @@ const FEATURES = [
     icon: BarChart3,
     number: "03",
     title: "Analytics sans PII + Dashboard admin",
-    description:
-      "Les chemins de navigation anonymisés sont loggés en temps réel. Un dashboard protégé /admin/agent-stats donne une vue complète des conversations, du funnel de conversion et des services les plus demandés.",
+  description:
+    "Les chemins de navigation anonymisés sont loggés en temps réel. Un dashboard protégé /admin/agent-stats donne une vue du funnel de conversion et des services les plus demandés.",
     problemsLabel: "Bénéfices business",
     problems: [
       "Décisions basées sur des données, pas des intuitions",
