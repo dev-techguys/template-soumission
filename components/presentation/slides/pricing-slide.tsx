@@ -25,7 +25,7 @@ function DualOffersSlide() {
         <div className="flex flex-col gap-6 mb-12">
           <AnimatedDiv delay={0}>
             <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
-              05 / Tarification
+              06 / Tarification
             </span>
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
@@ -175,7 +175,7 @@ function HourlyBankSlide() {
         <div className="flex flex-col gap-6 mb-12">
           <AnimatedDiv delay={0}>
             <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
-              05 / Tarification
+              06 / Tarification
             </span>
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
@@ -278,7 +278,7 @@ function FixedPriceSlide() {
         <div className="flex flex-col gap-6 mb-12">
           <AnimatedDiv delay={0}>
             <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
-              05 / Tarification
+              06 / Tarification
             </span>
           </AnimatedDiv>
           <AnimatedDiv delay={0.1}>
