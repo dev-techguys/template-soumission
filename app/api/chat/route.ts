@@ -62,13 +62,21 @@ Assistant: "I'd be happy to help you get a quote! Fill out our quick form and ou
 `
 
 export async function POST(req: Request) {
-  const { messages } = await req.json()
+  try {
+    const { messages } = await req.json()
 
-  const result = streamText({
-    model: groq("llama-3.1-8b-instant"),
-    system: SAFEX_SYSTEM_PROMPT,
-    messages,
-  })
+    const result = await streamText({
+      model: groq("llama-3.1-8b-instant"),
+      system: SAFEX_SYSTEM_PROMPT,
+      messages,
+    })
 
-  return result.toDataStreamResponse()
+    return result.toDataStreamResponse()
+  } catch (error) {
+    console.error("[v0] Chat API error:", error)
+    return new Response(
+      JSON.stringify({ error: "Failed to process request" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    )
+  }
 }
