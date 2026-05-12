@@ -451,7 +451,7 @@ function WorkflowVisualization() {
                       : "bg-white/10 text-white/60 hover:bg-white/20"
                   }`}
                 >
-                  Plan Essentiel
+                  Plan Navigation
                 </button>
                 <button
                   onClick={() => setSelectedPlan("optimise")}
@@ -461,7 +461,7 @@ function WorkflowVisualization() {
                       : "bg-white/10 text-white/60 hover:bg-white/20"
                   }`}
                 >
-                  Plan Optimisé
+                  Plan Conversion
                 </button>
               </div>
               {selectedPlan === "optimise" && (
@@ -953,7 +953,7 @@ function DashboardVisualization() {
                 : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
             }`}
           >
-            Plan Essentiel
+            Plan Navigation
           </button>
           <button
             onClick={() => setSelectedPlan("optimise")}
@@ -963,7 +963,7 @@ function DashboardVisualization() {
                 : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
             }`}
           >
-            Plan Optimisé
+            Plan Conversion
           </button>
         </div>
         {selectedPlan === "optimise" && (

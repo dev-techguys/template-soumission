@@ -93,8 +93,18 @@ export function ClosingSlide() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight text-balance"
           >
-            Un agent IA pour transformer chaque visiteur en prospect qualifié
+            Premier déploiement en 3 semaines et premières données dans les 30 jours
           </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.55 }}
+            className="text-lg text-white/60 font-sans"
+          >
+            AI Safex x TechGuys
+          </motion.p>
 
           <motion.div 
             initial={{ scaleX: 0 }}

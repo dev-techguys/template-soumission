@@ -56,13 +56,13 @@ export const pricing = {
   // ── Mode dual-offers (deux options comparatives) ───────────
   dualOffers: {
     optionA: {
-      name: "Plan Essentiel",
+      name: "Plan Navigation",
       price: "6 400 $",
       priceValue: 6400,
       timeline: "3–4 semaines",
       infraCost: "< 10$ USD/mois",
-      tagline: "Modernisation & Impact immédiat",
-      description: "Un coup de jus technologique pour impressionner en interne. Un agent IA moderne qui guide et qualifie vos visiteurs en moins de 60 secondes.",
+      tagline: "Agent IA opérationnel",
+      description: "Un agent IA opérationnel dès le premier jour — qualifie vos visiteurs, les route vers le bon service, et vous donne les données pour mesurer le ROI.",
       featureGroups: [
         {
           category: "Conversation IA",
@@ -109,7 +109,7 @@ export const pricing = {
       ],
     },
     optionB: {
-      name: "Plan Optimisé",
+      name: "Plan Conversion",
       price: "12 400 $",
       priceValue: 12400,
       timeline: "6–8 semaines",
@@ -170,7 +170,7 @@ export const pricing = {
         },
       ],
       deliverables: [
-        "Tout le Plan Essentiel inclus",
+        "Tout le Plan Navigation inclus",
         "Modèle GPT + apprentissage continu",
         "Génération automatique de rapports AI",
         "Emails automatisés (Resend)",
@@ -180,7 +180,7 @@ export const pricing = {
         "Conseil stratégique et expertise B2B",
       ],
     },
-    recommendation: "Le Plan Essentiel modernise votre image et impressionne en interne avec un agent IA fonctionnel. Le Plan Optimisé transforme Safex en entreprise data-driven : l'IA apprend, recommande, et connecte vos clients directement à vos opérations. C'est le premier édifice d'une stratégie 100% connectée au marché.",
+    recommendation: "Le Plan Navigation offre un agent IA opérationnel qui guide et route vos visiteurs vers le bon service. Le Plan Conversion transforme Safex en entreprise data-driven : l'IA qualifie, capture et alerte — connectant vos clients directement à vos opérations. C'est le premier édifice d'une stratégie 100% connectée au marché.",
   },
 }
 

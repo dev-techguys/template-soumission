@@ -10,8 +10,8 @@ import { motion, AnimatePresence } from "framer-motion"
 // Radar chart data
 const radarMetrics = [
   { label: "Conversion", optionA: 3, optionB: 5 },
-  { label: "Scalabilité", optionA: 2, optionB: 5 },
-  { label: "Analytics", optionA: 1, optionB: 4 },
+  { label: "Scalabilité", optionA: 3, optionB: 5 },
+  { label: "Analytics", optionA: 3, optionB: 4 },
   { label: "Personnalisation", optionA: 2, optionB: 5 },
   { label: "ROI estimé", optionA: 3, optionB: 5 },
   { label: "Support", optionA: 2, optionB: 4 },
@@ -157,11 +157,11 @@ function RadarChart() {
       <div className="flex items-center gap-6 mt-4">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-[#ff7000]" />
-          <span className="text-xs text-[#64748b] font-sans">Plan Essentiel</span>
+          <span className="text-xs text-[#64748b] font-sans">Plan Navigation</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-[#10B981]" />
-          <span className="text-xs text-[#64748b] font-sans">Plan Optimisé</span>
+          <span className="text-xs text-[#64748b] font-sans">Plan Conversion</span>
         </div>
       </div>
     </div>
@@ -233,7 +233,7 @@ function DualOffersSlide() {
                   <div className="flex flex-col lg:flex-row items-center gap-8">
                     <RadarChart />
                     <div className="flex-1 space-y-4">
-                      <h4 className="font-serif text-lg text-[#0f172a]">Pourquoi le Plan Optimisé ?</h4>
+                      <h4 className="font-serif text-lg text-[#0f172a]">Pourquoi le Plan Conversion ?</h4>
                       <div className="space-y-3">
                         {[
                           { label: "+67%", desc: "de couverture fonctionnelle" },
@@ -270,10 +270,10 @@ function DualOffersSlide() {
                   <Zap className="w-7 h-7 text-white" />
                 </div>
                 <div className="flex-1 flex flex-col">
-                  <span className="text-xs tracking-[0.15em] uppercase text-[#ff7000] font-sans font-medium">Plan Essentiel</span>
-                  <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">Coup de jus technologique</h4>
+                  <span className="text-xs tracking-[0.15em] uppercase text-[#ff7000] font-sans font-medium">Plan Navigation</span>
+                  <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">L&apos;agent guide et route</h4>
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
-                    Modernisez votre image et impressionnez en interne avec un agent IA moderne.
+                    Un agent IA opérationnel qui qualifie vos visiteurs et les route vers le bon service.
                   </p>
                 </div>
               </div>
@@ -297,8 +297,8 @@ function DualOffersSlide() {
                   <TrendingUp className="w-7 h-7 text-white" />
                 </div>
                 <div className="flex-1 flex flex-col">
-                  <span className="text-xs tracking-[0.15em] uppercase text-[#10B981] font-sans font-medium">Plan Optimisé</span>
-                  <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">Cap vers le data-driven AI</h4>
+                  <span className="text-xs tracking-[0.15em] uppercase text-[#10B981] font-sans font-medium">Plan Conversion</span>
+                  <h4 className="font-serif text-xl text-[#0f172a] mt-1 mb-2">L&apos;agent qualifie, capture et alerte</h4>
                   <p className="text-sm text-[#64748b] font-sans leading-relaxed">
                     Connectez vos clients à vos opérations avec une IA qui apprend et recommande.
                   </p>
@@ -406,7 +406,7 @@ function DualOffersSlide() {
                   <div className="flex items-center gap-2 px-3 py-2 bg-[#ff7000]/10 rounded-lg border border-[#ff7000]/20">
                     <Check className="w-4 h-4 text-[#ff7000]" />
                     <span className="text-sm font-sans text-[#ff7000] font-medium">
-                      Inclut tout le Plan Essentiel
+                      Inclut tout le Plan Navigation
                     </span>
                   </div>
                 )}
