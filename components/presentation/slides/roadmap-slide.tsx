@@ -170,7 +170,6 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
               {/* Task name */}
               <div className="w-44 shrink-0 px-3 py-3 flex items-center gap-2">
                 <span className="text-xs font-sans text-[#0f172a] truncate">{task.name}</span>
-                <span className="text-[10px] font-sans text-[#64748b] shrink-0">({task.hours})</span>
               </div>
 
               {/* Week cells with bar */}
@@ -197,11 +196,7 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
                         style={{ backgroundColor: task.color, transformOrigin: "left" }}
                         onMouseEnter={(e) => handleMouseEnter(task, e)}
                         onMouseLeave={() => setHoveredTask(null)}
-                      >
-                        <span className="text-[10px] font-sans text-white font-medium truncate px-1">
-                          {task.hours}
-                        </span>
-                      </motion.div>
+                      />
                     )}
                   </motion.div>
                 )
@@ -255,11 +250,8 @@ function MilestoneSection({ task }: { task: Task }) {
           className="w-2 h-2 rounded-full"
           style={{ backgroundColor: task.color }}
         />
-        <span className="font-serif text-sm text-[#0f172a]">{task.name}</span>
-        <span className="text-[10px] text-[#64748b] font-sans ml-auto bg-[#f1f5f9] px-2 py-0.5 rounded">
-          {task.hours}
-        </span>
-      </div>
+                <span className="font-serif text-sm text-[#0f172a]">{task.name}</span>
+              </div>
       <div className="max-h-20 overflow-y-auto custom-scrollbar">
         <div className="flex flex-col gap-1.5">
           {task.actions.map((action, i) => (
@@ -393,10 +385,10 @@ export function RoadmapSlide() {
                   )}
                 </motion.div>
                 <div>
-                  <h3 className="font-serif text-xl text-[#0f172a]">{currentDetails.name}</h3>
-                  <p className="text-sm text-[#64748b] font-sans">
-                    {currentDetails.hours} de developpement — {currentDetails.timeline}
-                  </p>
+              <h3 className="font-serif text-xl text-[#0f172a]">{currentDetails.name}</h3>
+              <p className="text-sm text-[#64748b] font-sans">
+                {currentDetails.timeline}
+              </p>
                 </div>
               </div>
             </div>
