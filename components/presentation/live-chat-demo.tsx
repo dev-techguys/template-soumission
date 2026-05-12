@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, type FormEvent } from "react"
 import { motion } from "framer-motion"
-import { Send, Loader2, ArrowRight } from "lucide-react"
+import { Send, Loader2, ArrowRight, Database, TrendingUp, Brain } from "lucide-react"
 
 interface Message {
   id: string
@@ -13,6 +13,8 @@ interface Message {
 export function LiveChatDemo() {
   const [isDemoStarted, setIsDemoStarted] = useState(false)
   const [simulatedUrl, setSimulatedUrl] = useState("safextransport.ca")
+  const [selectedPlan, setSelectedPlan] = useState<"essentiel" | "optimise">("essentiel")
+  const [showDataExtraction, setShowDataExtraction] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -94,6 +96,13 @@ export function LiveChatDemo() {
       ])
     } finally {
       setIsLoading(false)
+      // Show data extraction animation for Plan Optimisé
+      if (selectedPlan === "optimise") {
+        setTimeout(() => {
+          setShowDataExtraction(true)
+          setTimeout(() => setShowDataExtraction(false), 4000)
+        }, 500)
+      }
     }
   }
 
@@ -151,7 +160,92 @@ export function LiveChatDemo() {
       transition={{ duration: 0.4 }}
       className="mt-6 overflow-hidden"
     >
-      <div className="bg-[#0f172a] rounded-xl border border-white/10 overflow-hidden">
+      {/* Plan Toggle */}
+      <div className="flex items-center gap-2 mb-4">
+        <button
+          onClick={() => setSelectedPlan("essentiel")}
+          className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
+            selectedPlan === "essentiel"
+              ? "bg-[#ff7000] text-white"
+              : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
+          }`}
+        >
+          Plan Essentiel
+        </button>
+        <button
+          onClick={() => setSelectedPlan("optimise")}
+          className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
+            selectedPlan === "optimise"
+              ? "bg-[#10B981] text-white"
+              : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
+          }`}
+        >
+          Plan Optimisé
+        </button>
+        {selectedPlan === "optimise" && (
+          <span className="text-xs text-[#10B981] font-sans ml-2">+ Extraction de données vers Dashboard</span>
+        )}
+      </div>
+
+      <div className="bg-[#0f172a] rounded-xl border border-white/10 overflow-hidden relative">
+        {/* Data Extraction Animation Overlay - Plan Optimisé only */}
+        {showDataExtraction && selectedPlan === "optimise" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute top-4 right-4 z-20"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-[#10B981]/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-[#10B981]/50"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                >
+                  <Brain className="w-5 h-5 text-white" />
+                </motion.div>
+                <span className="text-white font-sans text-sm font-medium">Extraction AI en cours...</span>
+              </div>
+              <div className="space-y-2">
+                {[
+                  { label: "Intent", value: "Freight shipping" },
+                  { label: "Type", value: "Cross-border" },
+                  { label: "Lead score", value: "High" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.3 }}
+                    className="flex items-center justify-between gap-4 text-xs"
+                  >
+                    <span className="text-white/70">{item.label}</span>
+                    <span className="text-white font-medium">{item.value}</span>
+                  </motion.div>
+                ))}
+              </div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+                className="mt-3 pt-3 border-t border-white/20 flex items-center gap-2"
+              >
+                <Database className="w-3 h-3 text-white/70" />
+                <span className="text-white/70 text-[10px]">Syncing to Dashboard...</span>
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                  className="w-1.5 h-1.5 rounded-full bg-white ml-auto"
+                />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+
         {/* Browser Chrome */}
         <div className="bg-[#1e293b] px-4 py-2.5 flex items-center gap-3 border-b border-white/10">
           <div className="flex gap-1.5">

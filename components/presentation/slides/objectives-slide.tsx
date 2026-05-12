@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { SlideWrapper } from "../slide-wrapper"
 import { AnimatedDiv, AnimatedContainer, AnimatedItem } from "../animated-wrapper"
-import { MessageSquare, Navigation, BarChart3, Blocks, ChevronDown, ArrowRight, MessageCircle } from "lucide-react"
+import { MessageSquare, Navigation, BarChart3, Blocks, ChevronDown, ArrowRight, MessageCircle, TrendingUp, Brain, Phone, Mail, Database } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { LiveChatDemo } from "../live-chat-demo"
 
@@ -171,6 +171,7 @@ function WorkflowVisualization() {
   const [demoPhase, setDemoPhase] = useState<"idle" | "typing" | "thinking" | "redirect">("idle")
   const [typedText, setTypedText] = useState("")
   const [currentUrl, setCurrentUrl] = useState("safextransport.ca/services")
+  const [selectedPlan, setSelectedPlan] = useState<"essentiel" | "optimise">("essentiel")
   const fullText = "I need to ship frozen food from Montreal to Chicago"
 
   // Manual demo trigger - not auto
@@ -422,12 +423,43 @@ function WorkflowVisualization() {
             transition={{ duration: 0.3 }}
             className="bg-[#0f172a] rounded-xl p-6"
           >
+            {/* Plan Toggle */}
+            <div className="flex items-center gap-2 mb-4">
+              <button
+                onClick={() => setSelectedPlan("essentiel")}
+                className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
+                  selectedPlan === "essentiel"
+                    ? "bg-[#ff7000] text-white"
+                    : "bg-white/10 text-white/60 hover:bg-white/20"
+                }`}
+              >
+                Plan Essentiel
+              </button>
+              <button
+                onClick={() => setSelectedPlan("optimise")}
+                className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
+                  selectedPlan === "optimise"
+                    ? "bg-[#10B981] text-white"
+                    : "bg-white/10 text-white/60 hover:bg-white/20"
+                }`}
+              >
+                Plan Optimisé
+              </button>
+            </div>
+
             {/* Header explanation */}
             <div className="mb-6 p-4 bg-white/5 rounded-lg border border-white/10">
-              <p className="text-white/70 text-sm font-sans">
-                L&apos;agent IA est guidé par un <span className="text-[#ff7000] font-medium">arbre de scénarios évolutif</span>. 
-                Ce projet construit la base de cet arbre, qui pourra être enrichi au fil du temps.
-              </p>
+              {selectedPlan === "essentiel" ? (
+                <p className="text-white/70 text-sm font-sans">
+                  <span className="text-[#ff7000] font-medium">Arbre statique</span> — 
+                  L&apos;agent route le visiteur vers la bonne page selon ses réponses. Simple et efficace.
+                </p>
+              ) : (
+                <p className="text-white/70 text-sm font-sans">
+                  <span className="text-[#10B981] font-medium">Arbre intelligent</span> — 
+                  Apprentissage continu, redirection multi-canal (tel, email), et données qui remontent vers le Dashboard.
+                </p>
+              )}
             </div>
             
             {/* Tree visualization with proper SVG connections */}
@@ -518,16 +550,54 @@ function WorkflowVisualization() {
                   </div>
                 </motion.div>
                 
-                {/* Extensibility note */}
+                {/* Extensibility note - varies by plan */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                   className="mt-6 flex items-center gap-2 text-white/40 text-xs font-sans"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#ff7000] animate-pulse" />
+                  <span className={`w-1.5 h-1.5 rounded-full ${selectedPlan === "optimise" ? "bg-[#10B981]" : "bg-[#ff7000]"} animate-pulse`} />
                   <span>Arbre extensible — nouvelles branches ajoutables sans redéploiement</span>
                 </motion.div>
+
+                {/* Plan Optimisé: Additional features */}
+                {selectedPlan === "optimise" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="mt-6 p-4 bg-[#10B981]/10 rounded-xl border border-[#10B981]/30"
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <TrendingUp className="w-4 h-4 text-[#10B981]" />
+                      <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">Fonctionnalités Plan Optimisé</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <div className="flex items-start gap-2">
+                        <Brain className="w-4 h-4 text-[#10B981] mt-0.5 shrink-0" />
+                        <div>
+                          <span className="text-white/80 text-xs font-sans block">Apprentissage continu</span>
+                          <span className="text-white/40 text-[10px]">L&apos;IA s&apos;améliore à chaque conversation</span>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <Phone className="w-4 h-4 text-[#10B981] mt-0.5 shrink-0" />
+                        <div>
+                          <span className="text-white/80 text-xs font-sans block">Redirection multi-canal</span>
+                          <span className="text-white/40 text-[10px]">Téléphone, email, outils connectés</span>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <Database className="w-4 h-4 text-[#10B981] mt-0.5 shrink-0" />
+                        <div>
+                          <span className="text-white/80 text-xs font-sans block">Données vers Dashboard</span>
+                          <span className="text-white/40 text-[10px]">Analytics et prévisions en temps réel</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </div>
           </motion.div>
@@ -540,6 +610,7 @@ function WorkflowVisualization() {
 // Dashboard visualization component with AI report generation
 function DashboardVisualization() {
   const [aiPhase, setAiPhase] = useState<"idle" | "thinking" | "done">("idle")
+  const [selectedPlan, setSelectedPlan] = useState<"essentiel" | "optimise">("essentiel")
   
   const SERVICES_DATA = [
     { name: "FTL / LTL", percentage: 58, color: "#ff7000" },
@@ -563,6 +634,30 @@ function DashboardVisualization() {
       transition={{ duration: 0.4 }}
       className="mt-6 overflow-hidden"
     >
+      {/* Plan Toggle */}
+      <div className="flex items-center gap-2 mb-4">
+        <button
+          onClick={() => setSelectedPlan("essentiel")}
+          className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
+            selectedPlan === "essentiel"
+              ? "bg-[#ff7000] text-white"
+              : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
+          }`}
+        >
+          Plan Essentiel
+        </button>
+        <button
+          onClick={() => setSelectedPlan("optimise")}
+          className={`px-4 py-2 rounded-lg text-sm font-sans transition-all ${
+            selectedPlan === "optimise"
+              ? "bg-[#10B981] text-white"
+              : "bg-[#f1f5f9] text-[#64748b] hover:bg-[#e2e8f0]"
+          }`}
+        >
+          Plan Optimisé
+        </button>
+      </div>
+
       <div className="bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-xl overflow-hidden">
         {/* Header bar */}
         <div className="bg-[#1e293b] px-6 py-4 flex items-center justify-between border-b border-white/5">
@@ -718,10 +813,111 @@ function DashboardVisualization() {
             </div>
           </div>
           
+          {/* Plan Optimisé: Additional analytics */}
+          {selectedPlan === "optimise" && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6 p-4 rounded-xl bg-[#10B981]/10 border border-[#10B981]/30"
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingUp className="w-4 h-4 text-[#10B981]" />
+                <span className="text-[#10B981] text-xs font-sans font-medium uppercase tracking-wider">
+                  Analytics Avancés — Plan Optimisé
+                </span>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Funnel de conversion */}
+                <div className="p-3 rounded-lg bg-white/5">
+                  <span className="text-white/60 text-[10px] uppercase tracking-wider">Funnel de conversion</span>
+                  <div className="mt-3 space-y-2">
+                    {[
+                      { stage: "Visiteurs", value: 1420, width: "100%" },
+                      { stage: "Engagés", value: 890, width: "63%" },
+                      { stage: "Qualifiés", value: 340, width: "24%" },
+                      { stage: "Convertis", value: 89, width: "6%" },
+                    ].map((item, i) => (
+                      <div key={i}>
+                        <div className="flex justify-between text-[10px] mb-1">
+                          <span className="text-white/50">{item.stage}</span>
+                          <span className="text-white/70">{item.value}</span>
+                        </div>
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: item.width }}
+                          transition={{ delay: i * 0.15, duration: 0.5 }}
+                          className="h-1.5 rounded-full bg-[#10B981]"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Prévisions statistiques */}
+                <div className="p-3 rounded-lg bg-white/5">
+                  <span className="text-white/60 text-[10px] uppercase tracking-wider">Prévisions Q3</span>
+                  <div className="mt-3 space-y-3">
+                    {[
+                      { label: "Leads estimés", value: "+34%", icon: "📈" },
+                      { label: "Conversion prévue", value: "5.8%", icon: "🎯" },
+                      { label: "Pic attendu", value: "15 Juil", icon: "📅" },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 + i * 0.1 }}
+                        className="flex items-center justify-between"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm">{item.icon}</span>
+                          <span className="text-white/60 text-xs">{item.label}</span>
+                        </div>
+                        <span className="text-[#10B981] text-sm font-medium">{item.value}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Recommandations stratégiques */}
+                <div className="p-3 rounded-lg bg-white/5">
+                  <span className="text-white/60 text-[10px] uppercase tracking-wider">Recommandations AI</span>
+                  <div className="mt-3 space-y-2">
+                    {[
+                      { text: "Renforcer cross-border USA", priority: "Haute" },
+                      { text: "Optimiser page Reefer", priority: "Moyenne" },
+                      { text: "Nouveau service Heavy Haul", priority: "Basse" },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 + i * 0.1 }}
+                        className="flex items-start gap-2"
+                      >
+                        <Brain className="w-3 h-3 text-[#10B981] mt-0.5 shrink-0" />
+                        <div className="flex-1">
+                          <span className="text-white/70 text-[11px] block">{item.text}</span>
+                          <span className={`text-[9px] ${
+                            item.priority === "Haute" ? "text-[#ef4444]" : 
+                            item.priority === "Moyenne" ? "text-[#f59e0b]" : "text-white/40"
+                          }`}>
+                            Priorité: {item.priority}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {/* Footer */}
           <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
             <div className="flex items-center gap-2 text-[10px] text-white/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+              <span className={`w-1.5 h-1.5 rounded-full ${selectedPlan === "optimise" ? "bg-[#10B981]" : "bg-[#ff7000]"} animate-pulse`} />
               <span>Données anonymisées — Conforme Loi 25</span>
             </div>
             <span className="text-[10px] text-white/20">Dernière mise à jour: il y a 2h</span>
