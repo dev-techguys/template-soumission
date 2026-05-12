@@ -128,13 +128,12 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
           ))}
         </div>
 
-        {/* Week headers with integrated milestones */}
-        <div className="flex border-b border-[#e5e7eb] bg-[#f8fafc]">
-          <div className="w-44 shrink-0 px-3 py-2 text-[10px] tracking-[0.1em] uppercase text-[#64748b] font-sans">
-            Jalon
+        {/* Milestone row - above week headers */}
+        <div className="flex border-b border-[#e5e7eb] bg-[#fafbfc]">
+          <div className="w-44 shrink-0 px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase text-[#94a3b8] font-sans flex items-center">
+            Livrables
           </div>
           {WEEKS.map((week) => {
-            // Milestone for this week
             let milestone = null
             if (week.num === 3) {
               milestone = { label: "Chatbot en ligne", color: "#ff7000" }
@@ -144,27 +143,23 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
               milestone = { label: "Analyse pertinente", color: "#10B981" }
             }
             
+            const isDisabledWeek = week.num > maxWeek
+            
             return (
               <motion.div
-                key={week.num}
-                initial={{ opacity: week.num > maxWeek ? 0.3 : 1 }}
-                animate={{ 
-                  opacity: week.num > maxWeek ? 0.3 : 1,
-                  backgroundColor: week.num > maxWeek ? "#f1f5f9" : "transparent"
-                }}
+                key={`milestone-${week.num}`}
+                animate={{ opacity: isDisabledWeek ? 0.3 : 1 }}
                 transition={{ duration: 0.4 }}
-                className="flex-1 text-center py-2 text-xs font-sans text-[#64748b] border-l border-[#e5e7eb] relative"
+                className="flex-1 py-1.5 px-0.5 border-l border-[#e5e7eb] flex items-center justify-center"
               >
-                {week.label}
                 {milestone && (
                   <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 translate-y-full z-10 group cursor-pointer"
                   >
                     <div 
-                      className="px-2 py-0.5 rounded-full text-[9px] font-semibold whitespace-nowrap shadow-sm border"
+                      className="px-2 py-0.5 rounded-full text-[8px] font-semibold whitespace-nowrap shadow-sm border"
                       style={{ 
                         backgroundColor: milestone.color + "15",
                         borderColor: milestone.color,
@@ -175,6 +170,36 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
                     </div>
                   </motion.div>
                 )}
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* Week headers */}
+        <div className="flex border-b border-[#e5e7eb] bg-[#f8fafc]">
+          <div className="w-44 shrink-0 px-3 py-2 text-[10px] tracking-[0.1em] uppercase text-[#64748b] font-sans">
+            Jalon
+          </div>
+          {WEEKS.map((week) => {
+            // Check if this week has a milestone for column highlight
+            const hasMilestone = week.num === 3 || week.num === 4 || (week.num === 6 && selectedOption === "B")
+            
+            return (
+              <motion.div
+                key={week.num}
+                initial={{ opacity: week.num > maxWeek ? 0.3 : 1 }}
+                animate={{ 
+                  opacity: week.num > maxWeek ? 0.3 : 1,
+                  backgroundColor: week.num > maxWeek ? "#f1f5f9" : hasMilestone ? "#f0f9ff" : "transparent"
+                }}
+                transition={{ duration: 0.4 }}
+                className={`flex-1 text-center py-2 text-xs font-sans border-l ${
+                  hasMilestone 
+                    ? "text-[#0f172a] font-medium border-l-2 border-l-[#3b82f6]/30" 
+                    : "text-[#64748b] border-[#e5e7eb]"
+                }`}
+              >
+                {week.label}
               </motion.div>
             )
           })}
@@ -207,16 +232,21 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
               {WEEKS.map((week) => {
                 const isInRange = week.num >= task.week && week.num < task.week + task.duration
                 const isDisabledWeek = week.num > maxWeek
+                const hasMilestone = week.num === 3 || week.num === 4 || (week.num === 6 && selectedOption === "B")
                 
                 return (
                   <motion.div
                     key={week.num}
                     animate={{
                       opacity: isDisabledWeek ? 0.3 : 1,
-                      backgroundColor: isDisabledWeek ? "#f1f5f9" : "transparent"
+                      backgroundColor: isDisabledWeek ? "#f1f5f9" : hasMilestone ? "#f0f9ff" : "transparent"
                     }}
                     transition={{ duration: 0.4 }}
-                    className="flex-1 py-3 px-1 border-l border-[#e5e7eb] flex items-center relative"
+                    className={`flex-1 py-3 px-1 flex items-center relative ${
+                      hasMilestone 
+                        ? "border-l-2 border-l-[#3b82f6]/30" 
+                        : "border-l border-[#e5e7eb]"
+                    }`}
                   >
                     {isInRange && (
                       <motion.div
@@ -237,7 +267,8 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
         </AnimatePresence>
 
         {/* Legend */}
-        <div className="flex flex-wrap items-center gap-4 mt-4 px-3">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 px-3">
+          {/* Task types */}
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded bg-[#ff7000]" />
             <span className="text-xs font-sans text-[#64748b]">Core (inclus dans les deux options)</span>
@@ -252,6 +283,38 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
               >
                 <div className="w-4 h-4 rounded bg-[#10B981]" />
                 <span className="text-xs font-sans text-[#64748b]">Premium (Plan Optimisé uniquement)</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
+          {/* Separator */}
+          <div className="h-4 w-px bg-[#e5e7eb]" />
+          
+          {/* Milestones */}
+          <div className="flex items-center gap-1.5">
+            <div className="px-2 py-0.5 rounded-full text-[8px] font-semibold border bg-[#ff7000]/10 border-[#ff7000] text-[#ff7000]">
+              Chatbot
+            </div>
+            <span className="text-[10px] font-sans text-[#64748b]">S3</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="px-2 py-0.5 rounded-full text-[8px] font-semibold border bg-[#3b82f6]/10 border-[#3b82f6] text-[#3b82f6]">
+              Dashboard
+            </div>
+            <span className="text-[10px] font-sans text-[#64748b]">S4</span>
+          </div>
+          <AnimatePresence>
+            {selectedOption === "B" && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex items-center gap-1.5"
+              >
+                <div className="px-2 py-0.5 rounded-full text-[8px] font-semibold border bg-[#10B981]/10 border-[#10B981] text-[#10B981]">
+                  Analyse
+                </div>
+                <span className="text-[10px] font-sans text-[#64748b]">S6</span>
               </motion.div>
             )}
           </AnimatePresence>
