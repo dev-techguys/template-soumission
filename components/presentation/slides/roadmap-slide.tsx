@@ -10,7 +10,6 @@ import { CheckSquare, Rocket, Sparkles, X } from "lucide-react"
 interface Task {
   id: string
   name: string
-  hours: string
   week: number
   duration: number
   color: string
@@ -19,28 +18,26 @@ interface Task {
 }
 
 // Timeline data for Gantt chart - 8 weeks (2 months)
-// Option A: ~32h total - Tasks spread across weeks 1-4
 const GANTT_TASKS_A: Task[] = [
-  { id: "validation", name: "Validation contenu", hours: "4h", week: 1, duration: 1, color: "#ff7000", type: "core", actions: ["Revue de l'arbre de scénarios avec Pierre", "Validation du wording EN/FR", "Définition des edge cases"] },
-  { id: "edge", name: "Edge Function LLM", hours: "6h", week: 1, duration: 2, color: "#ff7000", type: "core", actions: ["Configuration Groq API + streaming", "Implémentation rate limiting", "Tests de latence et fallback"] },
-  { id: "widget", name: "Widget UI complet", hours: "6h", week: 2, duration: 2, color: "#ff7000", type: "core", actions: ["ChatWidget + ChatBubble + ChatPanel", "Responsive mobile-first design", "Intégration chips cliquables"] },
-  { id: "routing", name: "Routing + Messages", hours: "4h", week: 3, duration: 1, color: "#ff7000", type: "core", actions: ["Navigation vers pages services", "Messages contextuels par page"] },
-  { id: "qualif", name: "Qualification adaptative", hours: "4h", week: 3, duration: 1, color: "#ff7000", type: "core", actions: ["Flow 3 questions dynamique", "Logique de scoring prospect"] },
-  { id: "trigger", name: "Trigger proactif", hours: "2h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Déclenchement temps + scroll", "Cooldown intelligent"] },
-  { id: "analytics", name: "Analytics Supabase", hours: "3h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Logging anonymisé Loi 25", "Schéma de données optimisé"] },
-  { id: "dashboard", name: "Dashboard admin", hours: "3h", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["/admin/agent-stats protégé", "KPIs conversations et funnel"] },
+  { id: "validation", name: "Validation contenu", week: 1, duration: 1, color: "#ff7000", type: "core", actions: ["Revue de l'arbre de scénarios avec Pierre", "Validation du wording EN/FR", "Définition des edge cases"] },
+  { id: "edge", name: "Edge Function LLM", week: 1, duration: 2, color: "#ff7000", type: "core", actions: ["Configuration Groq API + streaming", "Implémentation rate limiting", "Tests de latence et fallback"] },
+  { id: "widget", name: "Widget UI complet", week: 2, duration: 2, color: "#ff7000", type: "core", actions: ["ChatWidget + ChatBubble + ChatPanel", "Responsive mobile-first design", "Intégration chips cliquables"] },
+  { id: "routing", name: "Routing + Messages", week: 3, duration: 1, color: "#ff7000", type: "core", actions: ["Navigation vers pages services", "Messages contextuels par page"] },
+  { id: "qualif", name: "Qualification adaptative", week: 3, duration: 1, color: "#ff7000", type: "core", actions: ["Flow 3 questions dynamique", "Logique de scoring prospect"] },
+  { id: "trigger", name: "Trigger proactif", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Déclenchement temps + scroll", "Cooldown intelligent"] },
+  { id: "analytics", name: "Analytics Supabase", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Logging anonymisé Loi 25", "Schéma de données optimisé"] },
+  { id: "dashboard", name: "Dashboard admin", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["/admin/agent-stats protégé", "KPIs conversations et funnel"] },
 ]
 
 // Option B Premium tasks - Start from week 2 and integrate with Option A
 const PREMIUM_TASKS: Task[] = [
-  { id: "gpt", name: "Modèle GPT", hours: "4h", week: 2, duration: 1, color: "#10B981", type: "premium", actions: ["Migration Llama vers GPT-4o", "Optimisation prompts", "Tests de qualité réponses"] },
-  { id: "learning", name: "Apprentissage continu", hours: "6h", week: 3, duration: 2, color: "#10B981", type: "premium", actions: ["Système de mémoire contextuelle", "Feedback loop automatisé", "Enrichissement progressif"] },
-  { id: "skills", name: "Skills domaine B2B", hours: "6h", week: 4, duration: 2, color: "#10B981", type: "premium", actions: ["Expertise transport intégrée", "Jargon BOL, lane, spot quote", "Scénarios métier avancés"] },
-  { id: "capture", name: "Capture lead", hours: "5h", week: 5, duration: 1, color: "#10B981", type: "premium", actions: ["Formulaire inline dans chat", "Validation email + entreprise", "Routing vers bon commercial"] },
-  { id: "dashboard2", name: "Dashboard avancé", hours: "5h", week: 6, duration: 1, color: "#10B981", type: "premium", actions: ["Funnel de conversion", "Heatmap parcours utilisateur"] },
-  { id: "prefill", name: "Pré-remplissage devis", hours: "3h", week: 6, duration: 1, color: "#10B981", type: "premium", actions: ["Passage données chat -> form", "Continuité de session"] },
-  { id: "framer", name: "Animations Framer", hours: "2h", week: 7, duration: 1, color: "#10B981", type: "premium", actions: ["Transitions fluides", "Micro-interactions premium"] },
-  { id: "persist", name: "Persistance session", hours: "2h", week: 7, duration: 1, color: "#10B981", type: "premium", actions: ["LocalStorage + Supabase sync", "Reprise conversation inter-pages"] },
+  { id: "gpt", name: "Modèle GPT", week: 2, duration: 1, color: "#10B981", type: "premium", actions: ["Migration Llama vers GPT-4o", "Optimisation prompts", "Tests de qualité réponses"] },
+  { id: "learning", name: "Apprentissage continu", week: 3, duration: 2, color: "#10B981", type: "premium", actions: ["Système de mémoire contextuelle", "Feedback loop automatisé", "Enrichissement progressif"] },
+  { id: "skills", name: "Skills domaine B2B", week: 4, duration: 2, color: "#10B981", type: "premium", actions: ["Expertise transport intégrée", "Jargon BOL, lane, spot quote", "Scénarios métier avancés"] },
+  { id: "capture", name: "Capture lead", week: 5, duration: 1, color: "#10B981", type: "premium", actions: ["Formulaire inline dans chat", "Validation email + entreprise", "Routing vers bon commercial"] },
+  { id: "dashboard2", name: "Dashboard avancé", week: 6, duration: 1, color: "#10B981", type: "premium", actions: ["Funnel de conversion", "Heatmap parcours utilisateur"] },
+  { id: "framer", name: "Animations Framer", week: 7, duration: 1, color: "#10B981", type: "premium", actions: ["Transitions fluides", "Micro-interactions premium"] },
+  { id: "persist", name: "Persistance session", week: 7, duration: 1, color: "#10B981", type: "premium", actions: ["LocalStorage + Supabase sync", "Reprise conversation inter-pages"] },
 ]
 
 const WEEKS = [
@@ -80,7 +77,6 @@ function TaskTooltip({ task, position }: { task: Task; position: { x: number; y:
           style={{ backgroundColor: task.color }}
         />
         <span className="font-serif text-sm text-[#0f172a] font-medium">{task.name}</span>
-        <span className="text-[10px] text-[#64748b] font-sans ml-auto">{task.hours}</span>
       </div>
       <div className="flex flex-col gap-2">
         {task.actions.map((action, i) => (
