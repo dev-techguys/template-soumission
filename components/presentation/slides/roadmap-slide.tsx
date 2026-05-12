@@ -128,97 +128,53 @@ function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
           ))}
         </div>
 
-        {/* Week headers */}
+        {/* Week headers with integrated milestones */}
         <div className="flex border-b border-[#e5e7eb] bg-[#f8fafc]">
           <div className="w-44 shrink-0 px-3 py-2 text-[10px] tracking-[0.1em] uppercase text-[#64748b] font-sans">
             Jalon
           </div>
-          {WEEKS.map((week) => (
-            <motion.div
-              key={week.num}
-              initial={{ opacity: week.num > maxWeek ? 0.3 : 1 }}
-              animate={{ 
-                opacity: week.num > maxWeek ? 0.3 : 1,
-                backgroundColor: week.num > maxWeek ? "#f1f5f9" : "transparent"
-              }}
-              transition={{ duration: 0.4 }}
-              className="flex-1 text-center py-2 text-xs font-sans text-[#64748b] border-l border-[#e5e7eb]"
-            >
-              {week.label}
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Milestone indicators row - TOP POSITION */}
-        <div className="flex border-b-2 border-[#0f172a]/20 bg-gradient-to-r from-[#fef3c7] via-[#dbeafe] to-[#d1fae5]">
-          <div className="w-44 shrink-0 px-3 py-3 flex items-center">
-            <span className="text-xs font-sans font-semibold text-[#0f172a]">Livrables</span>
-          </div>
           {WEEKS.map((week) => {
-            const milestones = []
-            
+            // Milestone for this week
+            let milestone = null
             if (week.num === 3) {
-              milestones.push({ label: "Chatbot en ligne", icon: "msg", color: "#ff7000", bgColor: "#fff7ed" })
+              milestone = { label: "Chatbot en ligne", color: "#ff7000" }
+            } else if (week.num === 4) {
+              milestone = { label: "Dashboard opérationnel", color: "#3b82f6" }
+            } else if (week.num === 6 && selectedOption === "B") {
+              milestone = { label: "Analyse pertinente", color: "#10B981" }
             }
-            if (week.num === 4) {
-              milestones.push({ label: "Dashboard opérationnel", icon: "chart", color: "#3b82f6", bgColor: "#eff6ff" })
-            }
-            if (week.num === 6 && selectedOption === "B") {
-              milestones.push({ label: "Analyse pertinente (2 sem. de data)", icon: "trend", color: "#10B981", bgColor: "#ecfdf5" })
-            }
-            
-            const isDisabledWeek = week.num > maxWeek
             
             return (
               <motion.div
-                key={`milestone-${week.num}`}
-                animate={{ opacity: isDisabledWeek ? 0.3 : 1 }}
+                key={week.num}
+                initial={{ opacity: week.num > maxWeek ? 0.3 : 1 }}
+                animate={{ 
+                  opacity: week.num > maxWeek ? 0.3 : 1,
+                  backgroundColor: week.num > maxWeek ? "#f1f5f9" : "transparent"
+                }}
                 transition={{ duration: 0.4 }}
-                className="flex-1 py-2 px-1 border-l border-[#e5e7eb]/50 flex items-center justify-center"
+                className="flex-1 text-center py-2 text-xs font-sans text-[#64748b] border-l border-[#e5e7eb] relative"
               >
-                {milestones.map((milestone, idx) => (
+                {week.label}
+                {milestone && (
                   <motion.div
-                    key={idx}
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                    className="relative group"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 translate-y-full z-10 group cursor-pointer"
                   >
-                    <motion.div 
-                      animate={{ y: [0, -3, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                      className="flex flex-col items-center gap-1 px-2 py-1.5 rounded-lg shadow-lg border-2 cursor-pointer hover:scale-105 transition-transform"
+                    <div 
+                      className="px-2 py-0.5 rounded-full text-[9px] font-semibold whitespace-nowrap shadow-sm border"
                       style={{ 
-                        backgroundColor: milestone.bgColor, 
+                        backgroundColor: milestone.color + "15",
                         borderColor: milestone.color,
+                        color: milestone.color
                       }}
                     >
-                      {milestone.icon === "msg" && (
-                        <svg className="w-5 h-5" style={{ color: milestone.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                      )}
-                      {milestone.icon === "chart" && (
-                        <svg className="w-5 h-5" style={{ color: milestone.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                      )}
-                      {milestone.icon === "trend" && (
-                        <svg className="w-5 h-5" style={{ color: milestone.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                      )}
-                      <span className="text-[9px] font-sans font-semibold whitespace-nowrap" style={{ color: milestone.color }}>
-                        {milestone.icon === "msg" ? "Chatbot" : milestone.icon === "chart" ? "Dashboard" : "Analyse"}
-                      </span>
-                    </motion.div>
-                    {/* Tooltip */}
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 bg-[#0f172a] text-white text-[11px] font-sans rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 shadow-xl">
                       {milestone.label}
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-[#0f172a]" />
                     </div>
                   </motion.div>
-                ))}
+                )}
               </motion.div>
             )
           })}
