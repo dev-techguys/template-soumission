@@ -15,8 +15,8 @@ export function CalendarSlide() {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 60% 40% at 0% 50%, rgba(255, 99, 99, 0.05), transparent 50%),
-              radial-gradient(circle at 100% 100%, rgba(255, 99, 99, 0.03), transparent 30%)
+              radial-gradient(ellipse 60% 40% at 0% 50%, rgba(0, 102, 255, 0.05), transparent 50%),
+              radial-gradient(circle at 100% 100%, rgba(0, 102, 255, 0.03), transparent 30%)
             `
           }}
         />
@@ -28,9 +28,9 @@ export function CalendarSlide() {
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg glass flex items-center justify-center">
-                <Calendar className="w-4 h-4 text-[#FF6363]" />
+                <Calendar className="w-4 h-4 text-[#0066FF]" />
               </div>
-              <span className="text-xs tracking-[0.3em] uppercase text-[#FF6363] font-sans font-medium">
+              <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-sans font-medium">
                 05 / Calendrier d{"'"}execution
               </span>
             </div>
@@ -51,7 +51,7 @@ export function CalendarSlide() {
             Voici la sequence d{"'"}execution prevue pour le scenario MVP seul. Chaque phase a un focus clair et des livrables definis.
           </p>
           {calendar.reviewCalls && (
-            <div className="glass-card inline-flex items-center gap-2 text-sm text-[#FF8585] font-sans px-4 py-2.5 rounded-xl w-fit">
+            <div className="glass-card inline-flex items-center gap-2 text-sm text-[#3388FF] font-sans px-4 py-2.5 rounded-xl w-fit">
               <Clock className="w-4 h-4" />
               Point d{"'"}avancement : {calendar.reviewCalls}
             </div>
@@ -61,26 +61,26 @@ export function CalendarSlide() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line - gradient */}
-          <div className="absolute left-[22px] top-0 bottom-0 w-px bg-gradient-to-b from-[#FF6363] via-[#FF6363]/30 to-transparent hidden md:block" />
+          <div className="absolute left-[22px] top-0 bottom-0 w-px bg-gradient-to-b from-[#0066FF] via-[#0066FF]/30 to-transparent hidden md:block" />
 
           <div className="flex flex-col gap-5">
             {calendar.weeks.map((week, idx) => (
               <div key={week.week} className="flex gap-5 md:gap-6 items-start group">
 
                 {/* Week number bubble */}
-                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-[#FF6363] to-[#FF8585] text-white flex items-center justify-center font-sans font-bold text-sm z-10 shadow-lg shadow-[#FF6363]/20 group-hover:scale-105 transition-transform duration-200">
+                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-[#0066FF] to-[#3388FF] text-white flex items-center justify-center font-sans font-bold text-sm z-10 shadow-lg shadow-[#0066FF]/20 group-hover:scale-105 transition-transform duration-200">
                   {idx + 1}
                 </div>
 
                 {/* Card */}
                 <div className="flex-1 glass-card rounded-2xl p-6 card-hover overflow-hidden relative">
                   {/* Hover effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#FF6363]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0066FF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   <div className="relative z-10">
                     <div className="flex items-start justify-between gap-4 mb-3 flex-wrap">
                       <div>
-                        <p className="text-[10px] tracking-[0.2em] uppercase text-[#FF6363]/60 font-sans mb-1">
+                        <p className="text-[10px] tracking-[0.2em] uppercase text-[#0066FF]/60 font-sans mb-1">
                           {week.period}
                         </p>
                         <h3 className="font-serif text-xl text-white leading-snug">
@@ -88,7 +88,7 @@ export function CalendarSlide() {
                         </h3>
                       </div>
                       {week.milestone && (
-                        <div className="flex items-center gap-1.5 bg-[#FF6363]/10 border border-[#FF6363]/30 text-[#FF8585] text-xs font-sans font-medium px-3 py-1.5 rounded-full flex-shrink-0">
+                        <div className="flex items-center gap-1.5 bg-[#0066FF]/10 border border-[#0066FF]/30 text-[#3388FF] text-xs font-sans font-medium px-3 py-1.5 rounded-full flex-shrink-0">
                           <Flag className="w-3 h-3" />
                           {week.milestone}
                         </div>
@@ -96,7 +96,7 @@ export function CalendarSlide() {
                     </div>
 
                     {week.focus && (
-                      <p className="text-sm text-[#FF8585] font-sans font-medium mb-4 leading-relaxed">
+                      <p className="text-sm text-[#3388FF] font-sans font-medium mb-4 leading-relaxed">
                         {week.focus}
                       </p>
                     )}
@@ -105,7 +105,7 @@ export function CalendarSlide() {
                       <ul className="space-y-2">
                         {week.activities.map((activity, i) => (
                           <li key={i} className="flex items-start gap-3 text-sm text-white/45 font-sans">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF6363]/50 mt-[7px] flex-shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF]/50 mt-[7px] flex-shrink-0" />
                             {activity}
                           </li>
                         ))}
@@ -123,7 +123,7 @@ export function CalendarSlide() {
           <div className="mt-12 glass-card rounded-2xl p-6">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                <Info className="w-5 h-5 text-[#FF6363]" />
+                <Info className="w-5 h-5 text-[#0066FF]" />
               </div>
               <p className="text-sm text-white/45 font-sans leading-relaxed">
                 {calendar.iterativeNote}

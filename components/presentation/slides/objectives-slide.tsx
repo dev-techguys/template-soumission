@@ -71,8 +71,8 @@ export function ObjectivesSlide() {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 100% 50% at 100% 0%, rgba(255, 99, 99, 0.06), transparent 50%),
-              radial-gradient(circle at 0% 100%, rgba(255, 99, 99, 0.03), transparent 30%)
+              radial-gradient(ellipse 100% 50% at 100% 0%, rgba(0, 102, 255, 0.06), transparent 50%),
+              radial-gradient(circle at 0% 100%, rgba(0, 102, 255, 0.03), transparent 30%)
             `
           }}
         />
@@ -83,9 +83,9 @@ export function ObjectivesSlide() {
         <div className="flex flex-col gap-5 mb-16">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg glass flex items-center justify-center">
-              <Boxes className="w-4 h-4 text-[#FF6363]" />
+              <Boxes className="w-4 h-4 text-[#0066FF]" />
             </div>
-            <span className="text-xs tracking-[0.3em] uppercase text-[#FF6363] font-sans font-medium">
+            <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-sans font-medium">
               03 / MVP de base
             </span>
           </div>
@@ -107,14 +107,14 @@ export function ObjectivesSlide() {
               className="group glass-card rounded-2xl p-6 card-hover overflow-hidden relative"
             >
               {/* Hover gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#FF6363]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0066FF]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <div className="relative z-10 flex gap-4">
                 {/* Left: Number + Icon */}
                 <div className="flex flex-col items-center gap-3 shrink-0">
-                  <span className="font-mono text-sm text-[#FF6363]/50">{module.number}</span>
-                  <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#FF6363]/30 group-hover:bg-[#FF6363]/10 transition-colors">
-                    <module.icon className="w-5 h-5 text-white/50 group-hover:text-[#FF6363] transition-colors" />
+                  <span className="font-mono text-sm text-[#0066FF]/50">{module.number}</span>
+                  <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#0066FF]/30 group-hover:bg-[#0066FF]/10 transition-colors">
+                    <module.icon className="w-5 h-5 text-white/50 group-hover:text-[#0066FF] transition-colors" />
                   </div>
                 </div>
 

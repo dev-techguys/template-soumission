@@ -114,8 +114,8 @@ export function AnnexeSlide() {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(circle at 100% 0%, rgba(255, 99, 99, 0.04), transparent 40%),
-              radial-gradient(circle at 0% 100%, rgba(255, 99, 99, 0.03), transparent 30%)
+              radial-gradient(circle at 100% 0%, rgba(0, 102, 255, 0.04), transparent 40%),
+              radial-gradient(circle at 0% 100%, rgba(0, 102, 255, 0.03), transparent 30%)
             `
           }}
         />
@@ -124,7 +124,7 @@ export function AnnexeSlide() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8 py-24 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-5 mb-16">
-          <span className="text-xs tracking-[0.3em] uppercase text-[#FF6363] font-sans font-medium">
+          <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-sans font-medium">
             Annexe technique
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-4xl leading-[1.1]">
@@ -147,14 +147,14 @@ export function AnnexeSlide() {
                 value={tech.id}
                 className="border-0 rounded-2xl glass-card overflow-hidden"
               >
-                <AccordionTrigger className="px-6 py-5 hover:no-underline gap-4 [&>svg]:text-[#FF6363] [&>svg]:w-5 [&>svg]:h-5">
+                <AccordionTrigger className="px-6 py-5 hover:no-underline gap-4 [&>svg]:text-[#0066FF] [&>svg]:w-5 [&>svg]:h-5">
                   <div className="flex items-center gap-4">
                     <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-[#FF6363]" />
+                      <Icon className="w-5 h-5 text-[#0066FF]" />
                     </div>
                     <div className="flex flex-col gap-0.5 text-left">
                       <span className="font-serif text-lg text-white">
-                        <span className="text-[#FF6363] mr-2 font-mono text-sm">{String(index + 1).padStart(2, "0")}</span>
+                        <span className="text-[#0066FF] mr-2 font-mono text-sm">{String(index + 1).padStart(2, "0")}</span>
                         {tech.title}
                       </span>
                       <span className="text-sm text-white/35 font-sans leading-relaxed hidden md:block">
@@ -173,8 +173,8 @@ export function AnnexeSlide() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 pl-0 md:pl-[60px]">
                     {tech.items.map((item) => (
                       <div key={item} className="flex items-start gap-3">
-                        <div className="w-5 h-5 rounded-md bg-[#FF6363]/10 flex items-center justify-center shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-[#FF6363]" />
+                        <div className="w-5 h-5 rounded-md bg-[#0066FF]/10 flex items-center justify-center shrink-0 mt-0.5">
+                          <Check className="w-3 h-3 text-[#0066FF]" />
                         </div>
                         <span className="text-sm text-white/50 font-sans leading-relaxed">
                           {item}
@@ -192,7 +192,7 @@ export function AnnexeSlide() {
         <div className="mt-16">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-              <Globe className="w-5 h-5 text-[#FF6363]" />
+              <Globe className="w-5 h-5 text-[#0066FF]" />
             </div>
             <h3 className="font-serif text-2xl text-white">Positionnement marche</h3>
           </div>
@@ -208,14 +208,14 @@ export function AnnexeSlide() {
               </thead>
               <tbody>
                 {COMPARISON.map((row, i) => (
-                  <tr key={row.profil} className={`border-b border-white/5 last:border-0 ${i === COMPARISON.length - 1 ? "bg-[#FF6363]/5" : ""}`}>
+                  <tr key={row.profil} className={`border-b border-white/5 last:border-0 ${i === COMPARISON.length - 1 ? "bg-[#0066FF]/5" : ""}`}>
                     <td className={`py-4 px-5 font-sans ${i === COMPARISON.length - 1 ? "text-white font-medium" : "text-white/50"}`}>
                       {row.profil}
                     </td>
-                    <td className={`py-4 px-5 text-right font-mono ${i === COMPARISON.length - 1 ? "text-[#FF6363]" : "text-white/40"}`}>
+                    <td className={`py-4 px-5 text-right font-mono ${i === COMPARISON.length - 1 ? "text-[#0066FF]" : "text-white/40"}`}>
                       {row.taux}
                     </td>
-                    <td className={`py-4 px-5 text-right font-mono hidden sm:table-cell ${i === COMPARISON.length - 1 ? "text-[#FF6363]" : "text-white/40"}`}>
+                    <td className={`py-4 px-5 text-right font-mono hidden sm:table-cell ${i === COMPARISON.length - 1 ? "text-[#0066FF]" : "text-white/40"}`}>
                       {row.estimation}
                     </td>
                     <td className={`py-4 px-5 text-right font-sans ${i === COMPARISON.length - 1 ? "text-emerald-400 font-medium" : "text-white/30"}`}>

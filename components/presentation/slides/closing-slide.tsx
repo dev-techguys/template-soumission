@@ -15,9 +15,9 @@ export function ClosingSlide() {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 100% 80% at 50% 120%, rgba(255, 99, 99, 0.15), transparent 60%),
-              radial-gradient(circle at 30% 50%, rgba(255, 99, 99, 0.04), transparent 40%),
-              radial-gradient(circle at 70% 30%, rgba(255, 133, 133, 0.03), transparent 35%)
+              radial-gradient(ellipse 100% 80% at 50% 120%, rgba(0, 102, 255, 0.15), transparent 60%),
+              radial-gradient(circle at 30% 50%, rgba(0, 102, 255, 0.04), transparent 40%),
+              radial-gradient(circle at 70% 30%, rgba(51, 136, 255, 0.03), transparent 35%)
             `
           }}
         />
@@ -36,7 +36,7 @@ export function ClosingSlide() {
         <div className="flex flex-col items-center gap-8 max-w-2xl">
           {/* Logo with glow */}
           <div className="relative mb-4">
-            <div className="absolute inset-0 blur-3xl bg-[#FF6363]/10 scale-150" />
+            <div className="absolute inset-0 blur-3xl bg-[#0066FF]/10 scale-150" />
             <div className="relative w-44 h-14">
               <Image
                 src="/images/laplante-logo.webp"
@@ -84,7 +84,7 @@ export function ClosingSlide() {
                 href={signing.pandadocUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#FF6363] to-[#FF8585] hover:from-[#FF8585] hover:to-[#FFA8A8] transition-all duration-300 shadow-lg shadow-[#FF6363]/20"
+                className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#0066FF] to-[#3388FF] hover:from-[#3388FF] hover:to-[#66AAFF] transition-all duration-300 shadow-lg shadow-[#0066FF]/20"
               >
                 <Pen className="w-4 h-4 text-white" />
                 <span className="text-sm tracking-[0.05em] text-white font-sans font-semibold">
@@ -94,9 +94,9 @@ export function ClosingSlide() {
               </a>
             ) : (
               <div className="flex flex-col items-center gap-3">
-                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full glass border-[#FF6363]/30">
-                  <Pen className="w-4 h-4 text-[#FF6363]" />
-                  <span className="text-sm tracking-[0.05em] text-[#FF8585] font-sans font-medium">
+                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full glass border-[#0066FF]/30">
+                  <Pen className="w-4 h-4 text-[#0066FF]" />
+                  <span className="text-sm tracking-[0.05em] text-[#3388FF] font-sans font-medium">
                     Lien PandaDoc a venir
                   </span>
                 </div>

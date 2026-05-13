@@ -8,22 +8,22 @@ const PILLARS = [
     icon: Code,
     title: "Developpement sur mesure",
     description:
-      "Une plateforme construite specifiquement pour vos besoins — pas une solution generique avec des compromis.",
-    gradient: "from-[#FF6363]/20 to-transparent",
+      "Une plateforme construite specifiquement pour vos besoins - pas une solution generique avec des compromis.",
+    gradient: "from-[#0066FF]/20 to-transparent",
   },
   {
     icon: Zap,
     title: "Livraison acceleree par l'IA",
     description:
       "Notre utilisation de l'IA dans le developpement nous permet de livrer plus vite a un tarif 35% plus competitif.",
-    gradient: "from-[#FF8585]/15 to-transparent",
+    gradient: "from-[#3388FF]/15 to-transparent",
   },
   {
     icon: Shield,
     title: "Conformite des la conception",
     description:
       "Architecture pensee pour les exigences reglementaires canadiennes : Loi 25, FINTRAC, donnees hebergees au Canada.",
-    gradient: "from-[#FFA8A8]/10 to-transparent",
+    gradient: "from-[#66AAFF]/10 to-transparent",
   },
 ]
 
@@ -36,8 +36,8 @@ export function AboutSlide() {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 60% 40% at 0% 0%, rgba(255, 99, 99, 0.08), transparent 50%),
-              radial-gradient(circle at 100% 80%, rgba(255, 99, 99, 0.04), transparent 30%)
+              radial-gradient(ellipse 60% 40% at 0% 0%, rgba(0, 102, 255, 0.08), transparent 50%),
+              radial-gradient(circle at 100% 80%, rgba(0, 102, 255, 0.04), transparent 30%)
             `
           }}
         />
@@ -54,7 +54,7 @@ export function AboutSlide() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8 py-24 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-5 mb-16">
-          <span className="text-xs tracking-[0.3em] uppercase text-[#FF6363] font-sans font-medium">
+          <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-medium">
             01 / Notre approche
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-3xl leading-[1.1]">
@@ -82,8 +82,8 @@ export function AboutSlide() {
                 
                 {/* Content */}
                 <div className="relative z-10 flex flex-col gap-5">
-                  <div className="w-12 h-12 rounded-xl bg-[#FF6363]/10 border border-[#FF6363]/20 flex items-center justify-center group-hover:bg-[#FF6363]/20 transition-colors">
-                    <pillar.icon className="w-5 h-5 text-[#FF6363]" />
+                  <div className="w-12 h-12 rounded-xl bg-[#0066FF]/10 border border-[#0066FF]/20 flex items-center justify-center group-hover:bg-[#0066FF]/20 transition-colors">
+                    <pillar.icon className="w-5 h-5 text-[#0066FF]" />
                   </div>
                   <div>
                     <span className="text-[10px] tracking-[0.15em] uppercase text-white/30 font-sans mb-2 block">
@@ -95,7 +95,7 @@ export function AboutSlide() {
                     </p>
                   </div>
                   <div className="mt-auto pt-4 border-t border-white/5">
-                    <div className="flex items-center gap-2 text-[#FF6363] text-sm font-sans opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-2 text-[#0066FF] text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                       <span>En savoir plus</span>
                       <ArrowRight className="w-4 h-4" />
                     </div>
@@ -109,9 +109,9 @@ export function AboutSlide() {
         {/* Bottom note - Glass */}
         <div className="mt-12 glass-card rounded-2xl p-6">
           <p className="text-sm text-white/50 font-sans leading-relaxed text-center">
-            Nous avons analyse en profondeur les <span className="text-[#FF6363] font-medium">dimensions techniques</span>,{" "}
-            <span className="text-[#FF8585] font-medium">reglementaires</span>,{" "}
-            <span className="text-[#FFA8A8] font-medium">financieres</span> et{" "}
+            Nous avons analyse en profondeur les <span className="text-[#0066FF] font-medium">dimensions techniques</span>,{" "}
+            <span className="text-[#3388FF] font-medium">reglementaires</span>,{" "}
+            <span className="text-[#66AAFF] font-medium">financieres</span> et{" "}
             <span className="text-white/70 font-medium">organisationnelles</span> de votre projet afin de vous proposer
             une solution adaptee a vos besoins reels.
           </p>

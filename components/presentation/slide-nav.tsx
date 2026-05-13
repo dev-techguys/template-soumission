@@ -43,7 +43,7 @@ export function SlideNav() {
       {/* Up button - glass */}
       <button
         onClick={() => scrollToSlide(Math.max(0, current - 1))}
-        className="w-8 h-8 rounded-xl glass flex items-center justify-center text-[#FF6363] hover:bg-white/10 transition-all"
+        className="w-8 h-8 rounded-xl glass flex items-center justify-center text-[#0066FF] hover:bg-white/10 transition-all"
         aria-label="Diapositive precedente"
       >
         <ChevronUp className="w-4 h-4" />
@@ -66,7 +66,7 @@ export function SlideNav() {
             <span
               className={`block rounded-full transition-all duration-300 ${
                 current === i
-                  ? "w-2.5 h-2.5 bg-[#FF6363] shadow-sm shadow-[#FF6363]/50"
+                  ? "w-2.5 h-2.5 bg-[#0066FF] shadow-sm shadow-[#0066FF]/50"
                   : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
               }`}
             />
@@ -77,7 +77,7 @@ export function SlideNav() {
       {/* Down button - glass */}
       <button
         onClick={() => scrollToSlide(Math.min(SLIDES.length - 1, current + 1))}
-        className="w-8 h-8 rounded-xl glass flex items-center justify-center text-[#FF6363] hover:bg-white/10 transition-all"
+        className="w-8 h-8 rounded-xl glass flex items-center justify-center text-[#0066FF] hover:bg-white/10 transition-all"
         aria-label="Diapositive suivante"
       >
         <ChevronDown className="w-4 h-4" />

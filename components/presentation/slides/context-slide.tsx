@@ -40,7 +40,7 @@ export function ContextSlide() {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255, 99, 99, 0.04), transparent 60%)
+              radial-gradient(ellipse 80% 50% at 50% 50%, rgba(0, 102, 255, 0.04), transparent 60%)
             `
           }}
         />
@@ -49,7 +49,7 @@ export function ContextSlide() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8 py-24 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-5 mb-14">
-          <span className="text-xs tracking-[0.3em] uppercase text-[#FF6363] font-sans font-medium">
+          <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-sans font-medium">
             02 / Contexte
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-3xl leading-[1.1]">
@@ -58,7 +58,7 @@ export function ContextSlide() {
             <span className="gradient-text-accent">AutoFinance</span>
           </h2>
           <p className="text-base text-white/40 font-sans leading-relaxed max-w-2xl">
-            Une transformation numerique strategique pour <span className="text-[#FF6363] font-medium">internaliser le processus de financement automobile</span> et reprendre le controle de la relation client.
+            Une transformation numerique strategique pour <span className="text-[#0066FF] font-medium">internaliser le processus de financement automobile</span> et reprendre le controle de la relation client.
           </p>
         </div>
 
@@ -78,12 +78,12 @@ export function ContextSlide() {
             </div>
 
             {/* Highlight box */}
-            <div className="glass-strong rounded-2xl p-6 border-[#FF6363]/20">
+            <div className="glass-strong rounded-2xl p-6 border-[#0066FF]/20">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#FF6363]/15 border border-[#FF6363]/25 flex items-center justify-center shrink-0">
-                  <Sparkles className="w-5 h-5 text-[#FF6363]" />
+                <div className="w-10 h-10 rounded-xl bg-[#0066FF]/15 border border-[#0066FF]/25 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5 text-[#0066FF]" />
                 </div>
-                <p className="text-sm text-[#FF8585] font-sans leading-relaxed">
+                <p className="text-sm text-[#3388FF] font-sans leading-relaxed">
                   La plateforme AutoFinance permettra d{"'"}internaliser la marge d{"'"}intermediation financiere (typiquement 1% a 3% du montant finance), d{"'"}accelerer les approbations et de constituer un portefeuille de prets proprietaire.
                 </p>
               </div>
@@ -98,7 +98,7 @@ export function ContextSlide() {
                 className="glass-card rounded-2xl p-6 flex flex-col gap-4 card-hover"
               >
                 <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                  <fact.icon className="w-5 h-5 text-[#FF6363]" />
+                  <fact.icon className="w-5 h-5 text-[#0066FF]" />
                 </div>
                 <div>
                   <span className="text-[10px] tracking-[0.2em] uppercase text-white/30 font-sans block mb-1">
@@ -118,7 +118,7 @@ export function ContextSlide() {
             (tag) => (
               <span
                 key={tag}
-                className="px-4 py-2.5 rounded-full glass text-xs tracking-[0.1em] uppercase text-white/40 font-sans hover:text-[#FF6363] hover:border-[#FF6363]/30 transition-colors cursor-default"
+                className="px-4 py-2.5 rounded-full glass text-xs tracking-[0.1em] uppercase text-white/40 font-sans hover:text-[#0066FF] hover:border-[#0066FF]/30 transition-colors cursor-default"
               >
                 {tag}
               </span>

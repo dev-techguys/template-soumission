@@ -8,37 +8,14 @@ import { client, branding } from "@/lib/proposal-data"
 export function CoverSlide() {
   return (
     <SlideWrapper id="cover" className="relative">
-      {/* Pure black background */}
-      <div className="absolute inset-0 bg-black">
-        {/* Raycast-style spotlight from top */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(ellipse 120% 70% at 50% -20%, rgba(255, 99, 99, 0.15), transparent 60%),
-              radial-gradient(circle at 20% 30%, rgba(255, 99, 99, 0.04), transparent 40%),
-              radial-gradient(circle at 80% 40%, rgba(255, 133, 133, 0.03), transparent 35%)
-            `
-          }}
-        />
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.015]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
-
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center">
         {/* Top line */}
         <div className="absolute top-8 left-8 right-8 flex items-center justify-between">
-          <span className="text-[11px] tracking-[0.25em] uppercase text-white/30 font-sans font-medium">
+          <span className="text-[11px] tracking-[0.25em] uppercase text-white/30 font-medium">
             Confidentiel
           </span>
-          <span className="text-[11px] tracking-[0.25em] uppercase text-white/20 font-sans">
+          <span className="text-[11px] tracking-[0.25em] uppercase text-white/20">
             2026
           </span>
         </div>
@@ -46,7 +23,7 @@ export function CoverSlide() {
         <div className="flex flex-col items-center gap-6">
           {/* Logo with subtle glow */}
           <div className="relative mb-6">
-            <div className="absolute inset-0 blur-3xl bg-[#FF6363]/8 scale-150" />
+            <div className="absolute inset-0 blur-3xl bg-[#0066FF]/10 scale-150" />
             <div className="relative w-52 h-16">
               <Image
                 src={branding.logoUrl}
@@ -60,16 +37,16 @@ export function CoverSlide() {
 
           {/* Eyebrow label - glass pill */}
           <div className="glass-card px-5 py-2 rounded-full">
-            <span className="text-[11px] tracking-[0.3em] uppercase text-white/60 font-sans font-medium">
+            <span className="text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium">
               Proposition de developpement
             </span>
           </div>
 
           {/* Main title with gradient */}
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-white leading-[1.1] max-w-5xl mt-4">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-white leading-[1.1] max-w-5xl mt-4 font-light">
             <span className="gradient-text">Plateforme</span>
             <br />
-            <span className="text-white">AutoFinance</span>
+            <span className="text-white font-medium">AutoFinance</span>
           </h1>
 
           {/* Subtitle with accent */}
@@ -88,10 +65,10 @@ export function CoverSlide() {
 
           {/* Recipient - glass card */}
           <div className="glass-card px-8 py-4 rounded-2xl flex flex-col items-center gap-1">
-            <span className="text-[10px] tracking-[0.3em] uppercase text-white/30 font-sans">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-white/30">
               A l{"'"}attention de
             </span>
-            <span className="text-lg text-white/90 font-serif">
+            <span className="text-lg text-white/90">
               {client.contactName}
             </span>
           </div>
@@ -99,11 +76,11 @@ export function CoverSlide() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-          <span className="text-[10px] tracking-[0.2em] uppercase text-white/25 font-sans">
+          <span className="text-[10px] tracking-[0.2em] uppercase text-white/25">
             Defiler
           </span>
           <div className="w-8 h-8 rounded-full glass flex items-center justify-center">
-            <ChevronDown className="w-4 h-4 text-[#FF6363]/70 animate-bounce" />
+            <ChevronDown className="w-4 h-4 text-[#0066FF]/70 animate-bounce" />
           </div>
         </div>
       </div>
