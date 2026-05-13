@@ -8,97 +8,103 @@ import { client, branding } from "@/lib/proposal-data"
 export function CoverSlide() {
   return (
     <SlideWrapper id="cover" className="relative">
-      {/* Pure CSS dark background — Raycast inspired */}
-      <div className="absolute inset-0 bg-[#0A0A0A]">
-        {/* Blue radial glow top-right */}
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-[#0035FF]/8 rounded-full blur-[150px]" />
-        {/* Blue radial glow bottom-left */}
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#3B82F6]/6 rounded-full blur-[120px]" />
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
+      {/* Pure black background */}
+      <div className="absolute inset-0 bg-black">
+        {/* Raycast-style spotlight from top */}
+        <div 
+          className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)`,
-            backgroundSize: "80px 80px",
+            background: `
+              radial-gradient(ellipse 120% 70% at 50% -20%, rgba(255, 99, 99, 0.15), transparent 60%),
+              radial-gradient(circle at 20% 30%, rgba(255, 99, 99, 0.04), transparent 40%),
+              radial-gradient(circle at 80% 40%, rgba(255, 133, 133, 0.03), transparent 35%)
+            `
           }}
         />
-        {/* Horizontal accent line */}
-        <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0035FF]/15 to-transparent" />
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center">
         {/* Top line */}
         <div className="absolute top-8 left-8 right-8 flex items-center justify-between">
-          <span className="text-xs tracking-[0.3em] uppercase text-white/40 font-sans font-medium">
+          <span className="text-[11px] tracking-[0.25em] uppercase text-white/30 font-sans font-medium">
             Confidentiel
           </span>
-          <span className="text-xs tracking-[0.3em] uppercase text-white/30 font-sans">
+          <span className="text-[11px] tracking-[0.25em] uppercase text-white/20 font-sans">
             2026
           </span>
         </div>
 
-        <div className="flex flex-col items-center gap-8">
-          {/* Logo */}
-          <div className="relative w-48 h-16 mb-4">
-            <Image
-              src={branding.logoUrl}
-              alt={`Logo ${client.name}`}
-              fill
-              className="object-contain"
-              priority
-            />
+        <div className="flex flex-col items-center gap-6">
+          {/* Logo with subtle glow */}
+          <div className="relative mb-6">
+            <div className="absolute inset-0 blur-3xl bg-[#FF6363]/8 scale-150" />
+            <div className="relative w-52 h-16">
+              <Image
+                src={branding.logoUrl}
+                alt={`Logo ${client.name}`}
+                fill
+                className="object-contain brightness-0 invert"
+                priority
+              />
+            </div>
           </div>
 
-          {/* Eyebrow label */}
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-px bg-[#0035FF]/40" />
-            <span className="text-xs tracking-[0.4em] uppercase text-[#0035FF] font-sans font-medium">
-              Proposition de développement
+          {/* Eyebrow label - glass pill */}
+          <div className="glass-card px-5 py-2 rounded-full">
+            <span className="text-[11px] tracking-[0.3em] uppercase text-white/60 font-sans font-medium">
+              Proposition de developpement
             </span>
-            <div className="w-8 h-px bg-[#0035FF]/40" />
           </div>
 
-          {/* Agency × Client */}
-          <p className="text-sm tracking-[0.25em] uppercase text-white/40 font-sans">
-            TechGuys & {client.name}
-          </p>
-
-          {/* Ornamental line */}
-          <div className="w-px h-10 bg-gradient-to-b from-transparent via-[#0035FF]/30 to-transparent" />
-
-          {/* Main title */}
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl tracking-tight text-white leading-tight max-w-4xl text-balance">
-            Plateforme AutoFinance
+          {/* Main title with gradient */}
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-white leading-[1.1] max-w-5xl mt-4">
+            <span className="gradient-text">Plateforme</span>
+            <br />
+            <span className="text-white">AutoFinance</span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-lg md:text-xl text-[#3B82F6] font-sans font-medium max-w-2xl">
-            Internalisez votre financement automobile et reprenez le contrôle de votre portefeuille
+          {/* Subtitle with accent */}
+          <p className="text-lg md:text-xl max-w-2xl leading-relaxed mt-2">
+            <span className="gradient-text-accent font-medium">
+              Internalisez votre financement automobile
+            </span>
+            <br />
+            <span className="text-white/40">
+              et reprenez le controle de votre portefeuille
+            </span>
           </p>
 
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#0035FF]/50 to-transparent" />
+          {/* Divider */}
+          <div className="w-px h-12 bg-gradient-to-b from-transparent via-white/15 to-transparent mt-4" />
 
-          {/* Recipient */}
-          <div className="flex flex-col items-center gap-1 mt-2">
-            <span className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans">
-              À l{"'"}attention de
+          {/* Recipient - glass card */}
+          <div className="glass-card px-8 py-4 rounded-2xl flex flex-col items-center gap-1">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-white/30 font-sans">
+              A l{"'"}attention de
             </span>
-            <span className="text-base text-white/80 font-serif">
+            <span className="text-lg text-white/90 font-serif">
               {client.contactName}
             </span>
           </div>
-
-          {/* Ornamental line */}
-          <div className="w-px h-10 bg-gradient-to-b from-transparent via-[#0035FF]/20 to-transparent" />
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans">
-            Défiler
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+          <span className="text-[10px] tracking-[0.2em] uppercase text-white/25 font-sans">
+            Defiler
           </span>
-          <ChevronDown className="w-4 h-4 text-[#0035FF]/60" />
+          <div className="w-8 h-8 rounded-full glass flex items-center justify-center">
+            <ChevronDown className="w-4 h-4 text-[#FF6363]/70 animate-bounce" />
+          </div>
         </div>
       </div>
     </SlideWrapper>

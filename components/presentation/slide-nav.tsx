@@ -39,46 +39,52 @@ export function SlideNav() {
   }, [])
 
   return (
-    <nav className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-3">
+    <nav className="fixed right-5 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-2">
+      {/* Up button - glass */}
       <button
         onClick={() => scrollToSlide(Math.max(0, current - 1))}
-        className="p-1.5 rounded-full bg-white/10 border border-white/20 text-[#0035FF] hover:bg-white/20 transition-colors backdrop-blur-sm shadow-sm"
+        className="w-8 h-8 rounded-xl glass flex items-center justify-center text-[#FF6363] hover:bg-white/10 transition-all"
         aria-label="Diapositive precedente"
       >
         <ChevronUp className="w-4 h-4" />
       </button>
 
-      <div className="flex flex-col gap-2 py-2">
+      {/* Dots */}
+      <div className="flex flex-col gap-2 py-3 px-2 glass rounded-2xl">
         {SLIDES.map((id, i) => (
           <button
             key={id}
             onClick={() => scrollToSlide(i)}
-            className="group relative flex items-center justify-end"
+            className="group relative flex items-center justify-center"
             aria-label={`Aller a ${SLIDE_LABELS[i]}`}
           >
-            <span className="absolute right-6 whitespace-nowrap text-xs font-sans text-white opacity-0 group-hover:opacity-100 transition-opacity bg-[#111111]/95 px-2 py-1 rounded border border-white/10 shadow-sm">
+            {/* Tooltip */}
+            <span className="absolute right-8 whitespace-nowrap text-[11px] font-sans text-white/80 opacity-0 group-hover:opacity-100 transition-all duration-200 glass px-3 py-1.5 rounded-lg pointer-events-none">
               {SLIDE_LABELS[i]}
             </span>
+            {/* Dot */}
             <span
               className={`block rounded-full transition-all duration-300 ${
                 current === i
-                  ? "w-3 h-3 bg-[#0035FF]"
-                  : "w-2 h-2 bg-white/30 hover:bg-white/50"
+                  ? "w-2.5 h-2.5 bg-[#FF6363] shadow-sm shadow-[#FF6363]/50"
+                  : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
               }`}
             />
           </button>
         ))}
       </div>
 
+      {/* Down button - glass */}
       <button
         onClick={() => scrollToSlide(Math.min(SLIDES.length - 1, current + 1))}
-        className="p-1.5 rounded-full bg-white/10 border border-white/20 text-[#0035FF] hover:bg-white/20 transition-colors backdrop-blur-sm shadow-sm"
+        className="w-8 h-8 rounded-xl glass flex items-center justify-center text-[#FF6363] hover:bg-white/10 transition-all"
         aria-label="Diapositive suivante"
       >
         <ChevronDown className="w-4 h-4" />
       </button>
 
-      <span className="text-[10px] font-sans text-white/40 mt-1 tabular-nums">
+      {/* Counter */}
+      <span className="text-[10px] font-mono text-white/30 mt-1 tabular-nums">
         {current + 1}/{SLIDES.length}
       </span>
     </nav>

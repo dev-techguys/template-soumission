@@ -1,77 +1,119 @@
+"use client"
+
 import { SlideWrapper } from "../slide-wrapper"
-import { Code, Zap, Shield } from "lucide-react"
+import { Code, Zap, Shield, ArrowRight } from "lucide-react"
 
 const PILLARS = [
   {
     icon: Code,
-    title: "Développement sur mesure",
+    title: "Developpement sur mesure",
     description:
-      "Une plateforme construite spécifiquement pour vos besoins — pas une solution générique avec des compromis.",
+      "Une plateforme construite specifiquement pour vos besoins — pas une solution generique avec des compromis.",
+    gradient: "from-[#FF6363]/20 to-transparent",
   },
   {
     icon: Zap,
-    title: "Livraison accélérée par l'IA",
+    title: "Livraison acceleree par l'IA",
     description:
-      "Notre utilisation de l'IA dans le développement nous permet de livrer plus vite à un tarif 35% plus compétitif.",
+      "Notre utilisation de l'IA dans le developpement nous permet de livrer plus vite a un tarif 35% plus competitif.",
+    gradient: "from-[#FF8585]/15 to-transparent",
   },
   {
     icon: Shield,
-    title: "Conformité dès la conception",
+    title: "Conformite des la conception",
     description:
-      "Architecture pensée pour les exigences réglementaires canadiennes : Loi 25, FINTRAC, données hébergées au Canada.",
+      "Architecture pensee pour les exigences reglementaires canadiennes : Loi 25, FINTRAC, donnees hebergees au Canada.",
+    gradient: "from-[#FFA8A8]/10 to-transparent",
   },
 ]
 
 export function AboutSlide() {
   return (
-    <SlideWrapper id="about-us" className="bg-[#0A0A0A]">
-      <div className="max-w-6xl mx-auto px-8 py-20 w-full">
+    <SlideWrapper id="about-us" className="relative">
+      {/* Background */}
+      <div className="absolute inset-0 bg-black">
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 60% 40% at 0% 0%, rgba(255, 99, 99, 0.08), transparent 50%),
+              radial-gradient(circle at 100% 80%, rgba(255, 99, 99, 0.04), transparent 30%)
+            `
+          }}
+        />
+        {/* Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8 py-24 w-full">
         {/* Section header */}
-        <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0035FF] font-sans font-medium">
+        <div className="flex flex-col gap-5 mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[#FF6363] font-sans font-medium">
             01 / Notre approche
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-white max-w-2xl leading-tight text-balance">
-            Un partenaire technique de confiance
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-3xl leading-[1.1]">
+            Un partenaire technique
+            <br />
+            <span className="gradient-text">de confiance</span>
           </h2>
-          <div className="w-16 h-px bg-[#0035FF]" />
-          <p className="text-base md:text-lg text-white/60 font-sans max-w-2xl leading-relaxed">
-            TechGuys accompagne les entreprises québécoises dans leur transformation numérique.
-            Nous combinons expertise technique et compréhension des enjeux d{"'"}affaires pour livrer
-            des solutions qui génèrent des résultats concrets.
+          <p className="text-base md:text-lg text-white/40 font-sans max-w-2xl leading-relaxed">
+            TechGuys accompagne les entreprises quebecoises dans leur transformation numerique.
+            Nous combinons expertise technique et comprehension des enjeux d{"'"}affaires pour livrer
+            des solutions qui generent des resultats concrets.
           </p>
         </div>
 
-        {/* Pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {PILLARS.map((pillar) => (
+        {/* Pillars - Glass cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {PILLARS.map((pillar, index) => (
             <div
               key={pillar.title}
-              className="group relative p-8 rounded-xl border border-white/10 bg-white/[0.02] hover:border-[#0035FF]/30 hover:bg-white/[0.04] transition-all duration-500"
+              className="group relative card-hover"
             >
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0035FF]/0 via-[#0035FF]/20 to-[#0035FF]/0 group-hover:via-[#0035FF]/50 transition-all duration-500" />
-
-              <div className="flex flex-col gap-5">
-                <div className="w-12 h-12 rounded-xl bg-[#0035FF]/10 border border-[#0035FF]/20 flex items-center justify-center">
-                  <pillar.icon className="w-5 h-5 text-[#0035FF]" />
+              <div className="glass-card h-full p-7 rounded-2xl overflow-hidden">
+                {/* Gradient overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${pillar.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                
+                {/* Content */}
+                <div className="relative z-10 flex flex-col gap-5">
+                  <div className="w-12 h-12 rounded-xl bg-[#FF6363]/10 border border-[#FF6363]/20 flex items-center justify-center group-hover:bg-[#FF6363]/20 transition-colors">
+                    <pillar.icon className="w-5 h-5 text-[#FF6363]" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-white/30 font-sans mb-2 block">
+                      0{index + 1}
+                    </span>
+                    <h3 className="font-serif text-xl text-white mb-3">{pillar.title}</h3>
+                    <p className="text-sm text-white/40 font-sans leading-relaxed">
+                      {pillar.description}
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-4 border-t border-white/5">
+                    <div className="flex items-center gap-2 text-[#FF6363] text-sm font-sans opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span>En savoir plus</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-serif text-xl text-white">{pillar.title}</h3>
-                <p className="text-sm text-white/50 font-sans leading-relaxed">
-                  {pillar.description}
-                </p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom note */}
-        <div className="mt-16 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+        {/* Bottom note - Glass */}
+        <div className="mt-12 glass-card rounded-2xl p-6">
           <p className="text-sm text-white/50 font-sans leading-relaxed text-center">
-            Nous avons analysé en profondeur les <span className="text-[#0035FF] font-medium">dimensions techniques</span>,{" "}
-            <span className="text-[#0035FF] font-medium">réglementaires</span>,{" "}
-            <span className="text-[#3B82F6] font-medium">financières</span> et{" "}
-            <span className="text-[#0035FF] font-medium">organisationnelles</span> de votre projet afin de vous proposer
-            une solution adaptée à vos besoins réels.
+            Nous avons analyse en profondeur les <span className="text-[#FF6363] font-medium">dimensions techniques</span>,{" "}
+            <span className="text-[#FF8585] font-medium">reglementaires</span>,{" "}
+            <span className="text-[#FFA8A8] font-medium">financieres</span> et{" "}
+            <span className="text-white/70 font-medium">organisationnelles</span> de votre projet afin de vous proposer
+            une solution adaptee a vos besoins reels.
           </p>
         </div>
       </div>
