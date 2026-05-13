@@ -16,26 +16,54 @@ function SplineBackground() {
     <div className="absolute inset-0 w-full h-full pointer-events-auto overflow-hidden">
       <Suspense fallback={
         <div className="absolute inset-0 bg-gradient-to-br from-[#030318] via-[#0a0a2e] to-[#050520]">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/10 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#3388FF]/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/20 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#3388FF]/15 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
         </div>
       }>
-        <Spline
+        {/* Spline with hue rotation to blue and blur */}
+        <div 
+          className="w-full h-full"
           style={{
-            width: "100%",
-            height: "100vh",
-            pointerEvents: "auto",
+            filter: "hue-rotate(-60deg) saturate(1.2) blur(3px)",
           }}
-          scene="https://prod.spline.design/us3ALejTXl6usHZ7/scene.splinecode"
-        />
+        >
+          <Spline
+            style={{
+              width: "100%",
+              height: "100vh",
+              pointerEvents: "auto",
+            }}
+            scene="https://prod.spline.design/us3ALejTXl6usHZ7/scene.splinecode"
+          />
+        </div>
       </Suspense>
+      
+      {/* Strong blur overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none backdrop-blur-sm"
+        style={{
+          background: "rgba(0, 3, 15, 0.3)",
+        }}
+      />
+      
+      {/* Blue tint overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0, 102, 255, 0.15), transparent 60%),
+            linear-gradient(to bottom, transparent 30%, rgba(0, 3, 15, 0.7) 70%, rgba(0, 3, 15, 0.95))
+          `,
+        }}
+      />
+      
       {/* Gradient overlay for readability */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent 30%, transparent 70%, rgba(0, 0, 0, 0.7)),
-            linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.85))
+            linear-gradient(to right, rgba(0, 3, 15, 0.6), transparent 25%, transparent 75%, rgba(0, 3, 15, 0.6)),
+            linear-gradient(to bottom, rgba(0, 3, 15, 0.4), transparent 30%, transparent 50%, rgba(0, 3, 15, 0.8))
           `,
         }}
       />
