@@ -16,15 +16,15 @@ function SplineBackground() {
     <div className="absolute inset-0 w-full h-full pointer-events-auto overflow-hidden">
       <Suspense fallback={
         <div className="absolute inset-0 bg-gradient-to-br from-[#030318] via-[#0a0a2e] to-[#050520]">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/20 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#FF3366]/15 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/25 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#990033]/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
         </div>
       }>
-        {/* Spline - keep original colors (blue/pink/purple), just slight blur */}
+        {/* Spline with hue shift toward blue and blur */}
         <div 
           className="w-full h-full"
           style={{
-            filter: "blur(1px) saturate(1.1)",
+            filter: "blur(2px) saturate(0.9) hue-rotate(-15deg)",
           }}
         >
           <Spline
@@ -38,21 +38,30 @@ function SplineBackground() {
         </div>
       </Suspense>
       
-      {/* Light overlay for readability - not too strong */}
+      {/* Blue tint overlay to shift colors */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "rgba(0, 3, 15, 0.15)",
+          background: "rgba(0, 20, 60, 0.25)",
+          mixBlendMode: "overlay",
         }}
       />
       
-      {/* Subtle gradient overlay */}
+      {/* Darker red accent in corner */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 40% 40% at 70% 60%, rgba(120, 0, 40, 0.15), transparent 70%)",
+        }}
+      />
+      
+      {/* Gradient overlay for readability */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            linear-gradient(to bottom, transparent 50%, rgba(0, 3, 15, 0.6) 85%, rgba(0, 3, 15, 0.9)),
-            linear-gradient(to right, rgba(0, 3, 15, 0.4), transparent 30%, transparent 70%, rgba(0, 3, 15, 0.4))
+            linear-gradient(to bottom, transparent 50%, rgba(0, 3, 15, 0.5) 80%, rgba(0, 3, 15, 0.85)),
+            linear-gradient(to right, rgba(0, 3, 15, 0.3), transparent 30%, transparent 70%, rgba(0, 3, 15, 0.3))
           `,
         }}
       />
@@ -198,27 +207,27 @@ export function CoverSlide() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator with magnetic effect */}
+        {/* Scroll indicator - positioned in bottom right corner */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+          className="absolute bottom-8 right-8 flex flex-col items-center gap-2"
         >
-          <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">
+          <span className="text-[9px] tracking-[0.2em] uppercase text-white/30">
             Defiler
           </span>
           <MagneticButton>
             <motion.div 
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-11 h-11 rounded-full flex items-center justify-center cursor-pointer border border-white/10 hover:border-[#0066FF]/50 hover:bg-[#0066FF]/10 transition-all duration-300"
+              className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer border border-white/10 hover:border-[#0066FF]/50 hover:bg-[#0066FF]/10 transition-all duration-300"
               style={{
                 background: "rgba(0, 102, 255, 0.1)",
                 backdropFilter: "blur(8px)",
               }}
             >
-              <ChevronDown className="w-5 h-5 text-[#0066FF]" />
+              <ChevronDown className="w-4 h-4 text-[#0066FF]" />
             </motion.div>
           </MagneticButton>
         </motion.div>
