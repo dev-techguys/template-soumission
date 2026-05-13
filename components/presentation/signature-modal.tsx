@@ -254,7 +254,7 @@ export function SignatureModal() {
           rel="noopener noreferrer"
           className="fixed bottom-6 right-6 z-50 group"
         >
-          <div className="flex items-center gap-3 bg-[#387B84] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#2d6269] transition-all duration-300 hover:scale-105">
+          <div className="flex items-center gap-3 bg-[#10B981] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#059669] transition-all duration-300 hover:scale-105">
             <PenLine className="w-5 h-5" />
             <span className="font-medium text-sm">Signer le contrat</span>
           </div>
@@ -264,7 +264,7 @@ export function SignatureModal() {
           onClick={() => setOpen(true)}
           className="fixed bottom-6 right-6 z-50 group"
         >
-          <div className="flex items-center gap-3 bg-[#387B84] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#2d6269] transition-all duration-300 hover:scale-105">
+          <div className="flex items-center gap-3 bg-[#ff7000] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#e06300] transition-all duration-300 hover:scale-105">
             <PenLine className="w-5 h-5" />
             <span className="font-medium text-sm">Signer le contrat</span>
           </div>

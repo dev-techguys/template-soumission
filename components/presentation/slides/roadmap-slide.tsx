@@ -1,252 +1,534 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { useEffect, useRef, useState } from "react"
-import {
-  Wrench,
-  TrendingUp,
-  Bot,
-  CheckSquare,
-} from "lucide-react"
+import { AnimatedDiv, AnimatedContainer, AnimatedItem } from "../animated-wrapper"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { CheckSquare, Rocket, Sparkles, X } from "lucide-react"
 
-const TIMELINE = [
-  {
-    icon: Wrench,
-    phase: "Mois 1",
-    title: "Phase 1 : Fondations & Quick Wins",
-    why: "Avant d'accélérer, il faut poser des bases solides — un audit honnête et un setup analytics irréprochable garantissent que chaque décision sera guidée par les données.",
-    kpi: "+25% trafic organique, CPL -20%",
-    actions: [
-      {
-        task: "Audit SEO complet + setup analytics",
-        detail:
-          "Analyse technique, on-page et off-page complète. Configuration GA4, GTM et Google Search Console pour un tracking fiable dès le départ.",
-      },
-      {
-        task: "Optimisation des pages stratégiques",
-        detail:
-          "Correction des erreurs techniques prioritaires, optimisation des balises meta, amélioration de la vitesse et de la structure pour les pages à fort potentiel.",
-      },
-      {
-        task: "Setup Google Ads avec structure de campagnes propre",
-        detail:
-          "Architecture de campagnes segmentée par service (marketing digital, développement, ventes), avec audiences, messages et budgets alignés sur les mandats premium.",
-      },
-    ],
-  },
-  {
-    icon: TrendingUp,
-    phase: "Mois 2",
-    title: "Phase 2 : Croissance & Contenu",
-    why: "Avec les fondations en place, on active les leviers de croissance — contenu SEO pour le long terme et optimisation continue des campagnes pour le court terme.",
-    kpi: "+40% leads qualifiés, +15% taux de conversion",
-    actions: [
-      {
-        task: "Publication de 4 articles SEO à fort potentiel",
-        detail:
-          "Création d'articles optimisés ciblant des requêtes stratégiques (ex. «agence marketing Montréal», «automatisation CRM PME»). Chaque article génère du trafic qualifié sur le long terme.",
-      },
-      {
-        task: "Optimisation continue des campagnes (A/B sur annonces)",
-        detail:
-          "Tests A/B sur les créatifs, titres et CTAs. Réallocation du budget vers les groupes d'annonces les plus performants pour améliorer le ROAS.",
-      },
-      {
-        task: "Landing pages de conversion pour chaque service",
-        detail:
-          "Création de pages dédiées par service (marketing, tech, ventes) avec parcours de conversion optimisé — formulaire court, preuve sociale, CTA clair.",
-      },
-    ],
-  },
-  {
-    icon: Bot,
-    phase: "Mois 3",
-    title: "Phase 3 : Automatisation & Scale",
-    why: "L'automatisation transforme les résultats en système — les leads entrent, sont qualifiés et suivis sans effort manuel, libérant l'équipe pour se concentrer sur les clients.",
-    kpi: "-60% temps de prospection manuelle, ×3 rendez-vous cédulés",
-    actions: [
-      {
-        task: "Setup CRM avec pipeline de vente automatisé",
-        detail:
-          "Configuration du pipeline de vente avec étapes, assignation automatique et alertes. Chaque lead entrant est tracké et priorisé sans intervention manuelle.",
-      },
-      {
-        task: "Séquences d'email nurturing",
-        detail:
-          "Création de séquences automatisées pour convertir les leads froids en rendez-vous qualifiés — segmentées par source, service et niveau d'intention.",
-      },
-      {
-        task: "Rapport de performance mensuel systématique",
-        detail:
-          "Dashboard unifié SEO + Ads + Conversion avec recommandations priorisées pour le mois suivant. Visibility complète sur le ROI de chaque canal.",
-      },
-    ],
-  },
+// Task type with execution actions
+interface Task {
+  id: string
+  name: string
+  week: number
+  duration: number
+  color: string
+  type: "core" | "premium"
+  actions: string[]
+}
+
+// Timeline data for Gantt chart - 8 weeks (2 months)
+const GANTT_TASKS_A: Task[] = [
+  { id: "validation", name: "Validation contenu", week: 1, duration: 1, color: "#ff7000", type: "core", actions: ["Revue de l'arbre de scénarios avec Pierre", "Validation du wording EN/FR", "Définition des edge cases"] },
+  { id: "edge", name: "Edge Function LLM", week: 1, duration: 2, color: "#ff7000", type: "core", actions: ["Configuration Groq API + streaming", "Implémentation rate limiting", "Tests de latence et fallback"] },
+  { id: "widget", name: "Widget UI complet", week: 2, duration: 2, color: "#ff7000", type: "core", actions: ["ChatWidget + ChatBubble + ChatPanel", "Responsive mobile-first design", "Intégration chips cliquables"] },
+  { id: "routing", name: "Routing + Messages", week: 3, duration: 1, color: "#ff7000", type: "core", actions: ["Navigation vers pages services", "Messages contextuels par page"] },
+  { id: "qualif", name: "Qualification adaptative", week: 3, duration: 1, color: "#ff7000", type: "core", actions: ["Flow 3 questions dynamique", "Logique de scoring prospect"] },
+  { id: "trigger", name: "Trigger proactif", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Déclenchement temps + scroll", "Cooldown intelligent"] },
+  { id: "analytics", name: "Analytics Supabase", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["Logging anonymisé Loi 25", "Schéma de données optimisé"] },
+  { id: "dashboard", name: "Dashboard admin", week: 4, duration: 1, color: "#ff7000", type: "core", actions: ["/admin/agent-stats protégé", "KPIs conversations et funnel"] },
 ]
 
-function TimelineCard({
-  phase,
-  index,
-  totalInSection,
-  isVisible,
-}: {
-  phase: (typeof TIMELINE)[0]
-  index: number
-  totalInSection: number
-  isVisible: boolean
-}) {
-  const Icon = phase.icon
-  const isLast = index === totalInSection - 1
+// Option B Premium tasks - Start from week 2 and integrate with Option A
+const PREMIUM_TASKS: Task[] = [
+  { id: "gpt", name: "Modèle GPT", week: 2, duration: 1, color: "#10B981", type: "premium", actions: ["Migration Llama vers GPT-4o", "Optimisation prompts", "Tests de qualité réponses"] },
+  { id: "learning", name: "Apprentissage continu", week: 3, duration: 2, color: "#10B981", type: "premium", actions: ["Système de mémoire contextuelle", "Feedback loop automatisé", "Enrichissement progressif"] },
+  { id: "skills", name: "Skills domaine B2B", week: 4, duration: 2, color: "#10B981", type: "premium", actions: ["Expertise transport intégrée", "Jargon BOL, lane, spot quote", "Scénarios métier avancés"] },
+  { id: "capture", name: "Capture lead", week: 5, duration: 1, color: "#10B981", type: "premium", actions: ["Formulaire inline dans chat", "Validation email + entreprise", "Routing vers bon commercial"] },
+  { id: "dashboard2", name: "Dashboard avancé", week: 6, duration: 1, color: "#10B981", type: "premium", actions: ["Funnel de conversion", "Heatmap parcours utilisateur"] },
+  { id: "framer", name: "Animations Framer", week: 7, duration: 1, color: "#10B981", type: "premium", actions: ["Transitions fluides", "Micro-interactions premium"] },
+  { id: "persist", name: "Persistance session", week: 7, duration: 1, color: "#10B981", type: "premium", actions: ["LocalStorage + Supabase sync", "Reprise conversation inter-pages"] },
+]
+
+const WEEKS = [
+  { num: 1, label: "S1" },
+  { num: 2, label: "S2" },
+  { num: 3, label: "S3" },
+  { num: 4, label: "S4" },
+  { num: 5, label: "S5" },
+  { num: 6, label: "S6" },
+  { num: 7, label: "S7" },
+  { num: 8, label: "S8" },
+]
+
+const MONTHS = [
+  { name: "Mois 1", weeks: [1, 2, 3, 4] },
+  { name: "Mois 2", weeks: [5, 6, 7, 8] },
+]
+
+// Task tooltip component - now uses fixed positioning for better overflow handling
+function TaskTooltip({ task, position }: { task: Task; position: { x: number; y: number } }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+      transition={{ duration: 0.2 }}
+      className="fixed z-[100] w-64 p-4 rounded-xl border shadow-xl bg-white pointer-events-none"
+      style={{ 
+        borderColor: task.color + "40",
+        left: Math.min(position.x, window.innerWidth - 280),
+        top: position.y + 10,
+      }}
+    >
+      <div className="flex items-center gap-2 mb-3">
+        <div
+          className="w-3 h-3 rounded-full"
+          style={{ backgroundColor: task.color }}
+        />
+        <span className="font-serif text-sm text-[#0f172a] font-medium">{task.name}</span>
+      </div>
+      <div className="flex flex-col gap-2">
+        {task.actions.map((action, i) => (
+          <div key={i} className="flex items-start gap-2">
+            <CheckSquare 
+              className="w-3 h-3 mt-0.5 shrink-0" 
+              style={{ color: task.color }} 
+            />
+            <span className="text-xs text-[#64748b] font-sans">{action}</span>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
+function GanttChart({ selectedOption }: { selectedOption: "A" | "B" }) {
+  const [hoveredTask, setHoveredTask] = useState<Task | null>(null)
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
+  
+  // Combine tasks based on selected option
+  const allTasks = selectedOption === "A" ? GANTT_TASKS_A : [...GANTT_TASKS_A, ...PREMIUM_TASKS]
+  
+  // Get max week for current option
+  const maxWeek = selectedOption === "A" ? 4 : 8
+  
+  const handleMouseEnter = (task: Task, e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setTooltipPosition({ x: rect.left, y: rect.bottom })
+    setHoveredTask(task)
+  }
 
   return (
-    <div
-      className={`relative pb-8 md:pb-10 transition-all duration-700 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
-    >
-      <div className="flex gap-5 md:gap-8">
-        {/* Left: number circle + vertical line */}
-        <div className="flex flex-col items-center shrink-0">
-          <div
-            className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${
-              isVisible
-                ? "border-[#0DA5B5] bg-[#0DA5B5]/10 shadow-[0_0_20px_rgba(13,165,181,0.15)]"
-                : "border-[#e5e7eb] bg-white"
-            }`}
-          >
-            <span className="font-serif text-lg md:text-xl text-[#0DA5B5] font-semibold">
-              {index + 1}
-            </span>
-          </div>
-          {!isLast && (
-            <div className="w-px flex-1 bg-[#e5e7eb] relative overflow-hidden">
-              <div
-                className={`absolute top-0 left-0 w-full bg-gradient-to-b from-[#0DA5B5]/60 to-[#0DA5B5]/10 transition-all duration-1000 ease-out ${
-                  isVisible ? "h-full" : "h-0"
-                }`}
-                style={{ transitionDelay: `${index * 100 + 400}ms` }}
-              />
-            </div>
-          )}
+    <div className="w-full overflow-x-auto">
+      <div className="min-w-[700px]">
+        {/* Month headers */}
+        <div className="flex border-b border-[#e5e7eb]">
+          <div className="w-44 shrink-0" />
+          {MONTHS.map((month, idx) => (
+            <motion.div
+              key={month.name}
+              initial={{ opacity: selectedOption === "A" && idx === 1 ? 0.3 : 1 }}
+              animate={{ opacity: selectedOption === "A" && idx === 1 ? 0.3 : 1 }}
+              transition={{ duration: 0.4 }}
+              className="flex-1 text-center py-2 text-sm font-sans font-medium text-[#0f172a] border-l border-[#e5e7eb]"
+            >
+              {month.name}
+            </motion.div>
+          ))}
         </div>
 
-        {/* Right: card */}
-        <div className="flex-1">
-          <div className="rounded-xl border border-[#e5e7eb] bg-white hover:border-[#0DA5B5]/30 hover:shadow-lg transition-all duration-500 overflow-hidden">
-            {/* Card header */}
-            <div className="px-5 pt-5 pb-3 md:px-7 md:pt-6 md:pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#0DA5B5]/10 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-[#0DA5B5]" />
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-[#0DA5B5] font-sans font-medium">
-                    {phase.phase}
-                  </span>
-                  <h3 className="font-serif text-xl md:text-2xl text-[#111827] leading-tight">
-                    {phase.title}
-                  </h3>
-                </div>
-              </div>
-              <p className="text-sm text-[#6B7280] font-sans leading-relaxed mt-3 pl-12">
-                {phase.why}
-              </p>
-              <div className="mt-3 pl-12">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFC43D]/15 border border-[#FFC43D]/30">
-                  <span className="text-[10px] tracking-[0.15em] uppercase text-[#111827]/70 font-sans font-medium">
-                    Objectif :
-                  </span>
-                  <span className="text-[10px] font-sans font-medium text-[#111827]">{phase.kpi}</span>
-                </span>
-              </div>
-            </div>
-
-            {/* Actions list */}
-            <div className="px-5 pb-5 md:px-7 md:pb-6 flex flex-col gap-2.5">
-              {phase.actions.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex gap-3 p-3.5 md:p-4 rounded-xl bg-[#f7f7f7] border border-[#e5e7eb] hover:border-[#d1d5db] transition-colors"
-                >
-                  <div className="shrink-0 mt-0.5">
-                    <CheckSquare className="w-4 h-4 text-[#0DA5B5]/50" />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-sm font-sans font-medium text-[#111827] leading-snug">
-                      {item.task}
-                    </span>
-                    <span className="text-xs font-sans text-[#6B7280] leading-relaxed">
-                      {item.detail}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {/* Milestone row - above week headers */}
+        <div className="flex border-b border-[#e5e7eb] bg-[#fafbfc]">
+          <div className="w-44 shrink-0 px-3 py-1.5 text-[10px] tracking-[0.1em] uppercase text-[#94a3b8] font-sans flex items-center">
+            Livrables
           </div>
+          {WEEKS.map((week) => {
+            let milestone = null
+            if (week.num === 3) {
+              milestone = { label: "Chatbot en ligne", color: "#ff7000" }
+            } else if (week.num === 4) {
+              milestone = { label: "Dashboard opérationnel", color: "#3b82f6" }
+            } else if (week.num === 6 && selectedOption === "B") {
+              milestone = { label: "Analyse pertinente", color: "#10B981" }
+            }
+            
+            const isDisabledWeek = week.num > maxWeek
+            
+            return (
+              <motion.div
+                key={`milestone-${week.num}`}
+                animate={{ opacity: isDisabledWeek ? 0.3 : 1 }}
+                transition={{ duration: 0.4 }}
+                className="flex-1 py-1.5 px-0.5 border-l border-[#e5e7eb] flex items-center justify-center"
+              >
+                {milestone && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <div 
+                      className="px-2 py-0.5 rounded-full text-[8px] font-semibold whitespace-nowrap shadow-sm border"
+                      style={{ 
+                        backgroundColor: milestone.color + "15",
+                        borderColor: milestone.color,
+                        color: milestone.color
+                      }}
+                    >
+                      {milestone.label}
+                    </div>
+                  </motion.div>
+                )}
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* Week headers */}
+        <div className="flex border-b border-[#e5e7eb] bg-[#f8fafc]">
+          <div className="w-44 shrink-0 px-3 py-2 text-[10px] tracking-[0.1em] uppercase text-[#64748b] font-sans">
+            Jalon
+          </div>
+          {WEEKS.map((week) => {
+            // Check if this week has a milestone for column highlight
+            const hasMilestone = week.num === 3 || week.num === 4 || (week.num === 6 && selectedOption === "B")
+            
+            return (
+              <motion.div
+                key={week.num}
+                initial={{ opacity: week.num > maxWeek ? 0.3 : 1 }}
+                animate={{ 
+                  opacity: week.num > maxWeek ? 0.3 : 1,
+                  backgroundColor: week.num > maxWeek ? "#f1f5f9" : hasMilestone ? "#f0f9ff" : "transparent"
+                }}
+                transition={{ duration: 0.4 }}
+                className={`flex-1 text-center py-2 text-xs font-sans border-l ${
+                  hasMilestone 
+                    ? "text-[#0f172a] font-medium border-l-2 border-l-[#3b82f6]/30" 
+                    : "text-[#64748b] border-[#e5e7eb]"
+                }`}
+              >
+                {week.label}
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* Task rows */}
+        <AnimatePresence mode="popLayout">
+          {allTasks.map((task, index) => (
+            <motion.div
+              key={task.id}
+              layout
+              initial={{ opacity: 0, x: task.type === "premium" ? 20 : 0 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ 
+                duration: 0.4, 
+                delay: task.type === "premium" ? index * 0.05 : 0,
+                layout: { duration: 0.3 }
+              }}
+              className={`flex border-b border-[#e5e7eb] hover:bg-[#f8fafc] transition-colors ${
+                task.type === "premium" ? "bg-[#10B981]/5" : ""
+              }`}
+            >
+              {/* Task name */}
+              <div className="w-44 shrink-0 px-3 py-3 flex items-center gap-2">
+                <span className="text-xs font-sans text-[#0f172a] truncate">{task.name}</span>
+              </div>
+
+              {/* Week cells with bar */}
+              {WEEKS.map((week) => {
+                const isInRange = week.num >= task.week && week.num < task.week + task.duration
+                const isDisabledWeek = week.num > maxWeek
+                const hasMilestone = week.num === 3 || week.num === 4 || (week.num === 6 && selectedOption === "B")
+                
+                return (
+                  <motion.div
+                    key={week.num}
+                    animate={{
+                      opacity: isDisabledWeek ? 0.3 : 1,
+                      backgroundColor: isDisabledWeek ? "#f1f5f9" : hasMilestone ? "#f0f9ff" : "transparent"
+                    }}
+                    transition={{ duration: 0.4 }}
+                    className={`flex-1 py-3 px-1 flex items-center relative ${
+                      hasMilestone 
+                        ? "border-l-2 border-l-[#3b82f6]/30" 
+                        : "border-l border-[#e5e7eb]"
+                    }`}
+                  >
+                    {isInRange && (
+                      <motion.div
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        animate={{ scaleX: 1, opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                        className="h-7 w-full rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
+                        style={{ backgroundColor: task.color, transformOrigin: "left" }}
+                        onMouseEnter={(e) => handleMouseEnter(task, e)}
+                        onMouseLeave={() => setHoveredTask(null)}
+                      />
+                    )}
+                  </motion.div>
+                )
+              })}
+            </motion.div>
+          ))}
+        </AnimatePresence>
+
+        {/* Legend */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 px-3">
+          {/* Task types */}
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded bg-[#ff7000]" />
+            <span className="text-xs font-sans text-[#64748b]">Core (inclus dans les deux options)</span>
+          </div>
+          <AnimatePresence>
+            {selectedOption === "B" && (
+              <motion.div 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                className="flex items-center gap-2"
+              >
+                <div className="w-4 h-4 rounded bg-[#10B981]" />
+                <span className="text-xs font-sans text-[#64748b]">Premium (Plan Performance uniquement)</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
+          {/* Separator */}
+          <div className="h-4 w-px bg-[#e5e7eb]" />
+          
+          {/* Milestones */}
+          <div className="flex items-center gap-1.5">
+            <div className="px-2 py-0.5 rounded-full text-[8px] font-semibold border bg-[#ff7000]/10 border-[#ff7000] text-[#ff7000]">
+              Chatbot
+            </div>
+            <span className="text-[10px] font-sans text-[#64748b]">S3</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="px-2 py-0.5 rounded-full text-[8px] font-semibold border bg-[#3b82f6]/10 border-[#3b82f6] text-[#3b82f6]">
+              Dashboard
+            </div>
+            <span className="text-[10px] font-sans text-[#64748b]">S4</span>
+          </div>
+          <AnimatePresence>
+            {selectedOption === "B" && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex items-center gap-1.5"
+              >
+                <div className="px-2 py-0.5 rounded-full text-[8px] font-semibold border bg-[#10B981]/10 border-[#10B981] text-[#10B981]">
+                  Analyse
+                </div>
+                <span className="text-[10px] font-sans text-[#64748b]">S6</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
+      
+      {/* Fixed position tooltip */}
+      <AnimatePresence>
+        {hoveredTask && (
+          <TaskTooltip task={hoveredTask} position={tooltipPosition} />
+        )}
+      </AnimatePresence>
     </div>
   )
 }
 
-export function RoadmapSlide() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set())
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute("data-index"))
-          if (entry.isIntersecting) {
-            setVisibleCards((prev) => new Set([...prev, index]))
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
-    )
-
-    const container = containerRef.current
-    if (container) {
-      const cards = container.querySelectorAll("[data-index]")
-      cards.forEach((card) => observer.observe(card))
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
+// Milestone scrollable section
+function MilestoneSection({ task }: { task: Task }) {
   return (
-    <SlideWrapper id="roadmap" className="bg-[#f7f7f7] !min-h-0">
-      <div className="max-w-4xl mx-auto px-6 md:px-8 py-20 w-full">
-        {/* Header */}
-        <div className="flex flex-col gap-5 mb-14">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            05 / Feuille de route
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#111827] max-w-3xl leading-tight text-balance">
-            Plan d{"'"}action sur 3 mois
-          </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
-          <p className="text-base text-[#6B7280] font-sans max-w-2xl leading-relaxed">
-            Un plan structuré en 3 phases pour passer de l{"'"}audit à l{"'"}automatisation — avec des résultats mesurables dès le premier mois.
-          </p>
-        </div>
-
-        {/* Timeline */}
-        <div ref={containerRef} className="relative">
-          {TIMELINE.map((phase, localIndex) => (
-            <div key={phase.title} data-index={localIndex}>
-              <TimelineCard
-                phase={phase}
-                index={localIndex}
-                totalInSection={TIMELINE.length}
-                isVisible={visibleCards.has(localIndex)}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="p-4 rounded-lg bg-white border border-[#e5e7eb] hover:border-[#ff7000]/30 transition-colors"
+    >
+      <div className="flex items-center gap-2 mb-3">
+        <div
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: task.color }}
+        />
+                <span className="font-serif text-sm text-[#0f172a]">{task.name}</span>
+              </div>
+      <div className="max-h-20 overflow-y-auto custom-scrollbar">
+        <div className="flex flex-col gap-1.5">
+          {task.actions.map((action, i) => (
+            <div key={i} className="flex items-start gap-2">
+              <CheckSquare 
+                className="w-3 h-3 mt-0.5 shrink-0" 
+                style={{ color: task.color + "80" }} 
               />
+              <span className="text-[11px] text-[#64748b] font-sans">{action}</span>
             </div>
           ))}
         </div>
       </div>
+    </motion.div>
+  )
+}
+
+// Option details
+const OPTION_A_DETAILS = {
+  name: "Plan Essentiel - Navigation",
+  timeline: "3-4 semaines",
+  description: "Un agent IA complet et fonctionnel : vrai LLM Llama, qualification adaptative, trigger proactif, analytics et dashboard. Le visiteur est guidé, qualifié et routé vers la bonne page.",
+}
+
+const OPTION_B_DETAILS = {
+  name: "Plan Performance - Conversion",
+  timeline: "6-8 semaines",
+  description: "L'expérience premium : modèle GPT de meilleure qualité, apprentissage continu qui s'affine au fil des interactions, capture de leads, notifications sales, et dashboard avancé avec funnel.",
+}
+
+export function RoadmapSlide() {
+  const [selectedOption, setSelectedOption] = useState<"A" | "B">("A")
+  const currentDetails = selectedOption === "A" ? OPTION_A_DETAILS : OPTION_B_DETAILS
+  const currentTasks = selectedOption === "A" ? GANTT_TASKS_A : [...GANTT_TASKS_A, ...PREMIUM_TASKS]
+
+  return (
+    <SlideWrapper id="roadmap" className="bg-[#f8fafc] !min-h-0">
+      <div className="max-w-5xl mx-auto px-6 md:px-8 py-20 w-full">
+        {/* Header */}
+        <div className="flex flex-col gap-5 mb-14">
+          <AnimatedDiv delay={0}>
+            <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
+              04 / Feuille de route
+            </span>
+          </AnimatedDiv>
+          <AnimatedDiv delay={0.1}>
+            <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-3xl leading-tight text-balance">
+              Agenda
+            </h2>
+          </AnimatedDiv>
+          <AnimatedDiv delay={0.2}>
+            <div className="w-16 h-px bg-[#ff7000]" />
+          </AnimatedDiv>
+          <AnimatedDiv delay={0.3}>
+            <p className="text-base text-[#64748b] font-sans max-w-2xl leading-relaxed">
+              Overview de la gestion de projet avec les jalons clés et la répartition des tâches. Survolez les tâches pour voir les actions d&apos;exécution.
+            </p>
+          </AnimatedDiv>
+        </div>
+
+        {/* Option Toggle Tabs */}
+        <AnimatedDiv delay={0.4}>
+          <div className="flex items-center gap-2 mb-6">
+            <button
+              onClick={() => setSelectedOption("A")}
+              className={`px-5 py-2.5 rounded-lg font-sans text-sm font-medium transition-all ${
+                selectedOption === "A"
+                  ? "bg-[#ff7000] text-white shadow-lg shadow-[#ff7000]/25"
+                  : "bg-white border border-[#e5e7eb] text-[#64748b] hover:border-[#ff7000]/50 hover:text-[#ff7000]"
+              }`}
+            >
+              Plan Essentiel
+            </button>
+            <button
+              onClick={() => setSelectedOption("B")}
+              className={`px-5 py-2.5 rounded-lg font-sans text-sm font-medium transition-all ${
+                selectedOption === "B"
+                  ? "bg-[#10B981] text-white shadow-lg shadow-[#10B981]/25"
+                  : "bg-white border border-[#e5e7eb] text-[#64748b] hover:border-[#10B981]/50 hover:text-[#10B981]"
+              }`}
+            >
+              Plan Performance
+            </button>
+          </div>
+        </AnimatedDiv>
+
+        {/* Gantt Chart Timeline */}
+        <AnimatedDiv delay={0.5}>
+          <div className="mb-12 p-6 rounded-xl border border-[#e5e7eb] bg-white">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <motion.div 
+                  animate={{ backgroundColor: selectedOption === "A" ? "#ff7000" + "1a" : "#10B981" + "1a" }}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center"
+                >
+                  {selectedOption === "A" ? (
+                    <Rocket className="w-5 h-5 text-[#ff7000]" />
+                  ) : (
+                    <Sparkles className="w-5 h-5 text-[#10B981]" />
+                  )}
+                </motion.div>
+                <div>
+                  <h3 className="font-serif text-xl text-[#0f172a]">Timeline sur 2 mois</h3>
+                  <p className="text-sm text-[#64748b] font-sans">
+                    Vue calendrier hebdomadaire — {selectedOption === "A" ? "Plan Essentiel (4 semaines)" : "Plan Performance (8 semaines)"}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <GanttChart selectedOption={selectedOption} />
+          </div>
+        </AnimatedDiv>
+
+        {/* Milestones with scrollable actions */}
+        <AnimatedDiv delay={0.6}>
+          <div className={`p-6 rounded-xl border ${
+            selectedOption === "A" 
+              ? "border-[#ff7000]/30 bg-[#ff7000]/5" 
+              : "border-[#10B981]/30 bg-[#10B981]/5"
+          }`}>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <motion.div 
+                  animate={{ backgroundColor: selectedOption === "A" ? "#ff7000" + "1a" : "#10B981" + "1a" }}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center"
+                >
+                  {selectedOption === "A" ? (
+                    <Rocket className="w-5 h-5 text-[#ff7000]" />
+                  ) : (
+                    <Sparkles className="w-5 h-5 text-[#10B981]" />
+                  )}
+                </motion.div>
+                <div>
+              <h3 className="font-serif text-xl text-[#0f172a]">{currentDetails.name}</h3>
+              <p className="text-sm text-[#64748b] font-sans">
+                {currentDetails.timeline}
+              </p>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-sm text-[#64748b] font-sans leading-relaxed mb-6">
+              {currentDetails.description}
+            </p>
+
+            {/* Scrollable milestones grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[280px] overflow-y-auto custom-scrollbar pr-2">
+              <AnimatePresence mode="popLayout">
+                {currentTasks.map((task, index) => (
+                  <motion.div
+                    key={task.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3, delay: index * 0.03 }}
+                  >
+                    <MilestoneSection task={task} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </div>
+        </AnimatedDiv>
+      </div>
+
+      {/* Custom scrollbar styles */}
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #f1f5f9;
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #cbd5e1;
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #94a3b8;
+        }
+      `}</style>
     </SlideWrapper>
   )
 }

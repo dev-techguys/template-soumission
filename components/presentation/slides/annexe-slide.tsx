@@ -1,209 +1,165 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
+import { AnimatedDiv } from "../animated-wrapper"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
-import { Check, Zap, Globe, ShoppingCart, Bot, BarChart3, Megaphone, Search, Users, AlertTriangle } from "lucide-react"
+import { Check, BookOpen, Code, Database, Shield } from "lucide-react"
 
-const SERVICES = [
+const GLOSSARY = [
   {
-    id: "strategie",
-    icon: Zap,
-    title: "Structure strategique",
-    description: "Aligner les initiatives en cours sur les actions ayant le plus fort levier pour l'entreprise.",
+    id: "transport",
+    icon: BookOpen,
+    title: "Jargon transport compris par l'agent",
+    description: "L'agent IA comprend et utilise naturellement ce vocabulaire B2B transport.",
     items: [
-      "Definition des priorites mensuelles et des actions a concentrer",
-      "Strategie de repartition des ressources pour des resultats optimaux",
-      "Soutien a la prise de decision rapide selon l'effort et l'impact",
-      "Traduction des idees en actions concretes et testables",
-      "Structuration d'une feuille de route agile, evolutive chaque mois",
+      { term: "FTL", def: "Full Truckload — camion complet" },
+      { term: "LTL", def: "Less-than-Truckload — envoi partiel / groupage" },
+      { term: "Reefer", def: "Remorque réfrigérée / température contrôlée" },
+      { term: "Dry van", def: "Remorque standard fermée 53 pieds" },
+      { term: "Flatbed", def: "Plateau ouvert (machinerie, acier, hors-gabarit)" },
+      { term: "Heavy Haul", def: "Transport hors-gabarit avec permis spéciaux" },
+      { term: "BOL", def: "Bill of Lading — document de transport" },
+      { term: "Spot quote", def: "Devis ponctuel au prix du marché" },
+      { term: "Lane", def: "Couloir de transport entre deux points fixes" },
+      { term: "Cross-docking", def: "Transit sans stockage" },
+      { term: "Drop-and-hook", def: "Échange de remorques sans attente" },
+      { term: "FSC", def: "Fuel Surcharge — surcharge carburant" },
+      { term: "Detention", def: "Frais d'attente du camion aux quais" },
+      { term: "OTD", def: "On-Time Delivery — taux de livraison dans les délais" },
+      { term: "Owner-operator", def: "Chauffeur propriétaire de son camion" },
+      { term: "ELD", def: "Electronic Logging Device" },
+      { term: "ACI / ACE", def: "Pré-déclaration douanière Canada / USA" },
     ],
   },
   {
-    id: "presence",
-    icon: Globe,
-    title: "Optimisation de la presence numerique",
-    description: "Evolution rapide des plateformes web pour soutenir la croissance.",
+    id: "tech",
+    icon: Code,
+    title: "Stack technique",
+    description: "Technologies utilisées pour l'implémentation de l'agent IA.",
     items: [
-      "Optimisation de sites web existants",
-      "Creation de landing pages orientees conversion",
-      "Ajustements UX/UI bases sur les donnees reelles",
-      "Deploiement rapide de nouvelles pages/offres (sans refonte majeure)",
+      { term: "Widget UI", def: "React island dans Astro (client:load, lazy)" },
+      { term: "LLM", def: "Groq + Llama 3.3 70B (~500 tokens/sec)" },
+      { term: "Edge Function", def: "Vercel Edge avec streaming natif" },
+      { term: "Analytics", def: "Supabase (free tier)" },
+      { term: "Hosting", def: "Vercel (plan existant)" },
+      { term: "Langue", def: "TypeScript strict" },
+      { term: "Styling", def: "Tailwind CSS v4 + design tokens Safex" },
+      { term: "Notifications (Plan Performance)", def: "Resend API ($0 < 3 000 emails/mois)" },
+      { term: "Animations (Plan Performance)", def: "Framer Motion" },
     ],
   },
   {
-    id: "ecommerce",
-    icon: ShoppingCart,
-    title: "E-commerce & retention client",
-    description: "Transformer les ventes ponctuelles en revenus recurrents.",
+    id: "analytics",
+    icon: Database,
+    title: "Données collectées (sans PII)",
+    description: "Conformité Loi 25 — aucune conversation stockée, uniquement des chemins anonymisés.",
     items: [
-      "Amelioration du tunnel de conversion E-commerce",
-      "Mise en place d'offres recurrentes : abonnements, bundles, avantages",
-      "Optimisation d'applications et de fonctionnalites de boutiques en ligne",
-      "Tests de parcours favorisant la fidelisation et la recurrence",
+      { term: "session_id", def: "UUID généré côté client, sans lien à l'IP" },
+      { term: "q1_selection", def: "\"general_freight\" | \"reefer\" | \"driver\" | ..." },
+      { term: "q2_selection", def: "\"canada\" | \"cross_border\" | \"unsure\"" },
+      { term: "q3_selection", def: "\"urgent\" | \"this_week\" | \"flexible\"" },
+      { term: "destination_url", def: "Page de destination (ex. \"/services/ftl-transport\")" },
+      { term: "locale", def: "\"en\" | \"fr\"" },
+      { term: "page_origin", def: "Page où l'agent a été ouvert" },
+      { term: "reached_quote", def: "true si le visiteur a cliqué vers le formulaire de devis" },
     ],
   },
   {
-    id: "automatisation",
-    icon: Bot,
-    title: "Automatisation & intelligence artificielle",
-    description: "Accelerer l'execution grace a des processus automatises et intelligents.",
+    id: "guardrails",
+    icon: Shield,
+    title: "Garde-fous anti-hallucination",
+    description: "Instructions strictes intégrées au system prompt pour protéger l'image Safex.",
     items: [
-      "Automatisation de processus marketing (emails, relances, onboarding)",
-      "Automatisation interne (suivis, alertes, organisation)",
-      "Utilisation d'outils IA pour accelerer l'execution",
-      "Simplification de taches repetitives",
-    ],
-  },
-  {
-    id: "analyse",
-    icon: BarChart3,
-    title: "Outils d'analyse de donnees",
-    description: "Infrastructure technologique essentielle a la collecte et le suivi des performances.",
-    items: [
-      "Configuration des outils d'analyse des performances du site web",
-      "Configuration des outils d'analyse des performances publicitaires",
-      "Integration des plateformes publicitaires et systemes de conversion",
-    ],
-  },
-  {
-    id: "marketing",
-    icon: Megaphone,
-    title: "Marketing digital (referencement payant)",
-    description: "Generer du trafic qualifie, des leads et des ventes avec un cout d'acquisition maitrise.",
-    note: "La recherche, preparation marketing et plan de campagnes sont offerts gratuitement avec tout engagement d'un minimum de 3 mois",
-    items: [
-      "Recherche et preparation marketing (analyses, persona, mots-cles, etc.)",
-      "Plan de campagnes (audiences, offres, messages et budgets publicitaires)",
-      "Creation et deploiement de campagnes Google Ads & Meta Ads",
-      "Optimisation continue des performances publicitaires",
-      "Suivi et analyse de donnees mensuelle des performances",
-      "Production de rapports de performance qualitatif et quantitatif",
-      "Vulgarisation des donnees et suggestions d'actions concretes",
-      "Tests et ajustement des campagnes pour ameliorer le ROI",
-    ],
-  },
-  {
-    id: "seo",
-    icon: Search,
-    title: "SEO (referencement naturel)",
-    description: "Developper une croissance organique durable et renforcer la visibilite sur le long terme.",
-    items: [
-      "Analyse SEO complete (On-site, Off-site, technique)",
-      "Optimisation technique des pages existantes",
-      "Structuration de l'architecture des pages web",
-      "Recherche de mots-cles et amelioration de la redaction web",
-      "SEO local : amelioration de la visibilite locale",
-      "Articles de blog optimises pour le referencement",
-      "Autorite et backlinks (liens internes et externes)",
-      "Optimisation pour les moteurs generatifs et l'IA (ChatGPT, Gemini, etc.)",
-    ],
-  },
-  {
-    id: "terrain",
-    icon: Users,
-    title: "Support aux initiatives de terrain & hybrides",
-    description: "Connecter les initiatives physiques et evenementielles a l'ecosysteme numerique et aux ventes.",
-    items: [
-      "Amelioration de la fluidite du parcours client omnicanal",
-      "Creation de pages dediees pour evenements ou activations",
-      "Analyse de la performance des initiatives hors ligne",
-      "Interconnexion et automatisation entre les points physiques et numeriques",
+      { term: "Tarifs", def: "Interdit d'inventer des prix ou devis précis" },
+      { term: "Délais", def: "Interdit de garantir des délais de transit spécifiques" },
+      { term: "Clients", def: "Interdit de mentionner des clients ou conducteurs nommés" },
+      { term: "Promesses", def: "Interdit de faire des promesses contractuelles" },
+      { term: "Incidents", def: "Interdit de commenter des accidents ou litiges passés" },
+      { term: "Flotte", def: "Interdit de donner des chiffres précis de tracteurs/remorques" },
+      { term: "RH / Driver Inc.", def: "Interdit de commenter les pratiques RH ou le statut des conducteurs" },
     ],
   },
 ]
 
 export function AnnexeSlide() {
   return (
-    <SlideWrapper id="annexe" className="bg-[#f7f7f7] !min-h-0">
+    <SlideWrapper id="annexe" className="bg-[#f8fafc] !min-h-0">
       <div className="max-w-5xl mx-auto px-8 py-20 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            Annexe
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-4xl leading-tight text-balance">
-            {"Ensemble des services disponibles"}
-          </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
-          <p className="text-sm md:text-base text-[#6b7280] font-sans leading-relaxed max-w-3xl">
-            {"Nous offrons un ensemble de services integres combinant strategie, technologie, marketing et ventes. La feuille de route proposee demeure flexible : certains services pourront etre ajoutes, remplaces ou priorises differemment au fil du mandat, selon l'evolution de vos besoins et des opportunites d'affaires."}
-          </p>
+          <AnimatedDiv delay={0}>
+            <span className="text-xs tracking-[0.4em] uppercase text-[#ff7000] font-sans font-medium">
+              Annexe
+            </span>
+          </AnimatedDiv>
+          <AnimatedDiv delay={0.1}>
+            <h2 className="font-serif text-4xl md:text-5xl text-[#0f172a] max-w-4xl leading-tight text-balance">
+              Références techniques
+            </h2>
+          </AnimatedDiv>
+          <AnimatedDiv delay={0.2}>
+            <div className="w-16 h-px bg-[#ff7000]" />
+          </AnimatedDiv>
+          <AnimatedDiv delay={0.3}>
+            <p className="text-sm md:text-base text-[#64748b] font-sans leading-relaxed max-w-3xl">
+              Documentation technique complémentaire : glossaire transport, stack technologique, données collectées et garde-fous de sécurité.
+            </p>
+          </AnimatedDiv>
         </div>
 
-        {/* Accordion services */}
-        <Accordion type="multiple" className="flex flex-col gap-4">
-          {SERVICES.map((service, index) => {
-            const Icon = service.icon
-            return (
-              <AccordionItem
-                key={service.id}
-                value={service.id}
-                className="border-0 rounded-xl border border-[#e5e7eb] bg-white overflow-hidden px-6 md:px-8 shadow-sm"
-              >
-                <AccordionTrigger className="py-6 hover:no-underline gap-4 [&>svg]:text-[#0DA5B5] [&>svg]:w-5 [&>svg]:h-5">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#0DA5B5]/10 border border-[#0DA5B5]/20 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-[#0DA5B5]" />
-                    </div>
-                    <div className="flex flex-col gap-0.5 text-left">
-                      <span className="font-serif text-lg md:text-xl text-[#2d3748]">
-                        <span className="text-[#0DA5B5] mr-2 font-sans text-sm">{String(index + 1).padStart(2, "0")}</span>
-                        {service.title}
-                      </span>
-                      <span className="text-sm text-[#6b7280] font-sans leading-relaxed hidden md:block">
-                        {service.description}
-                      </span>
-                    </div>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="pb-6">
-                  {/* Description on mobile */}
-                  <p className="text-sm text-[#6b7280] font-sans leading-relaxed mb-5 md:hidden">
-                    {service.description}
-                  </p>
-
-                  <div className="w-full h-px bg-[#e5e7eb] mb-5" />
-
-                  {/* Service items */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 pl-0 md:pl-14">
-                    {service.items.map((item) => (
-                      <div key={item} className="flex items-start gap-3">
-                        <Check className="w-4 h-4 text-[#0DA5B5] shrink-0 mt-0.5" />
-                        <span className="text-sm text-[#4b5563] font-sans leading-relaxed">
-                          {item}
+        {/* Accordion sections */}
+        <AnimatedDiv delay={0.4}>
+          <Accordion type="multiple" className="flex flex-col gap-4">
+            {GLOSSARY.map((section, index) => {
+              const Icon = section.icon
+              return (
+                <AccordionItem
+                  key={section.id}
+                  value={section.id}
+                  className="border-0 rounded-xl border border-[#e5e7eb] bg-white overflow-hidden px-6 md:px-8 shadow-sm"
+                >
+                  <AccordionTrigger className="py-6 hover:no-underline gap-4 [&>svg]:text-[#ff7000] [&>svg]:w-5 [&>svg]:h-5">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-[#ff7000]/10 border border-[#ff7000]/20 flex items-center justify-center shrink-0">
+                        <Icon className="w-5 h-5 text-[#ff7000]" />
+                      </div>
+                      <div className="flex flex-col gap-0.5 text-left">
+                        <span className="font-serif text-lg md:text-xl text-[#0f172a]">
+                          <span className="text-[#ff7000] mr-2 font-sans text-sm">{String(index + 1).padStart(2, "0")}</span>
+                          {section.title}
+                        </span>
+                        <span className="text-sm text-[#64748b] font-sans leading-relaxed hidden md:block">
+                          {section.description}
                         </span>
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Note if present */}
-                  {service.note && (
-                    <div className="flex items-start gap-2 mt-4 pl-0 md:pl-14">
-                      <span className="text-[10px] tracking-[0.1em] uppercase text-[#0DA5B5]/70 font-sans leading-relaxed">
-                        * {service.note}
-                      </span>
                     </div>
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            )
-          })}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-6">
+                    {/* Description on mobile */}
+                    <p className="text-sm text-[#64748b] font-sans leading-relaxed mb-5 md:hidden">
+                      {section.description}
+                    </p>
 
-          {/* Hors perimetre - always visible */}
-          <div className="px-6 md:px-8 py-6 rounded-xl border border-[#e5e7eb] bg-white flex items-start gap-4 shadow-sm">
-            <div className="w-10 h-10 rounded-xl bg-[#6b7280]/10 border border-[#6b7280]/20 flex items-center justify-center shrink-0">
-              <AlertTriangle className="w-5 h-5 text-[#6b7280]" />
-            </div>
-            <div className="flex flex-col gap-1">
-              <h3 className="font-serif text-lg md:text-xl text-[#2d3748]">
-                {"Hors perimetre \u2013 projets speciaux"}
-              </h3>
-              <p className="text-sm text-[#6b7280] font-sans leading-relaxed">
-                {"Les projets majeurs hors perimetre feront l'objet d'une evaluation distincte (ex. refonte complete, developpement lourd, nouvelle plateforme independante, systeme CRM, etc.)"}
-              </p>
-            </div>
-          </div>
-        </Accordion>
+                    <div className="w-full h-px bg-[#e5e7eb] mb-5" />
+
+                    {/* Terms grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 pl-0 md:pl-14">
+                      {section.items.map((item) => (
+                        <div key={item.term} className="flex items-start gap-3">
+                          <Check className="w-4 h-4 text-[#ff7000] shrink-0 mt-0.5" />
+                          <div>
+                            <span className="text-sm font-medium text-[#0f172a] font-sans">{item.term}</span>
+                            <span className="text-sm text-[#64748b] font-sans"> — {item.def}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              )
+            })}
+          </Accordion>
+        </AnimatedDiv>
       </div>
     </SlideWrapper>
   )
