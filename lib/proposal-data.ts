@@ -5,89 +5,200 @@
 // ============================================================
 
 export const client = {
-  name: "Omnigo.ca",
-  contactName: "Samuel Cousineau",
-  website: "https://www.omnigo.ca",
-  industry: "Agence marketing & technologie B2B",
-  mission: "Votre Copilote Digital — aligner marketing, ventes et technologie pour une croissance numérique rapide et durable",
-  targetAudience: "PMEs québécoises et canadiennes cherchant à accélérer leur croissance numérique",
-  currentSituation: "Agence établie (150+ projets, 5M$+ budget géré, 10+ ans) qui cherche à scaler ses opérations, améliorer sa visibilité organique et automatiser ses processus internes",
+  name: "Groupe Laplante",
+  contactName: "Hugo Bélanger & Mathieu Laplante",
+  website: "https://www.laplantegroupeauto.com/",
+  industry: "Réseau de concessions automobiles",
+  mission: "Internaliser le processus de financement automobile pour offrir une meilleure expérience client et accroître la rentabilité",
+  targetAudience: "Acheteurs de véhicules au Québec cherchant des solutions de financement flexibles",
+  currentSituation: "Groupe de concessions automobiles qui agit actuellement comme intermédiaire pour le financement, dépendant d'institutions tierces avec perte de contrôle sur le processus d'approbation",
   // Email qui recevra la notification quand le client signe
-  notificationEmail: "jonathan.naal@techguys.consulting",
+  notificationEmail: "carl@techguys.consulting",
 }
 
 export const branding = {
-  primaryColor: "#0DA5B5",
-  secondaryColor: "#FFC43D",
-  accentColor: "#FC84D2",
-  textDark: "#111827",
-  textMuted: "#6B7280",
-  backgroundLight: "#F0FFFE",
-  logoUrl: "/images/omnigo-logo.png",
-  coverImageUrl: "/images/omnigo-cover.jpg",
-  closingImageUrl: "/images/omnigo-closing.jpg",
+  primaryColor: "#0035FF", // Bleu Laplante
+  secondaryColor: "#FFFFFF",
+  accentColor: "#3B82F6", // Bleu clair accent
+  textDark: "#FFFFFF",
+  textMuted: "#9CA3AF",
+  backgroundDark: "#0A0A0A",
+  backgroundCard: "#111111",
+  logoUrl: "/images/laplante-logo.webp",
+  coverImageUrl: "",
+  closingImageUrl: "",
   fontSerif: "serif",
   fontSans: "sans-serif",
-  visualStyle: "bold, digital, high-contrast, cyan on black",
-  toneOfVoice: "direct, énergique, axé résultats, pro mais accessible",
+  visualStyle: "dark, minimal, tech-forward, Raycast-inspired",
+  toneOfVoice: "professionnel, technique mais accessible, axé résultats",
 }
 
+// ── Mode de tarification ─────────────────────────────────────
+// "mvp-options" = MVP de base + options additionnelles sélectionnables
 export const pricing = {
-  // "hourly-bank" = banque d'heures (forfaits mensuels récurrents)
-  // "fixed-price"  = prix fixe (projet à coût déterminé)
-  type: "hourly-bank" as "hourly-bank" | "fixed-price",
+  type: "mvp-options" as "hourly-bank" | "fixed-price" | "mvp-options",
+  hourlyRate: 150,
 
-  // ── Mode banque d'heures ───────────────────────────────────
-  plans: [
+  // ── MVP de base ────────────────────────────────────────────
+  mvp: {
+    name: "MVP de base",
+    description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks.",
+    modules: [
+      {
+        id: "infra",
+        name: "Infrastructure & sécurité",
+        description: "Serveurs hébergés au Canada, base de données, gestion des rôles et accès (admin, analyste, conseiller concessionnaire), environnements dev et prod, pipeline de déploiement.",
+        hoursMin: 10,
+        hoursMax: 20,
+      },
+      {
+        id: "clients",
+        name: "Dossiers clients",
+        description: "Fiche client complète : coordonnées, historique des contrats, pièces jointes (contrat, identité, inspection du véhicule). Statut du dossier. Gestion documentaire sur la durée du contrat.",
+        hoursMin: 10,
+        hoursMax: 15,
+      },
+      {
+        id: "contrats",
+        name: "Contrats de location",
+        description: "Formulaire de contrat (véhicule, valeur, versements, durée, acompte). Échéancier généré automatiquement. Solde mis à jour à chaque versement. Option de rachat ou revente en fin de contrat.",
+        hoursMin: 30,
+        hoursMax: 40,
+      },
+      {
+        id: "paiements",
+        name: "Suivi des paiements",
+        description: "Enregistrement des versements reçus. Alertes courriel automatiques si un paiement est manqué. Relances programmables. Historique complet par dossier.",
+        hoursMin: 20,
+        hoursMax: 30,
+      },
+      {
+        id: "dashboard",
+        name: "Tableau de bord",
+        description: "Vue centralisée : nombre de contrats actifs, statut de chaque dossier, liste des retards et défauts. Indicateurs clés en temps réel.",
+        hoursMin: 15,
+        hoursMax: 20,
+      },
+      {
+        id: "concessionnaires",
+        name: "Interface concessionnaires",
+        description: "Accès dédié pour les conseillers des 4 concessions Chrysler et du Kia : soumission de nouveaux dossiers (avec pièces jointes), suivi en temps réel du statut des dossiers soumis.",
+        hoursMin: 20,
+        hoursMax: 30,
+      },
+      {
+        id: "rapports",
+        name: "Rapports & QuickBooks",
+        description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit pour synchroniser les transactions automatiquement.",
+        hoursMin: 10,
+        hoursMax: 20,
+      },
+      {
+        id: "tests",
+        name: "Tests & mise en production",
+        description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage (2 semaines).",
+        hoursMin: 20,
+        hoursMax: 40,
+      },
+    ],
+    contingencyPercent: 10,
+  },
+
+  // ── Options additionnelles ─────────────────────────────────
+  options: [
     {
-      name: "Essentielle",
-      hours: "10h",
-      hoursNum: 10,
-      featured: false,
-      rates: [
-        { label: "Sans engagement",   price: "180$/h", priceValue: 180, saving: 0 },
-        { label: "Engagement 3 mois", price: "160$/h", priceValue: 160, saving: 200 },
-        { label: "Engagement 6 mois", price: "150$/h", priceValue: 150, saving: 300 },
-      ],
+      id: "flinks",
+      name: "Connexion bancaire (Flinks)",
+      description: "Accès sécurisé aux transactions bancaires des clients via l'API Flinks (outil canadien, conforme Loi 25). Valide les revenus et le comportement bancaire sans relevés manuels.",
+      hoursMin: 30,
+      hoursMax: 45,
+      recommended: false,
     },
     {
-      name: "Croissance",
-      hours: "25h",
-      hoursNum: 25,
-      featured: true,
-      rates: [
-        { label: "Sans engagement",   price: "180$/h", priceValue: 180, saving: 0 },
-        { label: "Engagement 3 mois", price: "160$/h", priceValue: 160, saving: 500 },
-        { label: "Engagement 6 mois", price: "150$/h", priceValue: 150, saving: 750 },
-      ],
+      id: "certm",
+      name: "Enquête de crédit (CERTM)",
+      description: "Intégration API CERTM : pull automatique des rapports de crédit depuis la plateforme. Coût par rapport : ~13$ (facturé au coût réel, en sus du développement).",
+      hoursMin: 25,
+      hoursMax: 40,
+      recommended: false,
     },
     {
-      name: "Performance+",
-      hours: "50h",
-      hoursNum: 50,
-      featured: false,
-      rates: [
-        { label: "Sans engagement",   price: "180$/h", priceValue: 180, saving: 0 },
-        { label: "Engagement 3 mois", price: "160$/h", priceValue: 160, saving: 1000 },
-        { label: "Engagement 6 mois", price: "150$/h", priceValue: 150, saving: 1500 },
-      ],
+      id: "pad",
+      name: "Prélèvement automatique (PAD)",
+      description: "Prélèvement direct sur le compte bancaire des clients à chaque échéance. La plateforme déclenche le versement automatiquement et alerte immédiatement si la transaction échoue.",
+      hoursMin: 35,
+      hoursMax: 55,
+      recommended: true,
+    },
+    {
+      id: "sms",
+      name: "SMS & relances automatisées",
+      description: "Envoi de SMS illimités : rappels avant échéance, relances en cas de retard (J+1, J+3, J+7...), confirmations de réception. Coût de service mensuel fixe en sus (~30-60$/mois).",
+      hoursMin: 10,
+      hoursMax: 20,
+      recommended: true,
+    },
+    {
+      id: "portail",
+      name: "Portail client self-service",
+      description: "Interface pour les clients finaux : consulter le solde restant, l'historique des paiements, les documents de contrat et l'échéancier. Réduit les appels entrants.",
+      hoursMin: 20,
+      hoursMax: 30,
+      recommended: false,
+    },
+    {
+      id: "mobile",
+      name: "Application mobile (iOS & Android)",
+      description: "Application native permettant à l'équipe de gérer les dossiers, consulter le tableau de bord et recevoir les alertes sur téléphone — pour les conseillers en concession.",
+      hoursMin: 80,
+      hoursMax: 120,
+      recommended: false,
+    },
+    {
+      id: "fintrac",
+      name: "Conformité FINTRAC",
+      description: "Mise en conformité pour prêteur direct : journaux d'audit, déclarations réglementaires, politiques internes. À valider avec votre avocat selon la structure légale retenue.",
+      hoursMin: 20,
+      hoursMax: 35,
+      recommended: false,
     },
   ],
 
-  inclusions: [
-    "Roadmap de croissance mensuelle",
-    "Google Drive client",
-    "Analyse de marché",
-    "Analyse de compétition",
-    "Création de persona",
-    "Recherche de mots-clés",
-    "Plan de campagnes publicitaires",
-    "Google Analytics",
-    "Google Tag Manager",
-    "Google Search Console",
+  // ── Scénarios pré-configurés ───────────────────────────────
+  scenarios: [
+    {
+      id: "mvp-seul",
+      name: "MVP seul",
+      description: "Modules 0 à 7 (infra, dossiers, contrats, paiements, dashboard, concessionnaires, rapports/QuickBooks, tests). Alertes courriel paiements manqués.",
+      optionIds: [],
+      recommended: true,
+    },
+    {
+      id: "mvp-automatisation",
+      name: "MVP + Automatisation",
+      description: "MVP de base + Prélèvement automatique PAD + SMS & relances automatisées illimitées.",
+      optionIds: ["pad", "sms"],
+      recommended: false,
+    },
+    {
+      id: "mvp-essentiel",
+      name: "MVP + Pack Essentiel",
+      description: "MVP de base + Connexion bancaire Flinks + Enquête crédit CERTM + PAD + SMS illimités.",
+      optionIds: ["flinks", "certm", "pad", "sms"],
+      recommended: false,
+    },
   ],
 
-  // ── Mode prix fixe ─────────────────────────────────────────
+  // ── Hébergement mensuel ────────────────────────────────────
+  hosting: {
+    min: 100,
+    max: 250,
+    note: "Serveurs canadiens mis en place par TechGuys, facturés séparément au coût réel.",
+  },
+
+  // ── Anciens champs pour compatibilité ──────────────────────
+  plans: [],
+  inclusions: [],
   fixedPrice: {
     projectName: "",
     totalPrice: "",
@@ -103,96 +214,96 @@ export const pricing = {
 // "v0"       = workflow de signature intégré (6 étapes dans la modal)
 // "pandadoc" = bouton redirige vers un document PandaDoc externe
 export const signing = {
-  type: "v0" as "v0" | "pandadoc",
-  pandadocUrl: "", // requis si type === "pandadoc"
+  type: "pandadoc" as "v0" | "pandadoc",
+  pandadocUrl: "", // À remplir quand le lien sera disponible
 }
 
 // ── Calendrier d'exécution ────────────────────────────────
 // pmApproved : true si le PM/PO a validé ce calendrier avant envoi
 export const calendar = {
-  pmApproved: true,
+  pmApproved: false,
+  reviewCalls: "30 min à 1h par semaine avec l'équipe Groupe Laplante",
   weeks: [
     {
       week: 1,
-      title: "Onboarding & Audit digital",
-      focus: "Poser les fondations — comprendre l'état actuel avant d'agir",
+      period: "Semaines 1-2",
+      title: "Infrastructure & Setup",
+      focus: "Poser les fondations techniques solides",
       activities: [
-        "Réunion de lancement et alignement des objectifs",
-        "Audit SEO technique et on-page complet",
-        "Analyse de la présence publicitaire actuelle",
-        "Configuration des outils de tracking (GA4, GTM, GSC)",
+        "Mise en place des serveurs au Canada",
+        "Configuration de la base de données PostgreSQL",
+        "Setup des environnements dev et prod",
+        "Configuration du système d'authentification (Keycloak)",
+        "Pipeline de déploiement automatisé",
       ],
-      milestone: "Audit livré",
-    },
-    {
-      week: 2,
-      title: "Stratégie & Plan d'action",
-      focus: "Traduire les insights de l'audit en actions priorisées",
-      activities: [
-        "Présentation des résultats d'audit et recommandations",
-        "Construction de la stratégie de contenu SEO",
-        "Identification des mots-clés prioritaires",
-        "Définition des cibles de conversion et des KPIs",
-      ],
-      milestone: undefined,
+      milestone: "Infrastructure opérationnelle",
     },
     {
       week: 3,
-      title: "Optimisation technique & SEO",
-      focus: "Corriger les frictions qui ralentissent la croissance organique",
+      period: "Semaines 3-5",
+      title: "Dossiers clients & Contrats",
+      focus: "Le coeur métier de la plateforme",
       activities: [
-        "Optimisation des pages stratégiques (meta, structure, vitesse)",
-        "Mise en place des backlinks prioritaires",
-        "Création des 2 premiers articles de blogue optimisés SEO",
-        "Amélioration du maillage interne",
+        "Module de gestion des dossiers clients",
+        "Formulaire de création de contrats de location",
+        "Génération automatique des échéanciers",
+        "Gestion des pièces jointes et documents",
+        "Calcul automatique des versements et intérêts",
       ],
-      milestone: undefined,
-    },
-    {
-      week: 4,
-      title: "Lancement des campagnes",
-      focus: "Activer l'acquisition payante avec un setup irréprochable",
-      activities: [
-        "Setup et lancement des campagnes Google Ads",
-        "Configuration des campagnes Meta Ads",
-        "Création des landing pages de conversion",
-        "Tests A/B initiaux sur les annonces",
-      ],
-      milestone: "Campagnes live",
-    },
-    {
-      week: 5,
-      title: "Automatisation & CRM",
-      focus: "Faire travailler les outils pendant que l'équipe se concentre sur les clients",
-      activities: [
-        "Setup des séquences d'emails de nurturing",
-        "Automatisation du suivi des leads entrants",
-        "Configuration du pipeline de vente CRM",
-        "Formation de l'équipe aux nouveaux outils",
-      ],
-      milestone: undefined,
+      milestone: "Contrats fonctionnels",
     },
     {
       week: 6,
-      title: "Revue de performance & Q2",
-      focus: "Mesurer, apprendre et planifier la suite",
+      period: "Semaines 6-8",
+      title: "Suivi des paiements & Dashboard",
+      focus: "Visibilité en temps réel sur le portefeuille",
       activities: [
-        "Rapport de performance complet (SEO, Ads, Conversion)",
-        "Analyse des résultats vs objectifs initiaux",
-        "Recommandations d'optimisation pour le mois suivant",
-        "Planification de la feuille de route Q2",
+        "Enregistrement des versements reçus",
+        "Alertes courriel automatiques (paiements manqués)",
+        "Relances programmables",
+        "Tableau de bord avec indicateurs clés",
+        "Vue consolidée : à jour, en retard, en défaut",
       ],
-      milestone: "Rapport livré",
+      milestone: "Dashboard en temps réel",
+    },
+    {
+      week: 9,
+      period: "Semaines 9-11",
+      title: "Interface concessionnaires & Rapports",
+      focus: "Outiller les équipes terrain",
+      activities: [
+        "Portail dédié aux 5 concessions",
+        "Soumission de nouveaux dossiers avec pièces jointes",
+        "Suivi du statut des dossiers soumis",
+        "Rapports mensuels du portefeuille",
+        "Intégration QuickBooks Online (API Intuit)",
+      ],
+      milestone: undefined,
+    },
+    {
+      week: 12,
+      period: "Semaines 12-13",
+      title: "Tests & Mise en production",
+      focus: "Livraison d'une plateforme robuste",
+      activities: [
+        "Tests fonctionnels complets",
+        "Sessions de validation avec l'équipe Groupe Laplante",
+        "Corrections et ajustements finaux",
+        "Mise en production sur infrastructure canadienne",
+        "Accompagnement au démarrage (2 semaines)",
+      ],
+      milestone: "Plateforme live",
     },
   ] as Array<{
     week: number
+    period: string
     title: string
     focus: string
     activities: string[]
     milestone?: string
   }>,
   iterativeNote:
-    "Ce calendrier représente notre plan idéal basé sur les jalons convenus. Notre approche demeure itérative et s'adapte continuellement à l'évolution de votre situation et des opportunités identifiées.",
+    "Ce calendrier représente notre plan idéal basé sur le scénario MVP seul. L'ajout d'options additionnelles allongera le délai de 3 à 5 semaines selon les fonctionnalités sélectionnées. Notre approche demeure itérative avec des points d'avancement courts (30 min) aux deux semaines.",
 }
 
 export const slides = {

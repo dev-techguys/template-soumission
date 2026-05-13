@@ -2,208 +2,200 @@
 
 import { SlideWrapper } from "../slide-wrapper"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
-import { Check, Zap, Globe, ShoppingCart, Bot, BarChart3, Megaphone, Search, Users, AlertTriangle } from "lucide-react"
+import { Check, Server, Shield, Database, Code, Layers, Lock, Globe } from "lucide-react"
 
-const SERVICES = [
+const TECH_STACK = [
   {
-    id: "strategie",
-    icon: Zap,
-    title: "Structure strategique",
-    description: "Aligner les initiatives en cours sur les actions ayant le plus fort levier pour l'entreprise.",
+    id: "backend",
+    icon: Code,
+    title: "Backend — Java Spring Boot 3.x",
+    description: "Framework standard du secteur bancaire canadien (RBC, TD, BNC, Desjardins) avec support natif pour la sécurité et les transactions ACID.",
     items: [
-      "Definition des priorites mensuelles et des actions a concentrer",
-      "Strategie de repartition des ressources pour des resultats optimaux",
-      "Soutien a la prise de decision rapide selon l'effort et l'impact",
-      "Traduction des idees en actions concretes et testables",
-      "Structuration d'une feuille de route agile, evolutive chaque mois",
+      "Architecture hexagonale (ports & adapters) pour isolation du domaine métier",
+      "Spring Security OAuth2 Resource Server pour intégration Keycloak",
+      "Hibernate Envers pour journalisation d'audit FINTRAC-compatible",
+      "Flyway pour migrations de base de données versionnées",
+      "API REST documentée avec OpenAPI/Swagger",
     ],
   },
   {
-    id: "presence",
-    icon: Globe,
-    title: "Optimisation de la presence numerique",
-    description: "Evolution rapide des plateformes web pour soutenir la croissance.",
+    id: "iam",
+    icon: Lock,
+    title: "Gestion des identités — Keycloak 24+",
+    description: "Standard de facto en IAM open-source pour les entreprises réglementées. Utilisé par Banque Nationale, iA Groupe Financier et Desjardins.",
     items: [
-      "Optimisation de sites web existants",
-      "Creation de landing pages orientees conversion",
-      "Ajustements UX/UI bases sur les donnees reelles",
-      "Deploiement rapide de nouvelles pages/offres (sans refonte majeure)",
+      "RBAC granulaire avec héritage de rôles (admin, analyste, conseiller)",
+      "MFA obligatoire par TOTP/WebAuthn/SMS",
+      "Support SSO/SAML 2.0 pour portails partenaires",
+      "Journalisation complète des événements d'accès",
+      "Déployable on-premise sans frais de licence",
     ],
   },
   {
-    id: "ecommerce",
-    icon: ShoppingCart,
-    title: "E-commerce & retention client",
-    description: "Transformer les ventes ponctuelles en revenus recurrents.",
+    id: "database",
+    icon: Database,
+    title: "Base de données — PostgreSQL 16",
+    description: "Robustesse pour les transactions financières (ACID complet), fonctionnalités d'audit avancées et haute disponibilité.",
     items: [
-      "Amelioration du tunnel de conversion E-commerce",
-      "Mise en place d'offres recurrentes : abonnements, bundles, avantages",
-      "Optimisation d'applications et de fonctionnalites de boutiques en ligne",
-      "Tests de parcours favorisant la fidelisation et la recurrence",
+      "Transactions ACID avec isolation SERIALIZABLE pour calculs financiers",
+      "Extension pgaudit pour journalisation FINTRAC et Loi 25",
+      "Row Level Security (RLS) pour isolation par concessionnaire",
+      "PITR (Point-in-Time Recovery) avec objectif RPO < 1 heure",
+      "Chiffrement at-rest conforme Loi 25",
     ],
   },
   {
-    id: "automatisation",
-    icon: Bot,
-    title: "Automatisation & intelligence artificielle",
-    description: "Accelerer l'execution grace a des processus automatises et intelligents.",
+    id: "hosting",
+    icon: Server,
+    title: "Infrastructure — Hébergement Canada",
+    description: "Stratégie progressive : démarrage sur Railway (région Canada East) ou VPS Hetzner Montréal, migration possible vers infrastructure dédiée.",
     items: [
-      "Automatisation de processus marketing (emails, relances, onboarding)",
-      "Automatisation interne (suivis, alertes, organisation)",
-      "Utilisation d'outils IA pour accelerer l'execution",
-      "Simplification de taches repetitives",
+      "Données des clients québécois au Canada dès le premier jour",
+      "Conformité Loi 25 (souveraineté des données)",
+      "Environnements dev et prod séparés",
+      "Pipeline CI/CD automatisé",
+      "Backups quotidiens avec rétention 30 jours",
     ],
   },
   {
-    id: "analyse",
-    icon: BarChart3,
-    title: "Outils d'analyse de donnees",
-    description: "Infrastructure technologique essentielle a la collecte et le suivi des performances.",
+    id: "integrations",
+    icon: Layers,
+    title: "Intégrations — PAD & QuickBooks",
+    description: "Prélèvement Automatique Débit via Rotessa (API moderne, conforme Règle H1 de Paiements Canada) et synchronisation comptable QuickBooks.",
     items: [
-      "Configuration des outils d'analyse des performances du site web",
-      "Configuration des outils d'analyse des performances publicitaires",
-      "Integration des plateformes publicitaires et systemes de conversion",
+      "PAD via Rotessa : 0,25$–0,50$ par transaction, règlement J+2",
+      "Conformité Règle H1 : autorisation signée, prénotification, droits de révocation",
+      "Gestion des retours NSF avec codes appropriés",
+      "QuickBooks Online : OAuth 2.0 + REST API officielle Intuit",
+      "Synchronisation automatique sans double saisie comptable",
     ],
   },
   {
-    id: "marketing",
-    icon: Megaphone,
-    title: "Marketing digital (referencement payant)",
-    description: "Generer du trafic qualifie, des leads et des ventes avec un cout d'acquisition maitrise.",
-    note: "La recherche, preparation marketing et plan de campagnes sont offerts gratuitement avec tout engagement d'un minimum de 3 mois",
+    id: "compliance",
+    icon: Shield,
+    title: "Conformité — Loi 25 & FINTRAC",
+    description: "Architecture pensée pour les exigences réglementaires dès la conception.",
     items: [
-      "Recherche et preparation marketing (analyses, persona, mots-cles, etc.)",
-      "Plan de campagnes (audiences, offres, messages et budgets publicitaires)",
-      "Creation et deploiement de campagnes Google Ads & Meta Ads",
-      "Optimisation continue des performances publicitaires",
-      "Suivi et analyse de donnees mensuelle des performances",
-      "Production de rapports de performance qualitatif et quantitatif",
-      "Vulgarisation des donnees et suggestions d'actions concretes",
-      "Tests et ajustement des campagnes pour ameliorer le ROI",
-    ],
-  },
-  {
-    id: "seo",
-    icon: Search,
-    title: "SEO (referencement naturel)",
-    description: "Developper une croissance organique durable et renforcer la visibilite sur le long terme.",
-    items: [
-      "Analyse SEO complete (On-site, Off-site, technique)",
-      "Optimisation technique des pages existantes",
-      "Structuration de l'architecture des pages web",
-      "Recherche de mots-cles et amelioration de la redaction web",
-      "SEO local : amelioration de la visibilite locale",
-      "Articles de blog optimises pour le referencement",
-      "Autorite et backlinks (liens internes et externes)",
-      "Optimisation pour les moteurs generatifs et l'IA (ChatGPT, Gemini, etc.)",
-    ],
-  },
-  {
-    id: "terrain",
-    icon: Users,
-    title: "Support aux initiatives de terrain & hybrides",
-    description: "Connecter les initiatives physiques et evenementielles a l'ecosysteme numerique et aux ventes.",
-    items: [
-      "Amelioration de la fluidite du parcours client omnicanal",
-      "Creation de pages dediees pour evenements ou activations",
-      "Analyse de la performance des initiatives hors ligne",
-      "Interconnexion et automatisation entre les points physiques et numeriques",
+      "Loi 25 (Québec) : résidence des données, consentements, droit d'accès",
+      "FINTRAC : journaux d'audit, KYC, déclarations si applicable",
+      "Loi sur la protection du consommateur : divulgation des taux, droit de résolution",
+      "Conservation des autorisations PAD pendant 3 ans",
+      "Piste d'audit complète sur toutes les opérations sensibles",
     ],
   },
 ]
 
+const COMPARISON = [
+  { profil: "Agence boutique MTL/QC", taux: "130–150$/h", estimation: "48 000$–78 000$", ecart: "+33% à +67%" },
+  { profil: "Grande agence (50+ devs)", taux: "160–200$/h", estimation: "83 000$–105 000$", ecart: "+60% à +124%" },
+  { profil: "SaaS (DealerTrack, CDK...)", taux: "Abonnement", estimation: "25 000$–35 000$/an", ecart: "Pas de propriété" },
+  { profil: "TechGuys Inc.", taux: "150$/h", estimation: "23 250$–36 750$", ecart: "Vous économisez ~35%" },
+]
+
 export function AnnexeSlide() {
   return (
-    <SlideWrapper id="annexe" className="bg-[#f7f7f7] !min-h-0">
+    <SlideWrapper id="annexe" className="bg-[#0A0A0A] !min-h-0">
       <div className="max-w-5xl mx-auto px-8 py-20 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            Annexe
+          <span className="text-xs tracking-[0.4em] uppercase text-[#0035FF] font-sans font-medium">
+            Annexe technique
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-4xl leading-tight text-balance">
-            {"Ensemble des services disponibles"}
+          <h2 className="font-serif text-4xl md:text-5xl text-white max-w-4xl leading-tight text-balance">
+            Stack technologique & conformité
           </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
-          <p className="text-sm md:text-base text-[#6b7280] font-sans leading-relaxed max-w-3xl">
-            {"Nous offrons un ensemble de services integres combinant strategie, technologie, marketing et ventes. La feuille de route proposee demeure flexible : certains services pourront etre ajoutes, remplaces ou priorises differemment au fil du mandat, selon l'evolution de vos besoins et des opportunites d'affaires."}
+          <div className="w-16 h-px bg-[#0035FF]" />
+          <p className="text-sm md:text-base text-white/50 font-sans leading-relaxed max-w-3xl">
+            Une architecture modulaire éprouvée dans le secteur bancaire canadien, pensée pour évoluer avec vos besoins tout en respectant les exigences réglementaires dès le premier jour.
           </p>
         </div>
 
-        {/* Accordion services */}
+        {/* Tech stack accordion */}
         <Accordion type="multiple" className="flex flex-col gap-4">
-          {SERVICES.map((service, index) => {
-            const Icon = service.icon
+          {TECH_STACK.map((tech, index) => {
+            const Icon = tech.icon
             return (
               <AccordionItem
-                key={service.id}
-                value={service.id}
-                className="border-0 rounded-xl border border-[#e5e7eb] bg-white overflow-hidden px-6 md:px-8 shadow-sm"
+                key={tech.id}
+                value={tech.id}
+                className="border-0 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden px-6 md:px-8"
               >
-                <AccordionTrigger className="py-6 hover:no-underline gap-4 [&>svg]:text-[#0DA5B5] [&>svg]:w-5 [&>svg]:h-5">
+                <AccordionTrigger className="py-6 hover:no-underline gap-4 [&>svg]:text-[#0035FF] [&>svg]:w-5 [&>svg]:h-5">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#0DA5B5]/10 border border-[#0DA5B5]/20 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-[#0DA5B5]" />
+                    <div className="w-10 h-10 rounded-xl bg-[#0035FF]/10 border border-[#0035FF]/20 flex items-center justify-center shrink-0">
+                      <Icon className="w-5 h-5 text-[#0035FF]" />
                     </div>
                     <div className="flex flex-col gap-0.5 text-left">
-                      <span className="font-serif text-lg md:text-xl text-[#2d3748]">
-                        <span className="text-[#0DA5B5] mr-2 font-sans text-sm">{String(index + 1).padStart(2, "0")}</span>
-                        {service.title}
+                      <span className="font-serif text-lg md:text-xl text-white">
+                        <span className="text-[#0035FF] mr-2 font-sans text-sm">{String(index + 1).padStart(2, "0")}</span>
+                        {tech.title}
                       </span>
-                      <span className="text-sm text-[#6b7280] font-sans leading-relaxed hidden md:block">
-                        {service.description}
+                      <span className="text-sm text-white/40 font-sans leading-relaxed hidden md:block">
+                        {tech.description}
                       </span>
                     </div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
-                  {/* Description on mobile */}
-                  <p className="text-sm text-[#6b7280] font-sans leading-relaxed mb-5 md:hidden">
-                    {service.description}
+                  <p className="text-sm text-white/40 font-sans leading-relaxed mb-5 md:hidden">
+                    {tech.description}
                   </p>
 
-                  <div className="w-full h-px bg-[#e5e7eb] mb-5" />
+                  <div className="w-full h-px bg-white/10 mb-5" />
 
-                  {/* Service items */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 pl-0 md:pl-14">
-                    {service.items.map((item) => (
+                    {tech.items.map((item) => (
                       <div key={item} className="flex items-start gap-3">
-                        <Check className="w-4 h-4 text-[#0DA5B5] shrink-0 mt-0.5" />
-                        <span className="text-sm text-[#4b5563] font-sans leading-relaxed">
+                        <Check className="w-4 h-4 text-[#0035FF] shrink-0 mt-0.5" />
+                        <span className="text-sm text-white/60 font-sans leading-relaxed">
                           {item}
                         </span>
                       </div>
                     ))}
                   </div>
-
-                  {/* Note if present */}
-                  {service.note && (
-                    <div className="flex items-start gap-2 mt-4 pl-0 md:pl-14">
-                      <span className="text-[10px] tracking-[0.1em] uppercase text-[#0DA5B5]/70 font-sans leading-relaxed">
-                        * {service.note}
-                      </span>
-                    </div>
-                  )}
                 </AccordionContent>
               </AccordionItem>
             )
           })}
-
-          {/* Hors perimetre - always visible */}
-          <div className="px-6 md:px-8 py-6 rounded-xl border border-[#e5e7eb] bg-white flex items-start gap-4 shadow-sm">
-            <div className="w-10 h-10 rounded-xl bg-[#6b7280]/10 border border-[#6b7280]/20 flex items-center justify-center shrink-0">
-              <AlertTriangle className="w-5 h-5 text-[#6b7280]" />
-            </div>
-            <div className="flex flex-col gap-1">
-              <h3 className="font-serif text-lg md:text-xl text-[#2d3748]">
-                {"Hors perimetre \u2013 projets speciaux"}
-              </h3>
-              <p className="text-sm text-[#6b7280] font-sans leading-relaxed">
-                {"Les projets majeurs hors perimetre feront l'objet d'une evaluation distincte (ex. refonte complete, developpement lourd, nouvelle plateforme independante, systeme CRM, etc.)"}
-              </p>
-            </div>
-          </div>
         </Accordion>
+
+        {/* Market comparison */}
+        <div className="mt-16">
+          <div className="flex items-center gap-3 mb-6">
+            <Globe className="w-5 h-5 text-[#0035FF]" />
+            <h3 className="font-serif text-xl text-white">Positionnement marché</h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/10">
+                  <th className="text-left py-3 px-4 text-white/40 font-sans font-medium">Profil</th>
+                  <th className="text-right py-3 px-4 text-white/40 font-sans font-medium">Taux</th>
+                  <th className="text-right py-3 px-4 text-white/40 font-sans font-medium">Estimation MVP</th>
+                  <th className="text-right py-3 px-4 text-white/40 font-sans font-medium">Écart</th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARISON.map((row, i) => (
+                  <tr key={row.profil} className={`border-b border-white/5 ${i === COMPARISON.length - 1 ? "bg-[#0035FF]/5" : ""}`}>
+                    <td className={`py-3 px-4 font-sans ${i === COMPARISON.length - 1 ? "text-white font-medium" : "text-white/60"}`}>
+                      {row.profil}
+                    </td>
+                    <td className={`py-3 px-4 text-right font-mono ${i === COMPARISON.length - 1 ? "text-[#3B82F6]" : "text-white/50"}`}>
+                      {row.taux}
+                    </td>
+                    <td className={`py-3 px-4 text-right font-mono ${i === COMPARISON.length - 1 ? "text-[#3B82F6]" : "text-white/50"}`}>
+                      {row.estimation}
+                    </td>
+                    <td className={`py-3 px-4 text-right font-sans ${i === COMPARISON.length - 1 ? "text-emerald-400 font-medium" : "text-white/40"}`}>
+                      {row.ecart}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </SlideWrapper>
   )

@@ -1,44 +1,44 @@
 import { SlideWrapper } from "../slide-wrapper"
-import { Target, Cpu, BarChart3 } from "lucide-react"
+import { Code, Zap, Shield } from "lucide-react"
 
 const PILLARS = [
   {
-    icon: Target,
-    title: "Stratégie entrepreneuriale",
+    icon: Code,
+    title: "Développement sur mesure",
     description:
-      "Une répartition stratégique des ressources pour assurer l'atteinte de vos objectifs d'affaires.",
+      "Une plateforme construite spécifiquement pour vos besoins — pas une solution générique avec des compromis.",
   },
   {
-    icon: Cpu,
-    title: "Technologie & automatisation",
+    icon: Zap,
+    title: "Livraison accélérée par l'IA",
     description:
-      "Accélérez l'exécution de vos projets technologiques grâce aux bons outils et à l'IA.",
+      "Notre utilisation de l'IA dans le développement nous permet de livrer plus vite à un tarif 35% plus compétitif.",
   },
   {
-    icon: BarChart3,
-    title: "Marketing & performance",
+    icon: Shield,
+    title: "Conformité dès la conception",
     description:
-      "Tester, mesurer et optimiser en continu à partir de données concrètes.",
+      "Architecture pensée pour les exigences réglementaires canadiennes : Loi 25, FINTRAC, données hébergées au Canada.",
   },
 ]
 
 export function AboutSlide() {
   return (
-    <SlideWrapper id="about-us" className="bg-white">
+    <SlideWrapper id="about-us" className="bg-[#0A0A0A]">
       <div className="max-w-6xl mx-auto px-8 py-20 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
+          <span className="text-xs tracking-[0.4em] uppercase text-[#0035FF] font-sans font-medium">
             01 / Notre approche
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-2xl leading-tight text-balance">
-            Un partenariat de croissance
+          <h2 className="font-serif text-4xl md:text-5xl text-white max-w-2xl leading-tight text-balance">
+            Un partenaire technique de confiance
           </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
-          <p className="text-base md:text-lg text-[#6b7280] font-sans max-w-2xl leading-relaxed">
-            TechGuys et Omnigo.ca agissent comme des partenaires stratégiques pour votre croissance.
-            Au-delà d{"'"}une agence traditionnelle, nous prenons en considération les priorités de votre
-            organisation et vous accompagnons tout au long de votre parcours numérique.
+          <div className="w-16 h-px bg-[#0035FF]" />
+          <p className="text-base md:text-lg text-white/60 font-sans max-w-2xl leading-relaxed">
+            TechGuys accompagne les entreprises québécoises dans leur transformation numérique.
+            Nous combinons expertise technique et compréhension des enjeux d{"'"}affaires pour livrer
+            des solutions qui génèrent des résultats concrets.
           </p>
         </div>
 
@@ -47,16 +47,16 @@ export function AboutSlide() {
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="group relative p-8 rounded-xl border border-[#e5e7eb] bg-white hover:border-[#0DA5B5]/30 hover:shadow-lg transition-all duration-500"
+              className="group relative p-8 rounded-xl border border-white/10 bg-white/[0.02] hover:border-[#0035FF]/30 hover:bg-white/[0.04] transition-all duration-500"
             >
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0DA5B5]/0 via-[#0DA5B5]/20 to-[#0DA5B5]/0 group-hover:via-[#0DA5B5]/50 transition-all duration-500" />
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0035FF]/0 via-[#0035FF]/20 to-[#0035FF]/0 group-hover:via-[#0035FF]/50 transition-all duration-500" />
 
               <div className="flex flex-col gap-5">
-                <div className="w-12 h-12 rounded-xl bg-[#0DA5B5]/10 flex items-center justify-center">
-                  <pillar.icon className="w-5 h-5 text-[#0DA5B5]" />
+                <div className="w-12 h-12 rounded-xl bg-[#0035FF]/10 border border-[#0035FF]/20 flex items-center justify-center">
+                  <pillar.icon className="w-5 h-5 text-[#0035FF]" />
                 </div>
-                <h3 className="font-serif text-xl text-[#2d3748]">{pillar.title}</h3>
-                <p className="text-sm text-[#6b7280] font-sans leading-relaxed">
+                <h3 className="font-serif text-xl text-white">{pillar.title}</h3>
+                <p className="text-sm text-white/50 font-sans leading-relaxed">
                   {pillar.description}
                 </p>
               </div>
@@ -65,13 +65,13 @@ export function AboutSlide() {
         </div>
 
         {/* Bottom note */}
-        <div className="mt-16 p-6 rounded-xl border border-[#e5e7eb] bg-[#f7f7f7]">
-          <p className="text-sm text-[#6b7280] font-sans leading-relaxed text-center">
-            Nous alignons <span className="text-[#0DA5B5] font-medium">stratégie</span>,{" "}
-            <span className="text-[#0DA5B5] font-medium">marketing</span>,{" "}
-            <span className="text-[#FFC43D] font-medium">ventes</span> et{" "}
-            <span className="text-[#0DA5B5] font-medium">technologie</span> afin d{"'"}optimiser la synergie entre les
-            différentes sphères de votre entreprise et maximiser votre retour sur investissement.
+        <div className="mt-16 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+          <p className="text-sm text-white/50 font-sans leading-relaxed text-center">
+            Nous avons analysé en profondeur les <span className="text-[#0035FF] font-medium">dimensions techniques</span>,{" "}
+            <span className="text-[#0035FF] font-medium">réglementaires</span>,{" "}
+            <span className="text-[#3B82F6] font-medium">financières</span> et{" "}
+            <span className="text-[#0035FF] font-medium">organisationnelles</span> de votre projet afin de vous proposer
+            une solution adaptée à vos besoins réels.
           </p>
         </div>
       </div>

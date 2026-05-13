@@ -1,147 +1,116 @@
 import { SlideWrapper } from "../slide-wrapper"
-import { Search, MousePointerClick, Target, Bot } from "lucide-react"
+import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck } from "lucide-react"
 
-const OBJECTIVES = [
+const MODULES = [
   {
-    icon: Search,
+    icon: ShieldCheck,
+    number: "00",
+    title: "Infrastructure & sécurité",
+    description: "Serveurs hébergés au Canada, base de données PostgreSQL 16, gestion des rôles et accès via Keycloak, environnements dev et prod, pipeline de déploiement automatisé.",
+    features: ["Hébergement Canada (Loi 25)", "Keycloak 24+ (IAM)", "PostgreSQL avec pgaudit", "CI/CD automatisé"],
+  },
+  {
+    icon: Users,
     number: "01",
-    title: "Visibilité organique sous-exploitée",
-    description:
-      "Omnigo génère l'essentiel de ses leads via le bouche-à-oreille et les références, mais son SEO propre est limité — la marque n'apparaît pas sur les requêtes que ses propres clients recherchent.",
-    goal: "Devenir la référence organique «agence marketing Montréal / Québec» et capter des dizaines de leads qualifiés qui vont aujourd'hui chez des concurrents.",
-    kpis: ["+25% trafic organique", "Top 3 requêtes cibles", "DA & backlinks"],
-    actions: [
-      "Audit SEO complet (technique, on-page, off-page)",
-      "Optimisation des pages stratégiques",
-      "Création d'articles de blogue à fort potentiel",
-      "Stratégie de backlinks ciblée",
-    ],
+    title: "Dossiers clients",
+    description: "Fiche client complète avec coordonnées, historique des contrats, pièces jointes (contrat, identité, inspection). Statut du dossier et gestion documentaire sur toute la durée du contrat.",
+    features: ["Fiche client complète", "Historique des contrats", "Gestion documentaire", "Statuts de dossier"],
   },
   {
-    icon: MousePointerClick,
+    icon: FileText,
     number: "02",
-    title: "Conversion site web insuffisante",
-    description:
-      "Le trafic existant ne se convertit pas assez en rendez-vous qualifiés. Pas de A/B testing, pas de heat mapping, parcours de conversion non optimisé.",
-    goal: "Doubler le taux de conversion sans augmenter le budget publicitaire — chaque visiteur non converti est une dépense marketing perdue.",
-    kpis: ["×2 taux de conversion", "CPA -30%", "Sessions → RDV"],
-    actions: [
-      "Audit du parcours de conversion actuel",
-      "Création de landing pages dédiées par service",
-      "A/B testing sur les CTAs et formulaires",
-      "Heat mapping et analyse comportementale",
-    ],
+    title: "Contrats de location",
+    description: "Formulaire de création de contrat (véhicule, valeur, versements, durée, acompte). Échéancier généré automatiquement. Solde mis à jour à chaque versement. Option de rachat ou revente.",
+    features: ["Création de contrat", "Échéancier auto", "Calcul des intérêts", "Options fin de contrat"],
   },
   {
-    icon: Target,
+    icon: CreditCard,
     number: "03",
-    title: "Acquisition payante à optimiser",
-    description:
-      "Les campagnes Google Ads et Meta Ads ne sont pas structurées pour maximiser le ROAS sur les services à haute valeur (développement, ventes).",
-    goal: "Réduire le CPL de 30-40% en segmentant mieux les audiences et en concentrant le budget sur les mandats premium.",
-    kpis: ["CPL -30 à -40%", "ROAS +50%", "Leads qualifiés"],
-    actions: [
-      "Restructuration des campagnes Google Ads",
-      "Segmentation avancée des audiences Meta",
-      "Création d'annonces par segment de service",
-      "Optimisation continue du budget par canal",
-    ],
+    title: "Suivi des paiements",
+    description: "Enregistrement des versements reçus. Alertes courriel automatiques si un paiement est manqué. Relances programmables (J+1, J+3, J+7). Vue consolidée par statut.",
+    features: ["Versements reçus", "Alertes courriel", "Relances auto", "Vue par statut"],
   },
   {
-    icon: Bot,
+    icon: BarChart3,
     number: "04",
-    title: "Automatisation interne limitée",
-    description:
-      "Les processus de suivi des prospects, de qualification et de nurturing sont manuels, créant une dépendance aux individus.",
-    goal: "Libérer 5-10h/semaine par représentant avec un CRM automatisé — moins de temps sur l'admin, plus de temps sur les clients.",
-    kpis: ["-60% temps prospection", "×3 RDV cédulés", "0 lead perdu"],
-    actions: [
-      "Setup CRM avec pipeline de vente automatisé",
-      "Séquences d'email nurturing",
-      "Automatisation du suivi des leads entrants",
-      "Formation de l'équipe aux nouveaux outils",
-    ],
+    title: "Tableau de bord",
+    description: "Vue centralisée en temps réel : nombre de contrats actifs, statut de chaque dossier, liste des retards et défauts. D'un coup d'oeil : qui a payé, qui ne l'a pas fait.",
+    features: ["KPIs en temps réel", "Contrats actifs", "Retards et défauts", "Vue consolidée"],
+  },
+  {
+    icon: Building2,
+    number: "05",
+    title: "Interface concessionnaires",
+    description: "Accès dédié pour les conseillers des 5 concessions : soumission de nouveaux dossiers avec pièces jointes, suivi en temps réel du statut des dossiers soumis.",
+    features: ["Accès par concession", "Soumission dossiers", "Upload documents", "Suivi en temps réel"],
+  },
+  {
+    icon: BookOpen,
+    number: "06",
+    title: "Rapports & QuickBooks",
+    description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit — synchronisation automatique sans double saisie.",
+    features: ["Rapport mensuel", "Intégration QuickBooks", "Sync automatique", "Export comptable"],
+  },
+  {
+    icon: CheckCircle2,
+    number: "07",
+    title: "Tests & mise en production",
+    description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage.",
+    features: ["Tests complets", "Validation client", "Mise en production", "Accompagnement 2 sem."],
   },
 ]
 
 export function ObjectivesSlide() {
   return (
-    <SlideWrapper id="objectives" className="bg-[#f7f7f7]">
+    <SlideWrapper id="objectives" className="bg-[#0A0A0A]">
       <div className="max-w-6xl mx-auto px-8 py-20 w-full">
         {/* Section header */}
         <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            04 / Problématiques
+          <span className="text-xs tracking-[0.4em] uppercase text-[#0035FF] font-sans font-medium">
+            03 / MVP de base
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#111827] max-w-3xl leading-tight text-balance">
-            Les freins à votre croissance
+          <h2 className="font-serif text-4xl md:text-5xl text-white max-w-3xl leading-tight text-balance">
+            Les 8 modules du coeur de la plateforme
           </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
-          <p className="text-base text-[#6B7280] font-sans max-w-2xl leading-relaxed">
-            Chaque problématique identifiée représente une opportunité de croissance directe. Voici ce que nous allons corriger ensemble.
+          <div className="w-16 h-px bg-[#0035FF]" />
+          <p className="text-base text-white/50 font-sans max-w-2xl leading-relaxed">
+            L{"'"}objectif : savoir en tout temps qui a un contrat actif, où en est chaque dossier, qui a payé et qui ne l{"'"}a pas fait — en un seul endroit.
           </p>
         </div>
 
-        {/* Objectives */}
-        <div className="flex flex-col gap-8">
-          {OBJECTIVES.map((obj) => (
+        {/* Modules grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {MODULES.map((module) => (
             <div
-              key={obj.number}
-              className="group relative p-8 rounded-xl border border-[#e5e7eb] bg-white hover:border-[#0DA5B5]/30 hover:shadow-lg transition-all duration-500"
+              key={module.number}
+              className="group relative p-6 rounded-xl border border-white/10 bg-white/[0.02] hover:border-[#0035FF]/30 hover:bg-white/[0.04] transition-all duration-500"
             >
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0DA5B5]/30 via-[#0DA5B5]/10 to-transparent" />
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0035FF]/30 via-[#0035FF]/10 to-transparent" />
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                {/* Left: Number */}
-                <div className="lg:col-span-1 flex items-start gap-4">
-                  <span className="font-serif text-4xl text-[#0DA5B5]/30">{obj.number}</span>
+              <div className="flex gap-4">
+                {/* Left: Number + Icon */}
+                <div className="flex flex-col items-center gap-3 shrink-0">
+                  <span className="font-mono text-sm text-[#0035FF]/50">{module.number}</span>
+                  <div className="w-10 h-10 rounded-xl bg-[#0035FF]/10 border border-[#0035FF]/20 flex items-center justify-center">
+                    <module.icon className="w-4 h-4 text-[#0035FF]" />
+                  </div>
                 </div>
 
-                {/* Middle: Content */}
-                <div className="lg:col-span-6 flex flex-col gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#0DA5B5]/10 flex items-center justify-center">
-                      <obj.icon className="w-4 h-4 text-[#0DA5B5]" />
-                    </div>
-                    <h3 className="font-serif text-xl text-[#111827]">{obj.title}</h3>
-                  </div>
-                  <p className="text-sm text-[#6B7280] font-sans leading-relaxed">
-                    {obj.description}
+                {/* Right: Content */}
+                <div className="flex flex-col gap-3 flex-1">
+                  <h3 className="font-serif text-lg text-white">{module.title}</h3>
+                  <p className="text-sm text-white/40 font-sans leading-relaxed">
+                    {module.description}
                   </p>
-                  <p className="text-sm text-[#111827]/80 font-sans leading-relaxed">
-                    {obj.goal}
-                  </p>
-                </div>
-
-                {/* Right: Actions + KPIs */}
-                <div className="lg:col-span-5 flex flex-col gap-4">
-                  <div>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#0DA5B5] font-sans mb-2 block font-medium">
-                      Actions clés
-                    </span>
-                    <div className="flex flex-col gap-1.5">
-                      {obj.actions.map((action) => (
-                        <div key={action} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#0DA5B5] mt-1.5 shrink-0" />
-                          <span className="text-xs text-[#111827]/80 font-sans leading-relaxed">{action}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#6B7280] font-sans mb-2 block">
-                      KPI{"'"}s clés
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {obj.kpis.map((kpi) => (
-                        <span
-                          key={kpi}
-                          className="px-2.5 py-1 rounded-full border border-[#e5e7eb] text-[10px] text-[#6B7280] font-sans bg-[#f7f7f7]"
-                        >
-                          {kpi}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {module.features.map((feature) => (
+                      <span
+                        key={feature}
+                        className="px-2 py-1 rounded-md border border-white/10 text-[10px] text-white/50 font-sans bg-white/[0.02]"
+                      >
+                        {feature}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>

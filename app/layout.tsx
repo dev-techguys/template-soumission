@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: 'Omnigo.ca - Partenariat de croissance | TechGuys',
-  description: 'Proposition de partenariat de croissance pour Omnigo.ca — Stratégie, acquisition et automatisation par TechGuys',
+  title: 'Groupe Laplante - Plateforme AutoFinance | TechGuys',
+  description: 'Proposition de développement de la plateforme AutoFinance pour Groupe Laplante — Internalisez votre financement automobile par TechGuys',
 }
 
 export default function RootLayout({
@@ -17,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr">
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+    <html lang="fr" className="bg-[#0A0A0A]">
+      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-[#0A0A0A]`}>
         {children}
         <Analytics />
       </body>
