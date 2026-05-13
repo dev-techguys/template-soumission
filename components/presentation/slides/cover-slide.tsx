@@ -5,23 +5,49 @@ import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import { client, branding } from "@/lib/proposal-data"
 import { motion } from "framer-motion"
-import dynamic from "next/dynamic"
+import { Suspense, lazy } from "react"
 import { MagneticButton } from "@/components/ui/scroll-animations"
 
-// Dynamic import for 3D to avoid SSR issues
-const Scene3D = dynamic(() => import("@/components/ui/3d-scene").then(mod => mod.Scene3D), {
-  ssr: false,
-  loading: () => null,
-})
+// Lazy load Spline for performance
+const Spline = lazy(() => import("@splinetool/react-spline"))
+
+function SplineBackground() {
+  return (
+    <div className="absolute inset-0 w-full h-full pointer-events-auto overflow-hidden">
+      <Suspense fallback={
+        <div className="absolute inset-0 bg-gradient-to-br from-[#030318] via-[#0a0a2e] to-[#050520]">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/10 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#3388FF]/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
+        </div>
+      }>
+        <Spline
+          style={{
+            width: "100%",
+            height: "100vh",
+            pointerEvents: "auto",
+          }}
+          scene="https://prod.spline.design/us3ALejTXl6usHZ7/scene.splinecode"
+        />
+      </Suspense>
+      {/* Gradient overlay for readability */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+            linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent 30%, transparent 70%, rgba(0, 0, 0, 0.7)),
+            linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.85))
+          `,
+        }}
+      />
+    </div>
+  )
+}
 
 export function CoverSlide() {
   return (
     <SlideWrapper id="cover" className="relative overflow-hidden">
-      {/* 3D Background */}
-      <Scene3D className="opacity-60" />
-      
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-[1]" />
+      {/* Spline Galaxy Background */}
+      <SplineBackground />
       
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center">
@@ -32,10 +58,10 @@ export function CoverSlide() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="absolute top-8 left-8 right-8 flex items-center justify-between"
         >
-          <span className="text-[11px] tracking-[0.25em] uppercase text-white/30 font-medium">
+          <span className="text-[11px] tracking-[0.25em] uppercase text-white/40 font-medium">
             Confidentiel
           </span>
-          <span className="text-[11px] tracking-[0.25em] uppercase text-white/20">
+          <span className="text-[11px] tracking-[0.25em] uppercase text-white/30">
             2026
           </span>
         </motion.div>
@@ -50,17 +76,17 @@ export function CoverSlide() {
           >
             <motion.div 
               animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.1, 0.2, 0.1]
+                scale: [1, 1.3, 1],
+                opacity: [0.15, 0.3, 0.15]
               }}
               transition={{ 
                 duration: 4,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="absolute inset-0 blur-3xl bg-[#0066FF]/20 scale-150" 
+              className="absolute inset-0 blur-3xl bg-[#0066FF]/30 scale-150" 
             />
-            <div className="relative w-52 h-16">
+            <div className="relative w-56 h-20">
               <Image
                 src={branding.logoUrl}
                 alt={`Logo ${client.name}`}
@@ -76,22 +102,25 @@ export function CoverSlide() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="glass-card px-5 py-2 rounded-full backdrop-blur-xl"
+            className="px-6 py-2.5 rounded-full backdrop-blur-xl border border-white/10"
+            style={{ 
+              background: "rgba(0, 102, 255, 0.1)",
+            }}
           >
-            <span className="text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium">
+            <span className="text-[11px] tracking-[0.3em] uppercase text-white/70 font-medium">
               Proposition de developpement
             </span>
           </motion.div>
 
           {/* Main title with staggered animation */}
           <motion.h1 
-            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-white leading-[1.1] max-w-5xl mt-4 font-light"
+            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-white leading-[1.1] max-w-5xl mt-4"
           >
             <motion.span 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
-              className="gradient-text inline-block"
+              className="font-light bg-gradient-to-r from-[#0066FF] via-[#3388FF] to-[#66AAFF] bg-clip-text text-transparent inline-block"
             >
               Plateforme
             </motion.span>
@@ -100,7 +129,7 @@ export function CoverSlide() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.75, ease: [0.25, 0.4, 0.25, 1] }}
-              className="text-white font-medium inline-block"
+              className="text-white font-semibold inline-block"
             >
               AutoFinance
             </motion.span>
@@ -113,11 +142,11 @@ export function CoverSlide() {
             transition={{ duration: 0.6, delay: 0.9 }}
             className="text-lg md:text-xl max-w-2xl leading-relaxed mt-2"
           >
-            <span className="gradient-text-accent font-medium">
+            <span className="bg-gradient-to-r from-[#3388FF] to-[#66AAFF] bg-clip-text text-transparent font-medium">
               Internalisez votre financement automobile
             </span>
             <br />
-            <span className="text-white/40">
+            <span className="text-white/50">
               et reprenez le controle de votre portefeuille
             </span>
           </motion.p>
@@ -127,21 +156,27 @@ export function CoverSlide() {
             initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
             transition={{ duration: 0.8, delay: 1.1 }}
-            className="w-px h-12 bg-gradient-to-b from-transparent via-white/15 to-transparent mt-4 origin-top" 
+            className="w-px h-14 bg-gradient-to-b from-transparent via-[#0066FF]/30 to-transparent mt-4 origin-top" 
           />
 
-          {/* Recipient card */}
+          {/* Recipient card with glassmorphism */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.2 }}
-            className="glass-card px-8 py-4 rounded-2xl flex flex-col items-center gap-1 backdrop-blur-xl"
+            className="px-10 py-5 rounded-2xl flex flex-col items-center gap-1.5 backdrop-blur-xl border border-white/10"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
+            }}
           >
-            <span className="text-[10px] tracking-[0.3em] uppercase text-white/30">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-white/40">
               A l{"'"}attention de
             </span>
-            <span className="text-lg text-white/90">
+            <span className="text-xl text-white font-medium">
               {client.contactName}
+            </span>
+            <span className="text-sm text-white/50">
+              {client.name}
             </span>
           </motion.div>
         </div>
@@ -151,16 +186,20 @@ export function CoverSlide() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
         >
-          <span className="text-[10px] tracking-[0.2em] uppercase text-white/25">
+          <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">
             Defiler
           </span>
           <MagneticButton>
             <motion.div 
-              animate={{ y: [0, 5, 0] }}
+              animate={{ y: [0, 6, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-10 h-10 rounded-full glass flex items-center justify-center cursor-pointer hover:bg-white/10 transition-colors"
+              className="w-11 h-11 rounded-full flex items-center justify-center cursor-pointer border border-white/10 hover:border-[#0066FF]/50 hover:bg-[#0066FF]/10 transition-all duration-300"
+              style={{
+                background: "rgba(0, 102, 255, 0.1)",
+                backdropFilter: "blur(8px)",
+              }}
             >
               <ChevronDown className="w-5 h-5 text-[#0066FF]" />
             </motion.div>
