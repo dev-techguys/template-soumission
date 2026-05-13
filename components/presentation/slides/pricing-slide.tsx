@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useMemo } from "react"
 import { SlideWrapper } from "../slide-wrapper"
-import { Check, Star, Clock, Server, CreditCard, Plus } from "lucide-react"
+import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2 } from "lucide-react"
 import { pricing } from "@/lib/proposal-data"
+import { useSelectionStore } from "@/lib/selection-store"
 
 function calculateMvpTotals() {
   const hoursMin = pricing.mvp.modules.reduce((sum, m) => sum + m.hoursMin, 0)
@@ -17,44 +17,71 @@ function calculateMvpTotals() {
   return { hoursMin, hoursMax, contingencyMin, contingencyMax, totalHoursMin, totalHoursMax, totalPriceMin, totalPriceMax }
 }
 
+// Payment cycle step component
+function PaymentCycleStep({ 
+  number, 
+  title, 
+  description, 
+  highlight,
+  isLast = false 
+}: { 
+  number: number
+  title: string
+  description: string
+  highlight?: string
+  isLast?: boolean
+}) {
+  return (
+    <div className="flex flex-col items-center text-center relative">
+      {/* Circle with number */}
+      <div className="relative">
+        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#0066FF]/20 to-[#0066FF]/5 border border-[#0066FF]/30 flex items-center justify-center mb-4 relative z-10">
+          <span className="text-xl font-medium text-[#0066FF]">{number}</span>
+        </div>
+        {/* Glow effect */}
+        <div className="absolute inset-0 w-16 h-16 rounded-full bg-[#0066FF]/20 blur-xl" />
+      </div>
+      
+      <h4 className="text-sm font-medium text-white mb-1">{title}</h4>
+      <p className="text-xs text-white/40 leading-relaxed max-w-[140px]">{description}</p>
+      {highlight && (
+        <span className="mt-2 px-3 py-1 rounded-full bg-[#0066FF]/10 border border-[#0066FF]/20 text-[10px] text-[#0066FF] font-medium">
+          {highlight}
+        </span>
+      )}
+      
+      {/* Arrow to next step */}
+      {!isLast && (
+        <div className="hidden md:block absolute top-8 -right-8 w-16 h-px">
+          <div className="w-full h-full bg-gradient-to-r from-[#0066FF]/50 to-[#0066FF]/10" />
+          <ArrowRight className="absolute -right-1 -top-2 w-4 h-4 text-[#0066FF]/50" />
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function PricingSlide() {
   const mvpTotals = calculateMvpTotals()
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+  const { 
+    selectedOptions, 
+    toggleOption, 
+    getTotalHoursMin, 
+    getTotalHoursMax, 
+    getTotalPriceMin, 
+    getTotalPriceMax,
+    getEstimatedDelivery
+  } = useSelectionStore()
 
-  const toggleOption = (optionId: string) => {
-    setSelectedOptions(prev => 
-      prev.includes(optionId) 
-        ? prev.filter(id => id !== optionId)
-        : [...prev, optionId]
-    )
-  }
+  const totalPriceMin = getTotalPriceMin()
+  const totalPriceMax = getTotalPriceMax()
+  const totalHoursMin = getTotalHoursMin()
+  const totalHoursMax = getTotalHoursMax()
+  const deliveryDate = getEstimatedDelivery()
 
-  const dynamicTotals = useMemo(() => {
-    let optionsHoursMin = 0
-    let optionsHoursMax = 0
-    let optionsPriceMin = 0
-    let optionsPriceMax = 0
-
-    selectedOptions.forEach(optId => {
-      const opt = pricing.options.find(o => o.id === optId)
-      if (opt) {
-        optionsHoursMin += opt.hoursMin
-        optionsHoursMax += opt.hoursMax
-        optionsPriceMin += opt.hoursMin * pricing.hourlyRate
-        optionsPriceMax += opt.hoursMax * pricing.hourlyRate
-      }
-    })
-
-    const totalHoursMin = mvpTotals.totalHoursMin + optionsHoursMin
-    const totalHoursMax = mvpTotals.totalHoursMax + optionsHoursMax
-    const totalPriceMin = mvpTotals.totalPriceMin + optionsPriceMin
-    const totalPriceMax = mvpTotals.totalPriceMax + optionsPriceMax
-
-    return { 
-      totalHoursMin, totalHoursMax, totalPriceMin, totalPriceMax,
-      optionsHoursMin, optionsHoursMax, optionsPriceMin, optionsPriceMax
-    }
-  }, [selectedOptions, mvpTotals])
+  // Calculate deposit
+  const depositMin = Math.round(totalPriceMin * 0.25)
+  const depositMax = Math.round(totalPriceMax * 0.25)
 
   return (
     <SlideWrapper id="pricing" className="relative">
@@ -92,7 +119,7 @@ export function PricingSlide() {
                 <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-[#0066FF] to-[#3388FF] rounded-full">
                   <Star className="w-3 h-3 text-white fill-white" />
                   <span className="text-[10px] tracking-[0.15em] uppercase font-semibold text-white">
-                    Inclus
+                    Toujours inclus
                   </span>
                 </div>
               </div>
@@ -111,7 +138,7 @@ export function PricingSlide() {
 
           {/* MVP Modules */}
           <div className="border-t border-white/10 pt-6">
-            <p className="text-xs text-white/30 mb-4 uppercase tracking-wider">Modules inclus</p>
+            <p className="text-xs text-white/30 mb-4 uppercase tracking-wider">8 modules inclus dans le MVP</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {pricing.mvp.modules.map((module) => (
                 <div key={module.id} className="flex items-center justify-between gap-4 p-3 rounded-xl glass">
@@ -141,7 +168,7 @@ export function PricingSlide() {
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-5">
             <Plus className="w-4 h-4 text-[#0066FF]" />
-            <p className="text-xs text-white/30 uppercase tracking-wider">Options additionnelles (selectionnez pour ajuster le prix)</p>
+            <p className="text-xs text-white/30 uppercase tracking-wider">Options additionnelles - Cliquez pour ajouter a votre projet</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {pricing.options.map((option) => {
@@ -157,14 +184,20 @@ export function PricingSlide() {
                     isSelected ? "option-selected" : ""
                   }`}
                 >
+                  {option.recommended && (
+                    <div className="absolute -top-2 left-4 px-2 py-0.5 bg-gradient-to-r from-[#0066FF] to-[#3388FF] rounded-full">
+                      <span className="text-[9px] tracking-[0.1em] uppercase font-semibold text-white">Recommande</span>
+                    </div>
+                  )}
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <h4 className="text-base text-white font-medium">{option.name}</h4>
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      onChange={() => {}}
-                      className="checkbox-custom shrink-0"
-                    />
+                    <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${
+                      isSelected 
+                        ? "bg-[#0066FF] border-[#0066FF]" 
+                        : "border-white/20 bg-transparent"
+                    }`}>
+                      {isSelected && <Check className="w-3 h-3 text-white" />}
+                    </div>
                   </div>
                   <p className="text-xs text-white/35 leading-relaxed mb-4 line-clamp-2">
                     {option.description}
@@ -191,26 +224,106 @@ export function PricingSlide() {
                 <p className="text-sm text-white/40">
                   MVP {selectedOptions.length > 0 && `+ ${selectedOptions.length} option${selectedOptions.length > 1 ? "s" : ""}`}
                 </p>
+                <p className="text-xs text-[#0066FF] mt-2">
+                  Livraison estimee : {deliveryDate}
+                </p>
               </div>
               <div className="flex flex-col items-end gap-2">
                 <div className="flex items-baseline gap-2">
                   <span className="text-5xl md:text-6xl gradient-text-accent font-light">
-                    {dynamicTotals.totalPriceMin.toLocaleString()}$
+                    {totalPriceMin.toLocaleString()}$
                   </span>
                   <span className="text-2xl text-white/30">-</span>
                   <span className="text-5xl md:text-6xl gradient-text-accent font-light">
-                    {dynamicTotals.totalPriceMax.toLocaleString()}$
+                    {totalPriceMax.toLocaleString()}$
                   </span>
                 </div>
                 <span className="text-sm text-white/30 font-mono">
-                  {dynamicTotals.totalHoursMin} - {dynamicTotals.totalHoursMax} heures estimees
+                  {totalHoursMin} - {totalHoursMax} heures estimees
                 </span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Hosting & Payment */}
+        {/* Payment Cycle Diagram */}
+        <div className="glass-strong p-8 mb-10">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-8 h-8 rounded-lg bg-[#0066FF]/10 border border-[#0066FF]/20 flex items-center justify-center">
+              <Receipt className="w-4 h-4 text-[#0066FF]" />
+            </div>
+            <div>
+              <h3 className="text-xl text-white font-medium">Comment ca fonctionne ?</h3>
+              <p className="text-xs text-white/40">Cycle de facturation transparent</p>
+            </div>
+          </div>
+
+          {/* Payment cycle visualization */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 mb-8">
+            <PaymentCycleStep 
+              number={1}
+              title="Signature"
+              description="Vous signez la soumission et versez l'acompte"
+              highlight={`${depositMin.toLocaleString()}$ - ${depositMax.toLocaleString()}$`}
+            />
+            <PaymentCycleStep 
+              number={2}
+              title="Developpement"
+              description="On travaille par sprints de 2 semaines avec livrables"
+            />
+            <PaymentCycleStep 
+              number={3}
+              title="Facturation"
+              description="Facture aux 2 sem. avec rapport detaille des heures"
+              highlight="Heures reelles seulement"
+            />
+            <PaymentCycleStep 
+              number={4}
+              title="Livraison"
+              description="Plateforme en production, vous payez le solde final"
+              isLast
+            />
+          </div>
+
+          {/* Key points */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-white/10">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm text-white font-medium mb-1">Prix minimum ou maximum ?</p>
+                <p className="text-xs text-white/40 leading-relaxed">
+                  Vous payez les <strong className="text-white/60">heures reellement consommees</strong>. Si on finit plus vite, vous payez moins. Jamais au-dessus du maximum.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm text-white font-medium mb-1">Contingence non utilisee</p>
+                <p className="text-xs text-white/40 leading-relaxed">
+                  La reserve pour imprevus (~10%) <strong className="text-white/60">n{"'"}est pas facturee</strong> si tout se passe bien. Zero heure fictive.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm text-white font-medium mb-1">Suivi transparent</p>
+                <p className="text-xs text-white/40 leading-relaxed">
+                  Rapport detaille a chaque facture + suivi hebdomadaire du budget consomme vs. budgete.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Hosting & Conditions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="glass-card p-6">
             <div className="flex items-center gap-3 mb-4">
@@ -228,26 +341,17 @@ export function PricingSlide() {
           </div>
 
           <div className="glass-card p-6">
-            <h4 className="text-lg text-white font-medium mb-4">Modalites de facturation</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-sm text-white/45">
-                <div className="w-5 h-5 rounded-md bg-[#0066FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3 h-3 text-[#0066FF]" />
-                </div>
-                Acompte de 25% a la signature
-              </li>
-              <li className="flex items-start gap-3 text-sm text-white/45">
-                <div className="w-5 h-5 rounded-md bg-[#0066FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3 h-3 text-[#0066FF]" />
-                </div>
-                Facturation aux deux semaines avec rapport detaille
-              </li>
-              <li className="flex items-start gap-3 text-sm text-white/45">
-                <div className="w-5 h-5 rounded-md bg-[#0066FF]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3 h-3 text-[#0066FF]" />
-                </div>
-                Contingence non utilisee = non facturee
-              </li>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                <FileText className="w-5 h-5 text-[#0066FF]" />
+              </div>
+              <h4 className="text-lg text-white font-medium">Conditions</h4>
+            </div>
+            <ul className="space-y-2">
+              <li className="text-xs text-white/40">Montants en CAD, avant taxes (TPS/TVQ)</li>
+              <li className="text-xs text-white/40">Evaluation valide 30 jours</li>
+              <li className="text-xs text-white/40">Paiement : virement ou cheque sous 15 jours</li>
+              <li className="text-xs text-white/40">Options ajoutables a tout moment au meme tarif</li>
             </ul>
           </div>
         </div>

@@ -12,14 +12,13 @@ export const client = {
   mission: "Internaliser le processus de financement automobile pour offrir une meilleure expérience client et accroître la rentabilité",
   targetAudience: "Acheteurs de véhicules au Québec cherchant des solutions de financement flexibles",
   currentSituation: "Groupe de concessions automobiles qui agit actuellement comme intermédiaire pour le financement, dépendant d'institutions tierces avec perte de contrôle sur le processus d'approbation",
-  // Email qui recevra la notification quand le client signe
   notificationEmail: "carl@techguys.consulting",
 }
 
 export const branding = {
-  primaryColor: "#0035FF", // Bleu Laplante
+  primaryColor: "#0035FF",
   secondaryColor: "#FFFFFF",
-  accentColor: "#3B82F6", // Bleu clair accent
+  accentColor: "#3B82F6",
   textDark: "#FFFFFF",
   textMuted: "#9CA3AF",
   backgroundDark: "#0A0A0A",
@@ -33,13 +32,10 @@ export const branding = {
   toneOfVoice: "professionnel, technique mais accessible, axé résultats",
 }
 
-// ── Mode de tarification ─────────────────────────────────────
-// "mvp-options" = MVP de base + options additionnelles sélectionnables
 export const pricing = {
   type: "mvp-options" as "hourly-bank" | "fixed-price" | "mvp-options",
   hourlyRate: 150,
 
-  // ── MVP de base ────────────────────────────────────────────
   mvp: {
     name: "MVP de base",
     description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks.",
@@ -104,7 +100,6 @@ export const pricing = {
     contingencyPercent: 10,
   },
 
-  // ── Options additionnelles ─────────────────────────────────
   options: [
     {
       id: "flinks",
@@ -113,6 +108,7 @@ export const pricing = {
       hoursMin: 30,
       hoursMax: 45,
       recommended: false,
+      weeksToAdd: 1,
     },
     {
       id: "certm",
@@ -121,6 +117,7 @@ export const pricing = {
       hoursMin: 25,
       hoursMax: 40,
       recommended: false,
+      weeksToAdd: 1,
     },
     {
       id: "pad",
@@ -129,6 +126,7 @@ export const pricing = {
       hoursMin: 35,
       hoursMax: 55,
       recommended: true,
+      weeksToAdd: 2,
     },
     {
       id: "sms",
@@ -137,6 +135,7 @@ export const pricing = {
       hoursMin: 10,
       hoursMax: 20,
       recommended: true,
+      weeksToAdd: 1,
     },
     {
       id: "portail",
@@ -145,6 +144,7 @@ export const pricing = {
       hoursMin: 20,
       hoursMax: 30,
       recommended: false,
+      weeksToAdd: 2,
     },
     {
       id: "mobile",
@@ -153,6 +153,7 @@ export const pricing = {
       hoursMin: 80,
       hoursMax: 120,
       recommended: false,
+      weeksToAdd: 5,
     },
     {
       id: "fintrac",
@@ -161,10 +162,10 @@ export const pricing = {
       hoursMin: 20,
       hoursMax: 35,
       recommended: false,
+      weeksToAdd: 2,
     },
   ],
 
-  // ── Scénarios pré-configurés ───────────────────────────────
   scenarios: [
     {
       id: "mvp-seul",
@@ -189,14 +190,23 @@ export const pricing = {
     },
   ],
 
-  // ── Hébergement mensuel ────────────────────────────────────
   hosting: {
     min: 100,
     max: 250,
     note: "Serveurs canadiens mis en place par TechGuys, facturés séparément au coût réel.",
   },
 
-  // ── Anciens champs pour compatibilité ──────────────────────
+  // Modalités de paiement
+  payment: {
+    deposit: 25, // % à la signature
+    frequency: "Aux deux semaines",
+    paymentTerms: 15, // jours
+    method: "Virement ou chèque",
+    billing: "Aux heures réellement consommées — jamais au-dessus du maximum convenu.",
+    contingencyNote: "La contingence non utilisée n'est pas facturée. Aucune heure fictive.",
+    tracking: "Suivi hebdomadaire du budget consommé vs. budgété partagé avec Hugo.",
+  },
+
   plans: [],
   inclusions: [],
   fixedPrice: {
@@ -210,30 +220,29 @@ export const pricing = {
   },
 }
 
-// ── Mode de signature ─────────────────────────────────────
-// "v0"       = workflow de signature intégré (6 étapes dans la modal)
-// "pandadoc" = bouton redirige vers un document PandaDoc externe
 export const signing = {
   type: "pandadoc" as "v0" | "pandadoc",
-  pandadocUrl: "", // À remplir quand le lien sera disponible
+  pandadocUrl: "",
 }
 
-// ── Calendrier d'exécution ────────────────────────────────
-// pmApproved : true si le PM/PO a validé ce calendrier avant envoi
 export const calendar = {
   pmApproved: false,
+  startDate: "Juin 2026",
   reviewCalls: "30 min à 1h par semaine avec l'équipe Groupe Laplante",
+  baseDurationWeeks: 13,
   weeks: [
     {
       week: 1,
       period: "Semaines 1-2",
+      month: "Juin",
       title: "Infrastructure & Setup",
       focus: "Poser les fondations techniques solides",
+      moduleId: "infra",
       activities: [
         "Mise en place des serveurs au Canada",
         "Configuration de la base de données PostgreSQL",
         "Setup des environnements dev et prod",
-        "Configuration du système d'authentification (Keycloak)",
+        "Configuration du système d'authentification",
         "Pipeline de déploiement automatisé",
       ],
       milestone: "Infrastructure opérationnelle",
@@ -241,8 +250,10 @@ export const calendar = {
     {
       week: 3,
       period: "Semaines 3-5",
+      month: "Juin-Juillet",
       title: "Dossiers clients & Contrats",
       focus: "Le coeur métier de la plateforme",
+      moduleId: "clients,contrats",
       activities: [
         "Module de gestion des dossiers clients",
         "Formulaire de création de contrats de location",
@@ -255,8 +266,10 @@ export const calendar = {
     {
       week: 6,
       period: "Semaines 6-8",
+      month: "Juillet",
       title: "Suivi des paiements & Dashboard",
       focus: "Visibilité en temps réel sur le portefeuille",
+      moduleId: "paiements,dashboard",
       activities: [
         "Enregistrement des versements reçus",
         "Alertes courriel automatiques (paiements manqués)",
@@ -269,8 +282,10 @@ export const calendar = {
     {
       week: 9,
       period: "Semaines 9-11",
+      month: "Août",
       title: "Interface concessionnaires & Rapports",
       focus: "Outiller les équipes terrain",
+      moduleId: "concessionnaires,rapports",
       activities: [
         "Portail dédié aux 5 concessions",
         "Soumission de nouveaux dossiers avec pièces jointes",
@@ -278,13 +293,15 @@ export const calendar = {
         "Rapports mensuels du portefeuille",
         "Intégration QuickBooks Online (API Intuit)",
       ],
-      milestone: undefined,
+      milestone: "Concessionnaires connectés",
     },
     {
       week: 12,
       period: "Semaines 12-13",
+      month: "Août-Sept.",
       title: "Tests & Mise en production",
       focus: "Livraison d'une plateforme robuste",
+      moduleId: "tests",
       activities: [
         "Tests fonctionnels complets",
         "Sessions de validation avec l'équipe Groupe Laplante",
@@ -297,13 +314,15 @@ export const calendar = {
   ] as Array<{
     week: number
     period: string
+    month: string
     title: string
     focus: string
+    moduleId: string
     activities: string[]
     milestone?: string
   }>,
   iterativeNote:
-    "Ce calendrier représente notre plan idéal basé sur le scénario MVP seul. L'ajout d'options additionnelles allongera le délai de 3 à 5 semaines selon les fonctionnalités sélectionnées. Notre approche demeure itérative avec des points d'avancement courts (30 min) aux deux semaines.",
+    "Ce calendrier représente notre plan idéal basé sur le scénario MVP seul. L'ajout d'options additionnelles allongera le délai de 1 à 5 semaines selon les fonctionnalités sélectionnées. Notre approche demeure itérative avec des points d'avancement courts (30 min) aux deux semaines.",
 }
 
 export const slides = {

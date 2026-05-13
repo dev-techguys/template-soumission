@@ -3,8 +3,8 @@ import { AboutSlide } from "@/components/presentation/slides/about-slide"
 import { ContextSlide } from "@/components/presentation/slides/context-slide"
 import { ObjectivesSlide } from "@/components/presentation/slides/objectives-slide"
 import { RoadmapSlide } from "@/components/presentation/slides/roadmap-slide"
-import { CalendarSlide } from "@/components/presentation/slides/calendar-slide"
 import { PricingSlide } from "@/components/presentation/slides/pricing-slide"
+import { DeliveryCalendarSlide } from "@/components/presentation/slides/delivery-calendar-slide"
 import { AnnexeSlide } from "@/components/presentation/slides/annexe-slide"
 import { ClosingSlide } from "@/components/presentation/slides/closing-slide"
 import { PresentationShell } from "@/components/presentation/presentation-shell"
@@ -19,8 +19,8 @@ export default function Home() {
         <ContextSlide />
         <ObjectivesSlide />
         <RoadmapSlide />
-        <CalendarSlide />
         <PricingSlide />
+        <DeliveryCalendarSlide />
         <AnnexeSlide />
         <ClosingSlide />
       </PresentationShell>

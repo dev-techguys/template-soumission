@@ -3,8 +3,8 @@
 import { ChevronUp, ChevronDown } from "lucide-react"
 import { useEffect, useState, useCallback } from "react"
 
-const SLIDES = ["cover", "about-us", "context", "objectives", "roadmap", "calendar", "pricing", "annexe", "closing"]
-const SLIDE_LABELS = ["Couverture", "Notre approche", "Le projet", "MVP de base", "Options", "Calendrier", "Tarification", "Annexe technique", "Conclusion"]
+const SLIDES = ["cover", "about-us", "context", "objectives", "roadmap", "pricing", "delivery", "annexe", "closing"]
+const SLIDE_LABELS = ["Couverture", "Notre approche", "Le projet", "MVP de base", "Options", "Tarification", "Calendrier", "Annexe technique", "Conclusion"]
 
 export function SlideNav() {
   const [current, setCurrent] = useState(0)
