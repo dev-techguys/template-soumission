@@ -1,7 +1,6 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { useEffect, useRef, useState } from "react"
 import { Plug, Smartphone, MessageSquare, CreditCard, Search, FileCheck, Shield, Star, Sparkles } from "lucide-react"
 import { pricing } from "@/lib/proposal-data"
 
@@ -18,23 +17,16 @@ const OPTIONS_ICONS: Record<string, React.ElementType> = {
 function OptionCard({
   option,
   index,
-  isVisible,
 }: {
   option: typeof pricing.options[0]
   index: number
-  isVisible: boolean
 }) {
   const Icon = OPTIONS_ICONS[option.id] || Plug
   const priceMin = option.hoursMin * pricing.hourlyRate
   const priceMax = option.hoursMax * pricing.hourlyRate
 
   return (
-    <div
-      className={`group relative transition-all duration-700 card-hover ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
-      style={{ transitionDelay: `${index * 80}ms` }}
-    >
+    <div className="group relative card-hover">
       {/* Glass card */}
       <div className={`relative h-full p-6 overflow-hidden ${
         option.recommended 
@@ -101,30 +93,6 @@ function OptionCard({
 }
 
 export function RoadmapSlide() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set())
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute("data-index"))
-          if (entry.isIntersecting) {
-            setVisibleCards((prev) => new Set([...prev, index]))
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-    )
-
-    const container = containerRef.current
-    if (container) {
-      const cards = container.querySelectorAll("[data-index]")
-      cards.forEach((card) => observer.observe(card))
-    }
-
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <SlideWrapper id="roadmap" className="relative">
@@ -150,15 +118,13 @@ export function RoadmapSlide() {
         </div>
 
         {/* Options grid */}
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {pricing.options.map((option, index) => (
-            <div key={option.id} data-index={index}>
-              <OptionCard
-                option={option}
-                index={index}
-                isVisible={visibleCards.has(index)}
-              />
-            </div>
+            <OptionCard
+              key={option.id}
+              option={option}
+              index={index}
+            />
           ))}
         </div>
 
