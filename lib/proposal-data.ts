@@ -189,7 +189,7 @@ export const pricing = {
 // "pandadoc" = bouton redirige vers un document PandaDoc externe
 export const signing = {
   type: "pandadoc" as "v0" | "pandadoc",
-  pandadocUrl: "https://app.pandadoc.com/a/#/documents/REpqbCmJEC9um6sfwZJ8Xe?new=true",
+  pandadocUrl: "https://app.pandadoc.com/document/v2?token=7a59f1cde8a6b9c2d13202a4c69b4189454458e8",
 }
 
 // ── Calendrier d'exécution (non utilisé pour ce projet) ───
