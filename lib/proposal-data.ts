@@ -102,9 +102,9 @@ export const pricing = {
 
   options: [
     {
-      id: "flinks",
-      name: "Connexion bancaire (Flinks)",
-      description: "Accès sécurisé aux transactions bancaires des clients via l'API Flinks (outil canadien, conforme Loi 25). Valide les revenus et le comportement bancaire sans relevés manuels.",
+      id: "plaid",
+      name: "Connexion bancaire (Plaid)",
+      description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire sans relevés manuels.",
       hoursMin: 30,
       hoursMax: 45,
       recommended: false,
@@ -185,7 +185,7 @@ export const pricing = {
       id: "mvp-essentiel",
       name: "MVP + Pack Essentiel",
       description: "MVP de base + Connexion bancaire Flinks + Enquête crédit CERTM + PAD + SMS illimités.",
-      optionIds: ["flinks", "certm", "pad", "sms"],
+      optionIds: ["plaid", "certm", "pad", "sms"],
       recommended: false,
     },
   ],
