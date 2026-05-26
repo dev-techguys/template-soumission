@@ -108,7 +108,7 @@ export function CoverSlide() {
             transition={{ duration: 0.8, delay: 0.7 }}
             className="font-serif text-4xl md:text-6xl lg:text-7xl tracking-tight text-white leading-tight max-w-4xl text-balance"
           >
-            Agent IA de Navigation Web
+            Laval AI Agent
           </motion.h1>
 
           {/* Subtitle */}
