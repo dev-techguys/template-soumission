@@ -16,19 +16,27 @@ export function OpeningSlide() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
-          {/* Logo */}
+          {/* Logos - Partnership */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8"
+            className="flex items-center justify-center gap-6 mb-8"
           >
             <Image
               src="/images/techguys-omnigo-logo.png"
               alt="TechGuys x OMNIGO"
-              width={280}
-              height={50}
-              className="mx-auto brightness-0 invert"
+              width={220}
+              height={40}
+              className="brightness-0 invert"
+            />
+            <span className="text-white/40 text-2xl font-light">pour</span>
+            <Image
+              src="/images/laval-economique-logo.svg"
+              alt="Laval Économique"
+              width={180}
+              height={31}
+              className="brightness-0 invert"
             />
           </motion.div>
 

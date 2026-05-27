@@ -129,16 +129,24 @@ export function TeamSlide() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 1.1 }}
-            className="mt-12 pt-8 border-t border-gray-200 text-center"
+            className="mt-12 pt-8 border-t border-gray-200"
           >
-            <Image
-              src="/images/techguys-omnigo-logo.png"
-              alt="TechGuys x OMNIGO"
-              width={200}
-              height={36}
-              className="mx-auto"
-            />
-            <p className="text-[#64748B] text-sm mt-4">Proposition de mandat - Agent IA Laval Économique</p>
+            <div className="flex items-center justify-center gap-6 mb-4">
+              <Image
+                src="/images/techguys-omnigo-logo.png"
+                alt="TechGuys x OMNIGO"
+                width={180}
+                height={32}
+              />
+              <span className="text-[#64748B] text-lg">pour</span>
+              <Image
+                src="/images/laval-economique-logo.svg"
+                alt="Laval Économique"
+                width={160}
+                height={28}
+              />
+            </div>
+            <p className="text-[#64748B] text-sm text-center">Proposition de mandat - Agent IA Laval Économique</p>
           </motion.div>
         </div>
       </div>
