@@ -24,11 +24,10 @@ export function OpeningSlide() {
             className="flex items-center justify-center gap-6 mb-8"
           >
             <Image
-              src="/images/omnigo-techguys-logo.png"
-              alt="OMNIGO x TechGuys"
+              src="/images/techguys-omnigo-light.png"
+              alt="TechGuys x OMNIGO"
               width={220}
               height={40}
-              className="bg-[#1E293B] px-4 py-2 rounded-lg"
             />
             <span className="text-[#64748B] text-2xl font-light">pour</span>
             <Image

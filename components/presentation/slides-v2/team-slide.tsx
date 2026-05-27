@@ -43,10 +43,11 @@ export function TeamSlide() {
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                 <div className="flex items-center gap-4">
                   <Image
-                    src="/images/omnigo-techguys-logo.png"
-                    alt="OMNIGO x TechGuys"
+                    src="/images/techguys-omnigo-light.png"
+                    alt="TechGuys x OMNIGO"
                     width={160}
                     height={30}
+                    className="brightness-0 invert"
                   />
                 </div>
               </div>
@@ -115,11 +116,10 @@ export function TeamSlide() {
           >
             <div className="flex items-center justify-center gap-6 mb-4">
               <Image
-                src="/images/omnigo-techguys-logo.png"
-                alt="OMNIGO x TechGuys"
+                src="/images/techguys-omnigo-light.png"
+                alt="TechGuys x OMNIGO"
                 width={180}
                 height={32}
-                className="bg-[#1E293B] px-3 py-2 rounded-lg"
               />
               <span className="text-[#64748B] text-lg">pour</span>
               <Image
