@@ -4,79 +4,93 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #2d3748;
-  --card: #ffffff;
-  --card-foreground: #2d3748;
-  --popover: #ffffff;
-  --popover-foreground: #2d3748;
-  --primary: #387B84;
-  --primary-foreground: #ffffff;
-  --secondary: #f7f7f7;
-  --secondary-foreground: #2d3748;
-  --muted: #f5f5f5;
-  --muted-foreground: #6b7280;
-  --accent: #F6A878;
-  --accent-foreground: #ffffff;
+  /* Laval Économique Brand Colors */
+  --laval-blue: #143B6D;
+  --laval-blue-light: #E8F3FB;
+  --laval-green: #50B878;
+  --laval-indigo: #5B5CE2;
+  --laval-orange: #F97316;
+  --laval-orange-light: #FFF7ED;
+  
+  /* Core Design Tokens */
+  --background: #FFFFFF;
+  --foreground: #1E293B;
+  --card: #FFFFFF;
+  --card-foreground: #1E293B;
+  --popover: #FFFFFF;
+  --popover-foreground: #1E293B;
+  --primary: #143B6D;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F6F8FA;
+  --secondary-foreground: #1E293B;
+  --muted: #F6F8FA;
+  --muted-foreground: #64748B;
+  --accent: #50B878;
+  --accent-foreground: #FFFFFF;
   --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: #387B84;
-  --chart-1: #387B84;
-  --chart-2: #4a9ba5;
-  --chart-3: #F6A878;
-  --chart-4: #22c55e;
-  --chart-5: #387B84;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #143B6D;
+  
+  /* Chart Colors */
+  --chart-1: #143B6D;
+  --chart-2: #50B878;
+  --chart-3: #5B5CE2;
+  --chart-4: #F97316;
+  --chart-5: #64748B;
+  
   --radius: 0.75rem;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #2d3748;
-  --sidebar-primary: #387B84;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f7f7f7;
-  --sidebar-accent-foreground: #2d3748;
-  --sidebar-border: #e5e7eb;
-  --sidebar-ring: #387B84;
+  
+  /* Sidebar */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1E293B;
+  --sidebar-primary: #143B6D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F6F8FA;
+  --sidebar-accent-foreground: #1E293B;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #143B6D;
 }
 
 .dark {
-  --background: #1a2332;
+  --background: #0f172a;
   --foreground: #f1f5f9;
-  --card: #243044;
+  --card: #1e293b;
   --card-foreground: #f1f5f9;
-  --popover: #243044;
+  --popover: #1e293b;
   --popover-foreground: #f1f5f9;
-  --primary: #4a9ba5;
-  --primary-foreground: #ffffff;
+  --primary: #3b82f6;
+  --primary-foreground: #FFFFFF;
   --secondary: #334155;
   --secondary-foreground: #f1f5f9;
   --muted: #334155;
   --muted-foreground: #94a3b8;
-  --accent: #F6A878;
-  --accent-foreground: #1a2332;
+  --accent: #50B878;
+  --accent-foreground: #FFFFFF;
   --destructive: #ef4444;
   --destructive-foreground: #fef2f2;
   --border: #334155;
   --input: #334155;
-  --ring: #4a9ba5;
-  --chart-1: #4a9ba5;
-  --chart-2: #5bb8c3;
-  --chart-3: #F6A878;
-  --chart-4: #22c55e;
-  --chart-5: #387B84;
-  --sidebar: #243044;
+  --ring: #3b82f6;
+  --chart-1: #3b82f6;
+  --chart-2: #50B878;
+  --chart-3: #5B5CE2;
+  --chart-4: #F97316;
+  --chart-5: #94a3b8;
+  --sidebar: #1e293b;
   --sidebar-foreground: #f1f5f9;
-  --sidebar-primary: #4a9ba5;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-primary: #3b82f6;
+  --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #334155;
   --sidebar-accent-foreground: #f1f5f9;
   --sidebar-border: #334155;
-  --sidebar-ring: #4a9ba5;
+  --sidebar-ring: #3b82f6;
 }
 
 @theme inline {
   --font-sans: var(--font-inter), 'Inter', sans-serif;
-  --font-serif: var(--font-playfair), 'Playfair Display', 'Georgia', serif;
+  --font-serif: var(--font-manrope), 'Manrope', sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -114,6 +128,14 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Laval Économique custom colors */
+  --color-laval-blue: var(--laval-blue);
+  --color-laval-blue-light: var(--laval-blue-light);
+  --color-laval-green: var(--laval-green);
+  --color-laval-indigo: var(--laval-indigo);
+  --color-laval-orange: var(--laval-orange);
+  --color-laval-orange-light: var(--laval-orange-light);
 }
 
 @layer base {
@@ -133,12 +155,55 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #f7f7f7;
+  background: #F6F8FA;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: #E2E8F0;
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #387B84;
+  background: #143B6D;
+}
+
+/* Animated counter */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-count-up {
+  animation: countUp 0.6s ease-out forwards;
+}
+
+/* Typing animation */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typing-animation {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 2s steps(40) forwards;
+}
+
+/* Flow line animation */
+@keyframes flowLine {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-flow-line {
+  stroke-dasharray: 100;
+  animation: flowLine 2s ease-in-out infinite;
+}
+
+/* Pulse dot animation */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.animate-pulse-dot {
+  animation: pulseDot 2s ease-in-out infinite;
 }
