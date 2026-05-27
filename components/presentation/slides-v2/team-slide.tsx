@@ -43,11 +43,10 @@ export function TeamSlide() {
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                 <div className="flex items-center gap-4">
                   <Image
-                    src="/images/techguys-omnigo-light.png"
-                    alt="TechGuys x OMNIGO"
+                    src="/images/omnigo-techguys-dark.png"
+                    alt="OMNIGO x TechGuys"
                     width={160}
                     height={30}
-                    className="brightness-0 invert"
                   />
                 </div>
               </div>
