@@ -39,17 +39,6 @@ export function OpeningSlide() {
             />
           </motion.div>
 
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white shadow-sm rounded-full border border-[#E2E8F0] mb-8"
-          >
-            <span className="text-[#64748B] text-sm">Proposition de mandat</span>
-            <span className="px-2 py-0.5 bg-[#50B878] text-white text-xs font-bold rounded-full">17 500 $ + taxes</span>
-          </motion.div>
-
           {/* Title */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
