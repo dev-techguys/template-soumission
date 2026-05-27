@@ -31,9 +31,6 @@ export function DemoSlide() {
             viewport={{ once: true }}
             className="text-center mb-8"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white/80 text-sm font-medium rounded-full mb-4">
-              SLIDE 7
-            </span>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
               Démo de l&apos;agent IA
             </h2>
