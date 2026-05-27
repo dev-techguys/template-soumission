@@ -8,13 +8,10 @@ import { DemoSlide } from "@/components/presentation/slides-v2/demo-slide"
 import { PlanSlide } from "@/components/presentation/slides-v2/plan-slide"
 import { InvestmentSlide } from "@/components/presentation/slides-v2/investment-slide"
 import { TeamSlide } from "@/components/presentation/slides-v2/team-slide"
-import { PresentationNavV2 } from "@/components/presentation/presentation-nav-v2"
 
 export default function Home() {
   return (
     <main className="bg-[#F6F8FA]">
-      <PresentationNavV2 />
-      
       {/* Slide 1: Ouverture */}
       <OpeningSlide />
       
