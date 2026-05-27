@@ -19,7 +19,7 @@ const SLIDES = [
   "security",
   "roadmap",
   "budget",
-  "closing"
+  "conclusion"
 ]
 
 const SLIDE_LABELS = [
