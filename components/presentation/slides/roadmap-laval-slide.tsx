@@ -87,7 +87,7 @@ const phases = [
   }
 ]
 
-export function RoadmapSlide() {
+export function RoadmapLavalSlide() {
   return (
     <SlideWrapper id="roadmap" className="bg-[#F6F8FA]">
       <div className="max-w-6xl mx-auto px-6 lg:px-16 py-24">
