@@ -73,7 +73,7 @@ export function OpeningSlide() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-3 mb-8"
+            className="flex flex-wrap justify-center gap-3 mb-16"
           >
             {[
               { icon: Compass, label: "Navigation site complet" },
@@ -88,19 +88,6 @@ export function OpeningSlide() {
                 <span className="text-[#1E293B] text-sm font-medium">{item.label}</span>
               </div>
             ))}
-          </motion.div>
-
-          {/* Investment badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 1 }}
-            className="mb-16"
-          >
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#50B878] text-white rounded-full shadow-md">
-              <span className="text-sm font-medium">Mandat proposé :</span>
-              <span className="text-lg font-bold">17 500 $ + taxes</span>
-            </div>
           </motion.div>
 
           {/* Flow diagram */}
