@@ -8,11 +8,11 @@ import Image from "next/image"
 export function OpeningSlide() {
   return (
     <SlideWrapper id="opening">
-      <div className="min-h-screen bg-gradient-to-br from-[#143B6D] via-[#0f2d52] to-[#0a1f3a] flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-[#F8FAFC] via-[#F1F5F9] to-[#E2E8F0] flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
         {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-[#50B878]/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#5B5CE2]/10 rounded-full blur-3xl" />
+          <div className="absolute top-20 left-10 w-96 h-96 bg-[#143B6D]/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#50B878]/5 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
@@ -28,14 +28,14 @@ export function OpeningSlide() {
               alt="OMNIGO x TechGuys"
               width={220}
               height={40}
+              className="bg-[#1E293B] px-4 py-2 rounded-lg"
             />
-            <span className="text-white/40 text-2xl font-light">pour</span>
+            <span className="text-[#64748B] text-2xl font-light">pour</span>
             <Image
               src="/images/laval-economique-logo.svg"
               alt="Laval Économique"
               width={180}
               height={31}
-              className="brightness-0 invert"
             />
           </motion.div>
 
@@ -44,9 +44,9 @@ export function OpeningSlide() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white shadow-sm rounded-full border border-[#E2E8F0] mb-8"
           >
-            <span className="text-white/80 text-sm">Proposition de mandat</span>
+            <span className="text-[#64748B] text-sm">Proposition de mandat</span>
             <span className="px-2 py-0.5 bg-[#50B878] text-white text-xs font-bold rounded-full">17 500 $ + taxes</span>
           </motion.div>
 
@@ -55,7 +55,7 @@ export function OpeningSlide() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 text-balance"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#1E293B] mb-6 text-balance"
           >
             Agent IA Laval Économique
           </motion.h1>
@@ -65,7 +65,7 @@ export function OpeningSlide() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-[#475569] mb-8 max-w-2xl mx-auto"
           >
             Connecter le site, les données et les intentions des entrepreneurs.
           </motion.p>
@@ -75,7 +75,7 @@ export function OpeningSlide() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-white/60 mb-12 max-w-xl mx-auto"
+            className="text-[#64748B] mb-12 max-w-xl mx-auto"
           >
             Une solution IA pour orienter les visiteurs, comprendre leurs besoins et préparer les suivis de l&apos;équipe.
           </motion.p>
@@ -91,13 +91,13 @@ export function OpeningSlide() {
               { icon: Compass, label: "Navigation site complet" },
               { icon: Database, label: "Connexion base de données" },
               { icon: BarChart3, label: "Dashboard d'intention" },
-            ].map((item, index) => (
+            ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
+                className="flex items-center gap-2 px-4 py-2 bg-white shadow-sm rounded-full border border-[#E2E8F0]"
               >
-                <item.icon className="w-4 h-4 text-[#50B878]" />
-                <span className="text-white text-sm font-medium">{item.label}</span>
+                <item.icon className="w-4 h-4 text-[#143B6D]" />
+                <span className="text-[#1E293B] text-sm font-medium">{item.label}</span>
               </div>
             ))}
           </motion.div>
@@ -125,12 +125,12 @@ export function OpeningSlide() {
                 className="flex items-center gap-2"
               >
                 <div className="flex flex-col items-center gap-1">
-                  <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20">
-                    <item.icon className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-white shadow-sm rounded-xl flex items-center justify-center border border-[#E2E8F0]">
+                    <item.icon className="w-6 h-6 text-[#143B6D]" />
                   </div>
-                  <span className="text-white/60 text-xs">{item.label}</span>
+                  <span className="text-[#64748B] text-xs">{item.label}</span>
                 </div>
-                {index < 5 && <ArrowRight className="w-4 h-4 text-white/40 hidden md:block" />}
+                {index < 5 && <ArrowRight className="w-4 h-4 text-[#CBD5E1] hidden md:block" />}
               </motion.div>
             ))}
           </motion.div>
@@ -146,9 +146,9 @@ export function OpeningSlide() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2"
+            className="w-6 h-10 rounded-full border-2 border-[#CBD5E1] flex items-start justify-center p-2"
           >
-            <div className="w-1.5 h-2 bg-white/50 rounded-full" />
+            <div className="w-1.5 h-2 bg-[#94A3B8] rounded-full" />
           </motion.div>
         </motion.div>
       </div>
