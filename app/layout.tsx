@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: 'Laval AI Agent',
-  description: 'Proposition de partenariat technologique pour Safex Transport — Agent IA de navigation web par TechGuys Consulting',
+  title: 'Agent IA Laval Économique',
+  description: 'Une couche intelligente pour connecter le site web, les données et les intentions des entrepreneurs — Proposition par TechGuys Consulting',
 }
 
 export default function RootLayout({

@@ -108,7 +108,7 @@ export function CoverSlide() {
             transition={{ duration: 0.8, delay: 0.7 }}
             className="font-serif text-4xl md:text-6xl lg:text-7xl tracking-tight text-white leading-tight max-w-4xl text-balance"
           >
-            Laval AI Agent
+            Agent IA Laval Économique
           </motion.h1>
 
           {/* Subtitle */}
@@ -118,7 +118,7 @@ export function CoverSlide() {
             transition={{ duration: 0.6, delay: 0.9 }}
             className="text-lg md:text-xl text-[#ff7000] font-sans font-medium max-w-2xl"
           >
-            Un assistant intelligent pour guider vos visiteurs vers le bon service Safex
+            Une couche intelligente pour connecter le site web, les données et les intentions des entrepreneurs.
           </motion.p>
 
           <motion.div 
