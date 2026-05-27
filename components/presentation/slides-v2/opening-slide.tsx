@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Database, Compass, BarChart3, ArrowRight, Bot, Globe, Users } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
+import Image from "next/image"
 
 export function OpeningSlide() {
   return (
@@ -15,6 +16,22 @@ export function OpeningSlide() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8"
+          >
+            <Image
+              src="/images/techguys-omnigo-logo.png"
+              alt="TechGuys x OMNIGO"
+              width={280}
+              height={50}
+              className="mx-auto brightness-0 invert"
+            />
+          </motion.div>
+
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}

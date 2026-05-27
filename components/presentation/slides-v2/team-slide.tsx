@@ -5,6 +5,7 @@ import { User, CheckCircle, ArrowRight } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 import { SectionHeader } from "../ui/section-header"
 import { AnnexAccordion } from "../ui/annex-accordion"
+import Image from "next/image"
 
 const team = [
   {
@@ -120,6 +121,24 @@ export function TeamSlide() {
           >
             <h4 className="text-lg font-semibold text-[#1E293B] mb-4 text-center">Annexes</h4>
             <AnnexAccordion />
+          </motion.div>
+
+          {/* Logo footer */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.1 }}
+            className="mt-12 pt-8 border-t border-gray-200 text-center"
+          >
+            <Image
+              src="/images/techguys-omnigo-logo.png"
+              alt="TechGuys x OMNIGO"
+              width={200}
+              height={36}
+              className="mx-auto"
+            />
+            <p className="text-[#64748B] text-sm mt-4">Proposition de mandat - Agent IA Laval Économique</p>
           </motion.div>
         </div>
       </div>
