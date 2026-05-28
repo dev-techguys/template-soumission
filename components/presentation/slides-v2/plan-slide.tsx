@@ -56,7 +56,6 @@ export function PlanSlide() {
         <div className="max-w-5xl mx-auto w-full">
           <SectionHeader
             title="Plan de réalisation"
-            subtitle="Un déploiement progressif sur 10 semaines pour limiter le risque et valider la valeur rapidement."
           />
 
           {/* Elegant Gantt Chart */}
