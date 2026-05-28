@@ -8,6 +8,7 @@ import { DemoSlide } from "@/components/presentation/slides-v2/demo-slide"
 import { PlanSlide } from "@/components/presentation/slides-v2/plan-slide"
 import { InvestmentSlide } from "@/components/presentation/slides-v2/investment-slide"
 import { TeamSlide } from "@/components/presentation/slides-v2/team-slide"
+import { ThankYouSlide } from "@/components/presentation/slides-v2/thank-you-slide"
 
 export default function Home() {
   return (
@@ -41,6 +42,9 @@ export default function Home() {
       
       {/* Slide 10: Équipe et prochaines étapes */}
       <TeamSlide />
+      
+      {/* Slide 11: Remerciement */}
+      <ThankYouSlide />
     </main>
   )
 }
