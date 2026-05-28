@@ -37,9 +37,10 @@ export function OpeningSlide() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#1E293B] mb-6 text-balance"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#1E293B] mb-6"
           >
-            Agent IA Laval Économique
+            <span className="block">Agent IA</span>
+            <span className="block text-[#143B6D]">Laval Économique</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -47,19 +48,9 @@ export function OpeningSlide() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-xl md:text-2xl text-[#475569] mb-8 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-[#475569] mb-12 max-w-2xl mx-auto"
           >
             Connecter le site, les données et les intentions des entrepreneurs.
-          </motion.p>
-
-          {/* Short description */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-[#64748B] mb-12 max-w-xl mx-auto"
-          >
-            Une solution IA pour orienter les visiteurs, comprendre leurs besoins et préparer les suivis de l&apos;équipe.
           </motion.p>
 
           {/* Three badges */}
