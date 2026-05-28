@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Play, ExternalLink, Bot, Sparkles, MessageSquare, ClipboardList, Route } from "lucide-react"
+import { Play, ExternalLink, Bot, Sparkles } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 
 export function DemoSlide() {
@@ -167,7 +167,7 @@ export function DemoSlide() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5, type: "spring", stiffness: 150, damping: 15 }}
-            className="mb-10"
+            className="mb-16"
           >
             <a
               href={demoUrl}
@@ -222,68 +222,6 @@ export function DemoSlide() {
                 </motion.div>
               </motion.div>
             </a>
-          </motion.div>
-
-          {/* Demo modes */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6 }}
-            className="mb-8"
-          >
-            <p className="text-white/60 text-sm mb-4">La démo montre trois modes :</p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {[
-                { icon: MessageSquare, label: "Conversation libre" },
-                { icon: ClipboardList, label: "Pré-diagnostic 13 questions" },
-                { icon: Route, label: "Scénarios fréquents" }
-              ].map((mode, i) => (
-                <motion.div
-                  key={mode.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7 + i * 0.1 }}
-                  className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
-                >
-                  <mode.icon className="w-4 h-4 text-[#50B878]" />
-                  <span className="text-white/80 text-sm">{mode.label}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Scenario buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8 }}
-            className="mb-12"
-          >
-            <p className="text-white/50 text-xs mb-3">Scénarios disponibles dans la démo :</p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {[
-                "Démarrer une entreprise",
-                "Chercher du financement",
-                "Trouver un local",
-                "Exporter",
-                "Événements",
-                "Parler à quelqu'un"
-              ].map((scenario, i) => (
-                <motion.span
-                  key={scenario}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.85 + i * 0.05 }}
-                  className="px-3 py-1.5 text-xs bg-white/5 text-white/60 rounded-lg border border-white/10 hover:bg-white/10 hover:text-white/80 transition-colors cursor-default"
-                >
-                  {scenario}
-                </motion.span>
-              ))}
-            </div>
           </motion.div>
 
           {/* Key points */}
