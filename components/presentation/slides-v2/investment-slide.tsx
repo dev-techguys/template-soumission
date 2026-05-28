@@ -25,9 +25,6 @@ export function InvestmentSlide() {
           >
             <span className="text-5xl md:text-7xl font-bold text-[#143B6D]">17 500 $</span>
             <span className="text-2xl text-[#64748B] ml-2">+ taxes</span>
-            <p className="text-[#64748B] mt-2">
-              Enveloppe complète pour une première version fonctionnelle, connectée et mesurable.
-            </p>
           </motion.div>
 
           {/* Investment table */}
