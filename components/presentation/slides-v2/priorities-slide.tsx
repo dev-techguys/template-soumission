@@ -100,19 +100,6 @@ export function PrioritiesSlide() {
               </motion.div>
             ))}
           </div>
-
-          {/* Pre-diagnostic note */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="text-center"
-          >
-            <p className="text-sm text-[#64748B] max-w-2xl mx-auto">
-              Le pré-diagnostic agit comme un parcours guidé lorsque le visiteur ne sait pas par où commencer.
-            </p>
-          </motion.div>
         </div>
       </div>
     </SlideWrapper>
