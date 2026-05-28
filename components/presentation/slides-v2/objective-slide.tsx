@@ -27,7 +27,7 @@ const objectives = [
   {
     icon: ClipboardList,
     title: "Pré-qualifier les entrepreneurs",
-    description: "Un pré-diagnostic de 13 questions pour mieux comprendre le profil et les besoins avant de recommander une ressource.",
+    description: "13 questions pour clarifier le profil et orienter vers la bonne ressource.",
     color: "#F59E0B"
   }
 ]
