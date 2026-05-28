@@ -1,11 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Play, ExternalLink, Bot, Sparkles } from "lucide-react"
+import { Play, ExternalLink, Bot, Sparkles, Smartphone } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 
 export function DemoSlide() {
   const demoUrl = "https://laval-ai.vercel.app/"
+  const mobileDemoUrl = "https://v0-laval-economique-ai.vercel.app/"
 
   return (
     <SlideWrapper id="demo">
@@ -224,6 +225,26 @@ export function DemoSlide() {
                 </motion.div>
               </motion.div>
             </a>
+
+            {/* Mobile demo button */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7 }}
+              className="mt-4"
+            >
+              <a
+                href={mobileDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-lg text-white/80 hover:text-white text-sm transition-all"
+              >
+                <Smartphone className="w-4 h-4" />
+                <span>Version mobile</span>
+                <ExternalLink className="w-3 h-3 opacity-60" />
+              </a>
+            </motion.div>
           </motion.div>
 
           {/* Key points */}
