@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Play, ExternalLink, Bot, Sparkles, MessageSquare, Zap, ArrowRight } from "lucide-react"
+import { Play, ExternalLink, Bot, Sparkles } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 
 export function DemoSlide() {
@@ -222,50 +222,6 @@ export function DemoSlide() {
                 </motion.div>
               </motion.div>
             </a>
-          </motion.div>
-
-          {/* Animated conversation preview */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.7 }}
-            className="mb-12"
-          >
-            <div className="flex items-center justify-center gap-4 flex-wrap">
-              {[
-                { icon: MessageSquare, text: "Bonjour, je cherche du financement" },
-                { icon: Zap, text: "Analyse en cours..." },
-                { icon: ArrowRight, text: "3 programmes identifiés" }
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8 + i * 0.2 }}
-                  className="flex items-center gap-2"
-                >
-                  <motion.div
-                    animate={i === 1 ? { rotate: 360 } : {}}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20"
-                  >
-                    <item.icon className="w-5 h-5 text-[#50B878]" />
-                  </motion.div>
-                  <span className="text-white/80 text-sm">{item.text}</span>
-                  {i < 2 && (
-                    <motion.span
-                      animate={{ opacity: [0.3, 1, 0.3] }}
-                      transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-                      className="text-[#50B878] mx-2"
-                    >
-                      →
-                    </motion.span>
-                  )}
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
 
           {/* Key points */}
