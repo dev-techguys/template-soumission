@@ -8,36 +8,30 @@ import Image from "next/image"
 export function OpeningSlide() {
   return (
     <SlideWrapper id="opening">
-      <div className="min-h-screen bg-gradient-to-br from-[#F8FAFC] via-[#F1F5F9] to-[#E2E8F0] flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-[#F8FAFC] via-[#F1F5F9] to-[#E2E8F0] flex flex-col px-6 py-8 relative overflow-hidden">
         {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-96 h-96 bg-[#143B6D]/5 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#50B878]/5 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-          {/* Logos - Partnership */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center justify-center gap-6 mb-8"
-          >
-            <Image
-              src="/images/techguys-omnigo-light.png"
-              alt="TechGuys x OMNIGO"
-              width={220}
-              height={40}
-            />
-            <span className="text-[#64748B] text-2xl font-light">pour</span>
-            <Image
-              src="/images/laval-economique-logo.svg"
-              alt="Laval Économique"
-              width={180}
-              height={31}
-            />
-          </motion.div>
+        {/* Top left - Laval Économique logo */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10"
+        >
+          <Image
+            src="/images/laval-economique-logo.svg"
+            alt="Laval Économique"
+            width={180}
+            height={31}
+          />
+        </motion.div>
 
+        {/* Main content - centered */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center max-w-5xl mx-auto text-center">
           {/* Title */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -124,7 +118,21 @@ export function OpeningSlide() {
           </motion.div>
         </div>
 
-        </div>
+        {/* Bottom center - Omnigo TechGuys logo */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.5 }}
+          className="relative z-10 flex justify-center pb-4"
+        >
+          <Image
+            src="/images/techguys-omnigo-light.png"
+            alt="TechGuys x OMNIGO"
+            width={200}
+            height={36}
+          />
+        </motion.div>
+      </div>
     </SlideWrapper>
   )
 }
