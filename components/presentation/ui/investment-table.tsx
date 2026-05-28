@@ -1,0 +1,175 @@
+"use client"
+
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronDown } from "lucide-react"
+
+interface Phase {
+  name: string
+  amount: string
+  tasks: string[]
+}
+
+const phases: Phase[] = [
+  {
+    name: "Phase 1 — Cadrage stratégique",
+    amount: "2 500 $",
+    tasks: [
+      "Analyse du mandat",
+      "Rencontre de cadrage",
+      "Validation des objectifs",
+      "Identification des parcours prioritaires",
+      "Définition de l'architecture fonctionnelle",
+      "Définition des règles de données",
+      "Validation des accès nécessaires",
+      "Priorisation du périmètre MVP"
+    ]
+  },
+  {
+    name: "Phase 2 — Agent IA + Navigation + Scénarios",
+    amount: "4 500 $",
+    tasks: [
+      "Développement du widget conversationnel",
+      "Création des parcours guidés",
+      "Intégration du prédiagnostic entrepreneurial",
+      "Structuration du questionnaire 13 questions",
+      "Création des scénarios fréquents",
+      "Création des parcours de réponse rapides",
+      "Association des scénarios aux ressources du site",
+      "Connexion ou structuration du contenu du site",
+      "Détection des intentions principales",
+      "Tests des scénarios utilisateurs"
+    ]
+  },
+  {
+    name: "Phase 3 — Connexion à la base de données",
+    amount: "4 500 $",
+    tasks: [
+      "Analyse de la structure de la base actuelle",
+      "Identification des champs accessibles",
+      "Définition des règles de lecture",
+      "Définition des règles d'enrichissement",
+      "Recherche de dossier existant",
+      "Gestion des correspondances exactes",
+      "Gestion des correspondances partielles",
+      "Règles anti-doublons",
+      "Résumé de demande pour l'équipe",
+      "Journalisation des actions importantes"
+    ]
+  },
+  {
+    name: "Phase 4 — Tableau de bord d'intention",
+    amount: "3 500 $",
+    tasks: [
+      "Création du tableau de bord admin",
+      "Suivi des intentions visiteurs",
+      "Suivi des résultats du prédiagnostic",
+      "Suivi des scénarios les plus utilisés",
+      "Suivi des questions fréquentes",
+      "Suivi des services recommandés",
+      "Suivi des demandes de suivi humain",
+      "Métriques de navigation",
+      "Graphiques simples et lisibles",
+      "Insights actionnables pour l'équipe"
+    ]
+  },
+  {
+    name: "Phase 5 — Tests et mise en ligne",
+    amount: "2 500 $",
+    tasks: [
+      "Tests fonctionnels",
+      "Tests des réponses de l'agent",
+      "Validation des scénarios fréquents avec l'équipe",
+      "Tests des parcours utilisateurs",
+      "Ajustements UX",
+      "Ajustements des contenus",
+      "Mise en ligne",
+      "Documentation d'utilisation",
+      "Formation de l'équipe",
+      "Recommandations pour la suite"
+    ]
+  }
+]
+
+export function InvestmentTable() {
+  const [openPhase, setOpenPhase] = useState<number | null>(null)
+
+  const togglePhase = (index: number) => {
+    setOpenPhase(openPhase === index ? null : index)
+  }
+
+  return (
+    <div className="space-y-2 md:space-y-3">
+      {phases.map((phase, index) => (
+        <motion.div
+          key={phase.name}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+          className="bg-white rounded-xl border border-[#E2E8F0] overflow-hidden hover:shadow-md transition-shadow duration-200"
+        >
+          {/* Header - Always visible */}
+          <button
+            onClick={() => togglePhase(index)}
+            className="w-full p-3 md:p-4 flex items-center justify-between gap-2 md:gap-4 text-left hover:bg-[#F8FAFC] transition-colors duration-200"
+          >
+            <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
+              <motion.div
+                animate={{ rotate: openPhase === index ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+                className="w-7 md:w-8 h-7 md:h-8 rounded-lg bg-[#F1F5F9] flex items-center justify-center flex-shrink-0"
+              >
+                <ChevronDown className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#64748B]" />
+              </motion.div>
+              <h4 className="font-semibold text-[#1E293B] text-xs sm:text-sm md:text-base line-clamp-2 md:line-clamp-1">{phase.name}</h4>
+            </div>
+            <span className="text-sm md:text-lg font-bold text-[#143B6D] flex-shrink-0">{phase.amount}</span>
+          </button>
+
+          {/* Expandable content */}
+          <AnimatePresence>
+            {openPhase === index && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="px-3 md:px-4 pb-3 md:pb-4 pt-2 border-t border-[#E2E8F0]">
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5 md:gap-2">
+                    {phase.tasks.map((task, taskIndex) => (
+                      <motion.li
+                        key={task}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.2, delay: taskIndex * 0.03 }}
+                        className="flex items-start gap-2 text-xs md:text-sm text-[#64748B]"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#50B878] mt-1.5 flex-shrink-0" />
+                        {task}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      ))}
+      
+      {/* Total */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.3, delay: 0.5 }}
+        className="bg-[#143B6D] rounded-xl p-3 md:p-4 flex items-center justify-between"
+      >
+        <span className="font-bold text-white text-sm md:text-base">Total</span>
+        <span className="text-lg md:text-2xl font-bold text-white">17 500 $ + taxes</span>
+      </motion.div>
+    </div>
+  )
+}
