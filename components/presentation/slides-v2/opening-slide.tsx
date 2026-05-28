@@ -25,8 +25,8 @@ export function OpeningSlide() {
           <Image
             src="/images/laval-economique-logo.svg"
             alt="Laval Économique"
-            width={180}
-            height={31}
+            width={280}
+            height={48}
           />
         </motion.div>
 
@@ -86,8 +86,8 @@ export function OpeningSlide() {
           <Image
             src="/images/techguys-omnigo-light.png"
             alt="TechGuys x OMNIGO"
-            width={200}
-            height={36}
+            width={320}
+            height={58}
           />
         </motion.div>
       </div>
