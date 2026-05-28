@@ -31,7 +31,7 @@ const phases: Phase[] = [
     tasks: [
       "Développement du widget conversationnel",
       "Création des parcours guidés",
-      "Intégration du pré-diagnostic entrepreneurial",
+      "Intégration du prédiagnostic entrepreneurial",
       "Structuration du questionnaire 13 questions",
       "Création des scénarios fréquents",
       "Création des parcours de réponse rapides",
@@ -42,7 +42,7 @@ const phases: Phase[] = [
     ]
   },
   {
-    name: "Phase 3 — Connexion base de données",
+    name: "Phase 3 — Connexion à la base de données",
     amount: "4 500 $",
     tasks: [
       "Analyse de la structure de la base actuelle",
@@ -52,29 +52,29 @@ const phases: Phase[] = [
       "Recherche de dossier existant",
       "Gestion des correspondances exactes",
       "Gestion des correspondances partielles",
-      "Règles anti doublon",
+      "Règles anti-doublons",
       "Résumé de demande pour l'équipe",
       "Journalisation des actions importantes"
     ]
   },
   {
-    name: "Phase 4 — Dashboard d'intention",
+    name: "Phase 4 — Tableau de bord d'intention",
     amount: "3 500 $",
     tasks: [
-      "Création du dashboard admin",
+      "Création du tableau de bord admin",
       "Suivi des intentions visiteurs",
-      "Suivi des résultats du pré-diagnostic",
+      "Suivi des résultats du prédiagnostic",
       "Suivi des scénarios les plus utilisés",
       "Suivi des questions fréquentes",
       "Suivi des services recommandés",
-      "Suivi des demandes de contact humain",
+      "Suivi des demandes de suivi humain",
       "Métriques de navigation",
       "Graphiques simples et lisibles",
       "Insights actionnables pour l'équipe"
     ]
   },
   {
-    name: "Phase 5 — Tests et déploiement",
+    name: "Phase 5 — Tests et mise en ligne",
     amount: "2 500 $",
     tasks: [
       "Tests fonctionnels",

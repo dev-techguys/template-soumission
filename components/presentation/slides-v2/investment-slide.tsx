@@ -49,7 +49,7 @@ export function InvestmentSlide() {
             {[
               { icon: Database, label: "Connecter", desc: "Base de données", color: "#143B6D" },
               { icon: Compass, label: "Guider", desc: "Site complet", color: "#5B5CE2" },
-              { icon: BarChart3, label: "Mesurer", desc: "Dashboard d'intention", color: "#50B878" },
+              { icon: BarChart3, label: "Mesurer", desc: "Tableau de bord d'intention", color: "#50B878" },
             ].map((item, index) => (
               <div
                 key={item.label}

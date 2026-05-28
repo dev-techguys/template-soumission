@@ -61,9 +61,9 @@ export function OpeningSlide() {
             className="flex flex-wrap justify-center gap-3"
           >
             {[
-              { icon: Compass, label: "Navigation site complet" },
-              { icon: Database, label: "Connexion base de données" },
-              { icon: BarChart3, label: "Dashboard d'intention" },
+              { icon: Compass, label: "Navigation sur le site complet" },
+              { icon: Database, label: "Connexion à la base de données" },
+              { icon: BarChart3, label: "Tableau de bord d'intention" },
             ].map((item) => (
               <div
                 key={item.label}

@@ -33,7 +33,7 @@ const modules = [
   },
   {
     icon: ClipboardList,
-    title: "Pré-diagnostic entrepreneurial",
+    title: "Prédiagnostic entrepreneurial",
     summary: "Questionnaire de 13 questions pour qualifier le profil et les besoins de l'entrepreneur.",
     details: {
       deliver: "Un questionnaire rapide de 13 questions intégré à l'agent IA pour aider les entrepreneurs à clarifier leur profil, leur stade et leurs besoins.",
@@ -42,9 +42,9 @@ const modules = [
         "Logique de progression simple",
         "Analyse des réponses",
         "Association du profil aux services pertinents",
-        "Génération d'un résumé du pré-diagnostic",
+        "Génération d'un résumé du prédiagnostic",
         "Recommandation d'une ressource, d'un parcours ou d'un suivi humain",
-        "Envoi des résultats pertinents au dashboard"
+        "Envoi des résultats pertinents au tableau de bord"
       ],
       benefits: [
         "L'entrepreneur est mieux orienté dès le départ",
@@ -52,9 +52,9 @@ const modules = [
         "Les recommandations sont plus précises",
         "Les demandes entrantes sont mieux qualifiées"
       ],
-      deliverables: ["Questionnaire 13 questions", "Logique de pré-qualification", "Résumé de profil", "Recommandations automatiques"]
+      deliverables: ["Questionnaire 13 questions", "Logique de préqualification", "Résumé de profil", "Recommandations automatiques"]
     },
-    keyMessage: "Quand l'utilisateur ne sait pas quoi demander, le pré-diagnostic guide la conversation.",
+    keyMessage: "Quand l'utilisateur ne sait pas quoi demander, le prédiagnostic guide la conversation.",
     color: "#F59E0B"
   },
   {
@@ -85,7 +85,7 @@ const modules = [
     title: "Scénarios fréquents et parcours intégrés",
     summary: "Bibliothèque de parcours basés sur les questions fréquentes des entrepreneurs.",
     details: {
-      deliver: "Une bibliothèque de scénarios basés sur les questions fréquentes et les parcours souvent observés chez les entrepreneurs.",
+      deliver: "Une bibliothèque de scénarios basés sur les questions fréquentes et parcours souvent observés chez les entrepreneurs.",
       how: [
         "Identification des questions récurrentes",
         "Regroupement par intention : démarrage, financement, local, exportation",
@@ -114,7 +114,7 @@ const modules = [
       how: [
         "Analyse de la base de données et accès disponibles",
         "Identification des champs lisibles et modifiables",
-        "Règles de prudence : lire avant d'écrire, éviter doublons",
+        "Règles de prudence : lire avant d'écrire, éviter les doublons",
         "Logique de recherche par courriel, téléphone, nom",
         "Résumé de besoin plutôt que modification risquée",
         "Journalisation des actions importantes"
@@ -131,7 +131,7 @@ const modules = [
   },
   {
     icon: BarChart3,
-    title: "Dashboard visiteurs et intention",
+    title: "Tableau de bord des visiteurs et des intentions",
     summary: "Vue claire sur ce que les visiteurs cherchent réellement.",
     details: {
       deliver: "Un tableau de bord regroupant les intentions détectées, questions fréquentes, services demandés et opportunités.",
@@ -139,7 +139,7 @@ const modules = [
         "Définition d'une taxonomie d'intentions claire",
         "Enregistrement des événements importants",
         "Création de métriques simples et utiles",
-        "Suivi des résultats du pré-diagnostic",
+        "Suivi des résultats du prédiagnostic",
         "Suivi des scénarios les plus utilisés",
         "Insights actionnables pour améliorer le site"
       ],
@@ -148,14 +148,14 @@ const modules = [
         "Améliorer les contenus avec des données réelles",
         "Priorités de communication plus claires"
       ],
-      deliverables: ["Dashboard admin", "Cartes statistiques", "Graphiques d'intention", "Suivi pré-diagnostic"]
+      deliverables: ["Tableau de bord admin", "Cartes statistiques", "Graphiques d'intention", "Suivi prédiagnostic"]
     },
-    keyMessage: "Chaque question devient un signal d'intention. Le dashboard transforme ces signaux en décisions.",
+    keyMessage: "Chaque question devient un signal d'intention. Le tableau de bord transforme ces signaux en décisions.",
     color: "#5B5CE2"
   },
   {
     icon: Rocket,
-    title: "Tests, déploiement et transfert",
+    title: "Tests, mise en ligne et transfert",
     summary: "S'assurer que l'agent est utilisable et prêt à être adopté par l'équipe.",
     details: {
       deliver: "Validation complète incluant tests de scénarios, ajustements, mise en ligne progressive et formation.",

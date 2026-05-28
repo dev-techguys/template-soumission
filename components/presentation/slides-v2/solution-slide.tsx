@@ -8,14 +8,14 @@ import { SectionHeader } from "../ui/section-header"
 const blocks = [
   {
     icon: MessageSquare,
-    title: "Interface agent IA",
+    title: "Interface de l'agent IA",
     description: "Le visiteur pose une question ou choisit un parcours guidé.",
     color: "#143B6D"
   },
   {
     icon: ClipboardList,
-    title: "Pré-diagnostic entrepreneurial",
-    description: "Questionnaire guidé de 13 questions pour clarifier le profil, le stade et les besoins.",
+    title: "Prédiagnostic entrepreneurial",
+    description: "Questionnaire de 13 questions pour clarifier le profil, le stade et les besoins.",
     color: "#F59E0B"
   },
   {
@@ -25,25 +25,25 @@ const blocks = [
     color: "#5B5CE2",
     subBlock: {
       icon: Route,
-      title: "Scénarios intégrés",
+      title: "Scénarios fréquents",
       description: "Questions fréquentes et parcours récurrents pour accélérer les réponses."
     }
   },
   {
     icon: Compass,
-    title: "Navigation site complet",
+    title: "Navigation sur le site complet",
     description: "L'agent recommande la bonne ressource.",
     color: "#50B878"
   },
   {
     icon: Database,
-    title: "Connecteur base de données",
+    title: "Connecteur à la base de données",
     description: "L'agent prépare ou enrichit les suivis selon les règles définies.",
     color: "#143B6D"
   },
   {
     icon: BarChart3,
-    title: "Dashboard",
+    title: "Tableau de bord",
     description: "L'équipe voit les intentions, demandes et opportunités.",
     color: "#5B5CE2"
   }

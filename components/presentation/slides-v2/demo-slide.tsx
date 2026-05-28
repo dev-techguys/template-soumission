@@ -147,7 +147,7 @@ export function DemoSlide() {
                 animate={{ opacity: [0.7, 1, 0.7] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                Voyez l&apos;agent en action
+                Démonstration de l&apos;agent IA
               </motion.span>
             </motion.h2>
             <motion.p 
@@ -235,7 +235,7 @@ export function DemoSlide() {
             {[
               { title: "Comprend", desc: "L'intention du visiteur", delay: 0 },
               { title: "Recommande", desc: "Une ressource ou action", delay: 0.1 },
-              { title: "Transmet", desc: "Les signaux au dashboard", delay: 0.2 }
+              { title: "Transmet", desc: "Les signaux au tableau de bord", delay: 0.2 }
             ].map((point, index) => (
               <motion.div
                 key={index}

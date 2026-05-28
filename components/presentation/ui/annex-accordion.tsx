@@ -34,12 +34,12 @@ const annexes: AnnexItem[] = [
   {
     title: "Questions à valider",
     content: [
-      "Quelle base de données est utilisée?",
-      "Quels champs peuvent être lus ou enrichis?",
-      "Quelles pages doivent être incluses?",
-      "Qui aura accès au dashboard?",
-      "Quelles intentions doivent être priorisées?",
-      "Quels cas doivent être transférés à un humain?"
+      "Quelle base de données est utilisée ?",
+      "Quels champs peuvent être lus ou enrichis ?",
+      "Quelles pages doivent être incluses ?",
+      "Qui aura accès au tableau de bord ?",
+      "Quelles intentions doivent être priorisées ?",
+      "Quels cas doivent être transférés à un humain ?"
     ]
   },
   {

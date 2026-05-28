@@ -51,7 +51,7 @@ export function TeamSlide() {
               </div>
             </div>
             <p className="text-center text-[#64748B] mt-4 text-sm">
-              Notre équipe multidisciplinaire : Direction de projet, Implémentation IA, Développement Technologiques, Optimisation des Ventes, Marketing Digital
+              Notre équipe multidisciplinaire : direction de projet, implémentation IA, développement technologique, optimisation des ventes, marketing numérique
             </p>
           </motion.div>
 

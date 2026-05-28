@@ -9,7 +9,7 @@ const priorities = [
   {
     icon: Database,
     number: 1,
-    title: "Base de données actuelle",
+    title: "Connexion à la base de données actuelle",
     description: "Vérifier, créer ou enrichir un dossier selon des règles contrôlées.",
     benefit: "Moins de doublons, plus de contexte, suivis mieux préparés",
     color: "#143B6D"
@@ -17,16 +17,16 @@ const priorities = [
   {
     icon: Compass,
     number: 2,
-    title: "Navigation sur le site complet",
+    title: "Navigation intelligente sur le site complet",
     description: "Comprendre la question et recommander la bonne ressource du site.",
     benefit: "Moins de friction, meilleure utilisation du contenu existant",
-    badges: ["Pré-diagnostic 13 questions"],
+    badges: ["Prédiagnostic entrepreneurial"],
     color: "#5B5CE2"
   },
   {
     icon: BarChart3,
     number: 3,
-    title: "Dashboard visiteurs et intention",
+    title: "Tableau de bord des visiteurs et des intentions",
     description: "Visualiser les questions, intentions, services recherchés et suivis humains.",
     benefit: "Meilleure lecture des besoins, décisions plus éclairées",
     color: "#50B878"

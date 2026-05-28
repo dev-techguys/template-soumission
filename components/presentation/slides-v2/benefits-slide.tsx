@@ -14,7 +14,7 @@ const benefits = [
   {
     icon: Target,
     title: "Moins de demandes mal orientées",
-    description: "L'agent clarifie le besoin avant le contact humain."
+    description: "L'agent clarifie le besoin avant le suivi humain."
   },
   {
     icon: Users,
@@ -24,12 +24,12 @@ const benefits = [
   {
     icon: FileText,
     title: "Meilleure qualification des entrepreneurs",
-    description: "Le pré-diagnostic permet de comprendre rapidement le stade et les besoins."
+    description: "Le prédiagnostic permet de comprendre rapidement le stade et les besoins."
   },
   {
     icon: LineChart,
     title: "Réponses plus rapides aux besoins récurrents",
-    description: "Les scénarios intégrés reconnaissent les demandes fréquentes et proposent le bon chemin."
+    description: "Les scénarios fréquents reconnaissent les demandes courantes et proposent le bon chemin."
   },
   {
     icon: Layers,

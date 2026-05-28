@@ -87,7 +87,7 @@ export function ObjectiveSlide() {
             className="text-center"
           >
             <p className="inline-block px-6 py-3 bg-[#143B6D]/5 rounded-full text-[#143B6D] font-medium">
-              L&apos;agent ne remplace pas l&apos;humain. Il prépare mieux l&apos;intervention humaine.
+              L&apos;agent ne remplace pas l&apos;humain. Il prépare mieux le suivi humain.
             </p>
           </motion.div>
         </div>

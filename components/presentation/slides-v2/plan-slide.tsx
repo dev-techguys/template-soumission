@@ -15,15 +15,15 @@ const phases = [
   },
   {
     number: 2,
-    name: "Agent + Navigation + Scénarios",
+    name: "Agent IA + Navigation + Scénarios",
     startWeek: 2,
     endWeek: 5,
     color: "#1E5A9C",
-    deliverables: ["Widget IA + Pré-diagnostic + Scénarios"]
+    deliverables: ["Widget IA + Prédiagnostic + Scénarios"]
   },
   {
     number: 3,
-    name: "Connexion base de données",
+    name: "Connexion à la base de données",
     startWeek: 4,
     endWeek: 7,
     color: "#50B878",
@@ -31,15 +31,15 @@ const phases = [
   },
   {
     number: 4,
-    name: "Dashboard intention",
+    name: "Tableau de bord d'intention",
     startWeek: 6,
     endWeek: 8,
     color: "#5B5CE2",
-    deliverables: ["Métriques + Suivi pré-diagnostic"]
+    deliverables: ["Métriques + Suivi prédiagnostic"]
   },
   {
     number: 5,
-    name: "Tests et déploiement",
+    name: "Tests et mise en ligne",
     startWeek: 8,
     endWeek: 10,
     color: "#F59E0B",
