@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageSquare, Compass, Database, BarChart3, Rocket, ChevronDown, Check } from "lucide-react"
+import { MessageSquare, Compass, Database, BarChart3, Rocket, ChevronDown, Check, Users, Globe, Bot } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 import { SectionHeader } from "../ui/section-header"
 
@@ -256,6 +256,38 @@ export function ModulesSlide() {
             <p className="text-[#64748B]">
               On construit l&apos;agent, on le connecte, on le mesure, puis on le transfère à l&apos;équipe.
             </p>
+          </motion.div>
+
+          {/* Flow Diagram */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8 }}
+            className="mt-12 py-8 px-6 bg-[#F1F5F9] rounded-2xl"
+          >
+            <div className="flex items-center justify-center gap-2 md:gap-4 flex-wrap">
+              {[
+                { icon: Users, label: "Visiteur" },
+                { icon: Bot, label: "Agent IA" },
+                { icon: Globe, label: "Site complet" },
+                { icon: Database, label: "Base de données" },
+                { icon: BarChart3, label: "Dashboard" },
+                { icon: Users, label: "Équipe" },
+              ].map((step, index, arr) => (
+                <div key={step.label} className="flex items-center gap-2 md:gap-4">
+                  <div className="flex flex-col items-center">
+                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-sm flex items-center justify-center">
+                      <step.icon className="w-6 h-6 md:w-7 md:h-7 text-[#143B6D]" />
+                    </div>
+                    <span className="text-xs md:text-sm text-[#64748B] mt-2 font-medium">{step.label}</span>
+                  </div>
+                  {index < arr.length - 1 && (
+                    <span className="text-[#CBD5E1] text-xl md:text-2xl font-light mb-6">→</span>
+                  )}
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
