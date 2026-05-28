@@ -23,18 +23,18 @@ const benefits = [
   },
   {
     icon: FileText,
-    title: "Valorisation du contenu existant",
-    description: "Les pages et ressources du site sont mieux exploitées."
+    title: "Meilleure qualification des entrepreneurs",
+    description: "Le pré-diagnostic permet de comprendre rapidement le stade et les besoins."
   },
   {
     icon: LineChart,
-    title: "Données d'intention exploitables",
-    description: "Les questions deviennent des signaux pour améliorer les services."
+    title: "Réponses plus rapides aux besoins récurrents",
+    description: "Les scénarios intégrés reconnaissent les demandes fréquentes et proposent le bon chemin."
   },
   {
     icon: Layers,
-    title: "Fondation évolutive",
-    description: "La première version peut évoluer vers plus d'intégrations."
+    title: "Suivis plus efficaces",
+    description: "Les équipes reçoivent un résumé clair au lieu d'une demande vague ou incomplète."
   }
 ]
 

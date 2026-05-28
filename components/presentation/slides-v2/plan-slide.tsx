@@ -15,11 +15,11 @@ const phases = [
   },
   {
     number: 2,
-    name: "Agent + Navigation site",
+    name: "Agent + Navigation + Scénarios",
     startWeek: 2,
     endWeek: 5,
     color: "#1E5A9C",
-    deliverables: ["Widget agent IA", "Navigation complète"]
+    deliverables: ["Widget IA + Pré-diagnostic + Scénarios"]
   },
   {
     number: 3,
@@ -35,7 +35,7 @@ const phases = [
     startWeek: 6,
     endWeek: 8,
     color: "#5B5CE2",
-    deliverables: ["Métriques clés", "Intentions détectées"]
+    deliverables: ["Métriques + Suivi pré-diagnostic"]
   },
   {
     number: 5,
@@ -43,7 +43,7 @@ const phases = [
     startWeek: 8,
     endWeek: 10,
     color: "#F59E0B",
-    deliverables: ["Tests réels", "Formation équipe"]
+    deliverables: ["Tests scénarios + Formation"]
   }
 ]
 

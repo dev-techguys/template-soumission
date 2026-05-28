@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageSquare, Compass, Database, BarChart3, Rocket, ChevronDown, Check, Users, Globe, Bot } from "lucide-react"
+import { MessageSquare, Compass, Database, BarChart3, Rocket, ChevronDown, Check, Users, Globe, Bot, ClipboardList, Route } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 import { SectionHeader } from "../ui/section-header"
 
@@ -32,6 +32,32 @@ const modules = [
     color: "#143B6D"
   },
   {
+    icon: ClipboardList,
+    title: "Pré-diagnostic entrepreneurial",
+    summary: "Questionnaire de 13 questions pour qualifier le profil et les besoins de l'entrepreneur.",
+    details: {
+      deliver: "Un questionnaire rapide de 13 questions intégré à l'agent IA pour aider les entrepreneurs à clarifier leur profil, leur stade et leurs besoins.",
+      how: [
+        "Structuration des 13 questions clés",
+        "Logique de progression simple",
+        "Analyse des réponses",
+        "Association du profil aux services pertinents",
+        "Génération d'un résumé du pré-diagnostic",
+        "Recommandation d'une ressource, d'un parcours ou d'un suivi humain",
+        "Envoi des résultats pertinents au dashboard"
+      ],
+      benefits: [
+        "L'entrepreneur est mieux orienté dès le départ",
+        "L'équipe reçoit un contexte plus clair",
+        "Les recommandations sont plus précises",
+        "Les demandes entrantes sont mieux qualifiées"
+      ],
+      deliverables: ["Questionnaire 13 questions", "Logique de pré-qualification", "Résumé de profil", "Recommandations automatiques"]
+    },
+    keyMessage: "Quand l'utilisateur ne sait pas quoi demander, le pré-diagnostic guide la conversation.",
+    color: "#F59E0B"
+  },
+  {
     icon: Compass,
     title: "Navigation intelligente sur le site complet",
     summary: "Transformer le site web en ressource navigable par conversation.",
@@ -55,6 +81,31 @@ const modules = [
     color: "#5B5CE2"
   },
   {
+    icon: Route,
+    title: "Scénarios fréquents et parcours intégrés",
+    summary: "Bibliothèque de parcours basés sur les questions fréquentes des entrepreneurs.",
+    details: {
+      deliver: "Une bibliothèque de scénarios basés sur les questions fréquentes et les parcours souvent observés chez les entrepreneurs.",
+      how: [
+        "Identification des questions récurrentes",
+        "Regroupement par intention : démarrage, financement, local, exportation",
+        "Création de parcours de réponse rapides",
+        "Association de chaque scénario à une ressource ou action",
+        "Ajout de suggestions contextuelles",
+        "Tests sur des cas réels ou simulés"
+      ],
+      benefits: [
+        "Réponses plus rapides aux besoins récurrents",
+        "Parcours plus cohérents",
+        "Moins de confusion pour le visiteur",
+        "Base d'amélioration continue"
+      ],
+      deliverables: ["Bibliothèque de scénarios", "Parcours de réponse guidés", "Suggestions contextuelles", "Liens avec ressources"]
+    },
+    keyMessage: "Les scénarios donnent à l'agent une longueur d'avance sur les besoins les plus fréquents.",
+    color: "#50B878"
+  },
+  {
     icon: Database,
     title: "Connexion à la base de données actuelle",
     summary: "Relier les interactions à la base de données de façon contrôlée et sécuritaire.",
@@ -76,7 +127,7 @@ const modules = [
       deliverables: ["Analyse de structure", "Connecteur validable", "Règles lecture/écriture", "Journal des actions"]
     },
     keyMessage: "L'agent ne modifie pas la base de données librement. Il enrichit les suivis selon des règles claires et contrôlées.",
-    color: "#50B878"
+    color: "#143B6D"
   },
   {
     icon: BarChart3,
@@ -88,8 +139,8 @@ const modules = [
         "Définition d'une taxonomie d'intentions claire",
         "Enregistrement des événements importants",
         "Création de métriques simples et utiles",
-        "Visualisation des tendances par période",
-        "Suivi des demandes nécessitant un humain",
+        "Suivi des résultats du pré-diagnostic",
+        "Suivi des scénarios les plus utilisés",
         "Insights actionnables pour améliorer le site"
       ],
       benefits: [
@@ -97,10 +148,10 @@ const modules = [
         "Améliorer les contenus avec des données réelles",
         "Priorités de communication plus claires"
       ],
-      deliverables: ["Dashboard admin", "Cartes statistiques", "Graphiques d'intention", "Liste questions fréquentes"]
+      deliverables: ["Dashboard admin", "Cartes statistiques", "Graphiques d'intention", "Suivi pré-diagnostic"]
     },
     keyMessage: "Chaque question devient un signal d'intention. Le dashboard transforme ces signaux en décisions.",
-    color: "#143B6D"
+    color: "#5B5CE2"
   },
   {
     icon: Rocket,
@@ -111,7 +162,7 @@ const modules = [
       how: [
         "Création de scénarios basés sur les vrais besoins",
         "Tests des réponses et de la navigation",
-        "Validation du dashboard avec l'équipe",
+        "Validation des scénarios fréquents avec l'équipe",
         "Ajustements UX et contenu",
         "Documentation simple",
         "Formation pour les utilisateurs internes"
@@ -124,7 +175,7 @@ const modules = [
       deliverables: ["Plan de tests", "Scénarios validés", "Documentation", "Session de transfert"]
     },
     keyMessage: "Un agent IA utile n'est pas seulement développé. Il est testé, ajusté, gouverné et transféré à l'équipe.",
-    color: "#5B5CE2"
+    color: "#F59E0B"
   }
 ]
 

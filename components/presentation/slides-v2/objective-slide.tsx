@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Target, Brain, Users } from "lucide-react"
+import { Target, Brain, Users, ClipboardList } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 import { SectionHeader } from "../ui/section-header"
 
@@ -23,6 +23,12 @@ const objectives = [
     title: "Préparer les suivis",
     description: "Relier les interactions importantes à la base de données et à l'équipe.",
     color: "#50B878"
+  },
+  {
+    icon: ClipboardList,
+    title: "Pré-qualifier les entrepreneurs",
+    description: "Un pré-diagnostic de 13 questions pour mieux comprendre le profil et les besoins avant de recommander une ressource.",
+    color: "#F59E0B"
   }
 ]
 
@@ -50,7 +56,7 @@ export function ObjectiveSlide() {
           </motion.div>
 
           {/* Three objectives */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {objectives.map((obj, index) => (
               <motion.div
                 key={obj.title}
@@ -82,6 +88,9 @@ export function ObjectiveSlide() {
           >
             <p className="inline-block px-6 py-3 bg-[#143B6D]/5 rounded-full text-[#143B6D] font-medium">
               L&apos;agent ne remplace pas l&apos;humain. Il prépare mieux l&apos;intervention humaine.
+            </p>
+            <p className="text-sm text-[#64748B] mt-4 max-w-2xl mx-auto">
+              L&apos;agent sera aussi alimenté par des scénarios fréquents et des parcours observés afin d&apos;accélérer les réponses.
             </p>
           </motion.div>
         </div>

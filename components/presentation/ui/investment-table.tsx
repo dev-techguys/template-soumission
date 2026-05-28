@@ -26,18 +26,19 @@ const phases: Phase[] = [
     ]
   },
   {
-    name: "Phase 2 — Agent IA + Navigation",
+    name: "Phase 2 — Agent IA + Navigation + Scénarios",
     amount: "4 500 $",
     tasks: [
       "Développement du widget conversationnel",
       "Création des parcours guidés",
+      "Intégration du pré-diagnostic entrepreneurial",
+      "Structuration du questionnaire 13 questions",
+      "Création des scénarios fréquents",
+      "Création des parcours de réponse rapides",
+      "Association des scénarios aux ressources du site",
       "Connexion ou structuration du contenu du site",
       "Détection des intentions principales",
-      "Recommandations de ressources",
-      "Suggestions contextuelles",
-      "Cartes de ressources",
-      "Tests des scénarios utilisateurs",
-      "Ajustement des réponses de l'agent"
+      "Tests des scénarios utilisateurs"
     ]
   },
   {
@@ -62,13 +63,13 @@ const phases: Phase[] = [
     tasks: [
       "Création du dashboard admin",
       "Suivi des intentions visiteurs",
+      "Suivi des résultats du pré-diagnostic",
+      "Suivi des scénarios les plus utilisés",
       "Suivi des questions fréquentes",
       "Suivi des services recommandés",
       "Suivi des demandes de contact humain",
       "Métriques de navigation",
-      "Indicateurs de conversion",
       "Graphiques simples et lisibles",
-      "Filtres par période et type d'intention",
       "Insights actionnables pour l'équipe"
     ]
   },
@@ -78,13 +79,13 @@ const phases: Phase[] = [
     tasks: [
       "Tests fonctionnels",
       "Tests des réponses de l'agent",
+      "Validation des scénarios fréquents avec l'équipe",
       "Tests des parcours utilisateurs",
       "Ajustements UX",
       "Ajustements des contenus",
       "Mise en ligne",
       "Documentation d'utilisation",
       "Formation de l'équipe",
-      "Transfert de connaissances",
       "Recommandations pour la suite"
     ]
   }

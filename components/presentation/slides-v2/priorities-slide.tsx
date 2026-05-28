@@ -20,6 +20,7 @@ const priorities = [
     title: "Navigation sur le site complet",
     description: "Comprendre la question et recommander la bonne ressource du site.",
     benefit: "Moins de friction, meilleure utilisation du contenu existant",
+    badges: ["Pré-diagnostic 13 questions"],
     color: "#5B5CE2"
   },
   {
@@ -82,9 +83,36 @@ export function PrioritiesSlide() {
                 >
                   {priority.benefit}
                 </div>
+
+                {/* Extra badges for pre-diagnostic */}
+                {priority.badges && (
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {priority.badges.map((badge) => (
+                      <span 
+                        key={badge}
+                        className="px-3 py-1 text-xs font-medium rounded-full bg-[#F59E0B]/10 text-[#F59E0B]"
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
+
+          {/* Pre-diagnostic note */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="text-center"
+          >
+            <p className="text-sm text-[#64748B] max-w-2xl mx-auto">
+              Le pré-diagnostic agit comme un parcours guidé lorsque le visiteur ne sait pas par où commencer.
+            </p>
+          </motion.div>
         </div>
       </div>
     </SlideWrapper>

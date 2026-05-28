@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { MessageSquare, Brain, Compass, Database, BarChart3, ArrowDown } from "lucide-react"
+import { MessageSquare, Brain, Compass, Database, BarChart3, ArrowDown, ClipboardList, Route } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 import { SectionHeader } from "../ui/section-header"
 
@@ -13,10 +13,21 @@ const blocks = [
     color: "#143B6D"
   },
   {
+    icon: ClipboardList,
+    title: "Pré-diagnostic entrepreneurial",
+    description: "Questionnaire guidé de 13 questions pour clarifier le profil, le stade et les besoins.",
+    color: "#F59E0B"
+  },
+  {
     icon: Brain,
     title: "Moteur d'intention",
     description: "L'agent comprend le besoin : démarrage, financement, exportation, etc.",
-    color: "#5B5CE2"
+    color: "#5B5CE2",
+    subBlock: {
+      icon: Route,
+      title: "Scénarios intégrés",
+      description: "Questions fréquentes et parcours récurrents pour accélérer les réponses."
+    }
   },
   {
     icon: Compass,
@@ -72,6 +83,24 @@ export function SolutionSlide() {
                     <p className="text-sm text-[#64748B]">{block.description}</p>
                   </div>
                 </div>
+                {/* Sub-block for scenarios */}
+                {block.subBlock && (
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="ml-8 mt-2 bg-[#F8FAFC] rounded-lg p-3 border border-[#E2E8F0] flex items-center gap-3"
+                  >
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#5B5CE2]/10">
+                      <block.subBlock.icon className="w-4 h-4 text-[#5B5CE2]" />
+                    </div>
+                    <div>
+                      <h5 className="font-semibold text-[#1E293B] text-sm">{block.subBlock.title}</h5>
+                      <p className="text-xs text-[#64748B]">{block.subBlock.description}</p>
+                    </div>
+                  </motion.div>
+                )}
                 {index < blocks.length - 1 && (
                   <div className="flex justify-center py-2">
                     <ArrowDown className="w-5 h-5 text-[#E2E8F0]" />
