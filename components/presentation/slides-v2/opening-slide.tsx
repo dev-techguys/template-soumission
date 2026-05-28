@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Database, Compass, BarChart3, ArrowRight, Bot, Globe, Users } from "lucide-react"
+import { Database, Compass, BarChart3 } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 import Image from "next/image"
 
@@ -58,7 +58,7 @@ export function OpeningSlide() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-3 mb-16"
+            className="flex flex-wrap justify-center gap-3"
           >
             {[
               { icon: Compass, label: "Navigation site complet" },
@@ -72,39 +72,6 @@ export function OpeningSlide() {
                 <item.icon className="w-4 h-4 text-[#143B6D]" />
                 <span className="text-[#1E293B] text-sm font-medium">{item.label}</span>
               </div>
-            ))}
-          </motion.div>
-
-          {/* Flow diagram */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1 }}
-            className="flex flex-wrap items-center justify-center gap-2 md:gap-4"
-          >
-            {[
-              { icon: Users, label: "Visiteur" },
-              { icon: Bot, label: "Agent IA" },
-              { icon: Globe, label: "Site complet" },
-              { icon: Database, label: "Base de données" },
-              { icon: BarChart3, label: "Dashboard" },
-              { icon: Users, label: "Équipe" },
-            ].map((item, index) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 1.2 + index * 0.1 }}
-                className="flex items-center gap-2"
-              >
-                <div className="flex flex-col items-center gap-1">
-                  <div className="w-12 h-12 bg-white shadow-sm rounded-xl flex items-center justify-center border border-[#E2E8F0]">
-                    <item.icon className="w-6 h-6 text-[#143B6D]" />
-                  </div>
-                  <span className="text-[#64748B] text-xs">{item.label}</span>
-                </div>
-                {index < 5 && <ArrowRight className="w-4 h-4 text-[#CBD5E1] hidden md:block" />}
-              </motion.div>
             ))}
           </motion.div>
         </div>
