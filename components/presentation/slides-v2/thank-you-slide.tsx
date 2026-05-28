@@ -110,11 +110,11 @@ export function ThankYouSlide() {
             className="mt-20 pt-8 border-t border-white/10"
           >
             <Image
-              src="/images/techguys-omnigo-light.png"
-              alt="TechGuys x OMNIGO"
+              src="/images/omnigo-techguys-dark.png"
+              alt="OMNIGO x TechGuys"
               width={180}
               height={32}
-              className="mx-auto brightness-0 invert"
+              className="mx-auto"
             />
           </motion.div>
         </div>
