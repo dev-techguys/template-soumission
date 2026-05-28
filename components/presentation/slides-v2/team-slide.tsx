@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { CheckCircle, ArrowRight } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
 import { SectionHeader } from "../ui/section-header"
-import { AnnexAccordion } from "../ui/annex-accordion"
 import Image from "next/image"
 
 const nextSteps = [
@@ -92,17 +91,6 @@ export function TeamSlide() {
             <p className="text-[#64748B] mt-4">
               Une première version claire, utile et mesurable pour connecter les entrepreneurs aux bonnes ressources.
             </p>
-          </motion.div>
-
-          {/* Annexes */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.7 }}
-          >
-            <h4 className="text-lg font-semibold text-[#1E293B] mb-4 text-center">Annexes</h4>
-            <AnnexAccordion />
           </motion.div>
 
           {/* Logo footer */}

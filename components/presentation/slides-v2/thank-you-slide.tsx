@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Mail, Phone, Calendar, ArrowRight } from "lucide-react"
 import { SlideWrapper } from "../slide-wrapper"
+import { AnnexAccordion } from "../ui/annex-accordion"
 import Image from "next/image"
 
 export function ThankYouSlide() {
@@ -107,7 +108,7 @@ export function ThankYouSlide() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.7 }}
-            className="mt-20 pt-8 border-t border-white/10"
+            className="mt-16 pt-8 border-t border-white/10"
           >
             <Image
               src="/images/omnigo-techguys-dark.png"
@@ -116,6 +117,20 @@ export function ThankYouSlide() {
               height={32}
               className="mx-auto"
             />
+          </motion.div>
+
+          {/* Annexes */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.9 }}
+            className="mt-16 w-full max-w-4xl"
+          >
+            <h4 className="text-xl font-semibold text-white mb-6 text-center">Annexes</h4>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <AnnexAccordion />
+            </div>
           </motion.div>
         </div>
       </div>
