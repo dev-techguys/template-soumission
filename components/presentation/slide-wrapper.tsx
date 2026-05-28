@@ -14,7 +14,7 @@ export function SlideWrapper({ children, className, id }: SlideWrapperProps) {
     <section
       id={id}
       className={cn(
-        "relative min-h-screen w-full flex flex-col justify-center overflow-hidden",
+        "relative min-h-screen w-full max-w-full flex flex-col justify-center overflow-hidden overflow-x-hidden",
         className
       )}
     >

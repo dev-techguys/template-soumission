@@ -12,7 +12,7 @@ import { ThankYouSlide } from "@/components/presentation/slides-v2/thank-you-sli
 
 export default function Home() {
   return (
-    <main className="bg-[#F6F8FA]">
+    <main className="bg-[#F6F8FA] w-full max-w-full overflow-x-hidden">
       {/* Slide 1: Ouverture */}
       <OpeningSlide />
       

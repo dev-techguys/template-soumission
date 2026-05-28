@@ -52,8 +52,8 @@ const blocks = [
 export function SolutionSlide() {
   return (
     <SlideWrapper id="solution">
-      <div className="min-h-screen bg-[#F6F8FA] flex flex-col items-center justify-center px-6 py-20">
-        <div className="max-w-5xl mx-auto">
+      <div className="min-h-screen bg-[#F6F8FA] flex flex-col items-center justify-center px-4 md:px-6 py-12 md:py-20">
+        <div className="max-w-5xl mx-auto w-full">
           <SectionHeader
             badge="SLIDE 4"
             title="La solution proposée"
@@ -61,7 +61,7 @@ export function SolutionSlide() {
           />
 
           {/* Architecture flow */}
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-3 md:gap-4">
             {blocks.map((block, index) => (
               <motion.div
                 key={block.title}
@@ -71,16 +71,16 @@ export function SolutionSlide() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="w-full max-w-2xl"
               >
-                <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] flex items-center gap-4">
+                <div className="bg-white rounded-xl p-4 md:p-5 border border-[#E2E8F0] flex items-center gap-3 md:gap-4">
                   <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    className="w-10 md:w-12 h-10 md:h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ backgroundColor: `${block.color}15` }}
                   >
-                    <block.icon className="w-6 h-6" style={{ color: block.color }} />
+                    <block.icon className="w-5 md:w-6 h-5 md:h-6" style={{ color: block.color }} />
                   </div>
-                  <div>
-                    <h4 className="font-bold text-[#1E293B]">{block.title}</h4>
-                    <p className="text-sm text-[#64748B]">{block.description}</p>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-bold text-[#1E293B] text-sm md:text-base">{block.title}</h4>
+                    <p className="text-xs md:text-sm text-[#64748B]">{block.description}</p>
                   </div>
                 </div>
                 {/* Sub-block for scenarios */}
@@ -90,20 +90,20 @@ export function SolutionSlide() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: 0.2 }}
-                    className="ml-8 mt-2 bg-[#F8FAFC] rounded-lg p-3 border border-[#E2E8F0] flex items-center gap-3"
+                    className="ml-4 md:ml-8 mt-2 bg-[#F8FAFC] rounded-lg p-2.5 md:p-3 border border-[#E2E8F0] flex items-center gap-2 md:gap-3"
                   >
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#5B5CE2]/10">
-                      <block.subBlock.icon className="w-4 h-4 text-[#5B5CE2]" />
+                    <div className="w-7 md:w-8 h-7 md:h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#5B5CE2]/10">
+                      <block.subBlock.icon className="w-3.5 md:w-4 h-3.5 md:h-4 text-[#5B5CE2]" />
                     </div>
-                    <div>
-                      <h5 className="font-semibold text-[#1E293B] text-sm">{block.subBlock.title}</h5>
-                      <p className="text-xs text-[#64748B]">{block.subBlock.description}</p>
+                    <div className="min-w-0 flex-1">
+                      <h5 className="font-semibold text-[#1E293B] text-xs md:text-sm">{block.subBlock.title}</h5>
+                      <p className="text-[10px] md:text-xs text-[#64748B]">{block.subBlock.description}</p>
                     </div>
                   </motion.div>
                 )}
                 {index < blocks.length - 1 && (
-                  <div className="flex justify-center py-2">
-                    <ArrowDown className="w-5 h-5 text-[#E2E8F0]" />
+                  <div className="flex justify-center py-1.5 md:py-2">
+                    <ArrowDown className="w-4 md:w-5 h-4 md:h-5 text-[#E2E8F0]" />
                   </div>
                 )}
               </motion.div>
@@ -116,9 +116,9 @@ export function SolutionSlide() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
-            className="text-center mt-8"
+            className="text-center mt-6 md:mt-8"
           >
-            <p className="text-sm text-[#64748B]">
+            <p className="text-xs md:text-sm text-[#64748B]">
               Les détails techniques sont disponibles en annexe.
             </p>
           </motion.div>

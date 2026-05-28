@@ -58,16 +58,16 @@ export function AnnexAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5 md:space-y-2">
       {annexes.map((annex, index) => (
         <div key={annex.title} className="bg-white rounded-lg border border-[#E2E8F0] overflow-hidden">
           <button
             onClick={() => setOpenIndex(openIndex === index ? null : index)}
-            className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-[#F6F8FA] transition-colors"
+            className="w-full px-3 md:px-4 py-2.5 md:py-3 flex items-center justify-between text-left hover:bg-[#F6F8FA] transition-colors"
           >
-            <span className="font-medium text-[#1E293B]">{annex.title}</span>
+            <span className="font-medium text-[#1E293B] text-sm md:text-base">{annex.title}</span>
             <ChevronDown 
-              className={`w-5 h-5 text-[#64748B] transition-transform ${openIndex === index ? "rotate-180" : ""}`} 
+              className={`w-4 md:w-5 h-4 md:h-5 text-[#64748B] transition-transform flex-shrink-0 ${openIndex === index ? "rotate-180" : ""}`} 
             />
           </button>
           <AnimatePresence>
@@ -79,10 +79,10 @@ export function AnnexAccordion() {
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden"
               >
-                <ul className="px-4 pb-4 space-y-1">
+                <ul className="px-3 md:px-4 pb-3 md:pb-4 space-y-1">
                   {annex.content.map((item, i) => (
-                    <li key={i} className="text-sm text-[#64748B] flex items-start gap-2">
-                      <span className="text-[#50B878] mt-1">•</span>
+                    <li key={i} className="text-xs md:text-sm text-[#64748B] flex items-start gap-2">
+                      <span className="text-[#50B878] mt-0.5 md:mt-1">•</span>
                       {item}
                     </li>
                   ))}

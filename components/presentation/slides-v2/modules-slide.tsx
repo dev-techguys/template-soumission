@@ -184,7 +184,7 @@ export function ModulesSlide() {
 
   return (
     <SlideWrapper id="modules">
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-20">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 md:px-6 py-12 md:py-20">
         <div className="max-w-5xl mx-auto w-full">
           <SectionHeader
             badge="SLIDE 5"
@@ -192,7 +192,7 @@ export function ModulesSlide() {
             subtitle="Chaque module répond à un besoin concret : guider le visiteur, connecter les données, mesurer les intentions et préparer les suivis."
           />
 
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {modules.map((module, index) => (
               <motion.div
                 key={module.title}
@@ -205,20 +205,20 @@ export function ModulesSlide() {
                 {/* Header - always visible */}
                 <button
                   onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
-                  className="w-full p-5 flex items-center gap-4 text-left hover:bg-[#F1F5F9] transition-colors"
+                  className="w-full p-4 md:p-5 flex items-center gap-3 md:gap-4 text-left hover:bg-[#F1F5F9] transition-colors"
                 >
                   <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    className="w-10 md:w-12 h-10 md:h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ backgroundColor: `${module.color}15` }}
                   >
-                    <module.icon className="w-6 h-6" style={{ color: module.color }} />
+                    <module.icon className="w-5 md:w-6 h-5 md:h-6" style={{ color: module.color }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-[#1E293B] mb-1">{module.title}</h4>
-                    <p className="text-sm text-[#64748B] truncate">{module.summary}</p>
+                    <h4 className="font-bold text-[#1E293B] mb-0.5 md:mb-1 text-sm md:text-base">{module.title}</h4>
+                    <p className="text-xs md:text-sm text-[#64748B] line-clamp-2 md:truncate">{module.summary}</p>
                   </div>
                   <ChevronDown 
-                    className={`w-5 h-5 text-[#94A3B8] transition-transform flex-shrink-0 ${
+                    className={`w-4 md:w-5 h-4 md:h-5 text-[#94A3B8] transition-transform flex-shrink-0 ${
                       expandedIndex === index ? 'rotate-180' : ''
                     }`}
                   />
@@ -234,17 +234,17 @@ export function ModulesSlide() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-5 pt-2 border-t border-[#E2E8F0] bg-white">
-                        <div className="grid md:grid-cols-2 gap-6">
+                      <div className="px-4 md:px-5 pb-4 md:pb-5 pt-2 border-t border-[#E2E8F0] bg-white">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                           {/* Left column */}
                           <div>
-                            <h5 className="text-sm font-bold text-[#1E293B] mb-2">Ce qu&apos;on livre</h5>
-                            <p className="text-sm text-[#64748B] mb-4 leading-relaxed">{module.details.deliver}</p>
+                            <h5 className="text-xs md:text-sm font-bold text-[#1E293B] mb-2">Ce qu&apos;on livre</h5>
+                            <p className="text-xs md:text-sm text-[#64748B] mb-4 leading-relaxed">{module.details.deliver}</p>
                             
-                            <h5 className="text-sm font-bold text-[#1E293B] mb-2">Comment on le fait</h5>
-                            <ul className="space-y-1.5 mb-4">
+                            <h5 className="text-xs md:text-sm font-bold text-[#1E293B] mb-2">Comment on le fait</h5>
+                            <ul className="space-y-1 md:space-y-1.5 mb-4">
                               {module.details.how.map((item, i) => (
-                                <li key={i} className="text-sm text-[#64748B] flex items-start gap-2">
+                                <li key={i} className="text-xs md:text-sm text-[#64748B] flex items-start gap-2">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#94A3B8] mt-1.5 flex-shrink-0" />
                                   {item}
                                 </li>
@@ -254,22 +254,22 @@ export function ModulesSlide() {
 
                           {/* Right column */}
                           <div>
-                            <h5 className="text-sm font-bold text-[#1E293B] mb-2">Ce que Laval Économique gagne</h5>
-                            <ul className="space-y-1.5 mb-4">
+                            <h5 className="text-xs md:text-sm font-bold text-[#1E293B] mb-2">Ce que Laval Économique gagne</h5>
+                            <ul className="space-y-1 md:space-y-1.5 mb-4">
                               {module.details.benefits.map((benefit, i) => (
-                                <li key={i} className="text-sm text-[#50B878] flex items-start gap-2">
-                                  <Check className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                                <li key={i} className="text-xs md:text-sm text-[#50B878] flex items-start gap-2">
+                                  <Check className="w-3.5 md:w-4 h-3.5 md:h-4 flex-shrink-0 mt-0.5" />
                                   {benefit}
                                 </li>
                               ))}
                             </ul>
 
-                            <h5 className="text-sm font-bold text-[#1E293B] mb-2">Livrables concrets</h5>
-                            <div className="flex flex-wrap gap-2">
+                            <h5 className="text-xs md:text-sm font-bold text-[#1E293B] mb-2">Livrables concrets</h5>
+                            <div className="flex flex-wrap gap-1.5 md:gap-2">
                               {module.details.deliverables.map((item, i) => (
                                 <span 
                                   key={i}
-                                  className="px-3 py-1 text-xs font-medium rounded-full"
+                                  className="px-2 md:px-3 py-0.5 md:py-1 text-[10px] md:text-xs font-medium rounded-full"
                                   style={{ 
                                     backgroundColor: `${module.color}10`,
                                     color: module.color
@@ -284,7 +284,7 @@ export function ModulesSlide() {
 
                         {/* Key message */}
                         <div className="mt-4 pt-4 border-t border-[#E2E8F0]">
-                          <p className="text-sm text-[#1E293B] italic">
+                          <p className="text-xs md:text-sm text-[#1E293B] italic">
                             &ldquo;{module.keyMessage}&rdquo;
                           </p>
                         </div>
@@ -302,9 +302,9 @@ export function ModulesSlide() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
-            className="mt-8 text-center"
+            className="mt-6 md:mt-8 text-center"
           >
-            <p className="text-[#64748B]">
+            <p className="text-sm md:text-base text-[#64748B]">
               On construit l&apos;agent, on le connecte, on le mesure, puis on le transfère à l&apos;équipe.
             </p>
           </motion.div>
@@ -315,9 +315,9 @@ export function ModulesSlide() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
-            className="mt-12 py-8 px-6 bg-[#F1F5F9] rounded-2xl"
+            className="mt-8 md:mt-12 py-6 md:py-8 px-4 md:px-6 bg-[#F1F5F9] rounded-xl md:rounded-2xl"
           >
-            <div className="flex items-center justify-center gap-2 md:gap-4 flex-wrap">
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-4 flex-wrap">
               {[
                 { icon: Users, label: "Visiteur" },
                 { icon: Bot, label: "Agent IA" },
@@ -326,15 +326,15 @@ export function ModulesSlide() {
                 { icon: BarChart3, label: "Dashboard" },
                 { icon: Users, label: "Équipe" },
               ].map((step, index, arr) => (
-                <div key={step.label} className="flex items-center gap-2 md:gap-4">
+                <div key={step.label} className="flex items-center gap-1 sm:gap-2 md:gap-4">
                   <div className="flex flex-col items-center">
-                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-sm flex items-center justify-center">
-                      <step.icon className="w-6 h-6 md:w-7 md:h-7 text-[#143B6D]" />
+                    <div className="w-10 sm:w-12 md:w-14 lg:w-16 h-10 sm:h-12 md:h-14 lg:h-16 rounded-full bg-white shadow-sm flex items-center justify-center">
+                      <step.icon className="w-4 sm:w-5 md:w-6 lg:w-7 h-4 sm:h-5 md:h-6 lg:h-7 text-[#143B6D]" />
                     </div>
-                    <span className="text-xs md:text-sm text-[#64748B] mt-2 font-medium">{step.label}</span>
+                    <span className="text-[10px] sm:text-xs md:text-sm text-[#64748B] mt-1 md:mt-2 font-medium text-center">{step.label}</span>
                   </div>
                   {index < arr.length - 1 && (
-                    <span className="text-[#CBD5E1] text-xl md:text-2xl font-light mb-6">→</span>
+                    <span className="text-[#CBD5E1] text-base sm:text-lg md:text-xl lg:text-2xl font-light mb-4 md:mb-6">→</span>
                   )}
                 </div>
               ))}

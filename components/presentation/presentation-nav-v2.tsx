@@ -104,7 +104,7 @@ export function PresentationNavV2() {
       {/* Mobile nav button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 right-4 z-50 lg:hidden p-3 bg-white/90 backdrop-blur-md rounded-full shadow-lg border border-[#E2E8F0]"
+        className="fixed top-4 right-4 z-50 lg:hidden p-2.5 md:p-3 bg-white/90 backdrop-blur-md rounded-full shadow-lg border border-[#E2E8F0]"
       >
         {isOpen ? (
           <X className="w-5 h-5 text-[#1E293B]" />
@@ -121,22 +121,22 @@ export function PresentationNavV2() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25 }}
-            className="fixed inset-y-0 right-0 w-72 bg-white z-40 shadow-xl lg:hidden"
+            className="fixed inset-y-0 right-0 w-64 sm:w-72 bg-white z-40 shadow-xl lg:hidden overflow-y-auto"
           >
-            <div className="p-6 pt-20">
-              <h3 className="text-lg font-bold text-[#1E293B] mb-4">Navigation</h3>
-              <div className="space-y-2">
+            <div className="p-4 sm:p-6 pt-16 sm:pt-20">
+              <h3 className="text-base sm:text-lg font-bold text-[#1E293B] mb-3 sm:mb-4">Navigation</h3>
+              <div className="space-y-1.5 sm:space-y-2">
                 {NAV_ITEMS.map((item, index) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 transition-colors ${
+                    className={`w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl flex items-center gap-2 sm:gap-3 transition-colors text-sm sm:text-base ${
                       activeSection === item.id
                         ? "bg-[#143B6D] text-white"
                         : "text-[#64748B] hover:bg-[#F6F8FA]"
                     }`}
                   >
-                    <span className="w-6 h-6 rounded-full bg-current/20 flex items-center justify-center text-xs font-bold">
+                    <span className="w-5 sm:w-6 h-5 sm:h-6 rounded-full bg-current/20 flex items-center justify-center text-[10px] sm:text-xs font-bold">
                       {index + 1}
                     </span>
                     {item.label}
