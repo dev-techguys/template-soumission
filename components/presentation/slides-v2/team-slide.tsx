@@ -90,7 +90,7 @@ export function TeamSlide() {
               <ArrowRight className="w-4 md:w-5 h-4 md:h-5 flex-shrink-0" />
             </button>
             <p className="text-[#64748B] mt-3 md:mt-4 text-xs md:text-base px-2">
-              Une première version claire, utile et mesurable pour connecter les entrepreneurs aux bonnes ressources.
+              Une première version claire, utile et mesurable pour connecter les visiteurs aux bonnes ressources.
             </p>
           </motion.div>
 

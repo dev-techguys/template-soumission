@@ -36,7 +36,7 @@ const modules = [
     title: "Prédiagnostic entrepreneurial",
     summary: "Questionnaire de 13 questions pour qualifier le profil et les besoins de l'entrepreneur.",
     details: {
-      deliver: "Un questionnaire rapide de 13 questions intégré à l'agent IA pour aider les entrepreneurs à clarifier leur profil, leur stade et leurs besoins.",
+      deliver: "Un questionnaire rapide de 13 questions intégré à l'agent IA pour aider les visiteurs à clarifier leur profil, leur stade et leurs besoins.",
       how: [
         "Structuration des 13 questions clés",
         "Logique de progression simple",
@@ -83,9 +83,9 @@ const modules = [
   {
     icon: Route,
     title: "Scénarios fréquents et parcours intégrés",
-    summary: "Bibliothèque de parcours basés sur les questions fréquentes des entrepreneurs.",
+    summary: "Bibliothèque de parcours basés sur les questions fréquentes des visiteurs.",
     details: {
-      deliver: "Une bibliothèque de scénarios basés sur les questions fréquentes et parcours souvent observés chez les entrepreneurs.",
+      deliver: "Une bibliothèque de scénarios basés sur les questions fréquentes et parcours souvent observés chez les visiteurs.",
       how: [
         "Identification des questions récurrentes",
         "Regroupement par intention : démarrage, financement, local, exportation",

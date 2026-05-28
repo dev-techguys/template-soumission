@@ -26,7 +26,7 @@ const objectives = [
   },
   {
     icon: ClipboardList,
-    title: "Pré-qualifier les entrepreneurs",
+    title: "Pré-qualifier les visiteurs",
     description: "13 questions pour clarifier le profil et orienter vers la bonne ressource.",
     color: "#F59E0B"
   }
@@ -51,7 +51,7 @@ export function ObjectiveSlide() {
             className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 border border-[#E2E8F0] mb-8 md:mb-12 text-center"
           >
             <p className="text-base md:text-lg lg:text-xl text-[#1E293B] leading-relaxed">
-              Créer une première version fonctionnelle de l&apos;Agent IA Laval Économique capable d&apos;aider les entrepreneurs à trouver la bonne ressource, tout en générant des données utiles pour l&apos;organisation.
+              Créer une première version fonctionnelle de l&apos;Agent IA Laval Économique capable d&apos;aider les visiteurs à trouver la bonne ressource, tout en générant des données utiles pour l&apos;organisation.
             </p>
           </motion.div>
 

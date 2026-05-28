@@ -9,7 +9,7 @@ const benefits = [
   {
     icon: Zap,
     title: "Moins de friction",
-    description: "Les entrepreneurs trouvent plus rapidement le bon chemin."
+    description: "Les visiteurs trouvent plus rapidement le bon chemin."
   },
   {
     icon: Target,
@@ -23,7 +23,7 @@ const benefits = [
   },
   {
     icon: FileText,
-    title: "Meilleure qualification des entrepreneurs",
+    title: "Meilleure qualification des visiteurs",
     description: "Le prédiagnostic permet de comprendre rapidement le stade et les besoins."
   },
   {

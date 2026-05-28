@@ -51,7 +51,7 @@ export function OpeningSlide() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#475569] mb-8 md:mb-12 max-w-2xl mx-auto px-2"
           >
-            Connecter le site, les données et les intentions des entrepreneurs.
+            Connecter le site, les données et les intentions des visiteurs.
           </motion.p>
 
           {/* Three badges */}
