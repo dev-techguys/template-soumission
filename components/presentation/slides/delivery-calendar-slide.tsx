@@ -29,6 +29,7 @@ export function DeliveryCalendarSlide() {
   
   const estimatedWeeks = getEstimatedWeeks()
   const deliveryDate = getEstimatedDelivery()
+  const totalWeeksTimeline = Math.max(calendar.baseDurationWeeks, estimatedWeeks)
 
   // Calculate additional weeks from selected options
   const selectedOptionsData = pricing.options.filter(opt => selectedOptions.includes(opt.id))
@@ -58,7 +59,7 @@ export function DeliveryCalendarSlide() {
   })
 
   const allPhases = [...mvpPhases, ...optionPhases]
-  const totalWeeks = Math.max(13, estimatedWeeks.max)
+  const totalWeeks = totalWeeksTimeline
 
   // Calculate which months to show
   const monthsToShow = Math.ceil(totalWeeks / 4)
@@ -94,10 +95,7 @@ export function DeliveryCalendarSlide() {
               <span className="text-xs text-white/40 uppercase tracking-wider">Duree estimee</span>
             </div>
             <div className="text-3xl gradient-text-accent font-light">
-              {estimatedWeeks.min === estimatedWeeks.max 
-                ? `${estimatedWeeks.min} semaines`
-                : `${estimatedWeeks.min}-${estimatedWeeks.max} semaines`
-              }
+              {estimatedWeeks} semaines
             </div>
           </div>
 

@@ -7,7 +7,7 @@ import { FeatureCard, CardHeading } from "@/components/ui/feature-card"
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animations"
 
 const OPTIONS_ICONS: Record<string, React.ElementType> = {
-  flinks: Plug,
+  plaid: Plug,
   certm: Search,
   pad: CreditCard,
   sms: MessageSquare,
@@ -24,8 +24,7 @@ function OptionCard({
   index: number
 }) {
   const Icon = OPTIONS_ICONS[option.id] || Plug
-  const priceMin = option.hoursMin * pricing.hourlyRate
-  const priceMax = option.hoursMax * pricing.hourlyRate
+  const price = option.hours * pricing.hourlyRate
 
   return (
     <FeatureCard 
@@ -71,12 +70,12 @@ function OptionCard({
         <div className="flex items-end justify-between pt-4 border-t border-white/5">
           <div className="flex flex-col gap-0.5">
             <span className="text-[9px] text-white/25 uppercase tracking-wider">Effort</span>
-            <span className="text-sm text-white/50 font-mono">{option.hoursMin}-{option.hoursMax}h</span>
+            <span className="text-sm text-white/50 font-mono">{option.hours}h</span>
           </div>
           <div className="flex flex-col gap-0.5 text-right">
             <span className="text-[9px] text-white/25 uppercase tracking-wider">Budget</span>
             <span className={`text-sm font-mono ${option.recommended ? "text-[#0066FF]" : "text-[#3388FF]"}`}>
-              {priceMin.toLocaleString()}$ - {priceMax.toLocaleString()}$
+              {price.toLocaleString()}$
             </span>
           </div>
         </div>

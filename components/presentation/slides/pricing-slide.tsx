@@ -6,15 +6,11 @@ import { pricing } from "@/lib/proposal-data"
 import { useSelectionStore } from "@/lib/selection-store"
 
 function calculateMvpTotals() {
-  const hoursMin = pricing.mvp.modules.reduce((sum, m) => sum + m.hoursMin, 0)
-  const hoursMax = pricing.mvp.modules.reduce((sum, m) => sum + m.hoursMax, 0)
-  const contingencyMin = Math.round(hoursMin * (pricing.mvp.contingencyPercent / 100))
-  const contingencyMax = Math.round(hoursMax * (pricing.mvp.contingencyPercent / 100))
-  const totalHoursMin = hoursMin + contingencyMin
-  const totalHoursMax = hoursMax + contingencyMax
-  const totalPriceMin = totalHoursMin * pricing.hourlyRate
-  const totalPriceMax = totalHoursMax * pricing.hourlyRate
-  return { hoursMin, hoursMax, contingencyMin, contingencyMax, totalHoursMin, totalHoursMax, totalPriceMin, totalPriceMax }
+  const baseHours = pricing.mvp.modules.reduce((sum, m) => sum + m.hours, 0)
+  const contingencyHours = Math.round(baseHours * (pricing.mvp.contingencyPercent / 100))
+  const totalHours = baseHours + contingencyHours
+  const totalPrice = totalHours * pricing.hourlyRate
+  return { baseHours, contingencyHours, totalHours, totalPrice }
 }
 
 // Payment cycle step component
@@ -66,22 +62,17 @@ export function PricingSlide() {
   const { 
     selectedOptions, 
     toggleOption, 
-    getTotalHoursMin, 
-    getTotalHoursMax, 
-    getTotalPriceMin, 
-    getTotalPriceMax,
+    getTotalHours,
+    getTotalPrice,
     getEstimatedDelivery
   } = useSelectionStore()
 
-  const totalPriceMin = getTotalPriceMin()
-  const totalPriceMax = getTotalPriceMax()
-  const totalHoursMin = getTotalHoursMin()
-  const totalHoursMax = getTotalHoursMax()
+  const totalPrice = getTotalPrice()
+  const totalHours = getTotalHours()
   const deliveryDate = getEstimatedDelivery()
 
   // Calculate deposit
-  const depositMin = Math.round(totalPriceMin * 0.25)
-  const depositMax = Math.round(totalPriceMax * 0.25)
+  const deposit = Math.round(totalPrice * (pricing.payment.deposit / 100))
 
   return (
     <SlideWrapper id="pricing" className="relative">
@@ -104,7 +95,7 @@ export function PricingSlide() {
             <span className="px-4 py-1.5 rounded-full glass border-[#0066FF]/30 text-[#0066FF] text-sm font-mono font-medium">
               {pricing.hourlyRate}$/h
             </span>
-            <span className="text-sm text-white/30">- facturation aux heures reellement consommees</span>
+            <span className="text-sm text-white/30">- prix plafond, contingence de {pricing.mvp.contingencyPercent}% incluse</span>
           </div>
         </div>
 
@@ -130,9 +121,9 @@ export function PricingSlide() {
             <div className="flex flex-col items-end gap-1 shrink-0">
               <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Base MVP</span>
               <span className="text-4xl gradient-text-accent font-light">
-                {mvpTotals.totalPriceMin.toLocaleString()}$ - {mvpTotals.totalPriceMax.toLocaleString()}$
+                {mvpTotals.totalPrice.toLocaleString()}$
               </span>
-              <span className="text-xs text-white/30">taxes en sus</span>
+              <span className="text-xs text-white/30">contingence incluse, taxes en sus</span>
             </div>
           </div>
 
@@ -148,7 +139,7 @@ export function PricingSlide() {
                     </div>
                     <span className="text-sm text-white/60">{module.name}</span>
                   </div>
-                  <span className="text-xs text-white/35 font-mono">{module.hoursMin}-{module.hoursMax}h</span>
+                  <span className="text-xs text-white/35 font-mono">{module.hours}h</span>
                 </div>
               ))}
               <div className="flex items-center justify-between gap-4 p-3 rounded-xl bg-amber-500/5 border border-amber-500/20">
@@ -156,9 +147,9 @@ export function PricingSlide() {
                   <div className="w-5 h-5 rounded-md bg-amber-500/15 flex items-center justify-center">
                     <Clock className="w-3 h-3 text-amber-400" />
                   </div>
-                  <span className="text-sm text-amber-400">Contingence (~{pricing.mvp.contingencyPercent}%)</span>
+                  <span className="text-sm text-amber-400">Contingence ({pricing.mvp.contingencyPercent}%)</span>
                 </div>
-                <span className="text-xs text-amber-400/60 font-mono">{mvpTotals.contingencyMin}-{mvpTotals.contingencyMax}h</span>
+                <span className="text-xs text-amber-400/60 font-mono">{mvpTotals.contingencyHours}h</span>
               </div>
             </div>
           </div>
@@ -173,8 +164,7 @@ export function PricingSlide() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {pricing.options.map((option) => {
               const isSelected = selectedOptions.includes(option.id)
-              const optionPriceMin = option.hoursMin * pricing.hourlyRate
-              const optionPriceMax = option.hoursMax * pricing.hourlyRate
+              const optionPrice = option.hours * pricing.hourlyRate
               
               return (
                 <button
@@ -203,9 +193,9 @@ export function PricingSlide() {
                     {option.description}
                   </p>
                   <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                    <span className="text-xs text-white/25 font-mono">{option.hoursMin}-{option.hoursMax}h</span>
+                    <span className="text-xs text-white/25 font-mono">{option.hours}h</span>
                     <span className={`text-sm font-mono font-medium ${isSelected ? "text-[#0066FF]" : "text-[#3388FF]"}`}>
-                      +{optionPriceMin.toLocaleString()}$ - {optionPriceMax.toLocaleString()}$
+                      +{optionPrice.toLocaleString()}$
                     </span>
                   </div>
                 </button>
@@ -231,15 +221,11 @@ export function PricingSlide() {
               <div className="flex flex-col items-end gap-2">
                 <div className="flex items-baseline gap-2">
                   <span className="text-5xl md:text-6xl gradient-text-accent font-light">
-                    {totalPriceMin.toLocaleString()}$
-                  </span>
-                  <span className="text-2xl text-white/30">-</span>
-                  <span className="text-5xl md:text-6xl gradient-text-accent font-light">
-                    {totalPriceMax.toLocaleString()}$
+                    {totalPrice.toLocaleString()}$
                   </span>
                 </div>
                 <span className="text-sm text-white/30 font-mono">
-                  {totalHoursMin} - {totalHoursMax} heures estimees
+                  {totalHours} heures · contingence {pricing.mvp.contingencyPercent}% incluse
                 </span>
               </div>
             </div>
@@ -264,7 +250,7 @@ export function PricingSlide() {
               number={1}
               title="Signature"
               description="Vous signez la soumission et versez l'acompte"
-              highlight={`${depositMin.toLocaleString()}$ - ${depositMax.toLocaleString()}$`}
+              highlight={`Acompte ${deposit.toLocaleString()}$`}
             />
             <PaymentCycleStep 
               number={2}
@@ -292,9 +278,9 @@ export function PricingSlide() {
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               </div>
               <div>
-                <p className="text-sm text-white font-medium mb-1">Prix minimum ou maximum ?</p>
+                <p className="text-sm text-white font-medium mb-1">Un seul prix, pas de surprise</p>
                 <p className="text-xs text-white/40 leading-relaxed">
-                  Vous payez les <strong className="text-white/60">heures reellement consommees</strong>. Si on finit plus vite, vous payez moins. Jamais au-dessus du maximum.
+                  Le prix affiche est le <strong className="text-white/60">plafond convenu</strong>, contingence comprise. Vous payez les heures reellement consommees : si on finit plus vite, vous payez moins.
                 </p>
               </div>
             </div>
@@ -303,9 +289,9 @@ export function PricingSlide() {
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               </div>
               <div>
-                <p className="text-sm text-white font-medium mb-1">Contingence non utilisee</p>
+                <p className="text-sm text-white font-medium mb-1">Contingence de {pricing.mvp.contingencyPercent}% incluse</p>
                 <p className="text-xs text-white/40 leading-relaxed">
-                  La reserve pour imprevus (~10%) <strong className="text-white/60">n{"'"}est pas facturee</strong> si tout se passe bien. Zero heure fictive.
+                  Une reserve pour imprevus est <strong className="text-white/60">deja comprise dans le prix</strong>. Si elle n{"'"}est pas utilisee, elle n{"'"}est pas facturee. Zero heure fictive.
                 </p>
               </div>
             </div>

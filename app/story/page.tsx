@@ -13,12 +13,13 @@ const modules = pricing.mvp.modules
 const options = pricing.options
 const milestones = calendar.weeks
 
-// Calculate total price from modules
-const totalHoursMax = modules.reduce((sum, m) => sum + m.hoursMax, 0)
-const totalPrice = totalHoursMax * pricing.hourlyRate
-const infraPrice = (modules.find(m => m.id === 'infra')?.hoursMax || 0) * pricing.hourlyRate
-const devPrice = modules.filter(m => !['infra', 'tests'].includes(m.id)).reduce((sum, m) => sum + m.hoursMax, 0) * pricing.hourlyRate
-const testPrice = (modules.find(m => m.id === 'tests')?.hoursMax || 0) * pricing.hourlyRate
+// Calculate total price from modules (prix unique, contingence incluse)
+const baseHours = modules.reduce((sum, m) => sum + m.hours, 0)
+const totalHours = baseHours + Math.round(baseHours * (pricing.mvp.contingencyPercent / 100))
+const totalPrice = totalHours * pricing.hourlyRate
+const infraPrice = (modules.find(m => m.id === 'infra')?.hours || 0) * pricing.hourlyRate
+const devPrice = modules.filter(m => !['infra', 'tests'].includes(m.id)).reduce((sum, m) => sum + m.hours, 0) * pricing.hourlyRate
+const testPrice = (modules.find(m => m.id === 'tests')?.hours || 0) * pricing.hourlyRate
 
 // TechGuys Logo SVG
 function TechGuysLogo({ className = "" }: { className?: string }) {
@@ -257,7 +258,7 @@ export default function StoryScrollPage() {
                 </span>
               )}
               <p className="text-lg font-bold mb-2">{option.name}</p>
-              <p className="text-2xl font-bold text-[#0066FF] mb-2">+{(option.hoursMax * pricing.hourlyRate).toLocaleString('fr-CA')}$</p>
+              <p className="text-2xl font-bold text-[#0066FF] mb-2">+{(option.hours * pricing.hourlyRate).toLocaleString('fr-CA')}$</p>
               <p className="text-sm text-white/50">{option.description}</p>
             </div>
           ))}
