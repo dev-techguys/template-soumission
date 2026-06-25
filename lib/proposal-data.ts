@@ -212,14 +212,14 @@ export const signing = {
 
 export const calendar = {
   pmApproved: false,
-  startDate: "Juin 2026",
+  startDate: "Juillet 2026",
   reviewCalls: "30 min à 1h par semaine avec l'équipe Groupe Laplante",
   baseDurationWeeks: 13,
   weeks: [
     {
       week: 1,
       period: "Semaines 1-2",
-      month: "Juin",
+      month: "Juillet",
       title: "Infrastructure & Setup",
       focus: "Poser les fondations techniques solides",
       moduleId: "infra",
@@ -235,7 +235,7 @@ export const calendar = {
     {
       week: 3,
       period: "Semaines 3-5",
-      month: "Juin-Juillet",
+      month: "Juillet-Août",
       title: "Dossiers clients & Contrats",
       focus: "Le coeur métier de la plateforme",
       moduleId: "clients,contrats",
@@ -251,7 +251,7 @@ export const calendar = {
     {
       week: 6,
       period: "Semaines 6-8",
-      month: "Juillet",
+      month: "Août",
       title: "Suivi des paiements & Dashboard",
       focus: "Visibilité en temps réel sur le portefeuille",
       moduleId: "paiements,dashboard",
@@ -267,7 +267,7 @@ export const calendar = {
     {
       week: 9,
       period: "Semaines 9-11",
-      month: "Août",
+      month: "Août-Sept.",
       title: "Interface concessionnaires & Rapports",
       focus: "Outiller les équipes terrain",
       moduleId: "concessionnaires,rapports",
@@ -283,7 +283,7 @@ export const calendar = {
     {
       week: 12,
       period: "Semaines 12-13",
-      month: "Août-Sept.",
+      month: "Septembre",
       title: "Tests & Mise en production",
       focus: "Livraison d'une plateforme robuste",
       moduleId: "tests",

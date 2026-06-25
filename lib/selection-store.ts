@@ -75,8 +75,8 @@ export const useSelectionStore = create<SelectionState>((set, get) => ({
     const state = get()
     const weeks = state.getEstimatedWeeks()
 
-    // Démarrage juin 2026
-    const startDate = new Date(2026, 5, 1) // 1er juin 2026
+    // Démarrage juillet 2026
+    const startDate = new Date(2026, 6, 1) // 1er juillet 2026
     const endDate = new Date(startDate)
     endDate.setDate(endDate.getDate() + weeks * 7)
 

@@ -7,12 +7,12 @@ import { useSelectionStore } from "@/lib/selection-store"
 
 // Month data for the Gantt chart
 const MONTHS = [
-  { name: "Juin", abbr: "Jun", weeks: [1, 2, 3, 4] },
-  { name: "Juillet", abbr: "Jul", weeks: [5, 6, 7, 8] },
-  { name: "Août", abbr: "Aug", weeks: [9, 10, 11, 12] },
-  { name: "Sept.", abbr: "Sep", weeks: [13, 14, 15, 16] },
-  { name: "Oct.", abbr: "Oct", weeks: [17, 18, 19, 20] },
-  { name: "Nov.", abbr: "Nov", weeks: [21, 22, 23, 24] },
+  { name: "Juillet", abbr: "Jul", weeks: [1, 2, 3, 4] },
+  { name: "Août", abbr: "Aug", weeks: [5, 6, 7, 8] },
+  { name: "Sept.", abbr: "Sep", weeks: [9, 10, 11, 12] },
+  { name: "Oct.", abbr: "Oct", weeks: [13, 14, 15, 16] },
+  { name: "Nov.", abbr: "Nov", weeks: [17, 18, 19, 20] },
+  { name: "Déc.", abbr: "Dec", weeks: [21, 22, 23, 24] },
 ]
 
 // Phase colors
