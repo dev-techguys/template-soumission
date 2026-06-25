@@ -73,7 +73,7 @@ export function ContextSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans leading-relaxed max-w-2xl">
-              Une transformation numerique strategique pour <span className="text-[#0066FF] font-medium">internaliser le processus de financement automobile</span> et reprendre le controle de la relation client.
+              Une application web sur mesure pour <span className="text-[#0066FF] font-medium">internaliser le processus de financement automobile</span> et reprendre le controle de la relation client.
             </p>
           </FadeInUp>
         </div>
