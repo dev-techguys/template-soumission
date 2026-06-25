@@ -87,7 +87,7 @@ export function ContextSlide() {
               className="glass-card rounded-2xl p-6"
             >
               <p className="text-base text-white/50 font-sans leading-relaxed">
-                <span className="text-white font-medium">{client.name}</span> opere un reseau de concessions automobiles au Quebec et agit actuellement comme intermediaire en soumettant les demandes de financement de ses clients a des institutions tierces (banques, captives, etc.).
+                <span className="text-white font-medium">{client.name}</span> opère un réseau de concessions automobiles au Québec et agit actuellement comme intermédiaire en soumettant les demandes de financement de ses clients à des institutions tierces (banques, captives, etc.).
               </p>
             </motion.div>
 

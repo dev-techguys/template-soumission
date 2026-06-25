@@ -50,9 +50,9 @@ export function AboutSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base md:text-lg text-white/40 max-w-2xl leading-relaxed">
-              TechGuys conçoit des applications web sur mesure pour les entreprises quebecoises.
-              Nous combinons expertise technique et comprehension des enjeux d{"'"}affaires pour livrer
-              des solutions qui generent des resultats concrets.
+              TechGuys conçoit des applications web, mobile et intègre l{"'"}intelligence artificiel pour les entreprises québécoises.
+              Nous combinons expertise technique et compréhension des enjeux d{"'"}affaires pour livrer
+              des solutions qui génèrent des résultats concrets.
             </p>
           </FadeInUp>
         </div>
