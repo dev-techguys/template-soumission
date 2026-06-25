@@ -5,38 +5,40 @@ import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import { client, branding } from "@/lib/proposal-data"
 import { motion } from "framer-motion"
-import { Suspense, lazy } from "react"
+import dynamic from "next/dynamic"
 import { MagneticButton } from "@/components/ui/scroll-animations"
 
-// Lazy load Spline for performance
-const Spline = lazy(() => import("@splinetool/react-spline"))
+// Dynamically load Spline (client-only) to avoid React/DOM reconciliation
+// conflicts caused by Spline's direct DOM manipulation.
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 bg-gradient-to-br from-[#030318] via-[#0a0a2e] to-[#050520]">
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/25 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#990033]/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
+    </div>
+  ),
+})
 
 function SplineBackground() {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-auto overflow-hidden">
-      <Suspense fallback={
-        <div className="absolute inset-0 bg-gradient-to-br from-[#030318] via-[#0a0a2e] to-[#050520]">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/25 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#990033]/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
-        </div>
-      }>
-        {/* Spline with hue shift toward blue and blur */}
-        <div 
-          className="w-full h-full"
+      {/* Spline with hue shift toward blue and blur */}
+      <div 
+        className="w-full h-full"
+        style={{
+          filter: "blur(2px) saturate(0.9) hue-rotate(-15deg)",
+        }}
+      >
+        <Spline
           style={{
-            filter: "blur(2px) saturate(0.9) hue-rotate(-15deg)",
+            width: "100%",
+            height: "100vh",
+            pointerEvents: "auto",
           }}
-        >
-          <Spline
-            style={{
-              width: "100%",
-              height: "100vh",
-              pointerEvents: "auto",
-            }}
-            scene="https://prod.spline.design/us3ALejTXl6usHZ7/scene.splinecode"
-          />
-        </div>
-      </Suspense>
+          scene="https://prod.spline.design/us3ALejTXl6usHZ7/scene.splinecode"
+        />
+      </div>
       
       {/* Blue tint overlay to shift colors */}
       <div 

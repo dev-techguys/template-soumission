@@ -78,8 +78,6 @@ export function AboutSlide() {
                       {pillar.description}
                     </p>
                   </div>
-                  
-
                 </div>
               </FeatureCard>
             </StaggerItem>
