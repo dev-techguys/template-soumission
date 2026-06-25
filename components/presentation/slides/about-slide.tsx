@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Code, Zap, Shield, ArrowRight } from "lucide-react"
+import { Code, Zap, Shield } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem, Parallax } from "@/components/ui/scroll-animations"
 import { FeatureCard } from "@/components/ui/feature-card"
 
@@ -16,7 +16,7 @@ const PILLARS = [
     icon: Zap,
     title: "Livraison acceleree par l'IA",
     description:
-      "Notre utilisation de l'IA dans le developpement nous permet de livrer plus vite a un tarif 35% plus competitif.",
+      "Notre utilisation de l'IA dans le developpement nous permet de livrer plus vite a un tarif plus competitif.",
   },
   {
     icon: Shield,
@@ -79,13 +79,7 @@ export function AboutSlide() {
                     </p>
                   </div>
                   
-                  {/* Hover link */}
-                  <div className="pt-4 border-t border-white/5">
-                    <div className="flex items-center gap-2 text-[#0066FF] text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
-                      <span>En savoir plus</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
+
                 </div>
               </FeatureCard>
             </StaggerItem>
