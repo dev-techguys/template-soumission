@@ -37,7 +37,7 @@ function OptionCard({
           <div className="flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-[#0066FF] to-[#3388FF] rounded-b-lg">
             <Star className="w-3 h-3 text-white fill-white" />
             <span className="text-[10px] tracking-[0.15em] uppercase font-semibold text-white">
-              Recommande
+              Recommandé
             </span>
           </div>
         </div>
@@ -100,12 +100,12 @@ export function RoadmapSlide() {
               </span>
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light max-w-4xl leading-[1.1]">
-              <span className="text-[#0066FF]">Fonctionnalites</span> disponibles
+              <span className="text-[#0066FF]">Fonctionnalités</span> disponibles
               <br />
               <span className="text-white/60">en supplement</span>
             </h2>
             <p className="text-base md:text-lg text-white/40 max-w-2xl leading-relaxed">
-              Ces fonctionnalites peuvent etre ajoutees au projet des le depart ou apres la mise en production, au meme tarif et dans le meme processus.
+              Ces fonctionnalités peuvent être ajoutées au projet dès le départ ou après la mise en production, au même tarif et dans le même processus.
             </p>
           </div>
         </FadeInUp>
@@ -132,7 +132,7 @@ export function RoadmapSlide() {
               <div>
                 <h4 className="text-lg text-white font-medium mb-2">Notre recommandation</h4>
                 <p className="text-sm text-white/50 leading-relaxed">
-                  Les options <span className="text-[#0066FF] font-medium">C (PAD)</span> et <span className="text-[#0066FF] font-medium">D (SMS)</span> se completent parfaitement - ensemble, elles automatisent l{"'"}integralite du cycle de recouvrement. C{"'"}est la combinaison la plus recommandee en complement du MVP.
+                  Les options <span className="text-[#0066FF] font-medium">C (PAD)</span> et <span className="text-[#0066FF] font-medium">D (SMS)</span> se complètent parfaitement - ensemble, elles automatisent l{"'"}intégralité du cycle de recouvrement. C{"'"}est la combinaison la plus recommandée en complément du MVP.
                 </p>
               </div>
             </div>

@@ -9,25 +9,25 @@ const TECH_STACK = [
     id: "backend",
     icon: Code,
     title: "Backend — NestJS (Node.js)",
-    description: "Framework TypeScript moderne avec architecture modulaire, injection de dependances native et support GraphQL/REST. Performance et maintenabilite.",
+    description: "Framework TypeScript moderne avec architecture modulaire, injection de dépendances native et support GraphQL/REST. Performance et maintenabilité.",
     items: [
-      "Architecture modulaire avec separation claire des responsabilites",
-      "TypeORM pour interactions base de donnees type-safe",
-      "Guards et interceptors pour securite et validation",
-      "Support natif WebSockets pour notifications temps reel",
-      "API REST documentee avec Swagger/OpenAPI",
+      "Architecture modulaire avec séparation claire des responsabilités",
+      "TypeORM pour interactions base de données type-safe",
+      "Guards et interceptors pour sécurité et validation",
+      "Support natif WebSockets pour notifications temps réel",
+      "API REST documentée avec Swagger/OpenAPI",
     ],
   },
   {
     id: "frontend",
     icon: Cpu,
     title: "Frontend — Next.js 15+",
-    description: "Framework React de reference pour applications web performantes. Server Components, streaming, et optimisations automatiques.",
+    description: "Framework React de référence pour applications web performantes. Server Components, streaming, et optimisations automatiques.",
     items: [
       "App Router avec Server Components pour performance optimale",
       "Streaming SSR et Suspense pour UX fluide",
-      "Tailwind CSS pour design system coherent",
-      "React Query pour gestion d'etat serveur",
+      "Tailwind CSS pour design system cohérent",
+      "React Query pour gestion d'état serveur",
       "TypeScript strict pour robustesse du code",
     ],
   },
@@ -35,20 +35,20 @@ const TECH_STACK = [
     id: "iam",
     icon: Lock,
     title: "Authentification — Keycloak 24+",
-    description: "Standard de facto en IAM open-source pour les entreprises reglementees. Utilise par Banque Nationale, iA Groupe Financier et Desjardins.",
+    description: "Standard de facto en IAM open-source pour les entreprises réglementées. Utilisé par Banque Nationale, iA Groupe Financier et Desjardins.",
     items: [
-      "RBAC granulaire avec heritage de roles (admin, analyste, conseiller)",
+      "RBAC granulaire avec héritage de rôles (admin, analyste, conseiller)",
       "MFA obligatoire par TOTP/WebAuthn/SMS",
       "Support SSO/SAML 2.0 pour portails partenaires",
-      "Journalisation complete des evenements d'acces",
-      "Deployable on-premise sans frais de licence",
+      "Journalisation complète des événements d'accès",
+      "Déployable on-premise sans frais de licence",
     ],
   },
   {
     id: "database",
     icon: Database,
-    title: "Base de donnees — PostgreSQL 16",
-    description: "Robustesse pour les transactions financieres (ACID complet), fonctionnalites d'audit avancees et haute disponibilite.",
+    title: "Base de données — PostgreSQL 16",
+    description: "Robustesse pour les transactions financières (ACID complet), fonctionnalités d'audit avancées et haute disponibilité.",
     items: [
       "Transactions ACID avec isolation SERIALIZABLE pour calculs financiers",
       "Extension pgaudit pour journalisation FINTRAC et Loi 25",
@@ -60,25 +60,25 @@ const TECH_STACK = [
   {
     id: "hosting",
     icon: Server,
-    title: "Infrastructure — Hebergement Canada",
-    description: "Strategie progressive : demarrage sur Railway (region Canada East) ou VPS Hetzner Montreal, migration possible vers infrastructure dediee.",
+    title: "Infrastructure — Hébergement Canada",
+    description: "Stratégie progressive : démarrage sur Railway (région Canada East) ou VPS Hetzner Montréal, migration possible vers infrastructure dédiée.",
     items: [
-      "Donnees des clients quebecois au Canada des le premier jour",
-      "Conformite Loi 25 (souverainete des donnees)",
-      "Environnements dev et prod separes",
-      "Pipeline CI/CD automatise avec GitHub Actions",
-      "Backups quotidiens avec retention 30 jours",
+      "Données des clients québécois au Canada dès le premier jour",
+      "Conformité Loi 25 (souveraineté des données)",
+      "Environnements dev et prod séparés",
+      "Pipeline CI/CD automatisé avec GitHub Actions",
+      "Backups quotidiens avec rétention 30 jours",
     ],
   },
   {
     id: "integrations",
     icon: Layers,
-    title: "Integrations — PAD & QuickBooks",
-    description: "Prelevement Automatique Debit via Rotessa (API moderne, conforme Regle H1 de Paiements Canada) et synchronisation comptable QuickBooks.",
+    title: "Intégrations — PAD & QuickBooks",
+    description: "Prélèvement Automatique Débit via Rotessa (API moderne, conforme Règle H1 de Paiements Canada) et synchronisation comptable QuickBooks.",
     items: [
-      "PAD via Rotessa : 0,25$-0,50$ par transaction, reglement J+2",
-      "Conformite Regle H1 : autorisation signee, prenotification, droits de revocation",
-      "Gestion des retours NSF avec codes appropries",
+      "PAD via Rotessa : 0,25$-0,50$ par transaction, règlement J+2",
+      "Conformité Règle H1 : autorisation signée, prénotification, droits de révocation",
+      "Gestion des retours NSF avec codes appropriés",
       "QuickBooks Online : OAuth 2.0 + REST API officielle Intuit",
       "Synchronisation automatique sans double saisie comptable",
     ],
@@ -86,23 +86,23 @@ const TECH_STACK = [
   {
     id: "compliance",
     icon: Shield,
-    title: "Conformite — Loi 25 & FINTRAC",
-    description: "Architecture pensee pour les exigences reglementaires des la conception.",
+    title: "Conformité — Loi 25 & FINTRAC",
+    description: "Architecture pensée pour les exigences réglementaires dès la conception.",
     items: [
-      "Loi 25 (Quebec) : residence des donnees, consentements, droit d'acces",
-      "FINTRAC : journaux d'audit, KYC, declarations si applicable",
-      "Loi sur la protection du consommateur : divulgation des taux, droit de resolution",
+      "Loi 25 (Québec) : résidence des données, consentements, droit d'accès",
+      "FINTRAC : journaux d'audit, KYC, déclarations si applicable",
+      "Loi sur la protection du consommateur : divulgation des taux, droit de résolution",
       "Conservation des autorisations PAD pendant 3 ans",
-      "Piste d'audit complete sur toutes les operations sensibles",
+      "Piste d'audit complète sur toutes les opérations sensibles",
     ],
   },
 ]
 
 const COMPARISON = [
-  { profil: "Agence boutique MTL/QC", taux: "130-150$/h", estimation: "48 000$-78 000$", ecart: "+33% a +67%" },
-  { profil: "Grande agence (50+ devs)", taux: "160-200$/h", estimation: "83 000$-105 000$", ecart: "+60% a +124%" },
-  { profil: "SaaS (DealerTrack, CDK...)", taux: "Abonnement", estimation: "25 000$-35 000$/an", ecart: "Pas de propriete" },
-  { profil: "TechGuys Inc.", taux: "150$/h", estimation: "23 250$-36 750$", ecart: "Vous economisez ~35%" },
+  { profil: "Agence boutique MTL/QC", taux: "130-150$/h", estimation: "48 000$-78 000$", ecart: "+33% à +67%" },
+  { profil: "Grande agence (50+ devs)", taux: "160-200$/h", estimation: "83 000$-105 000$", ecart: "+60% à +124%" },
+  { profil: "SaaS (DealerTrack, CDK...)", taux: "Abonnement", estimation: "25 000$-35 000$/an", ecart: "Pas de propriété" },
+  { profil: "TechGuys Inc.", taux: "150$/h", estimation: "23 250$-36 750$", ecart: "Vous économisez ~35%" },
 ]
 
 export function AnnexeSlide() {
@@ -130,10 +130,10 @@ export function AnnexeSlide() {
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-4xl leading-[1.1]">
             <span className="gradient-text">Stack technologique</span>
             <br />
-            <span className="text-white/60">& conformite</span>
+            <span className="text-white/60">& conformité</span>
           </h2>
           <p className="text-base text-white/40 font-sans leading-relaxed max-w-3xl">
-            Une architecture modulaire moderne, pensee pour evoluer avec vos besoins tout en respectant les exigences reglementaires des le premier jour.
+            Une architecture modulaire moderne, pensée pour évoluer avec vos besoins tout en respectant les exigences réglementaires dès le premier jour.
           </p>
         </div>
 
@@ -194,7 +194,7 @@ export function AnnexeSlide() {
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
               <Globe className="w-5 h-5 text-[#0066FF]" />
             </div>
-            <h3 className="font-serif text-2xl text-white">Positionnement marche</h3>
+            <h3 className="font-serif text-2xl text-white">Positionnement marché</h3>
           </div>
           <div className="glass-card rounded-2xl overflow-hidden">
             <table className="w-full text-sm">
@@ -203,7 +203,7 @@ export function AnnexeSlide() {
                   <th className="text-left py-4 px-5 text-white/35 font-sans font-medium">Profil</th>
                   <th className="text-right py-4 px-5 text-white/35 font-sans font-medium">Taux</th>
                   <th className="text-right py-4 px-5 text-white/35 font-sans font-medium hidden sm:table-cell">Estimation MVP</th>
-                  <th className="text-right py-4 px-5 text-white/35 font-sans font-medium">Ecart</th>
+                  <th className="text-right py-4 px-5 text-white/35 font-sans font-medium">Écart</th>
                 </tr>
               </thead>
               <tbody>

@@ -159,7 +159,7 @@ export function PricingSlide() {
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-5">
             <Plus className="w-4 h-4 text-[#0066FF]" />
-            <p className="text-xs text-white/30 uppercase tracking-wider">Options additionnelles - Cliquez pour ajouter a votre projet</p>
+            <p className="text-xs text-white/30 uppercase tracking-wider">Options additionnelles - Cliquez pour ajouter à votre projet</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {pricing.options.map((option) => {
@@ -176,7 +176,7 @@ export function PricingSlide() {
                 >
                   {option.recommended && (
                     <div className="absolute -top-2 left-4 px-2 py-0.5 bg-gradient-to-r from-[#0066FF] to-[#3388FF] rounded-full">
-                      <span className="text-[9px] tracking-[0.1em] uppercase font-semibold text-white">Recommande</span>
+                      <span className="text-[9px] tracking-[0.1em] uppercase font-semibold text-white">Recommandé</span>
                     </div>
                   )}
                   <div className="flex items-start justify-between gap-3 mb-3">
@@ -215,7 +215,7 @@ export function PricingSlide() {
                   MVP {selectedOptions.length > 0 && `+ ${selectedOptions.length} option${selectedOptions.length > 1 ? "s" : ""}`}
                 </p>
                 <p className="text-xs text-[#0066FF] mt-2">
-                  Livraison estimee : {deliveryDate}
+                  Livraison estimée : {deliveryDate}
                 </p>
               </div>
               <div className="flex flex-col items-end gap-2">
@@ -239,7 +239,7 @@ export function PricingSlide() {
               <Receipt className="w-4 h-4 text-[#0066FF]" />
             </div>
             <div>
-              <h3 className="text-xl text-white font-medium">Comment ca fonctionne ?</h3>
+              <h3 className="text-xl text-white font-medium">Comment ça fonctionne ?</h3>
               <p className="text-xs text-white/40">Cycle de facturation transparent</p>
             </div>
           </div>
@@ -254,14 +254,14 @@ export function PricingSlide() {
             />
             <PaymentCycleStep 
               number={2}
-              title="Developpement"
+              title="Développement"
               description="On travaille par sprints de 2 semaines avec livrables"
             />
             <PaymentCycleStep 
               number={3}
               title="Facturation"
-              description="Facture aux 2 sem. avec rapport detaille des heures"
-              highlight="Heures reelles seulement"
+              description="Facture aux 2 sem. avec rapport détaillé des heures"
+              highlight="Heures réelles seulement"
             />
             <PaymentCycleStep 
               number={4}
@@ -280,7 +280,7 @@ export function PricingSlide() {
               <div>
                 <p className="text-sm text-white font-medium mb-1">Un seul prix, pas de surprise</p>
                 <p className="text-xs text-white/40 leading-relaxed">
-                  Le prix affiche est le <strong className="text-white/60">plafond convenu</strong>, contingence comprise. Vous payez les heures reellement consommees : si on finit plus vite, vous payez moins.
+                  Le prix affiché est le <strong className="text-white/60">plafond convenu</strong>, contingence comprise. Vous payez les heures réellement consommées : si on finit plus vite, vous payez moins.
                 </p>
               </div>
             </div>
@@ -291,7 +291,7 @@ export function PricingSlide() {
               <div>
                 <p className="text-sm text-white font-medium mb-1">Contingence de {pricing.mvp.contingencyPercent}% incluse</p>
                 <p className="text-xs text-white/40 leading-relaxed">
-                  Une reserve pour imprevus est <strong className="text-white/60">deja comprise dans le prix</strong>. Si elle n{"'"}est pas utilisee, elle n{"'"}est pas facturee. Zero heure fictive.
+                  Une réserve pour imprévus est <strong className="text-white/60">déjà comprise dans le prix</strong>. Si elle n{"'"}est pas utilisée, elle n{"'"}est pas facturée. Zéro heure fictive.
                 </p>
               </div>
             </div>
@@ -302,7 +302,7 @@ export function PricingSlide() {
               <div>
                 <p className="text-sm text-white font-medium mb-1">Suivi transparent</p>
                 <p className="text-xs text-white/40 leading-relaxed">
-                  Rapport detaille a chaque facture + suivi hebdomadaire du budget consomme vs. budgete.
+                  Rapport détaillé à chaque facture + suivi hebdomadaire du budget consommé vs. budgété.
                 </p>
               </div>
             </div>

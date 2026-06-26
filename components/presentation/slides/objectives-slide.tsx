@@ -9,57 +9,57 @@ const MODULES = [
   {
     icon: ShieldCheck,
     number: "00",
-    title: "Infrastructure & securite",
-    description: "Serveurs heberges au Canada, base de donnees PostgreSQL 16, gestion des roles et acces via Keycloak, environnements dev et prod, pipeline de deploiement automatise.",
-    features: ["Hebergement Canada (Loi 25)", "Keycloak 24+ (IAM)", "PostgreSQL avec pgaudit", "CI/CD automatise"],
+    title: "Infrastructure & sécurité",
+    description: "Serveurs hébergés au Canada, base de données PostgreSQL 16, gestion des rôles et accès via Keycloak, environnements dev et prod, pipeline de déploiement automatisé.",
+    features: ["Hébergement Canada (Loi 25)", "Keycloak 24+ (IAM)", "PostgreSQL avec pgaudit", "CI/CD automatisé"],
   },
   {
     icon: Users,
     number: "01",
     title: "Dossiers clients",
-    description: "Fiche client complete avec coordonnees, historique des contrats, pieces jointes (contrat, identite, inspection). Statut du dossier et gestion documentaire sur toute la duree du contrat.",
-    features: ["Fiche client complete", "Historique des contrats", "Gestion documentaire", "Statuts de dossier"],
+    description: "Fiche client complète avec coordonnées, historique des contrats, pièces jointes (contrat, identité, inspection). Statut du dossier et gestion documentaire sur toute la durée du contrat.",
+    features: ["Fiche client complète", "Historique des contrats", "Gestion documentaire", "Statuts de dossier"],
   },
   {
     icon: FileText,
     number: "02",
     title: "Contrats de location",
-    description: "Formulaire de creation de contrat (vehicule, valeur, versements, duree, acompte). Echeancier genere automatiquement. Solde mis a jour a chaque versement. Option de rachat ou revente.",
-    features: ["Creation de contrat", "Echeancier auto", "Calcul des interets", "Options fin de contrat"],
+    description: "Formulaire de création de contrat (véhicule, valeur, versements, durée, acompte). Échéancier généré automatiquement. Solde mis à jour à chaque versement. Option de rachat ou revente.",
+    features: ["Création de contrat", "Échéancier auto", "Calcul des intérêts", "Options fin de contrat"],
   },
   {
     icon: CreditCard,
     number: "03",
     title: "Suivi des paiements",
-    description: "Enregistrement des versements recus. Alertes courriel automatiques si un paiement est manque. Relances programmables (J+1, J+3, J+7). Vue consolidee par statut.",
-    features: ["Versements recus", "Alertes courriel", "Relances auto", "Vue par statut"],
+    description: "Enregistrement des versements reçus. Alertes courriel automatiques si un paiement est manqué. Relances programmables (J+1, J+3, J+7). Vue consolidée par statut.",
+    features: ["Versements reçus", "Alertes courriel", "Relances auto", "Vue par statut"],
   },
   {
     icon: BarChart3,
     number: "04",
     title: "Tableau de bord",
-    description: "Vue centralisee en temps reel : nombre de contrats actifs, statut de chaque dossier, liste des retards et defauts. D'un coup d'oeil : qui a paye, qui ne l'a pas fait.",
-    features: ["KPIs en temps reel", "Contrats actifs", "Retards et defauts", "Vue consolidee"],
+    description: "Vue centralisée en temps réel : nombre de contrats actifs, statut de chaque dossier, liste des retards et défauts. D'un coup d'oeil : qui a payé, qui ne l'a pas fait.",
+    features: ["KPIs en temps réel", "Contrats actifs", "Retards et défauts", "Vue consolidée"],
   },
   {
     icon: Building2,
     number: "05",
     title: "Interface concessionnaires",
-    description: "Acces dedie pour les conseillers des 5 concessions : soumission de nouveaux dossiers avec pieces jointes, suivi en temps reel du statut des dossiers soumis.",
-    features: ["Acces par concession", "Soumission dossiers", "Upload documents", "Suivi en temps reel"],
+    description: "Accès dédié pour les conseillers des 5 concessions : soumission de nouveaux dossiers avec pièces jointes, suivi en temps réel du statut des dossiers soumis.",
+    features: ["Accès par concession", "Soumission dossiers", "Upload documents", "Suivi en temps réel"],
   },
   {
     icon: BookOpen,
     number: "06",
     title: "Rapports & QuickBooks",
-    description: "Rapport mensuel du portefeuille (contrats actifs, retards, defauts, revenus percus). Integration QuickBooks Online via API Intuit — synchronisation automatique sans double saisie.",
-    features: ["Rapport mensuel", "Integration QuickBooks", "Sync automatique", "Export comptable"],
+    description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit — synchronisation automatique sans double saisie.",
+    features: ["Rapport mensuel", "Intégration QuickBooks", "Sync automatique", "Export comptable"],
   },
   {
     icon: CheckCircle2,
     number: "07",
     title: "Tests & mise en production",
-    description: "Tests fonctionnels complets, sessions de validation avec l'equipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au demarrage.",
+    description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage.",
     features: ["Tests complets", "Validation client", "Mise en production", "Accompagnement 2 sem."],
   },
 ]
@@ -109,7 +109,7 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans max-w-2xl leading-relaxed">
-              L{"'"}objectif : savoir en tout temps qui a un contrat actif, ou en est chaque dossier, qui a paye et qui ne l{"'"}a pas fait — en un seul endroit.
+              L{"'"}objectif : savoir en tout temps qui a un contrat actif, où en est chaque dossier, qui a payé et qui ne l{"'"}a pas fait — en un seul endroit.
             </p>
           </FadeInUp>
         </div>

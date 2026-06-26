@@ -56,7 +56,7 @@ export function ClosingSlide() {
 
           {/* Main headline */}
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1]">
-            Pret a <span className="gradient-text-accent">transformer</span>
+            Prêt à <span className="gradient-text-accent">transformer</span>
             <br />
             votre financement automobile
           </h2>
@@ -65,13 +65,13 @@ export function ClosingSlide() {
           <div className="w-px h-10 bg-gradient-to-b from-transparent via-white/15 to-transparent" />
 
           <p className="text-lg text-white/40 font-sans leading-relaxed max-w-xl">
-            Une plateforme sur mesure pour internaliser vos operations de credit, accelerer vos approbations et maitriser votre portefeuille.
+            Une plateforme sur mesure pour internaliser vos opérations de crédit, accélérer vos approbations et maîtriser votre portefeuille.
           </p>
 
           {/* Prepared for - glass card */}
           <div className="glass-card px-8 py-5 rounded-2xl flex flex-col items-center gap-1.5">
             <span className="text-[10px] tracking-[0.25em] uppercase text-white/30 font-sans">
-              Prepare pour
+              Préparé pour
             </span>
             <span className="font-serif text-2xl gradient-text-accent">{client.name}</span>
             <span className="text-sm text-white/50 font-sans">{client.contactName}</span>
@@ -97,11 +97,11 @@ export function ClosingSlide() {
                 <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full glass border-[#0066FF]/30">
                   <Pen className="w-4 h-4 text-[#0066FF]" />
                   <span className="text-sm tracking-[0.05em] text-[#3388FF] font-sans font-medium">
-                    Lien PandaDoc a venir
+                    Lien PandaDoc à venir
                   </span>
                 </div>
                 <span className="text-xs text-white/25 font-sans">
-                  Le lien de signature vous sera envoye par courriel
+                  Le lien de signature vous sera envoyé par courriel
                 </span>
               </div>
             )}

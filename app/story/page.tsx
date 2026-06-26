@@ -68,13 +68,13 @@ export default function StoryScrollPage() {
         
         <div className="flex flex-wrap gap-8 items-end justify-between">
           <div className="space-y-2">
-            <p className="text-xs tracking-[0.2em] uppercase text-white/40">A l{"'"}attention de</p>
+            <p className="text-xs tracking-[0.2em] uppercase text-white/40">À l{"'"}attention de</p>
             <p className="text-2xl font-semibold">{client.contactName}</p>
             <p className="text-white/50">{client.name}</p>
           </div>
           
           <div className="flex flex-col items-end gap-2">
-            <p className="text-xs tracking-[0.2em] uppercase text-white/40">Partenaire tech strategique</p>
+            <p className="text-xs tracking-[0.2em] uppercase text-white/40">Partenaire tech stratégique</p>
             <TechGuysLogo />
           </div>
         </div>
@@ -93,15 +93,15 @@ export default function StoryScrollPage() {
           <h2 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] uppercase tracking-tight">
             Reprendre
             <br />
-            Le Controle
+            Le Contrôle
           </h2>
         </div>
         
         <hr className="my-[2vw] border-none h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
         
         <p className="max-w-[60ch] text-[clamp(1rem,2vw,1.5rem)] font-normal leading-relaxed text-white/70">
-          <span className="text-white font-medium">{client.name}</span> opere un reseau de <span className="text-[#0066FF] font-semibold">5 concessions automobiles</span> au Quebec. 
-          Actuellement, les demandes de financement sont soumises a des institutions tierces, entrainant une perte de controle et de marge.
+          <span className="text-white font-medium">{client.name}</span> opère un réseau de <span className="text-[#0066FF] font-semibold">5 concessions automobiles</span> au Québec. 
+          Actuellement, les demandes de financement sont soumises à des institutions tierces, entraînant une perte de contrôle et de marge.
         </p>
         
         <hr className="my-[2vw] border-none h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
@@ -110,19 +110,19 @@ export default function StoryScrollPage() {
           <div className="min-w-[200px] flex-1 p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-3 mb-3">
               <CreditCard className="w-5 h-5 text-[#0066FF]" />
-              <p className="text-sm font-bold uppercase tracking-wider">Probleme</p>
+              <p className="text-sm font-bold uppercase tracking-wider">Problème</p>
             </div>
             <p className="text-sm leading-relaxed text-white/60">
-              Perte de 1-3% de marge sur chaque financement cede aux institutions tierces
+              Perte de 1-3% de marge sur chaque financement cédé aux institutions tierces
             </p>
           </div>
           <div className="min-w-[200px] flex-1 p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-3 mb-3">
               <Clock className="w-5 h-5 text-[#0066FF]" />
-              <p className="text-sm font-bold uppercase tracking-wider">Delais</p>
+              <p className="text-sm font-bold uppercase tracking-wider">Délais</p>
             </div>
             <p className="text-sm leading-relaxed text-white/60">
-              Processus d{"'"}approbation non maitrise, delais variables et frustrants
+              Processus d{"'"}approbation non maîtrisé, délais variables et frustrants
             </p>
           </div>
           <div className="min-w-[200px] flex-1 p-6 rounded-2xl bg-white/5 border border-white/10">
@@ -131,7 +131,7 @@ export default function StoryScrollPage() {
               <p className="text-sm font-bold uppercase tracking-wider">Relation</p>
             </div>
             <p className="text-sm leading-relaxed text-white/60">
-              Cession de la relation client a l{"'"}institution financiere externe
+              Cession de la relation client à l{"'"}institution financière externe
             </p>
           </div>
         </div>
@@ -157,8 +157,8 @@ export default function StoryScrollPage() {
         <hr className="my-[2vw] border-none h-px bg-white/20" />
         
         <p className="max-w-[60ch] text-[clamp(1rem,2vw,1.5rem)] font-normal leading-relaxed text-white/80">
-          Une plateforme complete pour internaliser le financement automobile, 
-          de la soumission a la collecte, en passant par la gestion du cycle de vie des prets.
+          Une plateforme complète pour internaliser le financement automobile, 
+          de la soumission à la collecte, en passant par la gestion du cycle de vie des prêts.
         </p>
         
         <hr className="my-[2vw] border-none h-px bg-white/20" />
@@ -205,7 +205,7 @@ export default function StoryScrollPage() {
           <h2 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] uppercase tracking-tight">
             <span className="text-[#0066FF]">{totalPrice.toLocaleString('fr-CA')}$</span>
             <br />
-            Forfait Cle
+            Forfait Clé
             <br />
             En Main
           </h2>
@@ -220,12 +220,12 @@ export default function StoryScrollPage() {
               <p className="text-sm font-bold uppercase tracking-wider">Infrastructure</p>
             </div>
             <p className="text-3xl font-bold text-[#0066FF] mb-1">{infraPrice.toLocaleString('fr-CA')}$</p>
-            <p className="text-sm text-white/50">Cloud, securite, DevOps</p>
+            <p className="text-sm text-white/50">Cloud, sécurité, DevOps</p>
           </div>
           <div className="min-w-[200px] flex-1 p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-3 mb-3">
               <Zap className="w-5 h-5 text-[#0066FF]" />
-              <p className="text-sm font-bold uppercase tracking-wider">Developpement</p>
+              <p className="text-sm font-bold uppercase tracking-wider">Développement</p>
             </div>
             <p className="text-3xl font-bold mb-1">{devPrice.toLocaleString('fr-CA')}$</p>
             <p className="text-sm text-white/50">8 modules complets</p>

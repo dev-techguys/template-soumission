@@ -11,7 +11,7 @@ const FACTS = [
     icon: Car,
     label: "Secteur",
     value: "Auto",
-    detail: "Reseau de concessions",
+    detail: "Réseau de concessions",
     isNumber: false,
   },
   {
@@ -25,14 +25,14 @@ const FACTS = [
     icon: CreditCard,
     label: "Objectif",
     value: "Financement",
-    detail: "Plateforme proprietaire",
+    detail: "Plateforme propriétaire",
     isNumber: false,
   },
   {
     icon: TrendingUp,
-    label: "Benefice",
+    label: "Bénéfice",
     value: "1-3%",
-    detail: "Marge recuperee",
+    detail: "Marge récupérée",
     isNumber: false,
   },
 ]
@@ -73,7 +73,7 @@ export function ContextSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans leading-relaxed max-w-2xl">
-              Une application web sur mesure pour <span className="text-[#0066FF] font-medium">internaliser le processus de financement automobile</span> et reprendre le controle de la relation client.
+              Une application web sur mesure pour <span className="text-[#0066FF] font-medium">internaliser le processus de financement automobile</span> et reprendre le contrôle de la relation client.
             </p>
           </FadeInUp>
         </div>
@@ -97,7 +97,7 @@ export function ContextSlide() {
               className="glass-card rounded-2xl p-6"
             >
               <p className="text-base text-white/50 font-sans leading-relaxed">
-                Ce modele entraine une <span className="text-white font-medium">perte de controle sur le processus d{"'"}approbation</span>, des delais non maitrises, et une cession de la relation client a l{"'"}institution financiere.
+                Ce modèle entraîne une <span className="text-white font-medium">perte de contrôle sur le processus d{"'"}approbation</span>, des délais non maîtrisés, et une cession de la relation client à l{"'"}institution financière.
               </p>
             </motion.div>
 
@@ -117,7 +117,7 @@ export function ContextSlide() {
                     <Sparkles className="w-5 h-5 text-[#0066FF]" />
                   </motion.div>
                   <p className="text-sm text-[#3388FF] font-sans leading-relaxed">
-                    La plateforme AutoFinance permettra d{"'"}internaliser la marge d{"'"}intermediation financiere (typiquement 1% a 3% du montant finance), d{"'"}accelerer les approbations et de constituer un portefeuille de prets proprietaire.
+                    La plateforme AutoFinance permettra d{"'"}internaliser la marge d{"'"}intermédiation financière (typiquement 1% à 3% du montant financé), d{"'"}accélérer les approbations et de constituer un portefeuille de prêts propriétaire.
                   </p>
                 </div>
               </motion.div>
@@ -161,7 +161,7 @@ export function ContextSlide() {
         {/* Tags - Pills with stagger */}
         <FadeInUp delay={0.4} className="mt-12">
           <motion.div className="flex flex-wrap gap-3">
-            {["Gestion KYC", "Cycle de vie des prets", "Calcul automatique", "Collecte PAD", "Tableau de bord", "Portail concessionnaire", "Rapports reglementaires"].map(
+            {["Gestion KYC", "Cycle de vie des prêts", "Calcul automatique", "Collecte PAD", "Tableau de bord", "Portail concessionnaire", "Rapports réglementaires"].map(
               (tag, index) => (
                 <motion.span
                   key={tag}

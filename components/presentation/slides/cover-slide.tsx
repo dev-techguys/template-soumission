@@ -136,7 +136,7 @@ export function CoverSlide() {
             }}
           >
             <span className="text-[11px] tracking-[0.3em] uppercase text-white/70 font-medium">
-              Proposition de developpement
+              Proposition de développement
             </span>
           </motion.div>
 
@@ -175,7 +175,7 @@ export function CoverSlide() {
             </span>
             <br />
             <span className="text-white/50">
-              et reprenez le controle de votre portefeuille
+              et reprenez le contrôle de votre portefeuille
             </span>
           </motion.p>
 
@@ -216,7 +216,7 @@ export function CoverSlide() {
             className="mt-8 flex flex-col items-center gap-3"
           >
             <span className="text-[9px] tracking-[0.25em] uppercase text-white/30">
-              Partenaire tech strategique
+              Partenaire tech stratégique
             </span>
             <div 
               className="flex items-center gap-3 px-5 py-3 rounded-xl border border-white/10"

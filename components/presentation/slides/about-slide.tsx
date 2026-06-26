@@ -8,21 +8,21 @@ import { FeatureCard } from "@/components/ui/feature-card"
 const PILLARS = [
   {
     icon: Code,
-    title: "Developpement sur mesure",
+    title: "Développement sur mesure",
     description:
-      "Une plateforme construite specifiquement pour vos besoins - pas une solution generique avec des compromis.",
+      "Une plateforme construite spécifiquement pour vos besoins - pas une solution générique avec des compromis.",
   },
   {
     icon: Zap,
-    title: "Livraison acceleree par l'IA",
+    title: "Livraison accélérée par l'IA",
     description:
-      "Notre utilisation de l'IA dans le developpement nous permet de livrer plus vite a un tarif plus competitif.",
+      "Notre utilisation de l'IA dans le développement nous permet de livrer plus vite à un tarif plus compétitif.",
   },
   {
     icon: Shield,
-    title: "Conformite des la conception",
+    title: "Conformité dès la conception",
     description:
-      "Architecture pensee pour les exigences reglementaires canadiennes : Loi 25, FINTRAC, donnees hebergees au Canada.",
+      "Architecture pensée pour les exigences réglementaires canadiennes : Loi 25, FINTRAC, données hébergées au Canada.",
   },
 ]
 
@@ -50,7 +50,7 @@ export function AboutSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base md:text-lg text-white/40 max-w-2xl leading-relaxed">
-              TechGuys conçoit des applications web, mobile et intègre l{"'"}intelligence artificiel pour les entreprises québécoises.
+              TechGuys conçoit des applications web et mobiles et intègre l{"'"}intelligence artificielle pour les entreprises québécoises.
               Nous combinons expertise technique et compréhension des enjeux d{"'"}affaires pour livrer
               des solutions qui génèrent des résultats concrets.
             </p>
@@ -88,11 +88,11 @@ export function AboutSlide() {
         <FadeInUp delay={0.5} className="mt-12">
           <FeatureCard className="p-6">
             <p className="text-sm text-white/50 leading-relaxed text-center">
-              Nous avons analyse en profondeur les <span className="text-[#0066FF] font-medium">dimensions techniques</span>,{" "}
-              <span className="text-[#3388FF] font-medium">reglementaires</span>,{" "}
-              <span className="text-[#66AAFF] font-medium">financieres</span> et{" "}
+              Nous avons analysé en profondeur les <span className="text-[#0066FF] font-medium">dimensions techniques</span>,{" "}
+              <span className="text-[#3388FF] font-medium">réglementaires</span>,{" "}
+              <span className="text-[#66AAFF] font-medium">financières</span> et{" "}
               <span className="text-white/70 font-medium">organisationnelles</span> de votre projet afin de vous proposer
-              une solution adaptee a vos besoins reels.
+              une solution adaptée à vos besoins réels.
             </p>
           </FeatureCard>
         </FadeInUp>
