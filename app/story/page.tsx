@@ -236,7 +236,7 @@ export default function StoryScrollPage() {
               <p className="text-sm font-bold uppercase tracking-wider">Tests & QA</p>
             </div>
             <p className="text-3xl font-bold mb-1">{testPrice.toLocaleString('fr-CA')}$</p>
-            <p className="text-sm text-white/50">Validation complete</p>
+            <p className="text-sm text-white/50">Validation complète</p>
           </div>
         </div>
         
@@ -254,7 +254,7 @@ export default function StoryScrollPage() {
             >
               {option.recommended && (
                 <span className="inline-block px-3 py-1 rounded-full bg-[#0066FF] text-xs font-bold uppercase tracking-wider mb-3">
-                  Recommande
+                  Recommandé
                 </span>
               )}
               <p className="text-lg font-bold mb-2">{option.name}</p>

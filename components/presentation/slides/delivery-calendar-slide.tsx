@@ -92,7 +92,7 @@ export function DeliveryCalendarSlide() {
               <div className="w-10 h-10 rounded-xl bg-[#0066FF]/10 border border-[#0066FF]/20 flex items-center justify-center">
                 <Clock className="w-5 h-5 text-[#0066FF]" />
               </div>
-              <span className="text-xs text-white/40 uppercase tracking-wider">Duree estimee</span>
+              <span className="text-xs text-white/40 uppercase tracking-wider">Durée estimée</span>
             </div>
             <div className="text-3xl gradient-text-accent font-light">
               {estimatedWeeks} semaines
