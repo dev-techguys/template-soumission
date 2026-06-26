@@ -34,8 +34,8 @@ const TECH_STACK = [
   {
     id: "iam",
     icon: Lock,
-    title: "Authentification — Keycloak 24+",
-    description: "Standard de facto en IAM open-source pour les entreprises réglementées. Utilisé par Banque Nationale, iA Groupe Financier et Desjardins.",
+    title: "Authentification — Supabase / Keycloak",
+    description: "Supabase Auth par défaut (intégré au socle data, hébergé au Canada) ; Keycloak en option pour un portail client avancé. Standards IAM éprouvés par les entreprises réglementées.",
     items: [
       "RBAC granulaire avec héritage de rôles (admin, analyste, conseiller)",
       "MFA obligatoire par TOTP/WebAuthn/SMS",

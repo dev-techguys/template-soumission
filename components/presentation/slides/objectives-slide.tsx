@@ -10,8 +10,8 @@ const MODULES = [
     icon: ShieldCheck,
     number: "00",
     title: "Infrastructure & sécurité",
-    description: "Serveurs hébergés au Canada, base de données PostgreSQL 16, gestion des rôles et accès via Keycloak, environnements dev et prod, pipeline de déploiement automatisé.",
-    features: ["Hébergement Canada (Loi 25)", "Keycloak 24+ (IAM)", "PostgreSQL avec pgaudit", "CI/CD automatisé"],
+    description: "Serveurs hébergés au Canada, base de données PostgreSQL 16, gestion des rôles et accès via Supabase / Keycloak, environnements dev et prod, pipeline de déploiement automatisé.",
+    features: ["Hébergement Canada (Loi 25)", "Supabase / Keycloak (IAM)", "PostgreSQL avec pgaudit", "CI/CD automatisé"],
   },
   {
     icon: Users,
