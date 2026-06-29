@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes } from "lucide-react"
+import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, Workflow } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem, GlowCard, Parallax } from "@/components/ui/scroll-animations"
 import { motion } from "framer-motion"
 
@@ -56,8 +56,36 @@ const MODULES = [
     features: ["Rapport mensuel", "Intégration QuickBooks", "Sync automatique", "Export comptable"],
   },
   {
-    icon: CheckCircle2,
+    icon: ClipboardCheck,
     number: "07",
+    title: "Vérifications de souscription",
+    description: "Les 5 points obligatoires avant la livraison d'un dossier : pistage GPS, preuve d'assurance, Beacon Score, preuve et confirmation d'emploi — avec enregistrement de l'appel de confirmation pour la documentation légale.",
+    features: ["GPS & assurance", "Beacon Score", "Preuve d'emploi", "Enregistrement d'appel"],
+  },
+  {
+    icon: Activity,
+    number: "08",
+    title: "Monitoring du portefeuille & risques",
+    description: "Suivi avancé du risque de crédit : détection précoce des défauts, indicateurs de santé du portefeuille et segmentation par niveau de risque. Essentiel pour une clientèle de crédit spécialisé.",
+    features: ["Risque de crédit", "Détection des défauts", "Santé du portefeuille", "Segmentation"],
+  },
+  {
+    icon: Bell,
+    number: "09",
+    title: "Alertes & intégration assurances",
+    description: "Intégration des 3 compagnies d'assurance partenaires, avec procuration au contrat de location, pour déclencher automatiquement les alertes de non-paiement et le suivi des exigences contractuelles.",
+    features: ["3 assureurs partenaires", "Procuration au contrat", "Alertes non-paiement", "Suivi contractuel"],
+  },
+  {
+    icon: Workflow,
+    number: "10",
+    title: "Loan Origination System (LOS)",
+    description: "Moteur d'origination de prêts : workflow d'approbation de crédit et gestion des deals — soumission, décision, financement et structuration des dossiers de financement.",
+    features: ["Approbation de crédit", "Gestion des deals", "Décision & financement", "Structuration"],
+  },
+  {
+    icon: CheckCircle2,
+    number: "11",
     title: "Tests & mise en production",
     description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage.",
     features: ["Tests complets", "Validation client", "Mise en production", "Accompagnement 2 sem."],
@@ -102,7 +130,7 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-4xl leading-[1.1]">
-              Les <span className="gradient-text-accent">8 modules</span> du coeur
+              Les <span className="gradient-text-accent">12 modules</span> du coeur
               <br />
               <span className="text-white/60">de la plateforme</span>
             </h2>

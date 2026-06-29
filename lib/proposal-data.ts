@@ -38,7 +38,7 @@ export const pricing = {
 
   mvp: {
     name: "MVP de base",
-    description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks.",
+    description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks — enrichi des exigences métier critiques identifiées en rencontre : vérifications de souscription, monitoring du portefeuille, intégration des assurances et système d'origination de prêts (LOS).",
     modules: [
       {
         id: "infra",
@@ -61,7 +61,7 @@ export const pricing = {
       {
         id: "paiements",
         name: "Suivi des paiements",
-        description: "Enregistrement des versements reçus. Alertes courriel automatiques si un paiement est manqué. Relances programmables. Historique complet par dossier.",
+        description: "Enregistrement des versements reçus selon la fréquence choisie — hebdomadaire, aux deux semaines ou mensuelle (le paiement hebdomadaire est privilégié pour la clientèle à revenus limités). Alertes courriel automatiques si un paiement est manqué. Relances programmables. Historique complet par dossier.",
         hours: 25,
       },
       {
@@ -81,6 +81,30 @@ export const pricing = {
         name: "Rapports & QuickBooks",
         description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit pour synchroniser les transactions automatiquement.",
         hours: 15,
+      },
+      {
+        id: "souscription",
+        name: "Vérifications de souscription",
+        description: "Les 5 points obligatoires avant la livraison d'un dossier : pistage GPS du véhicule, preuve d'assurance, Beacon Score (cote de crédit), preuve d'emploi et confirmation d'emploi — avec enregistrement de l'appel de confirmation pour la documentation légale.",
+        hours: 38,
+      },
+      {
+        id: "monitoring",
+        name: "Monitoring du portefeuille & risques",
+        description: "Suivi avancé du risque de crédit : détection précoce des défauts, indicateurs de santé du portefeuille et segmentation par niveau de risque. Essentiel pour une clientèle de crédit spécialisé.",
+        hours: 28,
+      },
+      {
+        id: "assurances",
+        name: "Alertes & intégration assurances",
+        description: "Intégration des 3 compagnies d'assurance partenaires, avec procuration au contrat de location, pour déclencher automatiquement les alertes de non-paiement et le suivi des autres exigences contractuelles.",
+        hours: 30,
+      },
+      {
+        id: "los",
+        name: "Loan Origination System (LOS)",
+        description: "Moteur d'origination de prêts : workflow d'approbation de crédit et gestion des deals (soumission, décision, financement, structuration des dossiers de financement).",
+        hours: 42,
       },
       {
         id: "tests",
@@ -214,7 +238,7 @@ export const calendar = {
   pmApproved: false,
   startDate: "Juillet 2026",
   reviewCalls: "30 min à 1h par semaine avec l'équipe Groupe Laplante",
-  baseDurationWeeks: 13,
+  baseDurationWeeks: 17,
   weeks: [
     {
       week: 1,
@@ -266,8 +290,24 @@ export const calendar = {
     },
     {
       week: 9,
-      period: "Semaines 9-11",
+      period: "Semaines 9-12",
       month: "Août-Sept.",
+      title: "Souscription, risques & assurances",
+      focus: "Sécuriser la décision de crédit et le portefeuille",
+      moduleId: "souscription,monitoring,assurances,los",
+      activities: [
+        "Vérifications obligatoires : GPS, assurance, Beacon Score, emploi",
+        "Enregistrement d'appel de confirmation d'emploi",
+        "Monitoring du portefeuille et détection des défauts",
+        "Intégration des 3 assureurs partenaires + procuration",
+        "Loan Origination System (approbation & gestion des deals)",
+      ],
+      milestone: "Moteur de crédit opérationnel",
+    },
+    {
+      week: 13,
+      period: "Semaines 13-15",
+      month: "Septembre-Oct.",
       title: "Interface concessionnaires & Rapports",
       focus: "Outiller les équipes terrain",
       moduleId: "concessionnaires,rapports",
@@ -281,9 +321,9 @@ export const calendar = {
       milestone: "Concessionnaires connectés",
     },
     {
-      week: 12,
-      period: "Semaines 12-13",
-      month: "Septembre",
+      week: 16,
+      period: "Semaines 16-17",
+      month: "Octobre",
       title: "Tests & Mise en production",
       focus: "Livraison d'une plateforme robuste",
       moduleId: "tests",

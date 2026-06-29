@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2 } from "lucide-react"
+import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2, TrendingUp } from "lucide-react"
 import { pricing } from "@/lib/proposal-data"
 import { useSelectionStore } from "@/lib/selection-store"
 
@@ -12,6 +12,30 @@ function calculateMvpTotals() {
   const totalPrice = totalHours * pricing.hourlyRate
   return { baseHours, contingencyHours, totalHours, totalPrice }
 }
+
+// Estimation initiale (rencontre de découverte) — 8 modules de base, avant l'ajout
+// des exigences métier critiques identifiées lors de la rencontre.
+const INITIAL_MVP_PRICE = 30300
+
+// Exigences métier critiques ajoutées suite à la rencontre, qui expliquent la hausse.
+const SCOPE_ADDITIONS = [
+  {
+    title: "Vérifications de souscription",
+    detail: "GPS, assurance, Beacon Score, preuve et confirmation d'emploi (avec enregistrement d'appel).",
+  },
+  {
+    title: "Monitoring du portefeuille & risques",
+    detail: "Suivi du risque de crédit et détection précoce des défauts.",
+  },
+  {
+    title: "Alertes & intégration assurances",
+    detail: "3 assureurs partenaires, procuration au contrat, alertes de non-paiement.",
+  },
+  {
+    title: "Loan Origination System (LOS)",
+    detail: "Workflow d'approbation de crédit et gestion des deals.",
+  },
+]
 
 // Payment cycle step component
 function PaymentCycleStep({ 
@@ -99,6 +123,61 @@ export function PricingSlide() {
           </div>
         </div>
 
+        {/* Évolution du prix suite à la rencontre */}
+        <div className="glass-strong p-8 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-amber-300 to-[#0066FF]" />
+
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+              <TrendingUp className="w-4 h-4 text-amber-400" />
+            </div>
+            <div>
+              <h3 className="text-xl text-white font-medium">Pourquoi l{"'"}investissement a évolué</h3>
+              <p className="text-xs text-white/40">Mise à jour suite à la rencontre de découverte</p>
+            </div>
+          </div>
+
+          <p className="text-sm text-white/45 leading-relaxed max-w-3xl mb-6">
+            L{"'"}estimation initiale de <strong className="text-white/70">{INITIAL_MVP_PRICE.toLocaleString()}$</strong> couvrait le coeur de la plateforme. La rencontre a fait émerger des <strong className="text-white/70">exigences métier critiques</strong> — indispensables pour opérer comme prêteur direct — qui élargissent la portée du MVP et expliquent le nouveau montant.
+          </p>
+
+          {/* Avant / Ajout / Après */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="glass-card p-5">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Estimation initiale</span>
+              <p className="text-3xl text-white/50 font-light mt-2">{INITIAL_MVP_PRICE.toLocaleString()}$</p>
+              <p className="text-xs text-white/30 mt-1">8 modules de base</p>
+            </div>
+            <div className="glass-card p-5 border-amber-500/20 flex flex-col justify-center items-center">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-amber-400/70">Portée ajoutée</span>
+              <p className="text-3xl text-amber-400 font-light mt-2">
+                +{(mvpTotals.totalPrice - INITIAL_MVP_PRICE).toLocaleString()}$
+              </p>
+              <p className="text-xs text-white/30 mt-1">4 nouveaux modules critiques</p>
+            </div>
+            <div className="glass-card p-5 border-[#0066FF]/30">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-[#0066FF]/70">Nouveau MVP</span>
+              <p className="text-3xl gradient-text-accent font-light mt-2">{mvpTotals.totalPrice.toLocaleString()}$</p>
+              <p className="text-xs text-white/30 mt-1">contingence incluse</p>
+            </div>
+          </div>
+
+          {/* Liste des ajouts */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {SCOPE_ADDITIONS.map((item) => (
+              <div key={item.title} className="flex items-start gap-3 p-3 rounded-xl glass">
+                <div className="w-5 h-5 rounded-md bg-amber-500/15 flex items-center justify-center shrink-0 mt-0.5">
+                  <Plus className="w-3 h-3 text-amber-400" />
+                </div>
+                <div>
+                  <p className="text-sm text-white/70 font-medium">{item.title}</p>
+                  <p className="text-xs text-white/35 leading-relaxed">{item.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* MVP Details */}
         <div className="glass-strong p-8 mb-8 relative overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0066FF] via-[#3388FF] to-[#66AAFF]" />
@@ -129,7 +208,7 @@ export function PricingSlide() {
 
           {/* MVP Modules */}
           <div className="border-t border-white/10 pt-6">
-            <p className="text-xs text-white/30 mb-4 uppercase tracking-wider">8 modules inclus dans le MVP</p>
+            <p className="text-xs text-white/30 mb-4 uppercase tracking-wider">{pricing.mvp.modules.length} modules inclus dans le MVP</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {pricing.mvp.modules.map((module) => (
                 <div key={module.id} className="flex items-center justify-between gap-4 p-3 rounded-xl glass">

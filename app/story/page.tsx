@@ -164,7 +164,7 @@ export default function StoryScrollPage() {
         <hr className="my-[2vw] border-none h-px bg-white/20" />
         
         <div className="flex flex-wrap gap-[3vw]">
-          {modules.slice(0, 4).map((module, index) => (
+          {modules.slice(0, 6).map((module, index) => (
             <div key={module.id} className="min-w-[200px] flex-1">
               <p className="mb-2 text-sm font-bold uppercase tracking-wider text-white/90">
                 {String(index + 1).padStart(2, '0')} — {module.name}
@@ -179,10 +179,10 @@ export default function StoryScrollPage() {
         <hr className="my-[2vw] border-none h-px bg-white/20" />
         
         <div className="flex flex-wrap gap-[3vw]">
-          {modules.slice(4, 8).map((module, index) => (
+          {modules.slice(6, 12).map((module, index) => (
             <div key={module.id} className="min-w-[200px] flex-1">
               <p className="mb-2 text-sm font-bold uppercase tracking-wider text-white/90">
-                {String(index + 5).padStart(2, '0')} — {module.name}
+                {String(index + 7).padStart(2, '0')} — {module.name}
               </p>
               <p className="text-sm leading-relaxed text-white/70">
                 {module.description}
@@ -228,7 +228,7 @@ export default function StoryScrollPage() {
               <p className="text-sm font-bold uppercase tracking-wider">Développement</p>
             </div>
             <p className="text-3xl font-bold mb-1">{devPrice.toLocaleString('fr-CA')}$</p>
-            <p className="text-sm text-white/50">8 modules complets</p>
+            <p className="text-sm text-white/50">12 modules complets</p>
           </div>
           <div className="min-w-[200px] flex-1 p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-3 mb-3">
