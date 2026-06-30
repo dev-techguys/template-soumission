@@ -99,10 +99,10 @@ const TECH_STACK = [
 ]
 
 const COMPARISON = [
-  { profil: "Agence boutique MTL/QC", taux: "130-150$/h", estimation: "48 000$-78 000$", ecart: "+33% à +67%" },
-  { profil: "Grande agence (50+ devs)", taux: "160-200$/h", estimation: "83 000$-105 000$", ecart: "+60% à +124%" },
+  { profil: "Agence boutique MTL/QC", taux: "130-150$/h", estimation: "99 000$-145 000$", ecart: "+59% à +133%" },
+  { profil: "Grande agence (50+ devs)", taux: "160-200$/h", estimation: "170 000$-217 000$", ecart: "+174% à +249%" },
   { profil: "SaaS (DealerTrack, CDK...)", taux: "Abonnement", estimation: "25 000$-35 000$/an", ecart: "Pas de propriété" },
-  { profil: "TechGuys Inc.", taux: "150$/h", estimation: "23 250$-36 750$", ecart: "Vous économisez ~35%" },
+  { profil: "TechGuys Inc.", taux: "150$/h", estimation: "62 100$", ecart: "Vous économisez ~40%" },
 ]
 
 export function AnnexeSlide() {
