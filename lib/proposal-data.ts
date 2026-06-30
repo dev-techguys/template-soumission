@@ -38,7 +38,7 @@ export const pricing = {
 
   mvp: {
     name: "MVP de base",
-    description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks — enrichi des exigences métier critiques identifiées en rencontre : vérifications de souscription, monitoring du portefeuille, intégration des assurances et système d'origination de prêts (LOS).",
+    description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks — enrichi des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, intégration des assurances et système d'origination de prêts (LOS) couvrant tout le cycle de vie d'un financement.",
     modules: [
       {
         id: "infra",
@@ -61,8 +61,8 @@ export const pricing = {
       {
         id: "paiements",
         name: "Suivi des paiements",
-        description: "Enregistrement des versements reçus selon la fréquence choisie — hebdomadaire, aux deux semaines ou mensuelle (le paiement hebdomadaire est privilégié pour la clientèle à revenus limités). Alertes courriel automatiques si un paiement est manqué. Relances programmables. Historique complet par dossier.",
-        hours: 25,
+        description: "Versements hebdomadaires surveillés automatiquement (privilégiés pour la clientèle 2e chance : 120-140$/sem. plutôt qu'un paiement mensuel). Détection immédiate des paiements manqués, relances programmables et historique complet par dossier.",
+        hours: 31,
       },
       {
         id: "dashboard",
@@ -84,27 +84,27 @@ export const pricing = {
       },
       {
         id: "souscription",
-        name: "Vérifications de souscription",
-        description: "Les 5 points obligatoires avant la livraison d'un dossier : pistage GPS du véhicule, preuve d'assurance, Beacon Score (cote de crédit), preuve d'emploi et confirmation d'emploi — avec enregistrement de l'appel de confirmation pour la documentation légale.",
-        hours: 38,
+        name: "Checklist de livraison & archivage des preuves",
+        description: "Checklist obligatoire qui BLOQUE la livraison d'un véhicule tant que les 5 points ne sont pas validés : GPS installé, assurance valide, Beacon Score (≈500+), preuve d'emploi et confirmation téléphonique enregistrée. Toutes les preuves (appels, revenus, relevés, contrats) sont archivées avec un historique complet pour la conformité.",
+        hours: 50,
       },
       {
         id: "monitoring",
-        name: "Monitoring du portefeuille & risques",
-        description: "Suivi avancé du risque de crédit : détection précoce des défauts, indicateurs de santé du portefeuille et segmentation par niveau de risque. Essentiel pour une clientèle de crédit spécialisé.",
-        hours: 28,
+        name: "Monitoring & tableau d'alertes temps réel",
+        description: "Le coeur opérationnel du produit : un tableau d'alertes unique qui surveille en continu chaque dossier — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection précoce des défauts, santé du portefeuille et segmentation par niveau de risque, plus suivi GPS avec immobilisation possible du véhicule (avant utilisation, jamais en roulant).",
+        hours: 40,
       },
       {
         id: "assurances",
-        name: "Alertes & intégration assurances",
-        description: "Intégration des 3 compagnies d'assurance partenaires, avec procuration au contrat de location, pour déclencher automatiquement les alertes de non-paiement et le suivi des autres exigences contractuelles.",
-        hours: 30,
+        name: "Intégration assurances partenaires",
+        description: "Partenariats avec les compagnies d'assurance : la procuration signée au contrat autorise l'assureur à notifier automatiquement la plateforme dès qu'un client annule sa couverture, déclenchant une alerte immédiate. Suivi continu de la validité des assurances sur l'ensemble du portefeuille.",
+        hours: 34,
       },
       {
         id: "los",
         name: "Loan Origination System (LOS)",
-        description: "Moteur d'origination de prêts : workflow d'approbation de crédit et gestion des deals (soumission, décision, financement, structuration des dossiers de financement).",
-        hours: 42,
+        description: "Le moteur d'origination couvrant tout le cycle de vie d'un prêt, à l'image des LOS américains : création du dossier, dépôt des pièces, analyse du crédit et décision (approuvé / refusé / informations requises), structuration et financement du deal.",
+        hours: 54,
       },
       {
         id: "tests",

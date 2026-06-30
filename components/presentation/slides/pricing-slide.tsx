@@ -20,20 +20,20 @@ const INITIAL_MVP_PRICE = 30300
 // Exigences métier critiques ajoutées suite à la rencontre, qui expliquent la hausse.
 const SCOPE_ADDITIONS = [
   {
-    title: "Vérifications de souscription",
-    detail: "GPS, assurance, Beacon Score, preuve et confirmation d'emploi (avec enregistrement d'appel).",
+    title: "Checklist de livraison & archivage des preuves",
+    detail: "Blocage de la livraison tant que les 5 points ne sont pas validés (GPS, assurance, Beacon, emploi + appel) et archivage complet des preuves.",
   },
   {
-    title: "Monitoring du portefeuille & risques",
-    detail: "Suivi du risque de crédit et détection précoce des défauts.",
+    title: "Monitoring & tableau d'alertes temps réel",
+    detail: "Le coeur du produit : alertes en continu (paiement, assurance, GPS, documents) et immobilisation GPS possible.",
   },
   {
-    title: "Alertes & intégration assurances",
-    detail: "3 assureurs partenaires, procuration au contrat, alertes de non-paiement.",
+    title: "Intégration assurances partenaires",
+    detail: "Procuration au contrat : notification automatique de l'assureur dès l'annulation d'une couverture.",
   },
   {
     title: "Loan Origination System (LOS)",
-    detail: "Workflow d'approbation de crédit et gestion des deals.",
+    detail: "Cycle de vie complet du prêt : analyse de crédit, décision, structuration et financement.",
   },
 ]
 
