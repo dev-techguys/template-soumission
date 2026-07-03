@@ -39,14 +39,14 @@ export function DeliveryCalendarSlide() {
   const mvpPhases = [
     { id: "infra", name: "Infrastructure", startWeek: 1, endWeek: 2, color: PHASE_COLORS[0] },
     { id: "core", name: "Dossiers & Contrats", startWeek: 3, endWeek: 5, color: PHASE_COLORS[1] },
-    { id: "payments", name: "Paiements & Dashboard", startWeek: 6, endWeek: 8, color: PHASE_COLORS[2] },
-    { id: "underwriting", name: "Souscription & Risques", startWeek: 9, endWeek: 12, color: PHASE_COLORS[3] },
-    { id: "dealers", name: "Concessionnaires & Rapports", startWeek: 13, endWeek: 15, color: PHASE_COLORS[2] },
-    { id: "tests", name: "Tests & Production", startWeek: 16, endWeek: 17, color: PHASE_COLORS[4] },
+    { id: "payments", name: "Paiements, Dashboard & SMS", startWeek: 6, endWeek: 9, color: PHASE_COLORS[2] },
+    { id: "underwriting", name: "Souscription, Risques & Plaid", startWeek: 10, endWeek: 13, color: PHASE_COLORS[3] },
+    { id: "dealers", name: "Concessionnaires & Rapports", startWeek: 14, endWeek: 16, color: PHASE_COLORS[2] },
+    { id: "tests", name: "Tests & Production", startWeek: 17, endWeek: 18, color: PHASE_COLORS[4] },
   ]
 
   // Options phases (only shown if selected)
-  let optionStartWeek = 18
+  let optionStartWeek = 19
   const optionPhases = selectedOptionsData.map(opt => {
     const phase = {
       id: opt.id,

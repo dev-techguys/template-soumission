@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, Workflow } from "lucide-react"
+import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, Workflow, Landmark, MessageSquare } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem, GlowCard, Parallax } from "@/components/ui/scroll-animations"
 import { motion } from "framer-motion"
 
@@ -84,8 +84,22 @@ const MODULES = [
     features: ["Cycle de vie complet", "Analyse de crédit", "Décision automatisée", "Financement"],
   },
   {
-    icon: CheckCircle2,
+    icon: Landmark,
     number: "11",
+    title: "Connexion bancaire (Plaid)",
+    description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire directement dans la souscription, sans relevés manuels.",
+    features: ["API Plaid sécurisée", "Validation des revenus", "Comportement bancaire", "Sans relevés manuels"],
+  },
+  {
+    icon: MessageSquare,
+    number: "12",
+    title: "SMS & relances automatisées",
+    description: "Envoi de SMS automatisés : rappels avant échéance, relances en cas de retard (J+1, J+3, J+7...) et confirmations de réception. Coût de service mensuel fixe en sus (~30-60$/mois).",
+    features: ["Rappels avant échéance", "Relances J+1, J+3, J+7", "Confirmations de réception", "Coût mensuel en sus"],
+  },
+  {
+    icon: CheckCircle2,
+    number: "13",
     title: "Tests & mise en production",
     description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage.",
     features: ["Tests complets", "Validation client", "Mise en production", "Accompagnement 2 sem."],
@@ -130,7 +144,7 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-4xl leading-[1.1]">
-              Les <span className="gradient-text-accent">12 modules</span> du coeur
+              Les <span className="gradient-text-accent">14 modules</span> du coeur
               <br />
               <span className="text-white/60">de la plateforme</span>
             </h2>

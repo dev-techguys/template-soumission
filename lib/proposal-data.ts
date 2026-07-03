@@ -38,7 +38,7 @@ export const pricing = {
 
   mvp: {
     name: "MVP de base",
-    description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks — enrichi des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, intégration des assurances et système d'origination de prêts (LOS) couvrant tout le cycle de vie d'un financement.",
+    description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks — enrichi des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, intégration des assurances, système d'origination de prêts (LOS), connexion bancaire Plaid et SMS de relance automatisés.",
     modules: [
       {
         id: "infra",
@@ -107,6 +107,18 @@ export const pricing = {
         hours: 54,
       },
       {
+        id: "plaid",
+        name: "Connexion bancaire (Plaid)",
+        description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire directement dans la souscription, sans relevés manuels.",
+        hours: 38,
+      },
+      {
+        id: "sms",
+        name: "SMS & relances automatisées",
+        description: "Envoi de SMS automatisés : rappels avant échéance, relances en cas de retard (J+1, J+3, J+7...) et confirmations de réception. Coût de service mensuel fixe en sus (~30-60$/mois).",
+        hours: 15,
+      },
+      {
         id: "tests",
         name: "Tests & mise en production",
         description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage (2 semaines).",
@@ -117,14 +129,6 @@ export const pricing = {
   },
 
   options: [
-    {
-      id: "plaid",
-      name: "Connexion bancaire (Plaid)",
-      description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire sans relevés manuels.",
-      hours: 38,
-      recommended: false,
-      weeksToAdd: 1,
-    },
     {
       id: "certm",
       name: "Enquête de crédit (CERTM)",
@@ -238,7 +242,7 @@ export const calendar = {
   pmApproved: false,
   startDate: "Juillet 2026",
   reviewCalls: "30 min à 1h par semaine avec l'équipe Groupe Laplante",
-  baseDurationWeeks: 17,
+  baseDurationWeeks: 18,
   weeks: [
     {
       week: 1,
@@ -274,30 +278,30 @@ export const calendar = {
     },
     {
       week: 6,
-      period: "Semaines 6-8",
+      period: "Semaines 6-9",
       month: "Août",
-      title: "Suivi des paiements & Dashboard",
+      title: "Paiements, Dashboard & SMS",
       focus: "Visibilité en temps réel sur le portefeuille",
-      moduleId: "paiements,dashboard",
+      moduleId: "paiements,dashboard,sms",
       activities: [
-        "Enregistrement des versements reçus",
+        "Enregistrement des versements reçus (hebdomadaires)",
         "Alertes courriel automatiques (paiements manqués)",
-        "Relances programmables",
+        "SMS de relance automatisés (J+1, J+3, J+7)",
         "Tableau de bord avec indicateurs clés",
         "Vue consolidée : à jour, en retard, en défaut",
       ],
-      milestone: "Dashboard en temps réel",
+      milestone: "Dashboard & relances en temps réel",
     },
     {
-      week: 9,
-      period: "Semaines 9-12",
-      month: "Août-Sept.",
+      week: 10,
+      period: "Semaines 10-13",
+      month: "Sept.",
       title: "Souscription, risques & assurances",
       focus: "Sécuriser la décision de crédit et le portefeuille",
-      moduleId: "souscription,monitoring,assurances,los",
+      moduleId: "souscription,monitoring,assurances,los,plaid",
       activities: [
         "Vérifications obligatoires : GPS, assurance, Beacon Score, emploi",
-        "Enregistrement d'appel de confirmation d'emploi",
+        "Connexion bancaire Plaid (validation des revenus)",
         "Monitoring du portefeuille et détection des défauts",
         "Intégration des 3 assureurs partenaires + procuration",
         "Loan Origination System (approbation & gestion des deals)",
@@ -305,8 +309,8 @@ export const calendar = {
       milestone: "Moteur de crédit opérationnel",
     },
     {
-      week: 13,
-      period: "Semaines 13-15",
+      week: 14,
+      period: "Semaines 14-16",
       month: "Septembre-Oct.",
       title: "Interface concessionnaires & Rapports",
       focus: "Outiller les équipes terrain",
@@ -321,8 +325,8 @@ export const calendar = {
       milestone: "Concessionnaires connectés",
     },
     {
-      week: 16,
-      period: "Semaines 16-17",
+      week: 17,
+      period: "Semaines 17-18",
       month: "Octobre",
       title: "Tests & Mise en production",
       focus: "Livraison d'une plateforme robuste",
