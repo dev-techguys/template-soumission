@@ -88,7 +88,7 @@ export function ClosingSlide() {
               >
                 <Pen className="w-4 h-4 text-white" />
                 <span className="text-sm tracking-[0.05em] text-white font-sans font-semibold">
-                  Signer le contrat
+                  Cliquer ici pour signer
                 </span>
                 <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform duration-300" />
               </a>

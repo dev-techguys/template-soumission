@@ -29,7 +29,7 @@ export function SignatureModal() {
       >
         <div className="flex items-center gap-3 bg-[#0035FF] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#0035FF]/90 transition-all duration-300 hover:scale-105">
           <PenLine className="w-5 h-5" />
-          <span className="font-medium text-sm">Signer le contrat</span>
+          <span className="font-medium text-sm">Cliquer ici pour signer</span>
           <ExternalLink className="w-4 h-4 opacity-70" />
         </div>
       </a>
