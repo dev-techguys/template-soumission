@@ -5,61 +5,23 @@ import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import { client, branding } from "@/lib/proposal-data"
 import { motion } from "framer-motion"
-import dynamic from "next/dynamic"
 import { MagneticButton } from "@/components/ui/scroll-animations"
 
-// Dynamically load Spline (client-only) to avoid React/DOM reconciliation
-// conflicts caused by Spline's direct DOM manipulation.
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 bg-gradient-to-br from-[#030318] via-[#0a0a2e] to-[#050520]">
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/25 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#990033]/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
-    </div>
-  ),
-})
-
-function SplineBackground() {
+function CoverBackground() {
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-auto overflow-hidden">
-      {/* Spline with hue shift toward blue and blur */}
-      <div 
-        className="w-full h-full"
-        style={{
-          filter: "blur(2px) saturate(0.9) hue-rotate(-15deg)",
-        }}
-      >
-        <Spline
-          style={{
-            width: "100%",
-            height: "100vh",
-            pointerEvents: "auto",
-          }}
-          scene="https://prod.spline.design/us3ALejTXl6usHZ7/scene.splinecode"
-        />
-      </div>
-      
-      {/* Blue tint overlay to shift colors */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "rgba(0, 20, 60, 0.25)",
-          mixBlendMode: "overlay",
-        }}
-      />
-      
-      {/* Darker red accent in corner */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse 40% 40% at 70% 60%, rgba(120, 0, 40, 0.15), transparent 70%)",
-        }}
-      />
-      
+    <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+      {/* Base gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#030318] via-[#0a0a2e] to-[#050520]" />
+
+      {/* Soft blue glow */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/20 rounded-full blur-[120px]" />
+
+      {/* Subtle red accent */}
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#990033]/15 rounded-full blur-[100px]" />
+
       {/* Gradient overlay for readability */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0"
         style={{
           background: `
             linear-gradient(to bottom, transparent 50%, rgba(0, 3, 15, 0.5) 80%, rgba(0, 3, 15, 0.85)),
@@ -74,8 +36,8 @@ function SplineBackground() {
 export function CoverSlide() {
   return (
     <SlideWrapper id="cover" className="relative overflow-hidden">
-      {/* Spline Galaxy Background */}
-      <SplineBackground />
+      {/* Static gradient background */}
+      <CoverBackground />
       
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 text-center">
