@@ -111,7 +111,6 @@ export function SommaireSlide() {
                     {/* Content */}
                     <div className="flex-1 min-w-0">
                       <h3 className="text-base text-white font-medium">{section.title}</h3>
-                      <p className="text-sm text-white/40 leading-relaxed truncate">{section.description}</p>
                     </div>
 
                     {/* Arrow */}
