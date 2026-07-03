@@ -83,13 +83,6 @@ const PHASES = [
         description: "Le coeur opérationnel : un tableau d'alertes unique qui surveille chaque dossier en continu — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection des défauts et suivi GPS de l'état du véhicule.",
         features: ["Alertes temps réel", "Détection des défauts", "Suivi GPS", "Santé du portefeuille"],
       },
-      {
-        icon: Bell,
-        number: "10",
-        title: "Intégration assurances partenaires",
-        description: "Procuration signée au contrat : l'assureur notifie automatiquement la plateforme dès qu'un client annule sa couverture, déclenchant une alerte immédiate. Suivi continu de la validité des assurances du portefeuille.",
-        features: ["Assureurs partenaires", "Procuration au contrat", "Alerte d'annulation", "Suivi continu"],
-      },
     ],
   },
   {
@@ -98,6 +91,13 @@ const PHASES = [
     title: "Intégrations & mise en service",
     description: "Connecter les partenaires, automatiser la communication client et livrer la plateforme en production.",
     modules: [
+      {
+        icon: Bell,
+        number: "10",
+        title: "Intégration assurances partenaires",
+        description: "Procuration signée au contrat : l'assureur notifie automatiquement la plateforme dès qu'un client annule sa couverture, déclenchant une alerte immédiate. Suivi continu de la validité des assurances du portefeuille.",
+        features: ["Assureurs partenaires", "Procuration au contrat", "Alerte d'annulation", "Suivi continu"],
+      },
       {
         icon: Building2,
         number: "11",
