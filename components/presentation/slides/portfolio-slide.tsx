@@ -38,7 +38,7 @@ const PROJECTS = [
   },
   {
     name: "Samuelsohn",
-    category: "Site web",
+    category: "Application web",
     description:
       "Expérience web élégante pour une maison de vêtements haut de gamme, au service de son héritage et de son positionnement premium.",
   },
