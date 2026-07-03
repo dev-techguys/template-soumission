@@ -10,22 +10,36 @@ import { MagneticButton } from "@/components/ui/scroll-animations"
 function CoverBackground() {
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-      {/* Base gradient */}
+      {/* Base gradient (fallback while video loads) */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#030318] via-[#0a0a2e] to-[#050520]" />
 
-      {/* Soft blue glow */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/20 rounded-full blur-[120px]" />
+      {/* Video background */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+      >
+        <source src="/videos/hero-cars.mov" type="video/mp4" />
+        <source src="/videos/hero-cars.mov" type="video/quicktime" />
+      </video>
 
-      {/* Subtle red accent */}
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#990033]/15 rounded-full blur-[100px]" />
+      {/* Dark tint over the video to keep the brand mood and text readable */}
+      <div className="absolute inset-0 bg-[#030318]/55" />
+
+      {/* Subtle blue glow accent */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0066FF]/15 rounded-full blur-[120px]" />
 
       {/* Gradient overlay for readability */}
       <div
         className="absolute inset-0"
         style={{
           background: `
-            linear-gradient(to bottom, transparent 50%, rgba(0, 3, 15, 0.5) 80%, rgba(0, 3, 15, 0.85)),
-            linear-gradient(to right, rgba(0, 3, 15, 0.3), transparent 30%, transparent 70%, rgba(0, 3, 15, 0.3))
+            linear-gradient(to bottom, rgba(0, 3, 15, 0.35) 0%, transparent 35%, rgba(0, 3, 15, 0.55) 80%, rgba(0, 3, 15, 0.9)),
+            linear-gradient(to right, rgba(0, 3, 15, 0.4), transparent 30%, transparent 70%, rgba(0, 3, 15, 0.4))
           `,
         }}
       />
