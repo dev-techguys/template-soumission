@@ -91,7 +91,7 @@ export const pricing = {
       {
         id: "monitoring",
         name: "Monitoring & tableau d'alertes temps réel",
-        description: "Le coeur opérationnel du produit : un tableau d'alertes unique qui surveille en continu chaque dossier — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection précoce des défauts, santé du portefeuille et segmentation par niveau de risque, plus suivi GPS avec immobilisation possible du véhicule (avant utilisation, jamais en roulant).",
+        description: "Le coeur opérationnel du produit : un tableau d'alertes unique qui surveille en continu chaque dossier — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection précoce des défauts, santé du portefeuille et segmentation par niveau de risque, avec suivi GPS de l'état du véhicule.",
         hours: 40,
       },
       {

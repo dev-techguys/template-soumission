@@ -25,7 +25,7 @@ const SCOPE_ADDITIONS = [
   },
   {
     title: "Monitoring & tableau d'alertes temps réel",
-    detail: "Le coeur du produit : alertes en continu (paiement, assurance, GPS, documents) et immobilisation GPS possible.",
+    detail: "Le coeur du produit : alertes en continu (paiement, assurance, GPS, documents) et suivi GPS de l'état du véhicule.",
   },
   {
     title: "Intégration assurances partenaires",

@@ -66,8 +66,8 @@ const MODULES = [
     icon: Activity,
     number: "08",
     title: "Monitoring & tableau d'alertes temps réel",
-    description: "Le coeur opérationnel : un tableau d'alertes unique qui surveille chaque dossier en continu — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection des défauts et immobilisation GPS possible (avant utilisation).",
-    features: ["Alertes temps réel", "Détection des défauts", "Suivi GPS", "Immobilisation"],
+    description: "Le coeur opérationnel : un tableau d'alertes unique qui surveille chaque dossier en continu — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection des défauts et suivi GPS de l'état du véhicule.",
+    features: ["Alertes temps réel", "Détection des défauts", "Suivi GPS", "Santé du portefeuille"],
   },
   {
     icon: Bell,
