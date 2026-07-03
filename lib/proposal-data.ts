@@ -6,7 +6,7 @@
 
 export const client = {
   name: "Groupe Laplante",
-  contactName: "Hugo Bélanger & Mathieu Laplante",
+  contactName: "Hugo Bélanger, Mathieu Laplante & Christopher Tollstam",
   website: "https://www.laplantegroupeauto.com/",
   industry: "Réseau de concessions automobiles",
   mission: "Internaliser le processus de financement automobile pour offrir une meilleure expérience client et accroître la rentabilité",
