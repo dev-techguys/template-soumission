@@ -38,7 +38,7 @@ export const pricing = {
 
   mvp: {
     name: "MVP de base",
-    description: "Le coeur de la plateforme AutoFinance : gestion des dossiers clients, contrats de location, suivi des paiements, tableau de bord, interface concessionnaires et rapports QuickBooks — enrichi des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, intégration des assurances, système d'origination de prêts (LOS), connexion bancaire Plaid et SMS de relance automatisés.",
+    description: "La plateforme est, dans son ensemble, un Loan Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie du prêt, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de prêt, conditions, taux, échéancier), le suivi des paiements, le tableau de bord, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, intégration des assurances, connexion bancaire Plaid et SMS de relance automatisés.",
     modules: [
       {
         id: "infra",
@@ -101,10 +101,10 @@ export const pricing = {
         hours: 34,
       },
       {
-        id: "los",
-        name: "Loan Origination System (LOS)",
-        description: "Le moteur d'origination couvrant tout le cycle de vie d'un prêt, à l'image des LOS américains : création du dossier, dépôt des pièces, analyse du crédit et décision (approuvé / refusé / informations requises), structuration et financement du deal.",
-        hours: 54,
+        id: "documents",
+        name: "Génération de documents",
+        description: "Génération automatique des documents requis à partir des données du dossier : contrat de prêt, conditions, taux, échéancier et divulgations — prêts à signer. Modèles conformes, calculs verrouillés sur les données du dossier et personnalisés aux couleurs de Groupe Laplante.",
+        hours: 35,
       },
       {
         id: "plaid",
@@ -298,13 +298,13 @@ export const calendar = {
       month: "Sept.",
       title: "Souscription, risques & assurances",
       focus: "Sécuriser la décision de crédit et le portefeuille",
-      moduleId: "souscription,monitoring,assurances,los,plaid",
+      moduleId: "souscription,monitoring,assurances,documents,plaid",
       activities: [
         "Vérifications obligatoires : GPS, assurance, Beacon Score, emploi",
         "Connexion bancaire Plaid (validation des revenus)",
         "Monitoring du portefeuille et détection des défauts",
         "Intégration des 3 assureurs partenaires + procuration",
-        "Loan Origination System (approbation & gestion des deals)",
+        "Génération des documents (contrat, conditions, taux, échéancier)",
       ],
       milestone: "Moteur de crédit opérationnel",
     },

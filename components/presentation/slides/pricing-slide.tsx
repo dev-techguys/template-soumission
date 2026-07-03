@@ -32,8 +32,8 @@ const SCOPE_ADDITIONS = [
     detail: "Procuration au contrat : notification automatique de l'assureur dès l'annulation d'une couverture.",
   },
   {
-    title: "Loan Origination System (LOS)",
-    detail: "Cycle de vie complet du prêt : analyse de crédit, décision, structuration et financement.",
+    title: "Génération de documents",
+    detail: "Contrat de prêt, conditions, taux et échéancier générés automatiquement à partir des données du dossier.",
   },
   {
     title: "Connexion bancaire (Plaid)",

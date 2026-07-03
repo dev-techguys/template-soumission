@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, Workflow, Landmark, MessageSquare } from "lucide-react"
+import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, FileSignature, Landmark, MessageSquare } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem, GlowCard, Parallax } from "@/components/ui/scroll-animations"
 import { motion } from "framer-motion"
 
@@ -63,11 +63,11 @@ const PHASES = [
         features: ["Blocage de livraison", "5 points obligatoires", "Appel enregistré", "Archivage des preuves"],
       },
       {
-        icon: Workflow,
+        icon: FileSignature,
         number: "07",
-        title: "Loan Origination System (LOS)",
-        description: "Le moteur d'origination couvrant tout le cycle de vie d'un prêt : création du dossier, dépôt des pièces, analyse du crédit et décision (approuvé / refusé / informations requises), structuration et financement du deal.",
-        features: ["Cycle de vie complet", "Analyse de crédit", "Décision automatisée", "Financement"],
+        title: "Génération de documents",
+        description: "Génération automatique des documents requis à partir des données du dossier : contrat de prêt, conditions, taux, échéancier et divulgations — prêts à signer. Modèles conformes, calculs verrouillés et aux couleurs de Groupe Laplante.",
+        features: ["Contrat de prêt", "Conditions & taux", "Échéancier généré", "Modèles conformes"],
       },
       {
         icon: Landmark,
@@ -168,14 +168,14 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-4xl leading-[1.1]">
-              <span className="gradient-text-accent">3 phases</span>, 14 fonctionnalités
+              Un <span className="gradient-text-accent">LOS sur mesure</span> pour
               <br />
-              <span className="text-white/60">pour livrer la plateforme</span>
+              <span className="text-white/60">Groupe Laplante</span>
             </h2>
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans max-w-2xl leading-relaxed">
-              L{"'"}objectif : savoir en tout temps qui a un contrat actif, où en est chaque dossier, qui a payé et qui ne l{"'"}a pas fait — en un seul endroit.
+              La plateforme est, dans son ensemble, un Loan Origination System (LOS) taillé pour vos opérations : tout le cycle de vie du prêt, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">14 fonctionnalités</span>.
             </p>
           </FadeInUp>
         </div>
