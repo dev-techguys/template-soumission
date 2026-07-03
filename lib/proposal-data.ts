@@ -237,9 +237,36 @@ export const calendar = {
   startDate: "Juillet 2026",
   reviewCalls: "30 min à 1h par semaine avec l'équipe Groupe Laplante",
   baseDurationWeeks: 17,
+  phases: [
+    {
+      number: 1,
+      name: "Socle opérationnel",
+      period: "Semaines 1-8",
+      focus: "Gérer les dossiers, contrats et paiements au quotidien, avec une vue consolidée du portefeuille.",
+    },
+    {
+      number: 2,
+      name: "Moteur de crédit & risques",
+      period: "Semaines 9-13",
+      focus: "Sécuriser la décision de crédit, la souscription et le suivi du risque.",
+    },
+    {
+      number: 3,
+      name: "Intégrations & mise en service",
+      period: "Semaines 14-17",
+      focus: "Connecter les partenaires, produire les rapports et livrer la plateforme en production.",
+    },
+  ] as Array<{
+    number: number
+    name: string
+    period: string
+    focus: string
+  }>,
   weeks: [
     {
+      phase: 1,
       week: 1,
+      endWeek: 2,
       period: "Semaines 1-2",
       month: "Juillet",
       title: "Infrastructure & Setup",
@@ -255,7 +282,9 @@ export const calendar = {
       milestone: "Infrastructure opérationnelle",
     },
     {
+      phase: 1,
       week: 3,
+      endWeek: 5,
       period: "Semaines 3-5",
       month: "Juillet-Août",
       title: "Dossiers clients & Contrats",
@@ -271,10 +300,12 @@ export const calendar = {
       milestone: "Contrats fonctionnels",
     },
     {
+      phase: 1,
       week: 6,
+      endWeek: 8,
       period: "Semaines 6-8",
       month: "Août",
-      title: "Paiements & Dashboard",
+      title: "Paiements & Tableau de bord",
       focus: "Visibilité en temps réel sur le portefeuille",
       moduleId: "paiements,dashboard",
       activities: [
@@ -287,39 +318,63 @@ export const calendar = {
       milestone: "Dashboard en temps réel",
     },
     {
+      phase: 2,
       week: 9,
-      period: "Semaines 9-12",
+      endWeek: 11,
+      period: "Semaines 9-11",
       month: "Sept.",
-      title: "Souscription, risques & assurances",
-      focus: "Sécuriser la décision de crédit et le portefeuille",
-      moduleId: "souscription,monitoring,assurances,documents,plaid",
+      title: "Checklist de livraison & Génération de documents",
+      focus: "Sécuriser la livraison et produire les documents de prêt",
+      moduleId: "souscription,documents",
       activities: [
-        "Vérifications obligatoires : GPS, assurance, Beacon Score, emploi",
-        "Connexion bancaire Plaid (validation des revenus)",
-        "Monitoring du portefeuille et détection des défauts",
-        "Intégration des 3 assureurs partenaires + procuration",
+        "Checklist bloquante : GPS, assurance, Beacon Score, emploi",
+        "Enregistrement d'appel de confirmation d'emploi",
         "Génération des documents (contrat, conditions, taux, échéancier)",
+        "Modèles conformes aux couleurs de Groupe Laplante",
+        "Archivage des preuves pour la conformité",
+      ],
+      milestone: "Livraison sécurisée & documents",
+    },
+    {
+      phase: 2,
+      week: 12,
+      endWeek: 13,
+      period: "Semaines 12-13",
+      month: "Septembre-Oct.",
+      title: "Connexion Plaid & Monitoring",
+      focus: "Valider les revenus et surveiller le risque en continu",
+      moduleId: "plaid,monitoring",
+      activities: [
+        "Connexion bancaire Plaid (validation des revenus)",
+        "Analyse du comportement bancaire",
+        "Monitoring du portefeuille et détection des défauts",
+        "Tableau d'alertes temps réel et suivi GPS",
+        "Segmentation par niveau de risque",
       ],
       milestone: "Moteur de crédit opérationnel",
     },
     {
-      week: 13,
-      period: "Semaines 13-15",
-      month: "Septembre-Oct.",
-      title: "Interface concessionnaires & Rapports",
-      focus: "Outiller les équipes terrain",
-      moduleId: "concessionnaires,rapports",
+      phase: 3,
+      week: 14,
+      endWeek: 15,
+      period: "Semaines 14-15",
+      month: "Octobre",
+      title: "Assurances, Concessionnaires & Rapports",
+      focus: "Connecter les partenaires et outiller les équipes terrain",
+      moduleId: "assurances,concessionnaires,rapports",
       activities: [
+        "Intégration des 3 assureurs partenaires + procuration",
         "Portail dédié aux 5 concessions",
-        "Soumission de nouveaux dossiers avec pièces jointes",
-        "Suivi du statut des dossiers soumis",
+        "Soumission et suivi des dossiers avec pièces jointes",
         "Rapports mensuels du portefeuille",
         "Intégration QuickBooks Online (API Intuit)",
       ],
-      milestone: "Concessionnaires connectés",
+      milestone: "Partenaires connectés",
     },
     {
+      phase: 3,
       week: 16,
+      endWeek: 17,
       period: "Semaines 16-17",
       month: "Octobre",
       title: "Tests & Mise en production",
@@ -335,7 +390,9 @@ export const calendar = {
       milestone: "Plateforme live",
     },
   ] as Array<{
+    phase: number
     week: number
+    endWeek: number
     period: string
     month: string
     title: string

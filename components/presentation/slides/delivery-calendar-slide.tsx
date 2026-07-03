@@ -15,14 +15,13 @@ const MONTHS = [
   { name: "Déc.", abbr: "Dec", weeks: [21, 22, 23, 24] },
 ]
 
-// Phase colors
-const PHASE_COLORS = [
-  "from-[#0066FF] to-[#0066FF]",
-  "from-[#3388FF] to-[#3388FF]",
-  "from-[#0066FF] to-[#3388FF]",
-  "from-[#3388FF] to-[#66AAFF]",
-  "from-emerald-500 to-emerald-400",
-]
+// Color per phase number
+const phaseColor = (phase: number) =>
+  phase === 3
+    ? "from-emerald-500 to-emerald-400"
+    : phase === 2
+      ? "from-[#3388FF] to-[#66AAFF]"
+      : "from-[#0066FF] to-[#3388FF]"
 
 export function DeliveryCalendarSlide() {
   const { selectedOptions, getEstimatedWeeks, getEstimatedDelivery } = useSelectionStore()
@@ -35,18 +34,19 @@ export function DeliveryCalendarSlide() {
   const selectedOptionsData = pricing.options.filter(opt => selectedOptions.includes(opt.id))
   const additionalWeeks = selectedOptionsData.reduce((sum, opt) => sum + (opt.weeksToAdd || 0), 0)
 
-  // MVP phases (always shown)
-  const mvpPhases = [
-    { id: "infra", name: "Infrastructure", startWeek: 1, endWeek: 2, color: PHASE_COLORS[0] },
-    { id: "core", name: "Dossiers & Contrats", startWeek: 3, endWeek: 5, color: PHASE_COLORS[1] },
-    { id: "payments", name: "Paiements, Dashboard & SMS", startWeek: 6, endWeek: 9, color: PHASE_COLORS[2] },
-    { id: "underwriting", name: "Souscription, Risques & Plaid", startWeek: 10, endWeek: 13, color: PHASE_COLORS[3] },
-    { id: "dealers", name: "Concessionnaires & Rapports", startWeek: 14, endWeek: 16, color: PHASE_COLORS[2] },
-    { id: "tests", name: "Tests & Production", startWeek: 17, endWeek: 18, color: PHASE_COLORS[4] },
-  ]
+  // MVP steps (derived from the calendar, grouped by phase)
+  const mvpSteps = calendar.weeks.map((w) => ({
+    id: w.moduleId,
+    name: w.title,
+    startWeek: w.week,
+    endWeek: w.endWeek,
+    phase: w.phase,
+    milestone: w.milestone,
+    color: phaseColor(w.phase),
+  }))
 
   // Options phases (only shown if selected)
-  let optionStartWeek = 19
+  let optionStartWeek = calendar.baseDurationWeeks + 1
   const optionPhases = selectedOptionsData.map(opt => {
     const phase = {
       id: opt.id,
@@ -59,7 +59,6 @@ export function DeliveryCalendarSlide() {
     return phase
   })
 
-  const allPhases = [...mvpPhases, ...optionPhases]
   const totalWeeks = totalWeeksTimeline
 
   // Calculate which months to show
@@ -136,19 +135,29 @@ export function DeliveryCalendarSlide() {
 
           {/* Phases */}
           <div className="space-y-3 min-w-[700px]">
-            {/* MVP Label */}
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] text-white/30 uppercase tracking-wider">MVP de base</span>
-              <div className="flex-1 h-px bg-white/5" />
-            </div>
+            {calendar.phases.map((phase) => (
+              <div key={phase.number} className="space-y-3">
+                {/* Phase label */}
+                <div className="flex items-center gap-3 mb-1 pt-2">
+                  <span className={`text-[10px] font-mono uppercase tracking-wider ${phase.number === 3 ? "text-emerald-400" : "text-[#0066FF]"}`}>
+                    Phase {phase.number}
+                  </span>
+                  <span className="text-[11px] text-white/60">{phase.name}</span>
+                  <span className="text-[10px] text-white/25">{phase.period}</span>
+                  <div className="flex-1 h-px bg-white/5" />
+                </div>
 
-            {mvpPhases.map((phase, index) => (
-              <GanttRow 
-                key={phase.id} 
-                phase={phase} 
-                totalWeeks={monthsToShow * 4} 
-                milestone={calendar.weeks[index]?.milestone}
-              />
+                {mvpSteps
+                  .filter((step) => step.phase === phase.number)
+                  .map((step) => (
+                    <GanttRow
+                      key={step.id}
+                      phase={step}
+                      totalWeeks={monthsToShow * 4}
+                      milestone={step.milestone}
+                    />
+                  ))}
+              </div>
             ))}
 
             {/* Options Label (if any selected) */}
@@ -192,22 +201,43 @@ export function DeliveryCalendarSlide() {
 
         {/* Timeline details */}
         <div className="glass-card p-6">
-          <h3 className="text-lg text-white font-medium mb-4">Details des phases</h3>
-          <div className="space-y-4">
-            {calendar.weeks.map((week, index) => (
-              <div key={index} className="flex items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
-                <div className="w-24 shrink-0">
-                  <span className="text-xs text-[#0066FF] font-mono">{week.period}</span>
+          <h3 className="text-lg text-white font-medium mb-6">Details des phases</h3>
+          <div className="space-y-8">
+            {calendar.phases.map((phase) => (
+              <div key={phase.number} className="flex flex-col gap-4">
+                {/* Phase header */}
+                <div className="flex flex-col gap-1.5 border-l-2 border-[#0066FF]/40 pl-4">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className={`text-xs font-mono uppercase tracking-wider ${phase.number === 3 ? "text-emerald-400" : "text-[#0066FF]"}`}>
+                      Phase {phase.number}
+                    </span>
+                    <span className="text-sm text-white font-medium">{phase.name}</span>
+                    <span className="text-xs text-white/30 font-mono">{phase.period}</span>
+                  </div>
+                  <p className="text-xs text-white/40 max-w-2xl">{phase.focus}</p>
                 </div>
-                <div className="flex-1">
-                  <h4 className="text-sm text-white font-medium mb-1">{week.title}</h4>
-                  <p className="text-xs text-white/40">{week.focus}</p>
-                  {week.milestone && (
-                    <div className="flex items-center gap-2 mt-2">
-                      <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                      <span className="text-xs text-emerald-400">Jalon : {week.milestone}</span>
-                    </div>
-                  )}
+
+                {/* Steps within the phase */}
+                <div className="flex flex-col gap-4 pl-4">
+                  {calendar.weeks
+                    .filter((week) => week.phase === phase.number)
+                    .map((week, index) => (
+                      <div key={index} className="flex items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                        <div className="w-24 shrink-0">
+                          <span className="text-xs text-[#0066FF] font-mono">{week.period}</span>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-sm text-white font-medium mb-1">{week.title}</h4>
+                          <p className="text-xs text-white/40">{week.focus}</p>
+                          {week.milestone && (
+                            <div className="flex items-center gap-2 mt-2">
+                              <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                              <span className="text-xs text-emerald-400">Jalon : {week.milestone}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                 </div>
               </div>
             ))}
