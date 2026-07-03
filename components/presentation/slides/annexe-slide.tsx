@@ -2,7 +2,7 @@
 
 import { SlideWrapper } from "../slide-wrapper"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
-import { Check, Server, Shield, Database, Code, Layers, Lock, Globe, Cpu } from "lucide-react"
+import { Check, Server, Shield, Database, Code, Layers, Lock, Cpu } from "lucide-react"
 
 const TECH_STACK = [
   {
@@ -98,13 +98,6 @@ const TECH_STACK = [
   },
 ]
 
-const COMPARISON = [
-  { profil: "Agence boutique MTL/QC", taux: "130-150$/h", estimation: "99 000$-145 000$", ecart: "+59% à +133%" },
-  { profil: "Grande agence (50+ devs)", taux: "160-200$/h", estimation: "170 000$-217 000$", ecart: "+174% à +249%" },
-  { profil: "SaaS (DealerTrack, CDK...)", taux: "Abonnement", estimation: "25 000$-35 000$/an", ecart: "Pas de propriété" },
-  { profil: "TechGuys Inc.", taux: "150$/h", estimation: "62 100$", ecart: "Vous économisez ~40%" },
-]
-
 export function AnnexeSlide() {
   return (
     <SlideWrapper id="annexe" className="relative !min-h-0">
@@ -187,46 +180,6 @@ export function AnnexeSlide() {
             )
           })}
         </Accordion>
-
-        {/* Market comparison */}
-        <div className="mt-16">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-              <Globe className="w-5 h-5 text-[#0066FF]" />
-            </div>
-            <h3 className="font-serif text-2xl text-white">Positionnement marché</h3>
-          </div>
-          <div className="glass-card rounded-2xl overflow-hidden">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/5">
-                  <th className="text-left py-4 px-5 text-white/35 font-sans font-medium">Profil</th>
-                  <th className="text-right py-4 px-5 text-white/35 font-sans font-medium">Taux</th>
-                  <th className="text-right py-4 px-5 text-white/35 font-sans font-medium hidden sm:table-cell">Estimation MVP</th>
-                  <th className="text-right py-4 px-5 text-white/35 font-sans font-medium">Écart</th>
-                </tr>
-              </thead>
-              <tbody>
-                {COMPARISON.map((row, i) => (
-                  <tr key={row.profil} className={`border-b border-white/5 last:border-0 ${i === COMPARISON.length - 1 ? "bg-[#0066FF]/5" : ""}`}>
-                    <td className={`py-4 px-5 font-sans ${i === COMPARISON.length - 1 ? "text-white font-medium" : "text-white/50"}`}>
-                      {row.profil}
-                    </td>
-                    <td className={`py-4 px-5 text-right font-mono ${i === COMPARISON.length - 1 ? "text-[#0066FF]" : "text-white/40"}`}>
-                      {row.taux}
-                    </td>
-                    <td className={`py-4 px-5 text-right font-mono hidden sm:table-cell ${i === COMPARISON.length - 1 ? "text-[#0066FF]" : "text-white/40"}`}>
-                      {row.estimation}
-                    </td>
-                    <td className={`py-4 px-5 text-right font-sans ${i === COMPARISON.length - 1 ? "text-emerald-400 font-medium" : "text-white/30"}`}>
-                      {row.ecart}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
     </SlideWrapper>
   )
