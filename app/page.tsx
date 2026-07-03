@@ -1,6 +1,5 @@
 import { CoverSlide } from "@/components/presentation/slides/cover-slide"
 import { AboutSlide } from "@/components/presentation/slides/about-slide"
-import { ContextSlide } from "@/components/presentation/slides/context-slide"
 import { ObjectivesSlide } from "@/components/presentation/slides/objectives-slide"
 import { RoadmapSlide } from "@/components/presentation/slides/roadmap-slide"
 import { PricingSlide } from "@/components/presentation/slides/pricing-slide"
@@ -16,7 +15,6 @@ export default function Home() {
       <PresentationShell>
         <CoverSlide />
         <AboutSlide />
-        <ContextSlide />
         <ObjectivesSlide />
         <RoadmapSlide />
         <PricingSlide />
