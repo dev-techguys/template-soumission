@@ -26,13 +26,13 @@ const PROJECTS = [
   },
   {
     name: "Virtuose Formation",
-    category: "Site web",
+    category: "Application web",
     description:
       "Plateforme de formation orientée conversion, de l'exploration des programmes jusqu'à l'inscription.",
   },
   {
     name: "Aidexpress",
-    category: "Application web",
+    category: "Application mobile",
     description:
       "Plateforme de services à domicile reliant familles et intervenants qualifiés partout au Québec et en Ontario.",
   },
@@ -56,7 +56,7 @@ const PROJECTS = [
   },
   {
     name: "APFF",
-    category: "Site web",
+    category: "Application mobile",
     description:
       "Plateforme événementielle (web + PWA) pour un congrès annuel : programmes, conférenciers et sondages en temps réel.",
   },
