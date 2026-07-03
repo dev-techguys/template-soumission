@@ -168,9 +168,9 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.1}>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-4xl leading-[1.1]">
-              Les <span className="gradient-text-accent">14 modules</span> du coeur
+              <span className="gradient-text-accent">3 phases</span>, 14 fonctionnalités
               <br />
-              <span className="text-white/60">de la plateforme</span>
+              <span className="text-white/60">pour livrer la plateforme</span>
             </h2>
           </FadeInUp>
           <FadeInUp delay={0.2}>
