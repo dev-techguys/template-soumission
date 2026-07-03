@@ -68,7 +68,7 @@ export function ContextSlide() {
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-3xl leading-[1.1]">
               Le projet
               <br />
-              <span className="gradient-text-accent">AutoFinance</span>
+              <span className="gradient-text-accent">LOS Laplante</span>
             </h2>
           </FadeInUp>
           <FadeInUp delay={0.2}>
@@ -117,7 +117,7 @@ export function ContextSlide() {
                     <Sparkles className="w-5 h-5 text-[#0066FF]" />
                   </motion.div>
                   <p className="text-sm text-[#3388FF] font-sans leading-relaxed">
-                    La plateforme AutoFinance permettra d{"'"}internaliser la marge d{"'"}intermédiation financière (typiquement 1% à 3% du montant financé), d{"'"}accélérer les approbations et de constituer un portefeuille de prêts propriétaire.
+                    La plateforme LOS Laplante permettra d{"'"}internaliser la marge d{"'"}intermédiation financière (typiquement 1% à 3% du montant financé), d{"'"}accélérer les approbations et de constituer un portefeuille de prêts propriétaire.
                   </p>
                 </div>
               </motion.div>

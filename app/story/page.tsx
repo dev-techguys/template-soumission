@@ -60,7 +60,7 @@ export default function StoryScrollPage() {
           <h1 className="text-[clamp(2.5rem,10vw,10rem)] font-bold leading-[0.9] uppercase tracking-tight">
             Plateforme
             <br />
-            <span className="text-[#0066FF]">AutoFinance</span>
+            <span className="text-[#0066FF]">LOS Laplante</span>
           </h1>
         </div>
         
@@ -148,7 +148,7 @@ export default function StoryScrollPage() {
         
         <div>
           <h2 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] uppercase tracking-tight">
-            AutoFinance
+            LOS Laplante
             <br />
             Platform
           </h2>

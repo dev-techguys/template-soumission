@@ -135,7 +135,7 @@ export function CoverSlide() {
               transition={{ duration: 0.8, delay: 0.75, ease: [0.25, 0.4, 0.25, 1] }}
               className="text-white font-semibold inline-block"
             >
-              AutoFinance
+              LOS Laplante
             </motion.span>
           </motion.h1>
 
