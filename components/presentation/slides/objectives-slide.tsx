@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, FileSignature, Landmark, MessageSquare } from "lucide-react"
+import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, FileSignature, Landmark } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem, GlowCard, Parallax } from "@/components/ui/scroll-animations"
 import { motion } from "framer-motion"
 
@@ -113,15 +113,8 @@ const PHASES = [
         features: ["Rapport mensuel", "Intégration QuickBooks", "Sync automatique", "Export comptable"],
       },
       {
-        icon: MessageSquare,
-        number: "13",
-        title: "SMS & relances automatisées",
-        description: "Envoi de SMS automatisés : rappels avant échéance, relances en cas de retard (J+1, J+3, J+7...) et confirmations de réception. Coût de service mensuel fixe en sus (~30-60$/mois).",
-        features: ["Rappels avant échéance", "Relances J+1, J+3, J+7", "Confirmations de réception", "Coût mensuel en sus"],
-      },
-      {
         icon: CheckCircle2,
-        number: "14",
+        number: "13",
         title: "Tests & mise en production",
         description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage.",
         features: ["Tests complets", "Validation client", "Mise en production", "Accompagnement 2 sem."],
@@ -175,7 +168,7 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans max-w-2xl leading-relaxed">
-              La plateforme est, dans son ensemble, un Loan Origination System (LOS) taillé pour vos opérations : tout le cycle de vie du prêt, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">14 fonctionnalités</span>.
+              La plateforme est, dans son ensemble, un Loan Origination System (LOS) taillé pour vos opérations : tout le cycle de vie du prêt, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">13 fonctionnalités</span>.
             </p>
           </FadeInUp>
         </div>

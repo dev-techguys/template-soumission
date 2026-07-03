@@ -179,7 +179,7 @@ export default function StoryScrollPage() {
         <hr className="my-[2vw] border-none h-px bg-white/20" />
         
         <div className="flex flex-wrap gap-[3vw]">
-          {modules.slice(7, 14).map((module, index) => (
+          {modules.slice(7, 13).map((module, index) => (
             <div key={module.id} className="min-w-[200px] flex-1">
               <p className="mb-2 text-sm font-bold uppercase tracking-wider text-white/90">
                 {String(index + 8).padStart(2, '0')} — {module.name}
@@ -228,7 +228,7 @@ export default function StoryScrollPage() {
               <p className="text-sm font-bold uppercase tracking-wider">Développement</p>
             </div>
             <p className="text-3xl font-bold mb-1">{devPrice.toLocaleString('fr-CA')}$</p>
-            <p className="text-sm text-white/50">14 modules complets</p>
+            <p className="text-sm text-white/50">13 modules complets</p>
           </div>
           <div className="min-w-[200px] flex-1 p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-3 mb-3">

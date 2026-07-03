@@ -38,7 +38,7 @@ export const pricing = {
 
   mvp: {
     name: "MVP de base",
-    description: "La plateforme est, dans son ensemble, un Loan Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie du prêt, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de prêt, conditions, taux, échéancier), le suivi des paiements, le tableau de bord, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, intégration des assurances, connexion bancaire Plaid et SMS de relance automatisés.",
+    description: "La plateforme est, dans son ensemble, un Loan Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie du prêt, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de prêt, conditions, taux, échéancier), le suivi des paiements, le tableau de bord, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, intégration des assurances et connexion bancaire Plaid.",
     modules: [
       {
         id: "infra",
@@ -111,12 +111,6 @@ export const pricing = {
         name: "Connexion bancaire (Plaid)",
         description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire directement dans la souscription, sans relevés manuels.",
         hours: 38,
-      },
-      {
-        id: "sms",
-        name: "SMS & relances automatisées",
-        description: "Envoi de SMS automatisés : rappels avant échéance, relances en cas de retard (J+1, J+3, J+7...) et confirmations de réception. Coût de service mensuel fixe en sus (~30-60$/mois).",
-        hours: 15,
       },
       {
         id: "tests",
@@ -242,7 +236,7 @@ export const calendar = {
   pmApproved: false,
   startDate: "Juillet 2026",
   reviewCalls: "30 min à 1h par semaine avec l'équipe Groupe Laplante",
-  baseDurationWeeks: 18,
+  baseDurationWeeks: 17,
   weeks: [
     {
       week: 1,
@@ -278,23 +272,23 @@ export const calendar = {
     },
     {
       week: 6,
-      period: "Semaines 6-9",
+      period: "Semaines 6-8",
       month: "Août",
-      title: "Paiements, Dashboard & SMS",
+      title: "Paiements & Dashboard",
       focus: "Visibilité en temps réel sur le portefeuille",
-      moduleId: "paiements,dashboard,sms",
+      moduleId: "paiements,dashboard",
       activities: [
         "Enregistrement des versements reçus (hebdomadaires)",
         "Alertes courriel automatiques (paiements manqués)",
-        "SMS de relance automatisés (J+1, J+3, J+7)",
+        "Relances programmables (J+1, J+3, J+7)",
         "Tableau de bord avec indicateurs clés",
         "Vue consolidée : à jour, en retard, en défaut",
       ],
-      milestone: "Dashboard & relances en temps réel",
+      milestone: "Dashboard en temps réel",
     },
     {
-      week: 10,
-      period: "Semaines 10-13",
+      week: 9,
+      period: "Semaines 9-12",
       month: "Sept.",
       title: "Souscription, risques & assurances",
       focus: "Sécuriser la décision de crédit et le portefeuille",
@@ -309,8 +303,8 @@ export const calendar = {
       milestone: "Moteur de crédit opérationnel",
     },
     {
-      week: 14,
-      period: "Semaines 14-16",
+      week: 13,
+      period: "Semaines 13-15",
       month: "Septembre-Oct.",
       title: "Interface concessionnaires & Rapports",
       focus: "Outiller les équipes terrain",
@@ -325,8 +319,8 @@ export const calendar = {
       milestone: "Concessionnaires connectés",
     },
     {
-      week: 17,
-      period: "Semaines 17-18",
+      week: 16,
+      period: "Semaines 16-17",
       month: "Octobre",
       title: "Tests & Mise en production",
       focus: "Livraison d'une plateforme robuste",

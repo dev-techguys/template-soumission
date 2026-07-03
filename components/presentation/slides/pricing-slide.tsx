@@ -39,10 +39,6 @@ const SCOPE_ADDITIONS = [
     title: "Connexion bancaire (Plaid)",
     detail: "Validation des revenus et du comportement bancaire via l'API Plaid, directement dans la souscription.",
   },
-  {
-    title: "SMS & relances automatisées",
-    detail: "Rappels avant échéance et relances en cas de retard (J+1, J+3, J+7) par SMS.",
-  },
 ]
 
 // Payment cycle step component
@@ -161,7 +157,7 @@ export function PricingSlide() {
               <p className="text-3xl text-amber-400 font-light mt-2">
                 +{(mvpTotals.totalPrice - INITIAL_MVP_PRICE).toLocaleString()}$
               </p>
-              <p className="text-xs text-white/30 mt-1">6 nouveaux modules critiques</p>
+              <p className="text-xs text-white/30 mt-1">5 nouveaux modules critiques</p>
             </div>
             <div className="glass-card p-5 border-[#0066FF]/30">
               <span className="text-[10px] tracking-[0.2em] uppercase text-[#0066FF]/70">Nouveau MVP</span>
