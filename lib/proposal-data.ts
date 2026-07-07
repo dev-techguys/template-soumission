@@ -227,6 +227,74 @@ export const signing = {
   pandadocUrl: "https://app.pandadoc.com/document/v2?token=5f6104104ca27d82e97d0551000f0dbbfb8c9af5",
 }
 
+// Analyse comparative des frais Stripe pour le prélèvement automatique (PAD / ACSS Debit)
+// selon la fréquence de prélèvement du prêt (hebdomadaire vs mensuel).
+export const stripeFeesComparison = {
+  contexte:
+    "Tarif Stripe PAD (ACSS Debit) au Canada : 1% + 0,40$CA par transaction, plafonné à 5,00$CA par transaction.",
+  hypothese:
+    "Calcul basé sur un prêt moyen de 7 800$/an. Le montant réel varie selon le prêt; le plafond de 5,00$ s'applique dès qu'un paiement dépasse environ 460$ (ex: paiement mensuel).",
+  noteCourte:
+    "Calcul basé sur un prêt moyen de 7 800$/an. Le plafond de 5,00$ s'applique dès qu'un paiement dépasse ~460$.",
+  // Paramètres du modèle de frais Stripe (utilisés pour le recalcul dynamique côté client)
+  feeModel: {
+    percent: 0.01, // 1%
+    fixed: 0.4, // 0,40$ par transaction
+    cap: 5.0, // plafond 5,00$ par transaction
+    capThreshold: 460, // un paiement au-dessus de ~460$ atteint le plafond
+  },
+  montantPretAnnuelDefaut: 7800,
+  annees: [
+    {
+      annee: 2026,
+      nombreDePrets: 120,
+      hebdomadaire: {
+        nombreDePaiements: 52,
+        fraisParTransaction: 1.9,
+        fraisAnnuelParPret: 98.8,
+        fraisAnnuelTotal: 11856,
+        volumeTransaction: 936000,
+      },
+      mensuel: {
+        nombreDePaiements: 12,
+        fraisParTransactionAvantPlafond: 6.9,
+        fraisParTransaction: 5.0,
+        plafondApplique: true,
+        fraisAnnuelParPret: 60.0,
+        fraisAnnuelTotal: 7200,
+        volumeTransaction: 936000,
+      },
+      ecartHebdoVsMensuel: 4656,
+    },
+    {
+      annee: 2027,
+      nombreDePrets: 360,
+      hebdomadaire: {
+        nombreDePaiements: 52,
+        fraisParTransaction: 1.9,
+        fraisAnnuelParPret: 98.8,
+        fraisAnnuelTotal: 35568,
+        volumeTransaction: 2808000,
+      },
+      mensuel: {
+        nombreDePaiements: 12,
+        fraisParTransactionAvantPlafond: 6.9,
+        fraisParTransaction: 5.0,
+        plafondApplique: true,
+        fraisAnnuelParPret: 60.0,
+        fraisAnnuelTotal: 21600,
+        volumeTransaction: 2808000,
+      },
+      ecartHebdoVsMensuel: 13968,
+    },
+  ],
+  cumulatif2026_2027: {
+    hebdomadaire: 47424,
+    mensuel: 28800,
+    ecart: 18624,
+  },
+}
+
 export const calendar = {
   pmApproved: false,
   startDate: "Juillet 2026",

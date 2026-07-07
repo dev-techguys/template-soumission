@@ -74,7 +74,7 @@ export function DeliveryCalendarSlide() {
               <CalendarDays className="w-4 h-4 text-[#0066FF]" />
             </div>
             <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-medium">
-              07 / Calendrier de livraison
+              08 / Calendrier de livraison
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light max-w-3xl leading-[1.1]">
