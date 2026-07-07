@@ -129,7 +129,7 @@ export const pricing = {
       {
         id: "plaid",
         name: "Connexion bancaire (Plaid)",
-        description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire directement dans la souscription, sans relevés manuels.",
+        description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire directement dans la souscription, sans relevés manuels. Peut aussi servir à vérifier l'identité de la personne (KYC via Plaid Identity) à l'ouverture du dossier, pour alimenter la piste de conformité FINTRAC.",
         hours: 38,
       },
       {
@@ -162,7 +162,7 @@ export const pricing = {
     {
       id: "fintrac",
       name: "Conformité FINTRAC",
-      description: "Mise en conformité pour prêteur direct : journaux d'audit, déclarations réglementaires, politiques internes. À valider avec votre avocat selon la structure légale retenue.",
+      description: "Une couche de journalisation de conformité distincte des logs applicatifs : un registre immuable (append-only), horodaté et attribué à chaque utilisateur/système, permettant de reconstituer par dossier la vérification d'identité (méthode, date, pièces), la cote de risque et son historique de révision, ainsi que les alertes de surveillance et leur traitement (rejetée, escaladée, déclarée). Production à FINTRAC sous 30 jours sur demande et conservation 5 ans après la fin du contrat. La vérification d'identité (KYC) à l'ouverture du dossier peut s'appuyer sur Plaid Identity. À valider avec votre avocat selon la structure légale retenue.",
       hours: 28,
       recommended: false,
       weeksToAdd: 2,
