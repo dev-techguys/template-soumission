@@ -225,7 +225,9 @@ export const pricing = {
 
 export const signing = {
   type: "pandadoc" as "v0" | "pandadoc",
-  pandadocUrl: "https://app.pandadoc.com/document/v2?token=5f6104104ca27d82e97d0551000f0dbbfb8c9af5",
+  // Bouton de signature désactivé temporairement. Pour le réactiver, remettre l'URL ci-dessous :
+  // "https://app.pandadoc.com/document/v2?token=5f6104104ca27d82e97d0551000f0dbbfb8c9af5"
+  pandadocUrl: "",
 }
 
 // Analyse comparative des frais Stripe pour le prélèvement automatique (PAD / ACSS Debit)
