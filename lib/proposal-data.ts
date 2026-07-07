@@ -38,7 +38,7 @@ export const pricing = {
 
   mvp: {
     name: "MVP de base",
-    description: "La plateforme est, dans son ensemble, un Loan Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie du prêt, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de prêt, conditions, taux, échéancier), le suivi des paiements, le prélèvement automatique (PAD), le tableau de bord, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, SMS et relances automatisées, intégration des assurances et connexion bancaire Plaid.",
+    description: "La plateforme est, dans son ensemble, un Loan Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie du prêt, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de prêt, conditions, taux, échéancier), le suivi des paiements, le prélèvement automatique (PAD), le tableau de bord, le portail client self-service, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, SMS et relances automatisées, intégration des assurances et connexion bancaire Plaid.",
     modules: [
       {
         id: "infra",
@@ -75,6 +75,13 @@ export const pricing = {
         name: "Prélèvement automatique (PAD)",
         description: "Prélèvement direct sur le compte bancaire des clients à chaque échéance. La plateforme déclenche le versement automatiquement et alerte immédiatement si la transaction échoue — l'automatisation de l'encaissement au coeur du suivi des paiements.",
         hours: 45,
+      },
+      {
+        id: "portail",
+        name: "Portail client self-service",
+        description: "Interface pour les clients finaux : consulter le solde restant, l'historique des paiements, les documents de contrat et l'échéancier. Réduit les appels entrants et améliore l'expérience client.",
+        hours: 25,
+        note: "Certains aspects restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative.",
       },
       {
         id: "concessionnaires",
@@ -144,14 +151,6 @@ export const pricing = {
       weeksToAdd: 1,
     },
     {
-      id: "portail",
-      name: "Portail client self-service",
-      description: "Interface pour les clients finaux : consulter le solde restant, l'historique des paiements, les documents de contrat et l'échéancier. Réduit les appels entrants.",
-      hours: 25,
-      recommended: false,
-      weeksToAdd: 2,
-    },
-    {
       id: "mobile",
       name: "Application mobile (iOS & Android)",
       description: "Application native permettant à l'équipe de gérer les dossiers, consulter le tableau de bord et recevoir les alertes sur téléphone — pour les conseillers en concession.",
@@ -187,8 +186,8 @@ export const pricing = {
     {
       id: "mvp-essentiel",
       name: "MVP + Pack Essentiel",
-      description: "MVP complet + Enquête crédit CERTM + Portail client self-service + Conformité FINTRAC.",
-      optionIds: ["certm", "portail", "fintrac"],
+      description: "MVP complet + Enquête crédit CERTM + Conformité FINTRAC + Application mobile.",
+      optionIds: ["certm", "fintrac", "mobile"],
       recommended: false,
     },
   ],

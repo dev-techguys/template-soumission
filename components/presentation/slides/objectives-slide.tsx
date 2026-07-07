@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, FileSignature, Landmark, Repeat, MessageSquare } from "lucide-react"
+import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, FileSignature, Landmark, Repeat, MessageSquare, UserCircle } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem, GlowCard, Parallax } from "@/components/ui/scroll-animations"
 import { motion } from "framer-motion"
 
@@ -54,6 +54,14 @@ const PHASES = [
         description: "Prélèvement direct sur le compte bancaire des clients à chaque échéance. La plateforme déclenche le versement automatiquement et alerte immédiatement si la transaction échoue — l'automatisation de l'encaissement au coeur du suivi des paiements.",
         features: ["Prélèvement à l'échéance", "Gestion des mandats", "Alerte si refus", "Rapprochement auto"],
       },
+      {
+        icon: UserCircle,
+        number: "07",
+        title: "Portail client self-service *",
+        description: "Interface pour les clients finaux : consulter le solde restant, l'historique des paiements, les documents de contrat et l'échéancier. Réduit les appels entrants et améliore l'expérience client.",
+        features: ["Solde en temps réel", "Historique des paiements", "Documents & échéancier", "Moins d'appels entrants"],
+        note: "Certains aspects restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative.",
+      },
     ],
   },
   {
@@ -64,35 +72,35 @@ const PHASES = [
     modules: [
       {
         icon: ClipboardCheck,
-        number: "07",
+        number: "08",
         title: "Checklist de livraison & archivage des preuves",
         description: "Checklist obligatoire qui bloque la livraison d'un véhicule tant que les 5 points ne sont pas validés : GPS installé, assurance valide, Beacon Score (≈500+), preuve et confirmation d'emploi enregistrée. Toutes les preuves sont archivées pour la conformité.",
         features: ["Blocage de livraison", "5 points obligatoires", "Appel enregistré", "Archivage des preuves"],
       },
       {
         icon: FileSignature,
-        number: "08",
+        number: "09",
         title: "Génération de documents",
         description: "Génération automatique des documents requis à partir des données du dossier : contrat de prêt, conditions, taux, échéancier et divulgations — prêts à signer. Modèles conformes, calculs verrouillés et aux couleurs de Groupe Laplante.",
         features: ["Contrat de prêt", "Conditions & taux", "Échéancier généré", "Modèles conformes"],
       },
       {
         icon: Landmark,
-        number: "09",
+        number: "10",
         title: "Connexion bancaire (Plaid)",
         description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire directement dans la souscription, sans relevés manuels.",
         features: ["API Plaid sécurisée", "Validation des revenus", "Comportement bancaire", "Sans relevés manuels"],
       },
       {
         icon: Activity,
-        number: "10",
+        number: "11",
         title: "Monitoring & tableau d'alertes temps réel",
         description: "Le coeur opérationnel : un tableau d'alertes unique qui surveille chaque dossier en continu — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection des défauts et suivi GPS de l'état du véhicule.",
         features: ["Alertes temps réel", "Détection des défauts", "Suivi GPS", "Santé du portefeuille"],
       },
       {
         icon: MessageSquare,
-        number: "11",
+        number: "12",
         title: "SMS & relances automatisées",
         description: "Envoi de SMS automatisés directement branché sur le tableau d'alertes : rappels avant échéance, relances en cas de retard (J+1, J+3, J+7...) et confirmations de réception. Coût de service mensuel fixe en sus (~30-60$/mois).",
         features: ["Rappels avant échéance", "Relances J+1, J+3, J+7", "Confirmations de réception", "Branché aux alertes"],
@@ -107,28 +115,28 @@ const PHASES = [
     modules: [
       {
         icon: Bell,
-        number: "12",
+        number: "13",
         title: "Intégration assurances partenaires",
         description: "Procuration signée au contrat : l'assureur notifie automatiquement la plateforme dès qu'un client annule sa couverture, déclenchant une alerte immédiate. Suivi continu de la validité des assurances du portefeuille.",
         features: ["Assureurs partenaires", "Procuration au contrat", "Alerte d'annulation", "Suivi continu"],
       },
       {
         icon: Building2,
-        number: "13",
+        number: "14",
         title: "Interface concessionnaires",
         description: "Une vue organisationnelle : une organisation gère plusieurs concessionnaires depuis un seul compte, avec un tableau de bord global sur l'ensemble de ses concessions. Chaque conseiller garde son accès dédié pour soumettre des dossiers avec pièces jointes et suivre leur statut en temps réel.",
         features: ["Vue multi-concessions", "Dashboard global", "Soumission dossiers", "Suivi en temps réel"],
       },
       {
         icon: BookOpen,
-        number: "14",
+        number: "15",
         title: "Rapports & QuickBooks",
         description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit — synchronisation automatique sans double saisie.",
         features: ["Rapport mensuel", "Intégration QuickBooks", "Sync automatique", "Export comptable"],
       },
       {
         icon: CheckCircle2,
-        number: "15",
+        number: "16",
         title: "Tests & mise en production",
         description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage.",
         features: ["Tests complets", "Validation client", "Mise en production", "Accompagnement 2 sem."],
@@ -182,7 +190,7 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans max-w-2xl leading-relaxed">
-              La plateforme est, dans son ensemble, un Loan Origination System (LOS) taillé pour vos opérations : tout le cycle de vie du prêt, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">15 fonctionnalités</span>.
+              La plateforme est, dans son ensemble, un Loan Origination System (LOS) taillé pour vos opérations : tout le cycle de vie du prêt, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">16 fonctionnalités</span>.
             </p>
           </FadeInUp>
         </div>
@@ -256,6 +264,11 @@ export function ObjectivesSlide() {
                                 </motion.span>
                               ))}
                             </div>
+                            {(module as { note?: string }).note && (
+                              <p className="mt-2 text-[11px] leading-relaxed text-amber-400/70 font-sans italic">
+                                {"* "}{(module as { note?: string }).note}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </motion.div>

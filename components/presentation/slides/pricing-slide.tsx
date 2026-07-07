@@ -228,7 +228,10 @@ export function PricingSlide() {
                     <div className="w-5 h-5 rounded-md bg-[#0066FF]/10 flex items-center justify-center">
                       <Check className="w-3 h-3 text-[#0066FF]" />
                     </div>
-                    <span className="text-sm text-white/60">{module.name}</span>
+                    <span className="text-sm text-white/60">
+                      {module.name}
+                      {(module as { note?: string }).note && <span className="text-amber-400"> *</span>}
+                    </span>
                   </div>
                   <span className="text-xs text-white/35 font-mono">{module.hours}h</span>
                 </div>
@@ -243,6 +246,9 @@ export function PricingSlide() {
                 <span className="text-xs text-amber-400/60 font-mono">{mvpTotals.contingencyHours}h</span>
               </div>
             </div>
+            <p className="mt-4 text-[11px] leading-relaxed text-amber-400/70 font-sans italic">
+              {"* Certains aspects du portail client restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative."}
+            </p>
           </div>
         </div>
 
