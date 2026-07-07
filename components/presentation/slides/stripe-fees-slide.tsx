@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import { SlideWrapper } from "../slide-wrapper"
 import { stripeFeesComparison } from "@/lib/proposal-data"
-import { CreditCard, Info, CalendarRange, CalendarDays, TrendingDown, ShieldCheck, RotateCcw } from "lucide-react"
+import { CreditCard, Info, CalendarRange, CalendarDays, TrendingDown, ShieldCheck, RotateCcw, Wallet } from "lucide-react"
 
 const { feeModel, annees, montantPretAnnuelDefaut, contexte, noteCourte } = stripeFeesComparison
 
@@ -39,6 +39,7 @@ function computeYear(
   return {
     annee: year.annee,
     nombreDePrets: loanCount,
+    volumeTransaction: loanAmount * loanCount,
     weekly: {
       count: weeklyCount,
       payment: weeklyPayment,
@@ -85,7 +86,8 @@ export function StripeFeesSlide() {
   const cumul = useMemo(() => {
     const weekly = years.reduce((s, y) => s + y.weekly.total, 0)
     const monthly = years.reduce((s, y) => s + y.monthly.total, 0)
-    return { weekly, monthly, ecart: weekly - monthly }
+    const volume = years.reduce((s, y) => s + y.volumeTransaction, 0)
+    return { weekly, monthly, ecart: weekly - monthly, volume }
   }, [years])
 
   const weeklyPaymentEx = safeAmount / 52
@@ -227,6 +229,17 @@ export function StripeFeesSlide() {
                 </div>
               </div>
 
+              <div className="flex items-center justify-between mb-4 px-3 py-2.5 rounded-xl glass">
+                <div className="flex items-center gap-2">
+                  <Wallet className="w-4 h-4 text-white/40" />
+                  <span className="text-xs text-white/50">Volume de transactions</span>
+                  <span className="text-[10px] text-white/30 font-mono">
+                    ({fmt0(y.nombreDePrets)} × {fmt0(safeAmount)}$)
+                  </span>
+                </div>
+                <span className="text-sm text-white font-medium font-mono">{fmt0(y.volumeTransaction)}$</span>
+              </div>
+
               <div className="grid grid-cols-2 gap-3">
                 {/* Hebdomadaire */}
                 <div className="glass-card p-4 border-[#66AAFF]/25">
@@ -298,6 +311,11 @@ export function StripeFeesSlide() {
             <div className="flex-1">
               <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Cumulatif 2026 – 2027</span>
               <h3 className="text-xl text-white font-medium mt-1">Économie potentielle avec le prélèvement mensuel</h3>
+              <div className="flex items-center gap-2 mt-3">
+                <Wallet className="w-4 h-4 text-white/40" />
+                <span className="text-xs text-white/50">Volume de transactions total</span>
+                <span className="text-sm text-white font-medium font-mono">{fmt0(cumul.volume)}$</span>
+              </div>
             </div>
             <div className="grid grid-cols-3 gap-4 md:min-w-[420px]">
               <div className="glass-card p-4 border-[#66AAFF]/25 text-center">
