@@ -122,22 +122,6 @@ export function RoadmapSlide() {
           ))}
         </StaggerContainer>
 
-        {/* Recommendation note */}
-        <FadeInUp delay={0.4}>
-          <FeatureCard className="mt-12 p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-[#0066FF]/10 border border-[#0066FF]/20 flex items-center justify-center shrink-0">
-                <Sparkles className="w-5 h-5 text-[#0066FF]" />
-              </div>
-              <div>
-                <h4 className="text-lg text-white font-medium mb-2">Notre recommandation</h4>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  Les options <span className="text-[#0066FF] font-medium">C (PAD)</span> et <span className="text-[#0066FF] font-medium">D (SMS)</span> se complètent parfaitement - ensemble, elles automatisent l{"'"}intégralité du cycle de recouvrement. C{"'"}est la combinaison la plus recommandée en complément du MVP.
-                </p>
-              </div>
-            </div>
-          </FeatureCard>
-        </FadeInUp>
       </div>
     </SlideWrapper>
   )
