@@ -12,8 +12,10 @@ const fmt0 = (n: number) => n.toLocaleString("fr-CA", { maximumFractionDigits: 0
 const fmt2 = (n: number) => n.toLocaleString("fr-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
 // Recalcul dynamique des frais pour une année donnée selon le montant du prêt
+// et le nombre de prêts (tous deux ajustables dans le simulateur).
 function computeYear(
   loanAmount: number,
+  loanCount: number,
   year: { annee: number; nombreDePrets: number; hebdomadaire: { nombreDePaiements: number }; mensuel: { nombreDePaiements: number } }
 ) {
   const weeklyCount = year.hebdomadaire.nombreDePaiements
@@ -31,12 +33,12 @@ function computeYear(
   const weeklyPerLoan = weeklyFee * weeklyCount
   const monthlyPerLoan = monthlyFee * monthlyCount
 
-  const weeklyTotal = weeklyPerLoan * year.nombreDePrets
-  const monthlyTotal = monthlyPerLoan * year.nombreDePrets
+  const weeklyTotal = weeklyPerLoan * loanCount
+  const monthlyTotal = monthlyPerLoan * loanCount
 
   return {
     annee: year.annee,
-    nombreDePrets: year.nombreDePrets,
+    nombreDePrets: loanCount,
     weekly: {
       count: weeklyCount,
       payment: weeklyPayment,
@@ -57,12 +59,28 @@ function computeYear(
   }
 }
 
+const defaultCounts: Record<number, number> = Object.fromEntries(annees.map((y) => [y.annee, y.nombreDePrets]))
+
 export function StripeFeesSlide() {
   const [loanAmount, setLoanAmount] = useState<number>(montantPretAnnuelDefaut)
+  const [loanCounts, setLoanCounts] = useState<Record<number, number>>(defaultCounts)
 
   const safeAmount = Number.isFinite(loanAmount) && loanAmount > 0 ? loanAmount : montantPretAnnuelDefaut
 
-  const years = useMemo(() => annees.map((y) => computeYear(safeAmount, y)), [safeAmount])
+  const years = useMemo(
+    () =>
+      annees.map((y) => {
+        const count = loanCounts[y.annee]
+        const safeCount = Number.isFinite(count) && count >= 0 ? count : y.nombreDePrets
+        return computeYear(safeAmount, safeCount, y)
+      }),
+    [safeAmount, loanCounts],
+  )
+
+  const resetAll = () => {
+    setLoanAmount(montantPretAnnuelDefaut)
+    setLoanCounts(defaultCounts)
+  }
 
   const cumul = useMemo(() => {
     const weekly = years.reduce((s, y) => s + y.weekly.total, 0)
@@ -156,9 +174,9 @@ export function StripeFeesSlide() {
                 />
               </div>
               <button
-                onClick={() => setLoanAmount(montantPretAnnuelDefaut)}
+                onClick={resetAll}
                 className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl glass text-white/60 text-xs hover:text-white hover:bg-white/10 transition-all"
-                aria-label="Réinitialiser au montant par défaut"
+                aria-label="Réinitialiser le montant et le nombre de prêts"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 Réinitialiser
@@ -184,9 +202,23 @@ export function StripeFeesSlide() {
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl text-white font-light">{y.annee}</span>
-                  <span className="px-2.5 py-1 rounded-full glass text-[11px] text-white/50">
-                    {y.nombreDePrets} prêts
-                  </span>
+                  <div className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full glass">
+                    <label htmlFor={`count-${y.annee}`} className="sr-only">
+                      Nombre de prêts en {y.annee}
+                    </label>
+                    <input
+                      id={`count-${y.annee}`}
+                      type="number"
+                      min={0}
+                      step={10}
+                      value={loanCounts[y.annee] ?? y.nombreDePrets}
+                      onChange={(e) =>
+                        setLoanCounts((prev) => ({ ...prev, [y.annee]: e.target.valueAsNumber }))
+                      }
+                      className="w-14 bg-transparent text-[12px] text-white font-mono text-right focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    />
+                    <span className="text-[11px] text-white/50">prêts</span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-1.5 text-emerald-400 text-xs">
                   <TrendingDown className="w-3.5 h-3.5" />
@@ -286,7 +318,7 @@ export function StripeFeesSlide() {
 
         {/* Note de bas de slide */}
         <p className="mt-6 text-[11px] leading-relaxed text-white/35 font-sans italic max-w-3xl">
-          {"* "}{noteCourte} Le nombre de prêts (120 en 2026, 360 en 2027) est fixe dans ce simulateur; seul le montant du prêt est ajustable.
+          {"* "}{noteCourte} Le montant du prêt et le nombre de prêts par année sont ajustables ci-dessus pour comparer différents scénarios en temps réel (valeurs par défaut : 120 prêts en 2026, 360 en 2027).
         </p>
       </div>
     </SlideWrapper>
