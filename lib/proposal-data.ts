@@ -93,7 +93,7 @@ export const pricing = {
         id: "rapports",
         name: "Rapports & QuickBooks",
         description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit pour synchroniser les transactions automatiquement.",
-        hours: 15,
+        hours: 25,
         note: "Certains aspects restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative.",
       },
       {
