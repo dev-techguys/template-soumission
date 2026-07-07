@@ -139,7 +139,7 @@ export const pricing = {
         hours: 30,
       },
     ],
-    contingencyPercent: 15,
+    contingencyPercent: 20,
   },
 
   options: [
@@ -206,7 +206,7 @@ export const pricing = {
     paymentTerms: 15, // jours
     method: "Virement ou chèque",
     billing: "Aux heures réellement consommées — le prix affiché est le plafond convenu, contingence incluse.",
-    contingencyNote: "Une réserve de 15 % pour imprévus est déjà incluse dans le prix. Si elle n'est pas utilisée, elle n'est pas facturée. Aucune heure fictive.",
+    contingencyNote: "Une réserve de 20 % pour imprévus est déjà incluse dans le prix. Si elle n'est pas utilisée, elle n'est pas facturée. Aucune heure fictive.",
     tracking: "Suivi hebdomadaire du budget consommé vs. budgété partagé avec Hugo.",
   },
 
