@@ -102,8 +102,8 @@ const PHASES = [
         icon: Building2,
         number: "11",
         title: "Interface concessionnaires",
-        description: "Accès dédié pour les conseillers des 5 concessions : soumission de nouveaux dossiers avec pièces jointes, suivi en temps réel du statut des dossiers soumis.",
-        features: ["Accès par concession", "Soumission dossiers", "Upload documents", "Suivi en temps réel"],
+        description: "Une vue organisationnelle : une organisation gère plusieurs concessionnaires depuis un seul compte, avec un tableau de bord global sur l'ensemble de ses concessions. Chaque conseiller garde son accès dédié pour soumettre des dossiers avec pièces jointes et suivre leur statut en temps réel.",
+        features: ["Vue multi-concessions", "Dashboard global", "Soumission dossiers", "Suivi en temps réel"],
       },
       {
         icon: BookOpen,

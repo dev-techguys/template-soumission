@@ -73,7 +73,7 @@ export const pricing = {
       {
         id: "concessionnaires",
         name: "Interface concessionnaires",
-        description: "Accès dédié pour les conseillers des 4 concessions Chrysler et du Kia : soumission de nouveaux dossiers (avec pièces jointes), suivi en temps réel du statut des dossiers soumis.",
+        description: "Une vue organisationnelle où une organisation gère plusieurs concessionnaires depuis un seul compte : tableau de bord global regroupant l'ensemble des concessions, plus l'accès dédié de chaque conseiller pour soumettre des dossiers (avec pièces jointes) et suivre leur statut en temps réel.",
         hours: 25,
       },
       {
