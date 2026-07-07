@@ -130,9 +130,10 @@ const PHASES = [
       {
         icon: BookOpen,
         number: "15",
-        title: "Rapports & QuickBooks",
+        title: "Rapports & QuickBooks *",
         description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit — synchronisation automatique sans double saisie.",
         features: ["Rapport mensuel", "Intégration QuickBooks", "Sync automatique", "Export comptable"],
+        note: "Certains aspects restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative.",
       },
       {
         icon: CheckCircle2,
