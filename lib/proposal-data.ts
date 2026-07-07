@@ -86,7 +86,7 @@ export const pricing = {
       {
         id: "concessionnaires",
         name: "Interface concessionnaires",
-        description: "Une vue organisationnelle où une organisation gère plusieurs concessionnaires depuis un seul compte : tableau de bord global regroupant l'ensemble des concessions, plus l'accès dédié de chaque conseiller pour soumettre des dossiers (avec pièces jointes) et suivre leur statut en temps réel.",
+        description: "Une vue organisationnelle où une organisation gère plusieurs concessionnaires depuis un seul compte : tableau de bord global regroupant l'ensemble des concessions, plus l'accès dédié de chaque conseiller pour soumettre des dossiers (avec pièces jointes) et suivre leur statut en temps réel. Inclut une vue dédiée aux F&I — les responsables Financement & Assurance qui récoltent les dossiers et documents en concession pour monter la demande de prêt.",
         hours: 25,
       },
       {

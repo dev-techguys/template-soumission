@@ -124,8 +124,8 @@ const PHASES = [
         icon: Building2,
         number: "14",
         title: "Interface concessionnaires",
-        description: "Une vue organisationnelle : une organisation gère plusieurs concessionnaires depuis un seul compte, avec un tableau de bord global sur l'ensemble de ses concessions. Chaque conseiller garde son accès dédié pour soumettre des dossiers avec pièces jointes et suivre leur statut en temps réel.",
-        features: ["Vue multi-concessions", "Dashboard global", "Soumission dossiers", "Suivi en temps réel"],
+        description: "Une vue organisationnelle : une organisation gère plusieurs concessionnaires depuis un seul compte, avec un tableau de bord global sur l'ensemble de ses concessions. Chaque conseiller garde son accès dédié pour soumettre des dossiers avec pièces jointes et suivre leur statut en temps réel. Une vue dédiée aux F&I (Financement & Assurance) accompagne ceux qui récoltent les dossiers et documents en concession pour monter la demande de prêt.",
+        features: ["Vue multi-concessions", "Vue F&I dédiée", "Soumission dossiers", "Suivi en temps réel"],
       },
       {
         icon: BookOpen,
