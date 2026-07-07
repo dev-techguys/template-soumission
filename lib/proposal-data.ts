@@ -163,7 +163,7 @@ export const pricing = {
       id: "fintrac",
       name: "Conformité FINTRAC",
       description: "Une couche de journalisation de conformité distincte des logs applicatifs : un registre immuable (append-only), horodaté et attribué à chaque utilisateur/système, permettant de reconstituer par dossier la vérification d'identité (méthode, date, pièces), la cote de risque et son historique de révision, ainsi que les alertes de surveillance et leur traitement (rejetée, escaladée, déclarée). Production à FINTRAC sous 30 jours sur demande et conservation 5 ans après la fin du contrat. La vérification d'identité (KYC) à l'ouverture du dossier peut s'appuyer sur Plaid Identity. À valider avec votre avocat selon la structure légale retenue.",
-      hours: 28,
+      hours: 35,
       recommended: false,
       weeksToAdd: 2,
     },
