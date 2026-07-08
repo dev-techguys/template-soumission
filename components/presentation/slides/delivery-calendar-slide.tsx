@@ -227,7 +227,15 @@ export function DeliveryCalendarSlide() {
                           <span className="text-xs text-[#0066FF] font-mono">{week.period}</span>
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-sm text-white font-medium mb-1">{week.title}</h4>
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <h4 className="text-sm text-white font-medium">{week.title}</h4>
+                            {(week as { billing?: string }).billing === "hourly" && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-[10px] text-amber-400">
+                                <Clock className="w-2.5 h-2.5" />
+                                Facturé à l{"'"}heure
+                              </span>
+                            )}
+                          </div>
                           <p className="text-xs text-white/40">{week.focus}</p>
                           {week.milestone && (
                             <div className="flex items-center gap-2 mt-2">

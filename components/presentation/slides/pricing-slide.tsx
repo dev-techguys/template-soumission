@@ -2,7 +2,7 @@
 
 import { SlideWrapper } from "../slide-wrapper"
 import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2, TrendingUp } from "lucide-react"
-import { pricing } from "@/lib/proposal-data"
+import { pricing, hourlyBilling } from "@/lib/proposal-data"
 import { useSelectionStore } from "@/lib/selection-store"
 
 function calculateMvpTotals() {
@@ -249,6 +249,52 @@ export function PricingSlide() {
             <p className="mt-4 text-[11px] leading-relaxed text-amber-400/70 font-sans italic">
               {"* Certains aspects de ces modules restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative."}
             </p>
+          </div>
+        </div>
+
+        {/* Hourly-billed modules */}
+        <div className="glass-strong p-8 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300" />
+
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3 flex-wrap">
+                <h3 className="text-2xl text-white font-medium">Modules facturés à l{"'"}heure</h3>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/15 border border-amber-500/30 rounded-full">
+                  <Clock className="w-3 h-3 text-amber-400" />
+                  <span className="text-[10px] tracking-[0.15em] uppercase font-semibold text-amber-400">
+                    Hors prix plafond
+                  </span>
+                </div>
+              </div>
+              <p className="text-sm text-white/45 leading-relaxed max-w-2xl">{hourlyBilling.rationale}</p>
+            </div>
+            <div className="flex flex-col items-end gap-1 shrink-0">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Taux horaire</span>
+              <span className="text-4xl text-amber-400 font-light">{hourlyBilling.hourlyRate}$<span className="text-lg text-white/30">/h</span></span>
+              <span className="text-xs text-white/30">facturé aux heures réelles</span>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 pt-6 flex flex-col gap-4">
+            {hourlyBilling.modules.map((module) => (
+              <div key={module.id} className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+                <div className="flex items-start justify-between gap-4 mb-2 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-md bg-amber-500/15 flex items-center justify-center shrink-0">
+                      <Clock className="w-3.5 h-3.5 text-amber-400" />
+                    </div>
+                    <span className="text-base text-white font-medium">{module.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-right">
+                    <span className="text-sm text-amber-400 font-mono">~{module.estimatedHours}h</span>
+                    <span className="text-xs text-white/30">estimé</span>
+                  </div>
+                </div>
+                <p className="text-sm text-white/45 leading-relaxed">{module.description}</p>
+                <p className="mt-3 text-[11px] leading-relaxed text-amber-400/70 font-sans italic">{module.note}</p>
+              </div>
+            ))}
           </div>
         </div>
 

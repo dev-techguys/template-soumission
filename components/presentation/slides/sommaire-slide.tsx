@@ -16,7 +16,7 @@ const SECTIONS = [
     id: "objectives",
     icon: Boxes,
     title: "MVP de base",
-    description: "Le LOS sur mesure : 3 phases et 16 fonctionnalités.",
+    description: "Le LOS sur mesure : 3 phases et 15 fonctionnalités.",
   },
   {
     id: "roadmap",

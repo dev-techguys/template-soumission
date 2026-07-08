@@ -228,7 +228,7 @@ export default function StoryScrollPage() {
               <p className="text-sm font-bold uppercase tracking-wider">Développement</p>
             </div>
             <p className="text-3xl font-bold mb-1">{devPrice.toLocaleString('fr-CA')}$</p>
-            <p className="text-sm text-white/50">16 modules complets</p>
+            <p className="text-sm text-white/50">{modules.length} modules complets</p>
           </div>
           <div className="min-w-[200px] flex-1 p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-3 mb-3">

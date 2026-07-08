@@ -38,7 +38,7 @@ export const pricing = {
 
   mvp: {
     name: "MVP de base",
-    description: "La plateforme est, dans son ensemble, un Loan Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie du prêt, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de prêt, conditions, taux, échéancier), le suivi des paiements, le prélèvement automatique (PAD), le tableau de bord, le portail client self-service, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, SMS et relances automatisées, intégration des assurances et connexion bancaire Plaid.",
+    description: "La plateforme est, dans son ensemble, un Loan Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie du prêt, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de prêt, conditions, taux, échéancier), le suivi des paiements, le tableau de bord, le portail client self-service, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, SMS et relances automatisées, intégration des assurances et connexion bancaire Plaid.",
     modules: [
       {
         id: "infra",
@@ -69,12 +69,6 @@ export const pricing = {
         name: "Tableau de bord",
         description: "Vue centralisée : nombre de contrats actifs, statut de chaque dossier, liste des retards et défauts. Indicateurs clés en temps réel.",
         hours: 18,
-      },
-      {
-        id: "pad",
-        name: "Prélèvement automatique (PAD)",
-        description: "Prélèvement direct sur le compte bancaire des clients à chaque échéance. La plateforme déclenche le versement automatiquement et alerte immédiatement si la transaction échoue — l'automatisation de l'encaissement au coeur du suivi des paiements.",
-        hours: 45,
       },
       {
         id: "portail",
@@ -221,6 +215,27 @@ export const pricing = {
     description: "",
     deliverables: [] as string[],
   },
+}
+
+// Modules facturés à l'heure (hors prix plafond du MVP).
+// Ces portions dépendent d'une solution technique à confirmer en cours de projet
+// (ex. le fournisseur de prélèvement automatique), ce qui rend leur coût et leur
+// durée difficiles à figer d'avance. Ils sont donc facturés aux heures réellement
+// consommées plutôt qu'inclus dans le forfait à prix fixe.
+export const hourlyBilling = {
+  rationale:
+    "Certaines portions du projet dépendent d'une solution technique que nous choisirons en cours de route. Comme il est difficile d'en prévoir 100 % du coût et du temps à l'avance, nous préférons les sortir du prix plafond et les facturer aux heures réellement consommées, au même taux horaire, en toute transparence.",
+  hourlyRate: 150,
+  modules: [
+    {
+      id: "pad",
+      name: "Prélèvement automatique (PAD)",
+      description:
+        "Prélèvement direct sur le compte bancaire des clients à chaque échéance : déclenchement automatique du versement et alerte immédiate en cas de transaction refusée. L'intégration dépend du fournisseur de paiement retenu (ex. Stripe, évalué en priorité car conforme au Canada), qui déterminera l'effort réel.",
+      estimatedHours: 45,
+      note: "Estimation indicative fournie à titre de repère. La facturation se fait aux heures réellement travaillées selon la solution retenue — non incluse dans le prix plafond du MVP.",
+    },
+  ],
 }
 
 export const signing = {
@@ -392,6 +407,7 @@ export const calendar = {
       title: "Prélèvement automatique (PAD)",
       focus: "Automatiser l'encaissement des versements",
       moduleId: "pad",
+      billing: "hourly",
       activities: [
         "Intégration du prélèvement bancaire préautorisé (PAD)",
         "Déclenchement automatique des versements à l'échéance",
