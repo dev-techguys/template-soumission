@@ -61,7 +61,7 @@ export const pricing = {
       {
         id: "paiements",
         name: "Suivi des paiements",
-        description: "Versements hebdomadaires surveillés automatiquement (privilégiés pour la clientèle 2e chance : 120-140$/sem. plutôt qu'un paiement mensuel). Détection immédiate des paiements manqués, relances programmables et historique complet par dossier.",
+        description: "Suivi des versements directement dans le dossier client : enregistrement de chaque paiement reçu, mise à jour du solde et de l'échéancier, et historique complet par dossier. Versements hebdomadaires privilégiés pour la clientèle 2e chance (120-140$/sem. plutôt qu'un paiement mensuel). La détection des paiements manqués et les alertes sont gérées par le module Monitoring.",
         hours: 31,
       },
       {
@@ -92,7 +92,7 @@ export const pricing = {
       {
         id: "monitoring",
         name: "Monitoring & tableau d'alertes temps réel",
-        description: "Le coeur opérationnel du produit : un tableau d'alertes unique qui surveille en continu chaque dossier — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection précoce des défauts, santé du portefeuille et segmentation par niveau de risque, avec suivi GPS de l'état du véhicule.",
+        description: "Le coeur opérationnel du produit : un tableau d'alertes unique qui surveille en continu chaque dossier — paiement manqué, assurance annulée, GPS inactif, document manquant. Alerte courriel automatique dès qu'un paiement est manqué. Détection précoce des défauts, santé du portefeuille et segmentation par niveau de risque, avec suivi GPS de l'état du véhicule.",
         hours: 40,
       },
       {

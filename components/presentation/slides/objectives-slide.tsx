@@ -37,8 +37,8 @@ const PHASES = [
         icon: CreditCard,
         number: "04",
         title: "Suivi des paiements",
-        description: "Enregistrement des versements reçus. Alertes courriel automatiques si un paiement est manqué. Relances programmables (J+1, J+3, J+7). Vue consolidée par statut.",
-        features: ["Versements reçus", "Alertes courriel", "Relances auto", "Vue par statut"],
+        description: "Suivi des versements dans le dossier client : enregistrement de chaque paiement reçu, mise à jour du solde et de l'échéancier, et historique complet par dossier. Les alertes de paiement manqué sont gérées par le Monitoring.",
+        features: ["Versements reçus", "Solde à jour", "Historique par dossier", "Échéancier suivi"],
       },
       {
         icon: BarChart3,
@@ -88,8 +88,8 @@ const PHASES = [
         icon: Activity,
         number: "10",
         title: "Monitoring & tableau d'alertes temps réel",
-        description: "Le coeur opérationnel : un tableau d'alertes unique qui surveille chaque dossier en continu — paiement manqué, assurance annulée, GPS inactif, document manquant. Détection des défauts et suivi GPS de l'état du véhicule.",
-        features: ["Alertes temps réel", "Détection des défauts", "Suivi GPS", "Santé du portefeuille"],
+        description: "Le coeur opérationnel : un tableau d'alertes unique qui surveille chaque dossier en continu — paiement manqué, assurance annulée, GPS inactif, document manquant. Alerte courriel automatique dès qu'un paiement est manqué. Détection des défauts et suivi GPS de l'état du véhicule.",
+        features: ["Alertes temps réel", "Alerte courriel paiement manqué", "Détection des défauts", "Suivi GPS"],
       },
       {
         icon: MessageSquare,
