@@ -87,9 +87,9 @@ const PHASES = [
       {
         icon: Activity,
         number: "10",
-        title: "Monitoring & tableau d'alertes temps réel",
-        description: "Le coeur opérationnel : un tableau d'alertes unique qui surveille chaque dossier en continu — paiement manqué, assurance annulée, GPS inactif, document manquant. Alerte courriel automatique dès qu'un paiement est manqué. Détection des défauts et suivi GPS de l'état du véhicule.",
-        features: ["Alertes temps réel", "Alerte courriel paiement manqué", "Détection des défauts", "Suivi GPS"],
+        title: "Monitoring des paiements manqués",
+        description: "Un tableau d'alertes en temps réel centré sur les paiements manqués : détection automatique dès qu'un versement échoue et alerte courriel immédiate à l'équipe. Les autres suivis restent manuels pour l'instant; des automatisations pourront être ajoutées plus tard.",
+        features: ["Détection paiement manqué", "Alerte courriel automatique", "Tableau temps réel", "Automatisations à venir"],
       },
       {
         icon: MessageSquare,
