@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Users, FileText, CreditCard, BarChart3, Building2, BookOpen, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, Bell, FileSignature, Landmark, MessageSquare, UserCircle } from "lucide-react"
+import { Users, FileText, CreditCard, BarChart3, Building2, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, FileSignature, Landmark, MessageSquare, UserCircle } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem, GlowCard, Parallax } from "@/components/ui/scroll-animations"
 import { motion } from "framer-motion"
 
@@ -107,30 +107,15 @@ const PHASES = [
     description: "Connecter les partenaires, automatiser la communication client et livrer la plateforme en production.",
     modules: [
       {
-        icon: Bell,
-        number: "12",
-        title: "Intégration assurances partenaires",
-        description: "Procuration signée au contrat : l'assureur notifie automatiquement la plateforme dès qu'un client annule sa couverture, déclenchant une alerte immédiate. Suivi continu de la validité des assurances du portefeuille.",
-        features: ["Assureurs partenaires", "Procuration au contrat", "Alerte d'annulation", "Suivi continu"],
-      },
-      {
         icon: Building2,
-        number: "13",
+        number: "12",
         title: "Interface concessionnaires",
         description: "Une vue organisationnelle : une organisation gère plusieurs concessionnaires depuis un seul compte, avec un tableau de bord global sur l'ensemble de ses concessions. Chaque conseiller garde son accès dédié pour soumettre des dossiers avec pièces jointes et suivre leur statut en temps réel. Une vue dédiée aux F&I (Financement & Assurance) accompagne ceux qui récoltent les dossiers et documents en concession pour monter la demande de prêt.",
         features: ["Vue multi-concessions", "Vue F&I dédiée", "Soumission dossiers", "Suivi en temps réel"],
       },
       {
-        icon: BookOpen,
-        number: "14",
-        title: "Rapports & QuickBooks *",
-        description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit — synchronisation automatique sans double saisie.",
-        features: ["Rapport mensuel", "Intégration QuickBooks", "Sync automatique", "Export comptable"],
-        note: "Certains aspects restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative.",
-      },
-      {
         icon: CheckCircle2,
-        number: "15",
+        number: "13",
         title: "Tests & mise en production",
         description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage.",
         features: ["Tests complets", "Validation client", "Mise en production", "Accompagnement 2 sem."],
@@ -184,7 +169,7 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans max-w-2xl leading-relaxed">
-              La plateforme est, dans son ensemble, un Loan Origination System (LOS) taillé pour vos opérations : tout le cycle de vie du prêt, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">15 fonctionnalités</span>.
+              La plateforme est, dans son ensemble, un Loan Origination System (LOS) taillé pour vos opérations : tout le cycle de vie du prêt, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">13 fonctionnalités</span>.
             </p>
           </FadeInUp>
         </div>

@@ -247,7 +247,7 @@ export function PricingSlide() {
               </div>
             </div>
             <p className="mt-4 text-[11px] leading-relaxed text-amber-400/70 font-sans italic">
-              {"* Certains aspects de ces modules restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative."}
+              {"* Certains aspects du portail client restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative."}
             </p>
           </div>
         </div>

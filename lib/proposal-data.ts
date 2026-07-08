@@ -84,13 +84,6 @@ export const pricing = {
         hours: 25,
       },
       {
-        id: "rapports",
-        name: "Rapports & QuickBooks",
-        description: "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit pour synchroniser les transactions automatiquement.",
-        hours: 25,
-        note: "Certains aspects restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative.",
-      },
-      {
         id: "souscription",
         name: "Checklist de livraison & archivage des preuves",
         description: "Checklist obligatoire qui BLOQUE la livraison d'un véhicule tant que les 5 points ne sont pas validés : GPS installé, assurance valide, Beacon Score (≈500+), preuve d'emploi et confirmation téléphonique enregistrée. Toutes les preuves (appels, revenus, relevés, contrats) sont archivées avec un historique complet pour la conformité.",
@@ -107,12 +100,6 @@ export const pricing = {
         name: "SMS & relances automatisées",
         description: "Envoi de SMS automatisés directement branché sur le tableau d'alertes : rappels avant échéance, relances en cas de retard (J+1, J+3, J+7...) et confirmations de réception. Coût de service mensuel fixe en sus (~30-60$/mois).",
         hours: 15,
-      },
-      {
-        id: "assurances",
-        name: "Intégration assurances partenaires",
-        description: "Partenariats avec les compagnies d'assurance : la procuration signée au contrat autorise l'assureur à notifier automatiquement la plateforme dès qu'un client annule sa couverture, déclenchant une alerte immédiate. Suivi continu de la validité des assurances sur l'ensemble du portefeuille.",
-        hours: 34,
       },
       {
         id: "documents",
@@ -234,6 +221,22 @@ export const hourlyBilling = {
         "Prélèvement direct sur le compte bancaire des clients à chaque échéance : déclenchement automatique du versement et alerte immédiate en cas de transaction refusée. L'intégration dépend du fournisseur de paiement retenu (ex. Stripe, évalué en priorité car conforme au Canada), qui déterminera l'effort réel.",
       estimatedHours: 45,
       note: "Estimation indicative fournie à titre de repère. La facturation se fait aux heures réellement travaillées selon la solution retenue — non incluse dans le prix plafond du MVP.",
+    },
+    {
+      id: "assurances",
+      name: "Intégration assurances partenaires",
+      description:
+        "Partenariats avec les compagnies d'assurance : la procuration signée au contrat autorise l'assureur à notifier automatiquement la plateforme dès qu'un client annule sa couverture, déclenchant une alerte immédiate. Suivi continu de la validité des assurances sur l'ensemble du portefeuille. L'effort dépend des modalités techniques offertes par chaque assureur partenaire, encore à confirmer.",
+      estimatedHours: 34,
+      note: "Estimation indicative fournie à titre de repère. La facturation se fait aux heures réellement travaillées selon les intégrations retenues avec les assureurs — non incluse dans le prix plafond du MVP.",
+    },
+    {
+      id: "rapports",
+      name: "Rapports & QuickBooks",
+      description:
+        "Rapport mensuel du portefeuille (contrats actifs, retards, défauts, revenus perçus). Intégration QuickBooks Online via API Intuit pour synchroniser les transactions automatiquement. La portée de l'intégration comptable reste à préciser avec Groupe Laplante.",
+      estimatedHours: 25,
+      note: "Estimation indicative fournie à titre de repère. La facturation se fait aux heures réellement travaillées selon la portée retenue — non incluse dans le prix plafond du MVP.",
     },
   ],
 }
