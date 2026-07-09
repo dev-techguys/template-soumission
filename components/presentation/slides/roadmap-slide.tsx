@@ -68,7 +68,7 @@ function OptionCard({
             {option.description}
           </p>
           {(option as { note?: string }).note && (
-            <p className="mt-3 text-[11px] leading-relaxed text-white/30 italic">
+            <p className="mt-3 text-[11px] leading-relaxed text-amber-400/70 italic">
               {(option as { note?: string }).note}
             </p>
           )}
