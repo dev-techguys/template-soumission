@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2, TrendingUp, Wallet } from "lucide-react"
+import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2, TrendingUp, Wallet, ShieldCheck } from "lucide-react"
 import { pricing, hourlyBilling } from "@/lib/proposal-data"
 import { useSelectionStore } from "@/lib/selection-store"
 
@@ -405,6 +405,18 @@ export function PricingSlide() {
                 </span>
               </div>
               <span className="text-xs text-white/30">avant taxes · tout inclus jusqu{"'"}à la plateforme idéale</span>
+            </div>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-white/10 flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center shrink-0 mt-0.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            </div>
+            <div className="flex-1">
+              <h4 className="text-sm text-white font-medium mb-1">Pourquoi une enveloppe et non un prix fixe</h4>
+              <p className="text-sm text-white/45 leading-relaxed max-w-3xl">
+                Une partie de cet intervalle couvre les modules facturés à l{"'"}heure et les imprévus : certains besoins ne peuvent pas être chiffrés à 100 % aujourd{"'"}hui et se préciseront au fil du projet. Prévoir cette marge ne signifie pas qu{"'"}elle sera utilisée — l{"'"}objectif n{"'"}est pas de la dépenser, mais de pouvoir bien bâtir le système et absorber sereinement tout imprévu sans bloquer l{"'"}avancement.
+              </p>
             </div>
           </div>
         </div>
