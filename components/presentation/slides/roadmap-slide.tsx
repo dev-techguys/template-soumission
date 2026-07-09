@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Plug, Smartphone, MessageSquare, CreditCard, Search, FileCheck, Shield, Star, Sparkles } from "lucide-react"
+import { Plug, Smartphone, MessageSquare, CreditCard, Search, FileCheck, Shield, Star, Sparkles, Car } from "lucide-react"
 import { pricing } from "@/lib/proposal-data"
 import { FeatureCard, CardHeading } from "@/components/ui/feature-card"
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animations"
@@ -14,6 +14,7 @@ const OPTIONS_ICONS: Record<string, React.ElementType> = {
   portail: FileCheck,
   mobile: Smartphone,
   fintrac: Shield,
+  cbb: Car,
 }
 
 function OptionCard({
@@ -62,9 +63,16 @@ function OptionCard({
         </div>
 
         {/* Description */}
-        <p className="text-sm text-white/40 leading-relaxed mb-6 flex-1">
-          {option.description}
-        </p>
+        <div className="mb-6 flex-1">
+          <p className="text-sm text-white/40 leading-relaxed">
+            {option.description}
+          </p>
+          {(option as { note?: string }).note && (
+            <p className="mt-3 text-[11px] leading-relaxed text-white/30 italic">
+              {(option as { note?: string }).note}
+            </p>
+          )}
+        </div>
 
         {/* Footer with pricing */}
         <div className="flex items-end justify-between pt-4 border-t border-white/5">

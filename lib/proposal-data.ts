@@ -148,6 +148,15 @@ export const pricing = {
       recommended: false,
       weeksToAdd: 2,
     },
+    {
+      id: "cbb",
+      name: "Évaluation véhicules (Canadian Black Book)",
+      description: "Intégration à l'API Canadian Black Book pour obtenir en temps réel la valeur d'un véhicule à partir de son VIN et calculer automatiquement le prix de location. Décodage VIN (marque, modèle, année, trim, options à partir des 17 caractères), récupération des valeurs détail, échange et gros ajustées selon le kilométrage et la condition, calcul du prix de location basé sur la valeur résiduelle CBB, le taux, la durée et la marge de Groupe Laplante, et données de marché actualisées quotidiennement sans intervention manuelle.",
+      hours: 50,
+      recommended: false,
+      weeksToAdd: 2,
+      note: "Sujet à l'obtention d'un accès développeur Canadian Black Book (délai d'onboarding externe non inclus dans l'échéancier de développement).",
+    },
   ],
 
   scenarios: [
