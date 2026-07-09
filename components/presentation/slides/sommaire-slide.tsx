@@ -3,7 +3,7 @@
 import { SlideWrapper } from "../slide-wrapper"
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animations"
 import { FeatureCard } from "@/components/ui/feature-card"
-import { Target, Boxes, Layers, Wallet, CalendarDays, Cpu, Briefcase, PenLine, ArrowRight, CreditCard } from "lucide-react"
+import { Target, Boxes, Layers, Wallet, CalendarDays, Cpu, Briefcase, PenLine, ArrowRight } from "lucide-react"
 
 const SECTIONS = [
   {
@@ -29,12 +29,6 @@ const SECTIONS = [
     icon: Wallet,
     title: "Tarification",
     description: "Investissement détaillé et évolution de la portée.",
-  },
-  {
-    id: "stripe",
-    icon: CreditCard,
-    title: "Frais Stripe",
-    description: "Analyse des frais PAD selon la fréquence de prélèvement.",
   },
   {
     id: "delivery",

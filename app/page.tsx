@@ -4,7 +4,6 @@ import { AboutSlide } from "@/components/presentation/slides/about-slide"
 import { ObjectivesSlide } from "@/components/presentation/slides/objectives-slide"
 import { RoadmapSlide } from "@/components/presentation/slides/roadmap-slide"
 import { PricingSlide } from "@/components/presentation/slides/pricing-slide"
-import { StripeFeesSlide } from "@/components/presentation/slides/stripe-fees-slide"
 import { DeliveryCalendarSlide } from "@/components/presentation/slides/delivery-calendar-slide"
 import { AnnexeSlide } from "@/components/presentation/slides/annexe-slide"
 import { PortfolioSlide } from "@/components/presentation/slides/portfolio-slide"
@@ -22,7 +21,6 @@ export default function Home() {
         <ObjectivesSlide />
         <RoadmapSlide />
         <PricingSlide />
-        <StripeFeesSlide />
         <DeliveryCalendarSlide />
         <AnnexeSlide />
         <PortfolioSlide />

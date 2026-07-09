@@ -1,7 +1,7 @@
 "use client"
 
 import { SlideWrapper } from "../slide-wrapper"
-import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2, TrendingUp } from "lucide-react"
+import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2, TrendingUp, Wallet } from "lucide-react"
 import { pricing, hourlyBilling } from "@/lib/proposal-data"
 import { useSelectionStore } from "@/lib/selection-store"
 
@@ -16,6 +16,13 @@ function calculateMvpTotals() {
 // Estimation initiale (rencontre de découverte) — 8 modules de base, avant l'ajout
 // des exigences métier critiques identifiées lors de la rencontre.
 const INITIAL_MVP_PRICE = 30300
+
+// Budget global à réserver pour aller jusqu'au bout du projet et obtenir la
+// plateforme idéale : le MVP, les modules facturés à l'heure (PAD, assurances,
+// rapports) et les options complémentaires. Présenté sous forme d'intervalle
+// puisque certaines portions sont facturées aux heures réelles.
+const COMPLETE_BUDGET_MIN = 85000
+const COMPLETE_BUDGET_MAX = 95000
 
 // Exigences métier critiques ajoutées suite à la rencontre, qui expliquent la hausse.
 const SCOPE_ADDITIONS = [
@@ -371,6 +378,33 @@ export function PricingSlide() {
                   {totalHours} heures · contingence {pricing.mvp.contingencyPercent}% incluse
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Budget complet à prévoir */}
+        <div className="glass-strong p-8 mb-10 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0066FF] via-[#3388FF] to-emerald-400" />
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-9 h-9 rounded-lg bg-[#0066FF]/10 border border-[#0066FF]/20 flex items-center justify-center">
+                  <Wallet className="w-4 h-4 text-[#0066FF]" />
+                </div>
+                <h3 className="text-xl text-white font-medium">Budget à prévoir pour la plateforme complète</h3>
+              </div>
+              <p className="text-sm text-white/45 leading-relaxed max-w-2xl">
+                Pour aller jusqu{"'"}au bout du projet et obtenir la plateforme idéale — le MVP, les modules facturés à l{"'"}heure (PAD, assurances, rapports) et les options complémentaires — nous recommandons de réserver une enveloppe globale dans cet intervalle. Il s{"'"}agit d{"'"}un budget de référence : vous ne payez que les heures réellement consommées.
+              </p>
+            </div>
+            <div className="flex flex-col items-end gap-1 shrink-0">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Enveloppe recommandée</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl md:text-5xl gradient-text-accent font-light whitespace-nowrap">
+                  {COMPLETE_BUDGET_MIN.toLocaleString()}$ – {COMPLETE_BUDGET_MAX.toLocaleString()}$
+                </span>
+              </div>
+              <span className="text-xs text-white/30">avant taxes · tout inclus jusqu{"'"}à la plateforme idéale</span>
             </div>
           </div>
         </div>
