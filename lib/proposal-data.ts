@@ -252,7 +252,18 @@ export const hourlyBilling = {
 
 export const signing = {
   type: "pandadoc" as "v0" | "pandadoc",
-  pandadocUrl: "https://app.pandadoc.com/document/v2?token=b2f04c87a486d1a6944819a010738720fa01ce09",
+  // Un lien de signature PandaDoc distinct par signataire, pour que chacun
+  // s'identifie clairement avant de signer.
+  signers: [
+    {
+      name: "Hugo",
+      pandadocUrl: "https://app.pandadoc.com/document/v2?token=b2f04c87a486d1a6944819a010738720fa01ce09",
+    },
+    {
+      name: "Mathieu",
+      pandadocUrl: "https://app.pandadoc.com/document/v2?token=5f6104104ca27d82e97d0551000f0dbbfb8c9af5",
+    },
+  ],
 }
 
 // Analyse comparative des frais Stripe pour le prélèvement automatique (PAD / ACSS Debit)

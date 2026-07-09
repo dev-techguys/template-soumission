@@ -8,7 +8,9 @@ export function SignatureModal() {
   // The full v0 signature modal workflow is not needed for this project
 
   if (signing.type === "pandadoc") {
-    if (!signing.pandadocUrl) {
+    const availableSigners = signing.signers.filter((s) => s.pandadocUrl)
+
+    if (availableSigners.length === 0) {
       // No link yet - show disabled state
       return (
         <div className="fixed bottom-6 right-6 z-50">
@@ -21,18 +23,23 @@ export function SignatureModal() {
     }
 
     return (
-      <a
-        href={signing.pandadocUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 group"
-      >
-        <div className="flex items-center gap-3 bg-[#0035FF] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#0035FF]/90 transition-all duration-300 hover:scale-105">
-          <PenLine className="w-5 h-5" />
-          <span className="font-medium text-sm">Cliquer ici pour signer</span>
-          <ExternalLink className="w-4 h-4 opacity-70" />
-        </div>
-      </a>
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+        {availableSigners.map((signer) => (
+          <a
+            key={signer.name}
+            href={signer.pandadocUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
+          >
+            <div className="flex items-center gap-3 bg-[#0035FF] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#0035FF]/90 transition-all duration-300 hover:scale-105">
+              <PenLine className="w-5 h-5" />
+              <span className="font-medium text-sm">Signature de {signer.name}</span>
+              <ExternalLink className="w-4 h-4 opacity-70" />
+            </div>
+          </a>
+        ))}
+      </div>
     )
   }
 

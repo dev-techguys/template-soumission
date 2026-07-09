@@ -79,19 +79,29 @@ export function ClosingSlide() {
 
           {/* CTA */}
           <div className="mt-4">
-            {signing.type === "pandadoc" && signing.pandadocUrl ? (
-              <a
-                href={signing.pandadocUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#0066FF] to-[#3388FF] hover:from-[#3388FF] hover:to-[#66AAFF] transition-all duration-300 shadow-lg shadow-[#0066FF]/20"
-              >
-                <Pen className="w-4 h-4 text-white" />
-                <span className="text-sm tracking-[0.05em] text-white font-sans font-semibold">
-                  Cliquer ici pour signer
+            {signing.type === "pandadoc" && signing.signers.some((s) => s.pandadocUrl) ? (
+              <div className="flex flex-col items-center gap-3">
+                <span className="text-[10px] tracking-[0.25em] uppercase text-white/30 font-sans">
+                  Signer votre exemplaire
                 </span>
-                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform duration-300" />
-              </a>
+                <div className="flex flex-col sm:flex-row items-center gap-3">
+                  {signing.signers.map((signer) => (
+                    <a
+                      key={signer.name}
+                      href={signer.pandadocUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#0066FF] to-[#3388FF] hover:from-[#3388FF] hover:to-[#66AAFF] transition-all duration-300 shadow-lg shadow-[#0066FF]/20"
+                    >
+                      <Pen className="w-4 h-4 text-white" />
+                      <span className="text-sm tracking-[0.05em] text-white font-sans font-semibold">
+                        Signature de {signer.name}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform duration-300" />
+                    </a>
+                  ))}
+                </div>
+              </div>
             ) : (
               <div className="flex flex-col items-center gap-3">
                 <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full glass border-[#0066FF]/30">
