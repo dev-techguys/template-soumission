@@ -1,177 +1,523 @@
-import { SlideWrapper } from "../slide-wrapper"
-import { Check, Star } from "lucide-react"
-import { pricing } from "@/lib/proposal-data"
+"use client"
 
-export function PricingSlide() {
-  if (pricing.type === "fixed-price") {
-    return <FixedPriceSlide />
-  }
-  return <HourlyBankSlide />
+import { SlideWrapper } from "../slide-wrapper"
+import { Check, Star, Clock, Server, CreditCard, Plus, ArrowRight, FileText, Receipt, CheckCircle2, TrendingUp, Wallet } from "lucide-react"
+import { pricing, hourlyBilling } from "@/lib/proposal-data"
+import { useSelectionStore } from "@/lib/selection-store"
+
+function calculateMvpTotals() {
+  const baseHours = pricing.mvp.modules.reduce((sum, m) => sum + m.hours, 0)
+  const contingencyHours = Math.round(baseHours * (pricing.mvp.contingencyPercent / 100))
+  const totalHours = baseHours + contingencyHours
+  const totalPrice = totalHours * pricing.hourlyRate
+  return { baseHours, contingencyHours, totalHours, totalPrice }
 }
 
-function HourlyBankSlide() {
+// Estimation initiale (rencontre de découverte) — 8 modules de base, avant l'ajout
+// des exigences métier critiques identifiées lors de la rencontre.
+const INITIAL_MVP_PRICE = 30300
+
+// Budget global à réserver pour aller jusqu'au bout du projet et obtenir la
+// plateforme idéale : le MVP, les modules facturés à l'heure (PAD, assurances,
+// rapports) et les options complémentaires. Présenté sous forme d'intervalle
+// puisque certaines portions sont facturées aux heures réelles.
+const COMPLETE_BUDGET_MIN = 85000
+const COMPLETE_BUDGET_MAX = 95000
+
+// Exigences métier critiques ajoutées suite à la rencontre, qui expliquent la hausse.
+const SCOPE_ADDITIONS = [
+  {
+    title: "Checklist de livraison & archivage des preuves",
+    detail: "Blocage de la livraison tant que les 5 points ne sont pas validés (GPS, assurance, Beacon, emploi + appel) et archivage complet des preuves.",
+  },
+  {
+    title: "Monitoring & tableau d'alertes temps réel",
+    detail: "Le coeur du produit : alertes en continu (paiement, assurance, GPS, documents) et suivi GPS de l'état du véhicule.",
+  },
+  {
+    title: "Intégration assurances partenaires",
+    detail: "Procuration au contrat : notification automatique de l'assureur dès l'annulation d'une couverture.",
+  },
+  {
+    title: "Génération de documents",
+    detail: "Contrat de location, conditions, taux et échéancier générés automatiquement à partir des données du dossier.",
+  },
+  {
+    title: "Connexion bancaire (Plaid)",
+    detail: "Validation des revenus et du comportement bancaire via l'API Plaid, directement dans la souscription.",
+  },
+  {
+    title: "Prélèvement automatique (PAD)",
+    detail: "Prélèvement bancaire à chaque échéance, déclenché automatiquement, avec alerte immédiate en cas de transaction refusée.",
+  },
+  {
+    title: "SMS & relances automatisées",
+    detail: "Rappels avant échéance et relances en cas de retard (J+1, J+3, J+7) par SMS, branchés sur le tableau d'alertes.",
+  },
+]
+
+// Payment cycle step component
+function PaymentCycleStep({ 
+  number, 
+  title, 
+  description, 
+  highlight,
+  isLast = false 
+}: { 
+  number: number
+  title: string
+  description: string
+  highlight?: string
+  isLast?: boolean
+}) {
   return (
-    <SlideWrapper id="pricing" className="bg-white">
-      <div className="max-w-6xl mx-auto px-8 py-20 w-full">
-        {/* Section header */}
-        <div className="flex flex-col gap-6 mb-12">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            10 / Tarification
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-3xl leading-tight text-balance">
-            {"Banques d'heures disponibles"}
-          </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
+    <div className="flex flex-col items-center text-center relative">
+      {/* Circle with number */}
+      <div className="relative">
+        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#0066FF]/20 to-[#0066FF]/5 border border-[#0066FF]/30 flex items-center justify-center mb-4 relative z-10">
+          <span className="text-xl font-medium text-[#0066FF]">{number}</span>
         </div>
-
-        {/* Plans grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {pricing.plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative p-6 rounded-xl border flex flex-col shadow-sm ${
-                plan.featured
-                  ? "border-[#0DA5B5]/40 bg-[#0DA5B5]/5"
-                  : "border-[#e5e7eb] bg-white"
-              }`}
-            >
-              {plan.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 bg-[#0DA5B5] rounded-full">
-                  <Star className="w-3 h-3 text-white" />
-                  <span className="text-[10px] tracking-[0.15em] uppercase font-sans font-medium text-white">
-                    {"Recommandé"}
-                  </span>
-                </div>
-              )}
-
-              <div className="flex flex-col items-center gap-1 mb-6 pt-2">
-                <span className="text-xs tracking-[0.2em] uppercase text-[#6b7280] font-sans">
-                  Banque
-                </span>
-                <h3 className="font-serif text-2xl text-[#2d3748]">{plan.name}</h3>
-                <span className="font-serif text-4xl text-[#0DA5B5] mt-2">{plan.hours}</span>
-                <span className="text-xs text-[#6b7280] font-sans">par mois</span>
-              </div>
-
-              <div className="w-full h-px bg-[#e5e7eb] mb-6" />
-
-              <div className="flex flex-col gap-3 flex-1">
-                {plan.rates.map((rate) => (
-                  <div key={rate.label} className="flex items-center justify-between gap-2">
-                    <span className="text-xs text-[#6b7280] font-sans">{rate.label}</span>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm text-[#2d3748] font-sans font-medium w-14 text-right">{rate.price}</span>
-                      <span className="w-24 text-right">
-                        {rate.saving ? (
-                          <span className="text-[10px] font-sans font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                            -{rate.saving}$/mois
-                          </span>
-                        ) : null}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Inclusions */}
-        <div className="p-6 rounded-xl border border-[#e5e7eb] bg-[#f7f7f7] shadow-sm">
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <h3 className="font-serif text-lg text-[#2d3748]">
-                {"Travaux crédités avec un engagement de 3 mois ou plus"}
-              </h3>
-              <p className="text-xs text-[#6b7280] font-sans">
-                {"Nous incluons tous les travaux préparatoires essentiels au démarrage d'un partenariat de croissance durable."}
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-              {pricing.inclusions.map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#0DA5B5] shrink-0" />
-                  <span className="text-xs text-[#6b7280] font-sans">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Glow effect */}
+        <div className="absolute inset-0 w-16 h-16 rounded-full bg-[#0066FF]/20 blur-xl" />
       </div>
-    </SlideWrapper>
+      
+      <h4 className="text-sm font-medium text-white mb-1">{title}</h4>
+      <p className="text-xs text-white/40 leading-relaxed max-w-[140px]">{description}</p>
+      {highlight && (
+        <span className="mt-2 px-3 py-1 rounded-full bg-[#0066FF]/10 border border-[#0066FF]/20 text-[10px] text-[#0066FF] font-medium">
+          {highlight}
+        </span>
+      )}
+      
+      {/* Arrow to next step */}
+      {!isLast && (
+        <div className="hidden md:block absolute top-8 -right-8 w-16 h-px">
+          <div className="w-full h-full bg-gradient-to-r from-[#0066FF]/50 to-[#0066FF]/10" />
+          <ArrowRight className="absolute -right-1 -top-2 w-4 h-4 text-[#0066FF]/50" />
+        </div>
+      )}
+    </div>
   )
 }
 
-function FixedPriceSlide() {
-  const fp = pricing.fixedPrice
+export function PricingSlide() {
+  const mvpTotals = calculateMvpTotals()
+  const { 
+    selectedOptions, 
+    toggleOption, 
+    getTotalHours,
+    getTotalPrice,
+    getEstimatedDelivery
+  } = useSelectionStore()
+
+  const totalPrice = getTotalPrice()
+  const totalHours = getTotalHours()
+  const deliveryDate = getEstimatedDelivery()
+
+  // Calculate deposit
+  const deposit = Math.round(totalPrice * (pricing.payment.deposit / 100))
+
   return (
-    <SlideWrapper id="pricing" className="bg-white">
-      <div className="max-w-4xl mx-auto px-8 py-20 w-full">
+    <SlideWrapper id="pricing" className="relative">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8 py-24 w-full">
         {/* Section header */}
-        <div className="flex flex-col gap-6 mb-12">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            10 / Tarification
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-3xl leading-tight text-balance">
-            Votre investissement
+        <div className="flex flex-col gap-5 mb-14">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg glass flex items-center justify-center">
+              <CreditCard className="w-4 h-4 text-[#0066FF]" />
+            </div>
+            <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-medium">
+              06 / Tarification
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-light max-w-3xl leading-[1.1]">
+            Votre <span className="gradient-text-accent font-medium">investissement</span>
           </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="text-sm text-white/40">Taux horaire :</span>
+            <span className="px-4 py-1.5 rounded-full glass border-[#0066FF]/30 text-[#0066FF] text-sm font-mono font-medium">
+              {pricing.hourlyRate}$/h
+            </span>
+            <span className="text-sm text-white/30">- prix plafond, contingence de {pricing.mvp.contingencyPercent}% incluse</span>
+          </div>
         </div>
 
-        {/* Project card */}
-        <div className="p-8 rounded-2xl border border-[#0DA5B5]/20 bg-[#0DA5B5]/5 mb-8">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-            <div className="flex flex-col gap-3 flex-1">
-              <h3 className="font-serif text-2xl text-[#2d3748]">{fp.projectName}</h3>
-              {fp.description && (
-                <p className="text-sm text-[#6b7280] font-sans leading-relaxed max-w-lg">
-                  {fp.description}
-                </p>
-              )}
-              <div className="flex flex-wrap gap-6 mt-2">
-                {fp.estimatedHours && (
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#6b7280] font-sans">Effort estimé</span>
-                    <span className="text-sm font-medium text-[#2d3748] font-sans">{fp.estimatedHours}</span>
-                  </div>
-                )}
-                {fp.timeline && (
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#6b7280] font-sans">Délai de livraison</span>
-                    <span className="text-sm font-medium text-[#2d3748] font-sans">{fp.timeline}</span>
-                  </div>
-                )}
+        {/* Évolution du prix suite à la rencontre */}
+        <div className="glass-strong p-8 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-amber-300 to-[#0066FF]" />
+
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+              <TrendingUp className="w-4 h-4 text-amber-400" />
+            </div>
+            <div>
+              <h3 className="text-xl text-white font-medium">Pourquoi l{"'"}investissement a évolué</h3>
+              <p className="text-xs text-white/40">Mise à jour suite à la rencontre de découverte</p>
+            </div>
+          </div>
+
+          <p className="text-sm text-white/45 leading-relaxed max-w-3xl mb-6">
+            L{"'"}estimation initiale de <strong className="text-white/70">{INITIAL_MVP_PRICE.toLocaleString()}$</strong> couvrait le coeur de la plateforme. La rencontre a fait émerger des <strong className="text-white/70">exigences métier critiques</strong> — indispensables pour opérer comme loueur direct — qui élargissent la portée du MVP et expliquent le nouveau montant.
+          </p>
+
+          {/* Avant / Ajout / Après */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="glass-card p-5">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Estimation initiale</span>
+              <p className="text-3xl text-white/50 font-light mt-2">{INITIAL_MVP_PRICE.toLocaleString()}$</p>
+              <p className="text-xs text-white/30 mt-1">8 modules de base</p>
+            </div>
+            <div className="glass-card p-5 border-amber-500/20 flex flex-col justify-center items-center">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-amber-400/70">Portée ajoutée</span>
+              <p className="text-3xl text-amber-400 font-light mt-2">
+                +{(mvpTotals.totalPrice - INITIAL_MVP_PRICE).toLocaleString()}$
+              </p>
+              <p className="text-xs text-white/30 mt-1">7 nouveaux modules critiques</p>
+            </div>
+            <div className="glass-card p-5 border-[#0066FF]/30">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-[#0066FF]/70">Nouveau MVP</span>
+              <p className="text-3xl gradient-text-accent font-light mt-2">{mvpTotals.totalPrice.toLocaleString()}$</p>
+              <p className="text-xs text-white/30 mt-1">contingence incluse</p>
+            </div>
+          </div>
+
+          {/* Liste des ajouts */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {SCOPE_ADDITIONS.map((item) => (
+              <div key={item.title} className="flex items-start gap-3 p-3 rounded-xl glass">
+                <div className="w-5 h-5 rounded-md bg-amber-500/15 flex items-center justify-center shrink-0 mt-0.5">
+                  <Plus className="w-3 h-3 text-amber-400" />
+                </div>
+                <div>
+                  <p className="text-sm text-white/70 font-medium">{item.title}</p>
+                  <p className="text-xs text-white/35 leading-relaxed">{item.detail}</p>
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* MVP Details */}
+        <div className="glass-strong p-8 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0066FF] via-[#3388FF] to-[#66AAFF]" />
+          
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3 flex-wrap">
+                <h3 className="text-2xl text-white font-medium">{pricing.mvp.name}</h3>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-[#0066FF] to-[#3388FF] rounded-full">
+                  <Star className="w-3 h-3 text-white fill-white" />
+                  <span className="text-[10px] tracking-[0.15em] uppercase font-semibold text-white">
+                    Toujours inclus
+                  </span>
+                </div>
+              </div>
+              <p className="text-sm text-white/45 leading-relaxed max-w-xl">
+                {pricing.mvp.description}
+              </p>
             </div>
             <div className="flex flex-col items-end gap-1 shrink-0">
-              <span className="text-[10px] tracking-[0.2em] uppercase text-[#6b7280] font-sans">Investissement total</span>
-              <span className="font-serif text-5xl text-[#0DA5B5]">{fp.totalPrice}</span>
-              <span className="text-xs text-[#6b7280] font-sans">taxes en sus</span>
+              <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Base MVP</span>
+              <span className="text-4xl gradient-text-accent font-light">
+                {mvpTotals.totalPrice.toLocaleString()}$
+              </span>
+              <span className="text-xs text-white/30">contingence incluse, taxes en sus</span>
+            </div>
+          </div>
+
+          {/* MVP Modules */}
+          <div className="border-t border-white/10 pt-6">
+            <p className="text-xs text-white/30 mb-4 uppercase tracking-wider">{pricing.mvp.modules.length} modules inclus dans le MVP</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {pricing.mvp.modules.map((module) => (
+                <div key={module.id} className="flex items-center justify-between gap-4 p-3 rounded-xl glass">
+                  <div className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-md bg-[#0066FF]/10 flex items-center justify-center">
+                      <Check className="w-3 h-3 text-[#0066FF]" />
+                    </div>
+                    <span className="text-sm text-white/60">
+                      {module.name}
+                      {(module as { note?: string }).note && <span className="text-amber-400"> *</span>}
+                    </span>
+                  </div>
+                  <span className="text-xs text-white/35 font-mono">{module.hours}h</span>
+                </div>
+              ))}
+              <div className="flex items-center justify-between gap-4 p-3 rounded-xl bg-amber-500/5 border border-amber-500/20">
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-md bg-amber-500/15 flex items-center justify-center">
+                    <Clock className="w-3 h-3 text-amber-400" />
+                  </div>
+                  <span className="text-sm text-amber-400">Contingence ({pricing.mvp.contingencyPercent}%)</span>
+                </div>
+                <span className="text-xs text-amber-400/60 font-mono">{mvpTotals.contingencyHours}h</span>
+              </div>
+            </div>
+            <p className="mt-4 text-[11px] leading-relaxed text-amber-400/70 font-sans italic">
+              {"* Certains aspects du portail client restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative."}
+            </p>
+          </div>
+        </div>
+
+        {/* Hourly-billed modules */}
+        <div className="glass-strong p-8 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300" />
+
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3 flex-wrap">
+                <h3 className="text-2xl text-white font-medium">Modules facturés à l{"'"}heure</h3>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/15 border border-amber-500/30 rounded-full">
+                  <Clock className="w-3 h-3 text-amber-400" />
+                  <span className="text-[10px] tracking-[0.15em] uppercase font-semibold text-amber-400">
+                    Hors prix plafond
+                  </span>
+                </div>
+              </div>
+              <p className="text-sm text-white/45 leading-relaxed max-w-2xl">{hourlyBilling.rationale}</p>
+            </div>
+            <div className="flex flex-col items-end gap-1 shrink-0">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Taux horaire</span>
+              <span className="text-4xl text-amber-400 font-light">{hourlyBilling.hourlyRate}$<span className="text-lg text-white/30">/h</span></span>
+              <span className="text-xs text-white/30">facturé aux heures réelles</span>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 pt-6 flex flex-col gap-4">
+            {hourlyBilling.modules.map((module) => (
+              <div key={module.id} className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+                <div className="flex items-start justify-between gap-4 mb-2 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-md bg-amber-500/15 flex items-center justify-center shrink-0">
+                      <Clock className="w-3.5 h-3.5 text-amber-400" />
+                    </div>
+                    <span className="text-base text-white font-medium">{module.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-right">
+                    <span className="text-sm text-amber-400 font-mono">~{module.estimatedHours}h</span>
+                    <span className="text-xs text-white/30">estimé</span>
+                  </div>
+                </div>
+                <p className="text-sm text-white/45 leading-relaxed">{module.description}</p>
+                <p className="mt-3 text-[11px] leading-relaxed text-amber-400/70 font-sans italic">{module.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Options Selection */}
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-5">
+            <Plus className="w-4 h-4 text-[#0066FF]" />
+            <p className="text-xs text-white/30 uppercase tracking-wider">Options additionnelles - Cliquez pour ajouter à votre projet</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {pricing.options.map((option) => {
+              const isSelected = selectedOptions.includes(option.id)
+              const optionPrice = option.hours * pricing.hourlyRate
+              
+              return (
+                <button
+                  key={option.id}
+                  onClick={() => toggleOption(option.id)}
+                  className={`relative glass-card p-5 text-left transition-all duration-300 card-hover ${
+                    isSelected ? "option-selected" : ""
+                  }`}
+                >
+                  {option.recommended && (
+                    <div className="absolute -top-2 left-4 px-2 py-0.5 bg-gradient-to-r from-[#0066FF] to-[#3388FF] rounded-full">
+                      <span className="text-[9px] tracking-[0.1em] uppercase font-semibold text-white">Recommandé</span>
+                    </div>
+                  )}
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <h4 className="text-base text-white font-medium">{option.name}</h4>
+                    <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${
+                      isSelected 
+                        ? "bg-[#0066FF] border-[#0066FF]" 
+                        : "border-white/20 bg-transparent"
+                    }`}>
+                      {isSelected && <Check className="w-3 h-3 text-white" />}
+                    </div>
+                  </div>
+                  <p className="text-xs text-white/35 leading-relaxed mb-4 line-clamp-2">
+                    {option.description}
+                  </p>
+                  <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                    <span className="text-xs text-white/25 font-mono">{option.hours}h</span>
+                    <span className={`text-sm font-mono font-medium ${isSelected ? "text-[#0066FF]" : "text-[#3388FF]"}`}>
+                      +{optionPrice.toLocaleString()}$
+                    </span>
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Dynamic Total */}
+        <div className="glass-strong p-8 mb-10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0066FF]/5 to-transparent" />
+          <div className="relative z-10">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <h3 className="text-xl text-white font-medium mb-2">Total de votre projet</h3>
+                <p className="text-sm text-white/40">
+                  MVP {selectedOptions.length > 0 && `+ ${selectedOptions.length} option${selectedOptions.length > 1 ? "s" : ""}`}
+                </p>
+                <p className="text-xs text-[#0066FF] mt-2">
+                  Livraison estimée : {deliveryDate}
+                </p>
+              </div>
+              <div className="flex flex-col items-end gap-2">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-5xl md:text-6xl gradient-text-accent font-light">
+                    {totalPrice.toLocaleString()}$
+                  </span>
+                </div>
+                <span className="text-sm text-white/30 font-mono">
+                  {totalHours} heures · contingence {pricing.mvp.contingencyPercent}% incluse
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Deliverables */}
-        {fp.deliverables.length > 0 && (
-          <div className="p-6 rounded-xl border border-[#e5e7eb] bg-[#f7f7f7] shadow-sm">
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <h3 className="font-serif text-lg text-[#2d3748]">Ce qui est inclus</h3>
-                <p className="text-xs text-[#6b7280] font-sans">
-                  Livrables et services compris dans le cadre de ce projet.
+        {/* Budget complet à prévoir */}
+        <div className="glass-strong p-8 mb-10 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0066FF] via-[#3388FF] to-emerald-400" />
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-9 h-9 rounded-lg bg-[#0066FF]/10 border border-[#0066FF]/20 flex items-center justify-center">
+                  <Wallet className="w-4 h-4 text-[#0066FF]" />
+                </div>
+                <h3 className="text-xl text-white font-medium">Budget à prévoir pour la plateforme complète</h3>
+              </div>
+              <p className="text-sm text-white/45 leading-relaxed max-w-2xl">
+                Pour aller jusqu{"'"}au bout du projet et obtenir la plateforme idéale — le MVP, les modules facturés à l{"'"}heure (PAD, assurances, rapports) et les options complémentaires — nous recommandons de réserver une enveloppe globale dans cet intervalle. La raison principale : disposer d{"'"}assez de fonds pour continuer à développer la plateforme et bien gérer les imprévus ainsi que ce qui sera découvert au fil du projet. Des ajustements sont possibles selon les personnes interviewées et les besoins non pris en compte aujourd{"'"}hui. Comme le MVP vous permettra déjà de générer des revenus de location, il est important de prévoir une petite marge pour la suite. Il s{"'"}agit d{"'"}un budget de référence : vous ne payez que les heures réellement consommées.
+              </p>
+            </div>
+            <div className="flex flex-col items-end gap-1 shrink-0">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-white/30">Enveloppe recommandée</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl md:text-5xl gradient-text-accent font-light whitespace-nowrap">
+                  {COMPLETE_BUDGET_MIN.toLocaleString()}$ – {COMPLETE_BUDGET_MAX.toLocaleString()}$
+                </span>
+              </div>
+              <span className="text-xs text-white/30">avant taxes · tout inclus jusqu{"'"}à la plateforme idéale</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Payment Cycle Diagram */}
+        <div className="glass-strong p-8 mb-10">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-8 h-8 rounded-lg bg-[#0066FF]/10 border border-[#0066FF]/20 flex items-center justify-center">
+              <Receipt className="w-4 h-4 text-[#0066FF]" />
+            </div>
+            <div>
+              <h3 className="text-xl text-white font-medium">Comment ça fonctionne ?</h3>
+              <p className="text-xs text-white/40">Cycle de facturation transparent</p>
+            </div>
+          </div>
+
+          {/* Payment cycle visualization */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 mb-8">
+            <PaymentCycleStep 
+              number={1}
+              title="Signature"
+              description="Vous signez la soumission et versez l'acompte"
+              highlight={`Acompte ${deposit.toLocaleString()}$`}
+            />
+            <PaymentCycleStep 
+              number={2}
+              title="Développement"
+              description="On travaille par sprints de 2 semaines avec livrables"
+            />
+            <PaymentCycleStep 
+              number={3}
+              title="Facturation"
+              description="Facture aux 2 sem. avec rapport détaillé des heures"
+              highlight="Heures réelles seulement"
+            />
+            <PaymentCycleStep 
+              number={4}
+              title="Livraison"
+              description="Plateforme en production, vous payez le solde final"
+              isLast
+            />
+          </div>
+
+          {/* Key points */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-white/10">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm text-white font-medium mb-1">Un seul prix, pas de surprise</p>
+                <p className="text-xs text-white/40 leading-relaxed">
+                  Le prix affiché est le <strong className="text-white/60">plafond convenu</strong>, contingence comprise. Vous payez les heures réellement consommées : si on finit plus vite, vous payez moins.
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {fp.deliverables.map((item) => (
-                  <div key={item} className="flex items-start gap-2">
-                    <Check className="w-3.5 h-3.5 text-[#0DA5B5] shrink-0 mt-0.5" />
-                    <span className="text-xs text-[#6b7280] font-sans">{item}</span>
-                  </div>
-                ))}
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm text-white font-medium mb-1">Contingence de {pricing.mvp.contingencyPercent}% incluse</p>
+                <p className="text-xs text-white/40 leading-relaxed">
+                  Une réserve pour imprévus est <strong className="text-white/60">déjà comprise dans le prix</strong>. Si elle n{"'"}est pas utilisée, elle n{"'"}est pas facturée. Zéro heure fictive.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm text-white font-medium mb-1">Suivi transparent</p>
+                <p className="text-xs text-white/40 leading-relaxed">
+                  Rapport détaillé à chaque facture + suivi hebdomadaire du budget consommé vs. budgété.
+                </p>
               </div>
             </div>
           </div>
-        )}
+        </div>
+
+        {/* Hosting & Conditions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                <Server className="w-5 h-5 text-[#0066FF]" />
+              </div>
+              <h4 className="text-lg text-white font-medium">Hebergement mensuel</h4>
+            </div>
+            <p className="text-sm text-white/40 leading-relaxed mb-4">
+              {pricing.hosting.note}
+            </p>
+            <span className="text-xl text-[#3388FF] font-mono font-medium">
+              ~{pricing.hosting.min}$ - {pricing.hosting.max}$/mois
+            </span>
+          </div>
+
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                <FileText className="w-5 h-5 text-[#0066FF]" />
+              </div>
+              <h4 className="text-lg text-white font-medium">Conditions</h4>
+            </div>
+            <ul className="space-y-2">
+              <li className="text-xs text-white/40">Montants en CAD, avant taxes (TPS/TVQ)</li>
+              <li className="text-xs text-white/40">Evaluation valide 30 jours</li>
+              <li className="text-xs text-white/40">Paiement : virement ou cheque sous 15 jours</li>
+              <li className="text-xs text-white/40">Options ajoutables a tout moment au meme tarif</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </SlideWrapper>
   )

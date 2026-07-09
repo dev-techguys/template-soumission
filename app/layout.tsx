@@ -1,14 +1,22 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Roboto, Roboto_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const roboto = Roboto({ 
+  subsets: ["latin"], 
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-roboto" 
+});
+
+const robotoMono = Roboto_Mono({ 
+  subsets: ["latin"], 
+  variable: "--font-roboto-mono" 
+});
 
 export const metadata: Metadata = {
-  title: 'Omnigo.ca - Partenariat de croissance | TechGuys',
-  description: 'Proposition de partenariat de croissance pour Omnigo.ca — Stratégie, acquisition et automatisation par TechGuys',
+  title: 'Groupe Laplante - Plateforme LOS Laplante | TechGuys',
+  description: 'Proposition de développement de la plateforme LOS Laplante pour Groupe Laplante - Internalisez votre location automobile par TechGuys',
 }
 
 export default function RootLayout({
@@ -17,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr">
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+    <html lang="fr" className="bg-black">
+      <body className={`${roboto.variable} ${robotoMono.variable} font-sans antialiased bg-black`}>
         {children}
         <Analytics />
       </body>

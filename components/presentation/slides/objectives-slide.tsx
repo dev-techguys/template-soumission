@@ -1,150 +1,260 @@
-import { SlideWrapper } from "../slide-wrapper"
-import { Search, MousePointerClick, Target, Bot } from "lucide-react"
+"use client"
 
-const OBJECTIVES = [
+import { SlideWrapper } from "../slide-wrapper"
+import { Users, FileText, CreditCard, BarChart3, Building2, CheckCircle2, ShieldCheck, Boxes, ClipboardCheck, Activity, FileSignature, Landmark, MessageSquare, UserCircle } from "lucide-react"
+import { FadeInUp, StaggerContainer, StaggerItem, GlowCard, Parallax } from "@/components/ui/scroll-animations"
+import { motion } from "framer-motion"
+
+const PHASES = [
   {
-    icon: Search,
-    number: "01",
-    title: "Visibilité organique sous-exploitée",
-    description:
-      "Omnigo génère l'essentiel de ses leads via le bouche-à-oreille et les références, mais son SEO propre est limité — la marque n'apparaît pas sur les requêtes que ses propres clients recherchent.",
-    goal: "Devenir la référence organique «agence marketing Montréal / Québec» et capter des dizaines de leads qualifiés qui vont aujourd'hui chez des concurrents.",
-    kpis: ["+25% trafic organique", "Top 3 requêtes cibles", "DA & backlinks"],
-    actions: [
-      "Audit SEO complet (technique, on-page, off-page)",
-      "Optimisation des pages stratégiques",
-      "Création d'articles de blogue à fort potentiel",
-      "Stratégie de backlinks ciblée",
+    id: "socle",
+    label: "Phase 1",
+    title: "Socle opérationnel",
+    description: "Gérer les dossiers, contrats et paiements au quotidien, avec une vue consolidée du portefeuille.",
+    modules: [
+      {
+        icon: ShieldCheck,
+        number: "01",
+        title: "Infrastructure & sécurité",
+        description: "Serveurs hébergés au Canada, base de données PostgreSQL 16, gestion des rôles et accès via Supabase / Keycloak, environnements dev et prod, pipeline de déploiement automatisé.",
+        features: ["Hébergement Canada (Loi 25)", "Supabase / Keycloak (IAM)", "PostgreSQL avec pgaudit", "CI/CD automatisé"],
+      },
+      {
+        icon: Users,
+        number: "02",
+        title: "Dossiers clients",
+        description: "Fiche client complète avec coordonnées, historique des contrats, pièces jointes (contrat, identité, inspection). Statut du dossier et gestion documentaire sur toute la durée du contrat.",
+        features: ["Fiche client complète", "Historique des contrats", "Gestion documentaire", "Statuts de dossier"],
+      },
+      {
+        icon: FileText,
+        number: "03",
+        title: "Contrats de location",
+        description: "Formulaire de création de contrat (véhicule, valeur, versements, durée, acompte). Échéancier généré automatiquement. Solde mis à jour à chaque versement. Option de rachat ou revente.",
+        features: ["Création de contrat", "Échéancier auto", "Calcul des intérêts", "Options fin de contrat"],
+      },
+      {
+        icon: CreditCard,
+        number: "04",
+        title: "Suivi des paiements",
+        description: "Suivi des versements dans le dossier client : enregistrement de chaque paiement reçu, mise à jour du solde et de l'échéancier, et historique complet par dossier. Les alertes de paiement manqué sont gérées par le Monitoring.",
+        features: ["Versements reçus", "Solde à jour", "Historique par dossier", "Échéancier suivi"],
+      },
+      {
+        icon: BarChart3,
+        number: "05",
+        title: "Tableau de bord",
+        description: "Vue centralisée en temps réel : nombre de contrats actifs, statut de chaque dossier, liste des retards et défauts. D'un coup d'oeil : qui a payé, qui ne l'a pas fait.",
+        features: ["KPIs en temps réel", "Contrats actifs", "Retards et défauts", "Vue consolidée"],
+      },
+      {
+        icon: UserCircle,
+        number: "06",
+        title: "Portail client self-service *",
+        description: "Interface pour les clients finaux : consulter le solde restant, l'historique des paiements, les documents de contrat et l'échéancier. Réduit les appels entrants et améliore l'expérience client.",
+        features: ["Solde en temps réel", "Historique des paiements", "Documents & échéancier", "Moins d'appels entrants"],
+        note: "Certains aspects restent à préciser avec Groupe Laplante ; le prix ne devrait toutefois pas varier de façon significative.",
+      },
     ],
   },
   {
-    icon: MousePointerClick,
-    number: "02",
-    title: "Conversion site web insuffisante",
-    description:
-      "Le trafic existant ne se convertit pas assez en rendez-vous qualifiés. Pas de A/B testing, pas de heat mapping, parcours de conversion non optimisé.",
-    goal: "Doubler le taux de conversion sans augmenter le budget publicitaire — chaque visiteur non converti est une dépense marketing perdue.",
-    kpis: ["×2 taux de conversion", "CPA -30%", "Sessions → RDV"],
-    actions: [
-      "Audit du parcours de conversion actuel",
-      "Création de landing pages dédiées par service",
-      "A/B testing sur les CTAs et formulaires",
-      "Heat mapping et analyse comportementale",
+    id: "credit",
+    label: "Phase 2",
+    title: "Moteur de crédit & risques",
+    description: "Sécuriser la décision de crédit, la souscription et le suivi du risque sur l'ensemble du portefeuille.",
+    modules: [
+      {
+        icon: ClipboardCheck,
+        number: "07",
+        title: "Checklist de livraison & archivage des preuves",
+        description: "Checklist obligatoire qui bloque la livraison d'un véhicule tant que les 5 points ne sont pas validés : GPS installé, assurance valide, Beacon Score (≈500+), preuve et confirmation d'emploi enregistrée. Toutes les preuves sont archivées pour la conformité.",
+        features: ["Blocage de livraison", "5 points obligatoires", "Appel enregistré", "Archivage des preuves"],
+      },
+      {
+        icon: FileSignature,
+        number: "08",
+        title: "Génération de documents",
+        description: "Génération automatique des documents requis à partir des données du dossier : contrat de location, conditions, taux, échéancier et divulgations — prêts à signer. Modèles conformes, calculs verrouillés et aux couleurs de Groupe Laplante.",
+        features: ["Contrat de location", "Conditions & taux", "Échéancier généré", "Modèles conformes"],
+      },
+      {
+        icon: Landmark,
+        number: "09",
+        title: "Connexion bancaire (Plaid)",
+        description: "Accès sécurisé aux transactions bancaires des clients via l'API Plaid. Valide les revenus et le comportement bancaire directement dans la souscription, sans relevés manuels.",
+        features: ["API Plaid sécurisée", "Validation des revenus", "Comportement bancaire", "Sans relevés manuels"],
+      },
+      {
+        icon: Activity,
+        number: "10",
+        title: "Monitoring des paiements manqués",
+        description: "Un tableau d'alertes en temps réel centré sur les paiements manqués : détection automatique dès qu'un versement échoue et alerte courriel immédiate à l'équipe. Les autres suivis restent manuels pour l'instant; des automatisations pourront être ajoutées plus tard.",
+        features: ["Détection paiement manqué", "Alerte courriel automatique", "Tableau temps réel", "Automatisations à venir"],
+      },
+      {
+        icon: MessageSquare,
+        number: "11",
+        title: "SMS & relances automatisées",
+        description: "Envoi de SMS automatisés directement branché sur le tableau d'alertes : rappels avant échéance, relances en cas de retard (J+1, J+3, J+7...) et confirmations de réception. Coût de service mensuel fixe en sus (~30-60$/mois).",
+        features: ["Rappels avant échéance", "Relances J+1, J+3, J+7", "Confirmations de réception", "Branché aux alertes"],
+      },
     ],
   },
   {
-    icon: Target,
-    number: "03",
-    title: "Acquisition payante à optimiser",
-    description:
-      "Les campagnes Google Ads et Meta Ads ne sont pas structurées pour maximiser le ROAS sur les services à haute valeur (développement, ventes).",
-    goal: "Réduire le CPL de 30-40% en segmentant mieux les audiences et en concentrant le budget sur les mandats premium.",
-    kpis: ["CPL -30 à -40%", "ROAS +50%", "Leads qualifiés"],
-    actions: [
-      "Restructuration des campagnes Google Ads",
-      "Segmentation avancée des audiences Meta",
-      "Création d'annonces par segment de service",
-      "Optimisation continue du budget par canal",
-    ],
-  },
-  {
-    icon: Bot,
-    number: "04",
-    title: "Automatisation interne limitée",
-    description:
-      "Les processus de suivi des prospects, de qualification et de nurturing sont manuels, créant une dépendance aux individus.",
-    goal: "Libérer 5-10h/semaine par représentant avec un CRM automatisé — moins de temps sur l'admin, plus de temps sur les clients.",
-    kpis: ["-60% temps prospection", "×3 RDV cédulés", "0 lead perdu"],
-    actions: [
-      "Setup CRM avec pipeline de vente automatisé",
-      "Séquences d'email nurturing",
-      "Automatisation du suivi des leads entrants",
-      "Formation de l'équipe aux nouveaux outils",
+    id: "livraison",
+    label: "Phase 3",
+    title: "Intégrations & mise en service",
+    description: "Connecter les partenaires, automatiser la communication client et livrer la plateforme en production.",
+    modules: [
+      {
+        icon: Building2,
+        number: "12",
+        title: "Interface concessionnaires",
+        description: "Une vue organisationnelle : une organisation gère plusieurs concessionnaires depuis un seul compte, avec un tableau de bord global sur l'ensemble de ses concessions. Chaque conseiller garde son accès dédié pour soumettre des dossiers avec pièces jointes et suivre leur statut en temps réel. Une vue dédiée aux F&I (Financement & Assurance) accompagne ceux qui récoltent les dossiers et documents en concession pour monter la demande de location.",
+        features: ["Vue multi-concessions", "Vue F&I dédiée", "Soumission dossiers", "Suivi en temps réel"],
+      },
+      {
+        icon: CheckCircle2,
+        number: "13",
+        title: "Tests & mise en production",
+        description: "Tests fonctionnels complets, sessions de validation avec l'équipe Groupe Laplante, corrections, mise en production sur infrastructure canadienne, accompagnement au démarrage.",
+        features: ["Tests complets", "Validation client", "Mise en production", "Accompagnement 2 sem."],
+      },
     ],
   },
 ]
 
 export function ObjectivesSlide() {
   return (
-    <SlideWrapper id="objectives" className="bg-[#f7f7f7]">
-      <div className="max-w-6xl mx-auto px-8 py-20 w-full">
+    <SlideWrapper id="objectives" className="relative !min-h-0">
+      {/* Background */}
+      <div className="absolute inset-0 bg-black">
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 100% 50% at 100% 0%, rgba(0, 102, 255, 0.06), transparent 50%),
+              radial-gradient(circle at 0% 100%, rgba(0, 102, 255, 0.03), transparent 30%)
+            `
+          }}
+        />
+      </div>
+
+      {/* Parallax elements */}
+      <Parallax offset={60} className="absolute top-20 right-10 w-48 h-48 rounded-full bg-[#0066FF]/5 blur-3xl" />
+      <Parallax offset={-40} className="absolute bottom-32 left-20 w-32 h-32 rounded-full bg-[#3388FF]/5 blur-2xl" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8 py-24 w-full">
         {/* Section header */}
-        <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            04 / Problématiques
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#111827] max-w-3xl leading-tight text-balance">
-            Les freins à votre croissance
-          </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
-          <p className="text-base text-[#6B7280] font-sans max-w-2xl leading-relaxed">
-            Chaque problématique identifiée représente une opportunité de croissance directe. Voici ce que nous allons corriger ensemble.
-          </p>
+        <div className="flex flex-col gap-5 mb-16">
+          <FadeInUp>
+            <div className="flex items-center gap-3">
+              <motion.div 
+                whileHover={{ rotate: 10 }}
+                className="w-8 h-8 rounded-lg glass flex items-center justify-center"
+              >
+                <Boxes className="w-4 h-4 text-[#0066FF]" />
+              </motion.div>
+              <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-sans font-medium">
+                03 / MVP de base
+              </span>
+            </div>
+          </FadeInUp>
+          <FadeInUp delay={0.1}>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white max-w-4xl leading-[1.1]">
+              Un <span className="gradient-text-accent">LOS sur mesure</span> pour
+              <br />
+              <span className="text-white/60">Groupe Laplante</span>
+            </h2>
+          </FadeInUp>
+          <FadeInUp delay={0.2}>
+            <p className="text-base text-white/40 font-sans max-w-2xl leading-relaxed">
+              La plateforme est, dans son ensemble, un Lease Origination System (LOS) taillé pour vos opérations : tout le cycle de vie de la location, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">13 fonctionnalités</span>.
+            </p>
+          </FadeInUp>
         </div>
 
-        {/* Objectives */}
-        <div className="flex flex-col gap-8">
-          {OBJECTIVES.map((obj) => (
-            <div
-              key={obj.number}
-              className="group relative p-8 rounded-xl border border-[#e5e7eb] bg-white hover:border-[#0DA5B5]/30 hover:shadow-lg transition-all duration-500"
-            >
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0DA5B5]/30 via-[#0DA5B5]/10 to-transparent" />
-
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                {/* Left: Number */}
-                <div className="lg:col-span-1 flex items-start gap-4">
-                  <span className="font-serif text-4xl text-[#0DA5B5]/30">{obj.number}</span>
-                </div>
-
-                {/* Middle: Content */}
-                <div className="lg:col-span-6 flex flex-col gap-3">
+        {/* Modules grouped into 3 phases */}
+        <div className="flex flex-col gap-16">
+          {PHASES.map((phase) => (
+            <div key={phase.id} className="flex flex-col gap-6">
+              {/* Phase header */}
+              <FadeInUp>
+                <div className="flex flex-col gap-3 border-l-2 border-[#0066FF]/40 pl-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#0DA5B5]/10 flex items-center justify-center">
-                      <obj.icon className="w-4 h-4 text-[#0DA5B5]" />
-                    </div>
-                    <h3 className="font-serif text-xl text-[#111827]">{obj.title}</h3>
+                    <span className="font-mono text-xs tracking-[0.2em] uppercase text-[#0066FF] font-medium">
+                      {phase.label}
+                    </span>
+                    <span className="h-px flex-1 bg-white/10" />
+                    <span className="font-mono text-xs text-white/30">
+                      {phase.modules.length} modules
+                    </span>
                   </div>
-                  <p className="text-sm text-[#6B7280] font-sans leading-relaxed">
-                    {obj.description}
-                  </p>
-                  <p className="text-sm text-[#111827]/80 font-sans leading-relaxed">
-                    {obj.goal}
+                  <h3 className="font-serif text-2xl md:text-3xl text-white">{phase.title}</h3>
+                  <p className="text-sm text-white/40 font-sans max-w-2xl leading-relaxed">
+                    {phase.description}
                   </p>
                 </div>
+              </FadeInUp>
 
-                {/* Right: Actions + KPIs */}
-                <div className="lg:col-span-5 flex flex-col gap-4">
-                  <div>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#0DA5B5] font-sans mb-2 block font-medium">
-                      Actions clés
-                    </span>
-                    <div className="flex flex-col gap-1.5">
-                      {obj.actions.map((action) => (
-                        <div key={action} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#0DA5B5] mt-1.5 shrink-0" />
-                          <span className="text-xs text-[#111827]/80 font-sans leading-relaxed">{action}</span>
+              {/* Phase modules grid */}
+              <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {phase.modules.map((module) => (
+                  <StaggerItem key={module.number}>
+                    <GlowCard className="group h-full">
+                      <motion.div
+                        whileHover={{ y: -5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        className="glass-card rounded-2xl p-6 h-full overflow-hidden relative"
+                      >
+                        {/* Hover gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#0066FF]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        <div className="relative z-10 flex gap-4">
+                          {/* Left: Number + Icon */}
+                          <div className="flex flex-col items-center gap-3 shrink-0">
+                            <span className="font-mono text-sm text-[#0066FF]/50">{module.number}</span>
+                            <motion.div 
+                              whileHover={{ scale: 1.1, rotate: 5 }}
+                              className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#0066FF]/30 group-hover:bg-[#0066FF]/10 transition-colors"
+                            >
+                              <module.icon className="w-5 h-5 text-white/50 group-hover:text-[#0066FF] transition-colors" />
+                            </motion.div>
+                          </div>
+
+                          {/* Right: Content */}
+                          <div className="flex flex-col gap-3 flex-1 min-w-0">
+                            <h3 className="font-serif text-lg text-white">{module.title}</h3>
+                            <p className="text-sm text-white/35 font-sans leading-relaxed">
+                              {module.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              {module.features.map((feature, idx) => (
+                                <motion.span
+                                  key={feature}
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ delay: idx * 0.05 }}
+                                  whileHover={{ scale: 1.05, backgroundColor: "rgba(0, 102, 255, 0.1)" }}
+                                  className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-[10px] text-white/40 font-sans"
+                                >
+                                  {feature}
+                                </motion.span>
+                              ))}
+                            </div>
+                            {(module as { note?: string }).note && (
+                              <p className="mt-2 text-[11px] leading-relaxed text-amber-400/70 font-sans italic">
+                                {"* "}{(module as { note?: string }).note}
+                              </p>
+                            )}
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#6B7280] font-sans mb-2 block">
-                      KPI{"'"}s clés
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {obj.kpis.map((kpi) => (
-                        <span
-                          key={kpi}
-                          className="px-2.5 py-1 rounded-full border border-[#e5e7eb] text-[10px] text-[#6B7280] font-sans bg-[#f7f7f7]"
-                        >
-                          {kpi}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+                      </motion.div>
+                    </GlowCard>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
             </div>
           ))}
         </div>

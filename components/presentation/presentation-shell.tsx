@@ -2,12 +2,16 @@
 
 import type { ReactNode } from "react"
 import { SlideNav } from "./slide-nav"
+import { AnimatedGradientBackground } from "@/components/ui/spline-background"
 
 export function PresentationShell({ children }: { children: ReactNode }) {
   return (
-    <main className="relative bg-[#0f172a]">
+    <main className="relative bg-[#030308] min-h-screen">
+      <AnimatedGradientBackground />
       <SlideNav />
-      {children}
+      <div className="relative z-10">
+        {children}
+      </div>
     </main>
   )
 }

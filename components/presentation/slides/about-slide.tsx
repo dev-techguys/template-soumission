@@ -1,79 +1,101 @@
+"use client"
+
 import { SlideWrapper } from "../slide-wrapper"
-import { Target, Cpu, BarChart3 } from "lucide-react"
+import { Code, Zap, Shield } from "lucide-react"
+import { FadeInUp, StaggerContainer, StaggerItem, Parallax } from "@/components/ui/scroll-animations"
+import { FeatureCard } from "@/components/ui/feature-card"
 
 const PILLARS = [
   {
-    icon: Target,
-    title: "Stratégie entrepreneuriale",
+    icon: Code,
+    title: "Développement sur mesure",
     description:
-      "Une répartition stratégique des ressources pour assurer l'atteinte de vos objectifs d'affaires.",
+      "Une plateforme construite spécifiquement pour vos besoins - pas une solution générique avec des compromis.",
   },
   {
-    icon: Cpu,
-    title: "Technologie & automatisation",
+    icon: Zap,
+    title: "Livraison accélérée par l'IA",
     description:
-      "Accélérez l'exécution de vos projets technologiques grâce aux bons outils et à l'IA.",
+      "Notre utilisation de l'IA dans le développement nous permet de livrer plus vite à un tarif plus compétitif.",
   },
   {
-    icon: BarChart3,
-    title: "Marketing & performance",
+    icon: Shield,
+    title: "Conformité dès la conception",
     description:
-      "Tester, mesurer et optimiser en continu à partir de données concrètes.",
+      "Architecture pensée pour les exigences réglementaires canadiennes : Loi 25, FINTRAC, données hébergées au Canada.",
   },
 ]
 
 export function AboutSlide() {
   return (
-    <SlideWrapper id="about-us" className="bg-white">
-      <div className="max-w-6xl mx-auto px-8 py-20 w-full">
+    <SlideWrapper id="about-us" className="relative">
+      {/* Parallax floating elements */}
+      <Parallax offset={50} className="absolute top-20 right-20 w-32 h-32 rounded-full bg-[#0066FF]/5 blur-3xl" />
+      <Parallax offset={-30} className="absolute bottom-40 left-10 w-24 h-24 rounded-full bg-[#3388FF]/5 blur-2xl" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8 py-24 w-full">
         {/* Section header */}
-        <div className="flex flex-col gap-6 mb-16">
-          <span className="text-xs tracking-[0.4em] uppercase text-[#0DA5B5] font-sans font-medium">
-            01 / Notre approche
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-[#2d3748] max-w-2xl leading-tight text-balance">
-            Un partenariat de croissance
-          </h2>
-          <div className="w-16 h-px bg-[#0DA5B5]" />
-          <p className="text-base md:text-lg text-[#6b7280] font-sans max-w-2xl leading-relaxed">
-            TechGuys et Omnigo.ca agissent comme des partenaires stratégiques pour votre croissance.
-            Au-delà d{"'"}une agence traditionnelle, nous prenons en considération les priorités de votre
-            organisation et vous accompagnons tout au long de votre parcours numérique.
-          </p>
+        <div className="flex flex-col gap-5 mb-16">
+          <FadeInUp>
+            <span className="text-xs tracking-[0.3em] uppercase text-[#0066FF] font-medium">
+              01 / Notre approche
+            </span>
+          </FadeInUp>
+          <FadeInUp delay={0.1}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white max-w-3xl leading-[1.1]">
+              Un partenaire technique
+              <br />
+              <span className="text-[#0066FF]">de confiance</span>
+            </h2>
+          </FadeInUp>
+          <FadeInUp delay={0.2}>
+            <p className="text-base md:text-lg text-white/40 max-w-2xl leading-relaxed">
+              TechGuys conçoit des applications web et mobiles et intègre l{"'"}intelligence artificielle pour les entreprises québécoises.
+              Nous combinons expertise technique et compréhension des enjeux d{"'"}affaires pour livrer
+              des solutions qui génèrent des résultats concrets.
+            </p>
+          </FadeInUp>
         </div>
 
-        {/* Pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {PILLARS.map((pillar) => (
-            <div
-              key={pillar.title}
-              className="group relative p-8 rounded-xl border border-[#e5e7eb] bg-white hover:border-[#0DA5B5]/30 hover:shadow-lg transition-all duration-500"
-            >
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#0DA5B5]/0 via-[#0DA5B5]/20 to-[#0DA5B5]/0 group-hover:via-[#0DA5B5]/50 transition-all duration-500" />
-
-              <div className="flex flex-col gap-5">
-                <div className="w-12 h-12 rounded-xl bg-[#0DA5B5]/10 flex items-center justify-center">
-                  <pillar.icon className="w-5 h-5 text-[#0DA5B5]" />
+        {/* Pillars - Feature cards with corner decorations */}
+        <StaggerContainer staggerDelay={0.15} className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {PILLARS.map((pillar, index) => (
+            <StaggerItem key={pillar.title}>
+              <FeatureCard className="h-full group">
+                <div className="p-7 flex flex-col gap-5 h-full">
+                  {/* Icon */}
+                  <div className="w-12 h-12 rounded-lg bg-[#0066FF]/10 border border-[#0066FF]/20 flex items-center justify-center group-hover:bg-[#0066FF]/20 group-hover:scale-110 transition-all duration-300">
+                    <pillar.icon className="w-5 h-5 text-[#0066FF]" />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="flex-1">
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-white/30 mb-2 block">
+                      0{index + 1}
+                    </span>
+                    <h3 className="text-xl text-white mb-3 font-medium">{pillar.title}</h3>
+                    <p className="text-sm text-white/40 leading-relaxed">
+                      {pillar.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-serif text-xl text-[#2d3748]">{pillar.title}</h3>
-                <p className="text-sm text-[#6b7280] font-sans leading-relaxed">
-                  {pillar.description}
-                </p>
-              </div>
-            </div>
+              </FeatureCard>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Bottom note */}
-        <div className="mt-16 p-6 rounded-xl border border-[#e5e7eb] bg-[#f7f7f7]">
-          <p className="text-sm text-[#6b7280] font-sans leading-relaxed text-center">
-            Nous alignons <span className="text-[#0DA5B5] font-medium">stratégie</span>,{" "}
-            <span className="text-[#0DA5B5] font-medium">marketing</span>,{" "}
-            <span className="text-[#FFC43D] font-medium">ventes</span> et{" "}
-            <span className="text-[#0DA5B5] font-medium">technologie</span> afin d{"'"}optimiser la synergie entre les
-            différentes sphères de votre entreprise et maximiser votre retour sur investissement.
-          </p>
-        </div>
+        <FadeInUp delay={0.5} className="mt-12">
+          <FeatureCard className="p-6">
+            <p className="text-sm text-white/50 leading-relaxed text-center">
+              Nous avons analysé en profondeur les <span className="text-[#0066FF] font-medium">dimensions techniques</span>,{" "}
+              <span className="text-[#3388FF] font-medium">réglementaires</span>,{" "}
+              <span className="text-[#66AAFF] font-medium">financières</span> et{" "}
+              <span className="text-white/70 font-medium">organisationnelles</span> de votre projet afin de vous proposer
+              une solution adaptée à vos besoins réels.
+            </p>
+          </FeatureCard>
+        </FadeInUp>
       </div>
     </SlideWrapper>
   )

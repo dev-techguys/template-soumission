@@ -110,9 +110,9 @@ export function ConversionSlide() {
               <span className="font-serif text-lg text-[#387B84]">+</span>
             </div>
             <div className="flex flex-col gap-2">
-              <h3 className="font-serif text-base text-[#2d3748]">Opportunité de transformation</h3>
+              <h3 className="font-serif text-base text-[#2d3748]">Une application web sur mesure</h3>
               <p className="text-sm text-[#6b7280] font-sans leading-relaxed">
-                La migration vers une architecture moderne avec intégration IA permet de résoudre tous ces problèmes simultanément, tout en créant un avantage compétitif durable.
+                Une application web conçue spécifiquement pour vos besoins, avec intégration IA, permet de résoudre tous ces problèmes simultanément, tout en créant un avantage compétitif durable.
               </p>
             </div>
           </div>
