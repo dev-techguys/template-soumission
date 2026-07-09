@@ -147,7 +147,7 @@ export function CoverSlide() {
             className="text-lg md:text-xl max-w-2xl leading-relaxed mt-2"
           >
             <span className="bg-gradient-to-r from-[#3388FF] to-[#66AAFF] bg-clip-text text-transparent font-medium">
-              Internalisez votre financement automobile
+              Internalisez votre location automobile
             </span>
             <br />
             <span className="text-white/50">

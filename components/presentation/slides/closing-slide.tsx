@@ -58,14 +58,14 @@ export function ClosingSlide() {
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1]">
             Prêt à <span className="gradient-text-accent">transformer</span>
             <br />
-            votre financement automobile
+            votre location automobile
           </h2>
 
           {/* Divider */}
           <div className="w-px h-10 bg-gradient-to-b from-transparent via-white/15 to-transparent" />
 
           <p className="text-lg text-white/40 font-sans leading-relaxed max-w-xl">
-            Une plateforme sur mesure pour internaliser vos opérations de crédit, accélérer vos approbations et maîtriser votre portefeuille.
+            Une plateforme sur mesure pour internaliser vos opérations de location, accélérer vos approbations et maîtriser votre portefeuille.
           </p>
 
           {/* Prepared for - glass card */}

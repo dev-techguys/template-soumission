@@ -74,8 +74,8 @@ const PHASES = [
         icon: FileSignature,
         number: "08",
         title: "Génération de documents",
-        description: "Génération automatique des documents requis à partir des données du dossier : contrat de prêt, conditions, taux, échéancier et divulgations — prêts à signer. Modèles conformes, calculs verrouillés et aux couleurs de Groupe Laplante.",
-        features: ["Contrat de prêt", "Conditions & taux", "Échéancier généré", "Modèles conformes"],
+        description: "Génération automatique des documents requis à partir des données du dossier : contrat de location, conditions, taux, échéancier et divulgations — prêts à signer. Modèles conformes, calculs verrouillés et aux couleurs de Groupe Laplante.",
+        features: ["Contrat de location", "Conditions & taux", "Échéancier généré", "Modèles conformes"],
       },
       {
         icon: Landmark,
@@ -110,7 +110,7 @@ const PHASES = [
         icon: Building2,
         number: "12",
         title: "Interface concessionnaires",
-        description: "Une vue organisationnelle : une organisation gère plusieurs concessionnaires depuis un seul compte, avec un tableau de bord global sur l'ensemble de ses concessions. Chaque conseiller garde son accès dédié pour soumettre des dossiers avec pièces jointes et suivre leur statut en temps réel. Une vue dédiée aux F&I (Financement & Assurance) accompagne ceux qui récoltent les dossiers et documents en concession pour monter la demande de prêt.",
+        description: "Une vue organisationnelle : une organisation gère plusieurs concessionnaires depuis un seul compte, avec un tableau de bord global sur l'ensemble de ses concessions. Chaque conseiller garde son accès dédié pour soumettre des dossiers avec pièces jointes et suivre leur statut en temps réel. Une vue dédiée aux F&I (Financement & Assurance) accompagne ceux qui récoltent les dossiers et documents en concession pour monter la demande de location.",
         features: ["Vue multi-concessions", "Vue F&I dédiée", "Soumission dossiers", "Suivi en temps réel"],
       },
       {
@@ -169,7 +169,7 @@ export function ObjectivesSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans max-w-2xl leading-relaxed">
-              La plateforme est, dans son ensemble, un Loan Origination System (LOS) taillé pour vos opérations : tout le cycle de vie du prêt, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">13 fonctionnalités</span>.
+              La plateforme est, dans son ensemble, un Lease Origination System (LOS) taillé pour vos opérations : tout le cycle de vie de la location, sans les modules superflus des LOS génériques. Livrée en <span className="text-white/70">3 phases</span> et <span className="text-white/70">13 fonctionnalités</span>.
             </p>
           </FadeInUp>
         </div>

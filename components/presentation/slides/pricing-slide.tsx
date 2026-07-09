@@ -33,7 +33,7 @@ const SCOPE_ADDITIONS = [
   },
   {
     title: "Génération de documents",
-    detail: "Contrat de prêt, conditions, taux et échéancier générés automatiquement à partir des données du dossier.",
+    detail: "Contrat de location, conditions, taux et échéancier générés automatiquement à partir des données du dossier.",
   },
   {
     title: "Connexion bancaire (Plaid)",
@@ -150,7 +150,7 @@ export function PricingSlide() {
           </div>
 
           <p className="text-sm text-white/45 leading-relaxed max-w-3xl mb-6">
-            L{"'"}estimation initiale de <strong className="text-white/70">{INITIAL_MVP_PRICE.toLocaleString()}$</strong> couvrait le coeur de la plateforme. La rencontre a fait émerger des <strong className="text-white/70">exigences métier critiques</strong> — indispensables pour opérer comme prêteur direct — qui élargissent la portée du MVP et expliquent le nouveau montant.
+            L{"'"}estimation initiale de <strong className="text-white/70">{INITIAL_MVP_PRICE.toLocaleString()}$</strong> couvrait le coeur de la plateforme. La rencontre a fait émerger des <strong className="text-white/70">exigences métier critiques</strong> — indispensables pour opérer comme loueur direct — qui élargissent la portée du MVP et expliquent le nouveau montant.
           </p>
 
           {/* Avant / Ajout / Après */}

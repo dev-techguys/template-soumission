@@ -9,9 +9,9 @@ export const client = {
   contactName: "Hugo Bélanger, Mathieu Laplante & Christopher Tollstam",
   website: "https://www.laplantegroupeauto.com/",
   industry: "Réseau de concessions automobiles",
-  mission: "Internaliser le processus de financement automobile pour offrir une meilleure expérience client et accroître la rentabilité",
-  targetAudience: "Acheteurs de véhicules au Québec cherchant des solutions de financement flexibles",
-  currentSituation: "Groupe de concessions automobiles qui agit actuellement comme intermédiaire pour le financement, dépendant d'institutions tierces avec perte de contrôle sur le processus d'approbation",
+  mission: "Internaliser le processus de location automobile pour offrir une meilleure expérience client et accroître la rentabilité",
+  targetAudience: "Clients au Québec cherchant des solutions de location automobile flexibles",
+  currentSituation: "Groupe de concessions automobiles qui agit actuellement comme intermédiaire pour la location, dépendant d'institutions tierces avec perte de contrôle sur le processus d'approbation",
   notificationEmail: "carl@techguys.consulting",
 }
 
@@ -38,7 +38,7 @@ export const pricing = {
 
   mvp: {
     name: "MVP de base",
-    description: "La plateforme est, dans son ensemble, un Loan Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie du prêt, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de prêt, conditions, taux, échéancier), le suivi des paiements, le tableau de bord, le portail client self-service, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, SMS et relances automatisées, intégration des assurances et connexion bancaire Plaid.",
+    description: "La plateforme est, dans son ensemble, un Lease Origination System (LOS) sur mesure pour Groupe Laplante : elle couvre tout le cycle de vie de la location automobile, de la soumission du dossier jusqu'au financement et au suivi, sans les modules superflus des LOS américains génériques. Elle réunit la gestion des dossiers clients, les contrats de location, la génération automatique des documents (contrat de location, conditions, taux, échéancier), le suivi des paiements, le tableau de bord, le portail client self-service, l'interface concessionnaires et les rapports QuickBooks — enrichis des exigences métier critiques identifiées en rencontre : checklist de livraison bloquante, monitoring et tableau d'alertes temps réel, SMS et relances automatisées, intégration des assurances et connexion bancaire Plaid.",
     modules: [
       {
         id: "infra",
@@ -80,7 +80,7 @@ export const pricing = {
       {
         id: "concessionnaires",
         name: "Interface concessionnaires",
-        description: "Une vue organisationnelle où une organisation gère plusieurs concessionnaires depuis un seul compte : tableau de bord global regroupant l'ensemble des concessions, plus l'accès dédié de chaque conseiller pour soumettre des dossiers (avec pièces jointes) et suivre leur statut en temps réel. Inclut une vue dédiée aux F&I — les responsables Financement & Assurance qui récoltent les dossiers et documents en concession pour monter la demande de prêt.",
+        description: "Une vue organisationnelle où une organisation gère plusieurs concessionnaires depuis un seul compte : tableau de bord global regroupant l'ensemble des concessions, plus l'accès dédié de chaque conseiller pour soumettre des dossiers (avec pièces jointes) et suivre leur statut en temps réel. Inclut une vue dédiée aux F&I — les responsables Financement & Assurance qui récoltent les dossiers et documents en concession pour monter la demande de location.",
         hours: 25,
       },
       {
@@ -104,7 +104,7 @@ export const pricing = {
       {
         id: "documents",
         name: "Génération de documents",
-        description: "Génération automatique des documents requis à partir des données du dossier : contrat de prêt, conditions, taux, échéancier et divulgations — prêts à signer. Modèles conformes, calculs verrouillés sur les données du dossier et personnalisés aux couleurs de Groupe Laplante.",
+        description: "Génération automatique des documents requis à partir des données du dossier : contrat de location, conditions, taux, échéancier et divulgations — prêts à signer. Modèles conformes, calculs verrouillés sur les données du dossier et personnalisés aux couleurs de Groupe Laplante.",
         hours: 35,
       },
       {
@@ -258,14 +258,14 @@ export const signing = {
 }
 
 // Analyse comparative des frais Stripe pour le prélèvement automatique (PAD / ACSS Debit)
-// selon la fréquence de prélèvement du prêt (hebdomadaire vs mensuel).
+// selon la fréquence de prélèvement de la location (hebdomadaire vs mensuel).
 export const stripeFeesComparison = {
   contexte:
     "Tarif Stripe PAD (ACSS Debit) au Canada : 1% + 0,40$CA par transaction, plafonné à 5,00$CA par transaction.",
   hypothese:
-    "Calcul basé sur un prêt moyen de 7 800$/an. Le montant réel varie selon le prêt; le plafond de 5,00$ s'applique dès qu'un paiement dépasse environ 460$ (ex: paiement mensuel).",
+    "Calcul basé sur une location moyenne de 7 800$/an. Le montant réel varie selon la location; le plafond de 5,00$ s'applique dès qu'un paiement dépasse environ 460$ (ex: paiement mensuel).",
   noteCourte:
-    "Calcul basé sur un prêt moyen de 7 800$/an. Le plafond de 5,00$ s'applique dès qu'un paiement dépasse ~460$.",
+    "Calcul basé sur une location moyenne de 7 800$/an. Le plafond de 5,00$ s'applique dès qu'un paiement dépasse ~460$.",
   // Paramètres du modèle de frais Stripe (utilisés pour le recalcul dynamique côté client)
   feeModel: {
     percent: 0.01, // 1%
@@ -436,7 +436,7 @@ export const calendar = {
       period: "Semaines 9-10",
       month: "Septembre",
       title: "Checklist de livraison & Génération de documents",
-      focus: "Sécuriser la livraison et produire les documents de prêt",
+      focus: "Sécuriser la livraison et produire les documents de location",
       moduleId: "souscription,documents",
       activities: [
         "Checklist bloquante : GPS, assurance, Beacon Score, emploi",

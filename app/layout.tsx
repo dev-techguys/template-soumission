@@ -16,7 +16,7 @@ const robotoMono = Roboto_Mono({
 
 export const metadata: Metadata = {
   title: 'Groupe Laplante - Plateforme LOS Laplante | TechGuys',
-  description: 'Proposition de développement de la plateforme LOS Laplante pour Groupe Laplante - Internalisez votre financement automobile par TechGuys',
+  description: 'Proposition de développement de la plateforme LOS Laplante pour Groupe Laplante - Internalisez votre location automobile par TechGuys',
 }
 
 export default function RootLayout({

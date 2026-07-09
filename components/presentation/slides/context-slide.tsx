@@ -73,7 +73,7 @@ export function ContextSlide() {
           </FadeInUp>
           <FadeInUp delay={0.2}>
             <p className="text-base text-white/40 font-sans leading-relaxed max-w-2xl">
-              Une application web sur mesure pour <span className="text-[#0066FF] font-medium">internaliser le processus de financement automobile</span> et reprendre le contrôle de la relation client.
+              Une application web sur mesure pour <span className="text-[#0066FF] font-medium">internaliser le processus de location automobile</span> et reprendre le contrôle de la relation client.
             </p>
           </FadeInUp>
         </div>
@@ -117,7 +117,7 @@ export function ContextSlide() {
                     <Sparkles className="w-5 h-5 text-[#0066FF]" />
                   </motion.div>
                   <p className="text-sm text-[#3388FF] font-sans leading-relaxed">
-                    La plateforme LOS Laplante permettra d{"'"}internaliser la marge d{"'"}intermédiation financière (typiquement 1% à 3% du montant financé), d{"'"}accélérer les approbations et de constituer un portefeuille de prêts propriétaire.
+                    La plateforme LOS Laplante permettra d{"'"}internaliser la marge d{"'"}intermédiation financière (typiquement 1% à 3% du montant financé), d{"'"}accélérer les approbations et de constituer un portefeuille de locations propriétaire.
                   </p>
                 </div>
               </motion.div>
@@ -161,7 +161,7 @@ export function ContextSlide() {
         {/* Tags - Pills with stagger */}
         <FadeInUp delay={0.4} className="mt-12">
           <motion.div className="flex flex-wrap gap-3">
-            {["Gestion KYC", "Cycle de vie des prêts", "Calcul automatique", "Collecte PAD", "Tableau de bord", "Portail concessionnaire", "Rapports réglementaires"].map(
+            {["Gestion KYC", "Cycle de vie des locations", "Calcul automatique", "Collecte PAD", "Tableau de bord", "Portail concessionnaire", "Rapports réglementaires"].map(
               (tag, index) => (
                 <motion.span
                   key={tag}

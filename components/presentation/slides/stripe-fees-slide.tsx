@@ -11,8 +11,8 @@ const { feeModel, annees, montantPretAnnuelDefaut, contexte, noteCourte } = stri
 const fmt0 = (n: number) => n.toLocaleString("fr-CA", { maximumFractionDigits: 0 })
 const fmt2 = (n: number) => n.toLocaleString("fr-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
-// Recalcul dynamique des frais pour une année donnée selon le montant du prêt
-// et le nombre de prêts (tous deux ajustables dans le simulateur).
+// Recalcul dynamique des frais pour une année donnée selon le montant de la location
+// et le nombre de locations (tous deux ajustables dans le simulateur).
 function computeYear(
   loanAmount: number,
   loanCount: number,
@@ -148,7 +148,7 @@ export function StripeFeesSlide() {
           </div>
         </div>
 
-        {/* Simulateur : montant du prêt */}
+        {/* Simulateur : montant de la location */}
         <div className="glass-card p-6 mb-8">
           <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
             <div className="flex items-center gap-3">
@@ -157,7 +157,7 @@ export function StripeFeesSlide() {
               </div>
               <div>
                 <label htmlFor="loan-amount" className="block text-sm text-white font-medium">
-                  Montant du prêt annuel
+                  Montant de la location annuelle
                 </label>
                 <span className="text-xs text-white/40">Ajustez pour recalculer les frais en temps réel</span>
               </div>
@@ -178,7 +178,7 @@ export function StripeFeesSlide() {
               <button
                 onClick={resetAll}
                 className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl glass text-white/60 text-xs hover:text-white hover:bg-white/10 transition-all"
-                aria-label="Réinitialiser le montant et le nombre de prêts"
+                aria-label="Réinitialiser le montant et le nombre de locations"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 Réinitialiser
@@ -206,7 +206,7 @@ export function StripeFeesSlide() {
                   <span className="text-2xl text-white font-light">{y.annee}</span>
                   <div className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full glass">
                     <label htmlFor={`count-${y.annee}`} className="sr-only">
-                      Nombre de prêts en {y.annee}
+                      Nombre de locations en {y.annee}
                     </label>
                     <input
                       id={`count-${y.annee}`}
@@ -219,7 +219,7 @@ export function StripeFeesSlide() {
                       }
                       className="w-14 bg-transparent text-[12px] text-white font-mono text-right focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-[11px] text-white/50">prêts</span>
+                    <span className="text-[11px] text-white/50">locations</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5 text-emerald-400 text-xs">
@@ -257,7 +257,7 @@ export function StripeFeesSlide() {
                       <dd className="text-xs text-white/70 font-mono">{fmt2(y.weekly.fee)}$</dd>
                     </div>
                     <div className="flex items-center justify-between">
-                      <dt className="text-xs text-white/40">Frais/prêt/an</dt>
+                      <dt className="text-xs text-white/40">Frais/location/an</dt>
                       <dd className="text-xs text-white/70 font-mono">{fmt2(y.weekly.perLoan)}$</dd>
                     </div>
                     <div className="pt-2.5 border-t border-white/10 flex items-center justify-between">
@@ -290,7 +290,7 @@ export function StripeFeesSlide() {
                       </dd>
                     </div>
                     <div className="flex items-center justify-between">
-                      <dt className="text-xs text-white/40">Frais/prêt/an</dt>
+                      <dt className="text-xs text-white/40">Frais/location/an</dt>
                       <dd className="text-xs text-white/70 font-mono">{fmt2(y.monthly.perLoan)}$</dd>
                     </div>
                     <div className="pt-2.5 border-t border-white/10 flex items-center justify-between">
@@ -336,7 +336,7 @@ export function StripeFeesSlide() {
 
         {/* Note de bas de slide */}
         <p className="mt-6 text-[11px] leading-relaxed text-white/35 font-sans italic max-w-3xl">
-          {"* "}{noteCourte} Le montant du prêt et le nombre de prêts par année sont ajustables ci-dessus pour comparer différents scénarios en temps réel (valeurs par défaut : 120 prêts en 2026, 360 en 2027).
+          {"* "}{noteCourte} Le montant de la location et le nombre de locations par année sont ajustables ci-dessus pour comparer différents scénarios en temps réel (valeurs par défaut : 120 locations en 2026, 360 en 2027).
         </p>
       </div>
     </SlideWrapper>

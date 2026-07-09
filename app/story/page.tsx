@@ -157,8 +157,8 @@ export default function StoryScrollPage() {
         <hr className="my-[2vw] border-none h-px bg-white/20" />
         
         <p className="max-w-[60ch] text-[clamp(1rem,2vw,1.5rem)] font-normal leading-relaxed text-white/80">
-          Une plateforme complète pour internaliser le financement automobile, 
-          de la soumission à la collecte, en passant par la gestion du cycle de vie des prêts.
+          Une plateforme complète pour internaliser la location automobile, 
+          de la soumission à la collecte, en passant par la gestion du cycle de vie des locations.
         </p>
         
         <hr className="my-[2vw] border-none h-px bg-white/20" />
