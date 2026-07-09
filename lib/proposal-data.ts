@@ -252,9 +252,7 @@ export const hourlyBilling = {
 
 export const signing = {
   type: "pandadoc" as "v0" | "pandadoc",
-  // Bouton de signature désactivé temporairement. Pour le réactiver, remettre l'URL ci-dessous :
-  // "https://app.pandadoc.com/document/v2?token=5f6104104ca27d82e97d0551000f0dbbfb8c9af5"
-  pandadocUrl: "",
+  pandadocUrl: "https://app.pandadoc.com/document/v2?token=b2f04c87a486d1a6944819a010738720fa01ce09",
 }
 
 // Analyse comparative des frais Stripe pour le prélèvement automatique (PAD / ACSS Debit)
@@ -263,7 +261,7 @@ export const stripeFeesComparison = {
   contexte:
     "Tarif Stripe PAD (ACSS Debit) au Canada : 1% + 0,40$CA par transaction, plafonné à 5,00$CA par transaction.",
   hypothese:
-    "Calcul basé sur une location moyenne de 7 800$/an. Le montant réel varie selon la location; le plafond de 5,00$ s'applique dès qu'un paiement dépasse environ 460$ (ex: paiement mensuel).",
+    "Calcul basé sur une location moyenne de 7 800$/an. Le montant réel varie selon la location; le plafond de 5,00$ s'applique dès qu'un paiement d��passe environ 460$ (ex: paiement mensuel).",
   noteCourte:
     "Calcul basé sur une location moyenne de 7 800$/an. Le plafond de 5,00$ s'applique dès qu'un paiement dépasse ~460$.",
   // Paramètres du modèle de frais Stripe (utilisés pour le recalcul dynamique côté client)
